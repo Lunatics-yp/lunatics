@@ -4,6 +4,3 @@ pre-commit:
     lint:
       glob: '*.{ts,tsx}'
       run: yarn eslint {staged_files}
-    stylelint:
-        glob: '*.{css,sass,scss}'
-        run: yarn stylelint

@@ -1,12 +1,7 @@
 {
-	"printWidth": 100,
-	"width": 100,
-	"singleQuote": true,
-	"semi": true,
-	"arrowParens": "avoid",
-	"bracketSpacing": false,
-	"bracketSameLine": true,
-	"useTabs": true,
-	"tabWidth": 4,
-	"parser": "typescript"
+  "singleQuote": true,
+  "semi": false,
+  "arrowParens": "avoid",
+  "bracketSameLine": true,
+  "width": 50
 }
