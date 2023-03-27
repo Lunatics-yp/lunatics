@@ -32,7 +32,8 @@
 
 ### Линтинг
 
-```yarn lint```
+```yarn lint``` - eslint
+```yarn stylelint``` - stylelint
 
 ### Форматирование prettier
 

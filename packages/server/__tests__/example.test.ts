@@ -1,3 +1,4 @@
+export {}
 const magic = '🪄'
 
 const cast = (spell: string, item: any) => {
