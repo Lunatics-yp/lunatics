@@ -14,6 +14,12 @@ module.exports = {
 		es2020: true,
 		node: true,
 	},
+	ignorePatterns: [
+		"**/dist/*",
+		"/node_modules",
+		"/tmp",
+		"/server.js"
+	],
 	"rules": {
 		// Правила от djpont
 		"max-len": [2, 100],
