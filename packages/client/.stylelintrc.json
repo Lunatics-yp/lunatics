@@ -23,6 +23,7 @@
 		"ignore": [".window-body"]
 	}],
 	"ignoreFiles": [
+		"**/vendor/*",
 		"dist/*",
 		"node_modules/*",
 		".parcel-cache/*"
