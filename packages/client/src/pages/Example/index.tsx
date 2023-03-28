@@ -1,4 +1,3 @@
-import {PageContent} from 'client/src/components/PageContent';
 import {Header} from 'client/src/components/Header';
 import {Menu} from 'client/src/components/Menu';
 import {SwitchButton} from 'client/src/components/SwitchButton';
@@ -22,33 +21,33 @@ export const PageExample = () => {
 	};
 
 	return (
-		<PageContent className='pageExample'>
+		<div className='pageExample'>
 			<Header>Заголовок</Header>
 			<Menu>
 				<SwitchButton
 					label='Селектор'
 					list={['Альфа', 'Бетта', 'Гамма']}
-					callback={switchCallback}
+					onChange={switchCallback}
 				></SwitchButton>
 				<Input
 					text='Инпут'
-					changeCallback={inputCallback}
-					blurCallback={inputCallback}
+					onChange={inputCallback}
+					onBlur={inputCallback}
 				/>
 				<Button
 					text='Кнопка 1'
-					clickCallback={buttonCallback}
+					onClick={buttonCallback}
 				/>
 				<Button
 					text='Кнопка 2'
-					clickCallback={buttonCallback}
+					onClick={buttonCallback}
 				/>
 				<Button
 					text='Кнопка 3'
-					clickCallback={buttonCallback}
+					onClick={buttonCallback}
 				/>
 			</Menu>
 			<Footer>Подвал</Footer>
-		</PageContent>
+		</div>
 	);
 };

@@ -7,42 +7,37 @@ type InputProps = {
 	// Изначальный текст в инпуте
 	text?: string,
 	// Метод, вызываемый при изменении текста в инпуте
-	changeCallback?: Fn<void, string>,
+	onChange?: Fn<void, string>,
 	// Метод, вызываемый при потере фокуса в инпуте
-	blurCallback?: Fn<void, string>,
+	onBlur?: Fn<void, string>,
 };
 
 // Компонент инпут
-export const Input: FC<InputProps> = (props) => {
-	const {
-		text = '',
-		changeCallback = undefined,
-		blurCallback = undefined
-	} = props;
+export const Input: FC<InputProps> = ({text = '', onChange = undefined, onBlur = undefined}) => {
 	const [value, setValue] = useState(text);
 
 	const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;
 		setValue(value);
-		if (changeCallback) {
-			changeCallback(value);
+		if (onChange) {
+			onChange(value);
 		}
 	};
 
 	const blurHandler = () => {
-		if(blurCallback){
-			blurCallback(value);
+		if (onBlur) {
+			onBlur(value);
 		}
 	};
 
 	return (
-		<div className='input'>
+		<div className="input">
 			<input
 				value={value}
 				onChange={changeHandler}
 				onBlur={blurHandler}
 			/>
-			<div className='underLine'></div>
+			<div className="underLine"></div>
 		</div>
 	);
 };

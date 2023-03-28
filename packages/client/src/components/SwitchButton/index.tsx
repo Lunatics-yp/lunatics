@@ -11,7 +11,7 @@ type SwitchButtonType = {
 	// Заголовок для селектора
 	label?: string,
 	// Метод, вызываемый при изменении значения селектора
-	callback?: Fn<void, number>
+	onChange?: Fn<void, number>
 };
 
 // Компонент селектора
@@ -20,7 +20,7 @@ export const SwitchButton: FC<SwitchButtonType> = (props) => {
 		label = '',
 		list = [],
 		defaultValue = 0,
-		callback = undefined
+		onChange = undefined
 	} = props;
 	const [selectedValue, setSelectedValue] = useState(defaultValue);
 
@@ -34,8 +34,8 @@ export const SwitchButton: FC<SwitchButtonType> = (props) => {
 				newValue = maxValue;
 			}
 			setSelectedValue(newValue);
-			if (callback) {
-				callback(newValue);
+			if (onChange) {
+				onChange(newValue);
 			}
 		};
 	};

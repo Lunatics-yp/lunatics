@@ -7,13 +7,13 @@ type ButtonProps = {
 	// Текст кнопки
 	text: string;
 	// Метод, вызываемый при клике на кнопку
-	clickCallback: Fn<void>
+	onClick: Fn<void>
 };
 
 // Компонент кнопка
-export const Button: FC<ButtonProps> = ({text, clickCallback}) => {
+export const Button: FC<ButtonProps> = ({text, onClick}) => {
 
 	return (
-		<div className='button' onClick={clickCallback}>{text}</div>
+		<div className='button' onClick={onClick}>{text}</div>
 	);
 };
