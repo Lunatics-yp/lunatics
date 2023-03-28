@@ -16,7 +16,8 @@
 		"scss/at-mixin-pattern": "^[a-zA-Z0-9]*$",
 		"selector-id-pattern": "^[a-zA-Z0-9]*$",
 		"selector-class-pattern": "^[a-zA-Z0-9]*$",
-		"declaration-colon-newline-after": "always-multi-line"
+		"declaration-colon-newline-after": "always-multi-line",
+		"no-extra-semicolons": true
 	},
 	"rule-naming-convention": [true, {
 		"severity": "warning",

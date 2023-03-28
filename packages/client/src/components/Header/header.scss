@@ -1,0 +1,16 @@
+.header{
+	--height: 50px;
+	--borderSize: 5px;
+
+	position: relative;
+	height: var(--height);
+	width: 100%;
+	background: var(--colorBlueSky);
+	color: var(--colorBlueWhite);
+	text-transform: uppercase;
+	padding-left: calc(var(--height) / 3);
+	font-size: calc(var(--height) / 2.5);
+	font-weight: bold;
+	line-height: calc(var(--height) - var(--borderSize));
+	border-bottom: var(--borderSize) solid var(--colorBlueWhite);
+}

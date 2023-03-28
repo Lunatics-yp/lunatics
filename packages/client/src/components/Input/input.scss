@@ -1,0 +1,63 @@
+div.input {
+	--width: 100%;
+	--height: 50px;
+	--crop: 20px;
+
+	position: relative;
+	width: var(--width);
+	height: var(--height);
+	clip-path:
+		polygon(
+			var(--crop) 0,
+			100% 0,
+			100% 100%,
+			0 100%,
+			0 var(--crop)
+	);
+	background: var(--colorBlueSky);
+	white-space: nowrap;
+
+	> input {
+		position: absolute;
+		width: 100%;
+		height: var(--height);
+		font-size: calc(var(--height) / 3);
+		font-weight: bold;
+		line-height: var(--height);
+		color: var(--colorYellowWhite);
+		background: transparent;
+		text-align: center;
+		border: none;
+		outline: none;
+	}
+
+	> .underLine {
+		--height: 15px;
+
+		position: absolute;
+		left: 0;
+		top: calc(100% - var(--height));
+		width: 100%;
+		height: var(--height);
+		background: var(--colorBlueLight);
+		clip-path:
+			polygon(
+				0 0,
+				10% 0,
+				15% 50%,
+				85% 50%,
+				90% 0,
+				100% 0,
+				100% 100%,
+				0 100%
+		);
+	}
+
+
+	&:hover,
+	&:focus-within {
+		> .underLine {
+			background-image: var(--gradientOrangeYellowDark);
+		}
+	}
+}

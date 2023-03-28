@@ -1,9 +1,24 @@
 :root {
-	--colorText: black;
-	--colorBg: white;
-	--colorBlack: black;
-	--colorWhite: white;
-	--colorError: #ff2f2f;
-	--colorLink: #0d6efd;
-	--colorLinkHover: #094bb0;
+	// --colorText: black;
+	// --colorBg: white;
+	// --colorBlack: black;
+	// --colorWhite: white;
+	// --colorError: #ff2f2f;
+	// --colorLink: #0d6efd;
+	// --colorLinkHover: #094bb0;
+
+	// White
+	--colorWhite: #fff;
+
+	// Yellow
+	--colorYellowWhite: #fffcf3;
+	--gradientOrangeYellow: linear-gradient(to top, #fd830c, #f7ba45);
+	--gradientOrangeYellowDark: linear-gradient(to top, #fd830c, #fa9929);
+
+	// Blue
+	--colorBlueWhite: #f5ffff;
+	--colorBlueLight: #bbf2f6;
+	--colorBlueSky: #07b4c5;
+	--colorBlueDark: #001e44;
+	--colorBackground: #07405b;
 }

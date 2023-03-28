@@ -1,0 +1,82 @@
+.switch {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: stretch;
+	gap:6px;
+
+	> .label {
+		height: 20px;
+		line-height: 20px;
+		padding-left: 52px;
+		color: var(--colorBlueWhite);
+	}
+
+	> .switchElements {
+		display: flex;
+		flex-flow: row nowrap;
+		gap: 4px;
+
+		> .leftButton,
+		> .rightButton,
+		> .selectedText{
+			--size: 50px;
+
+			height: var(--size);
+			color: var(--colorBlueDark);
+			text-align: center;
+			background: var(--colorBlueLight);
+		}
+
+		> .selectedText{
+			line-height: var(--size);
+			flex: 1;
+		}
+
+		> .leftButton {
+			padding-left:6px;
+			clip-path:
+				polygon(
+					20% 0,
+					100% 0,
+					100% 100%,
+					50% 100%,
+					0 50%,
+					0 20%,
+			);
+
+			&::before {
+				content: '‹';
+			}
+		}
+
+		> .rightButton {
+			padding-right:6px;
+			clip-path:
+				polygon(
+					0 0,
+					80% 0,
+					100% 20%,
+					100% 50%,
+					50% 100%,
+					0 100%
+			);
+
+			&::before {
+				content: '›';
+			}
+		}
+
+		> .leftButton,
+		> .rightButton {
+			line-height: calc(var(--size) * 0.9);
+			width: var(--size);
+			font-size: calc(var(--size) / 1.8);
+
+			&:hover {
+				color: var(--colorYellowWhite);
+				background-image: var(--gradientOrangeYellow);
+			}
+		}
+	}
+
+}
