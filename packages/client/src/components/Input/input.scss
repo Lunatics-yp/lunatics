@@ -31,7 +31,7 @@ div.input {
 		outline: none;
 	}
 
-	> div.underLine {
+	> .underLine {
 		--height: 15px;
 
 		position: absolute;
@@ -56,7 +56,7 @@ div.input {
 
 	&:hover,
 	&:focus-within {
-		> div.underLine {
+		> .underLine {
 			background-image: var(--gradientOrangeYellowDark);
 		}
 	}

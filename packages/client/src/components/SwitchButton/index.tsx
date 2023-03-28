@@ -1,6 +1,6 @@
 import {FC, useState} from "react";
 import './switchButton.scss';
-import {Fn} from "../../types";
+import {Fn} from "client/src/types";
 
 // Тип компонента селектора
 type SwitchButtonType = {

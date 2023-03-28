@@ -1,25 +1,25 @@
-div.switchButton {
+.switchButton {
 	display: flex;
 	flex-flow: column nowrap;
 	justify-content: flex-end;
 	align-items: stretch;
 	gap:6px;
 
-	> div.label {
+	> .label {
 		height: 20px;
 		line-height: 20px;
 		padding-left: 52px;
 		color: var(--colorBlueWhite);
 	}
 
-	> div.switchElements {
+	> .switchElements {
 		display: flex;
 		flex-flow: row nowrap;
 		gap: 4px;
 
-		> div.leftButton,
-		> div.rightButton,
-		> div.selectedText{
+		> .leftButton,
+		> .rightButton,
+		> .selectedText{
 			--size: 50px;
 
 			height: var(--size);
@@ -28,12 +28,12 @@ div.switchButton {
 			background: var(--colorBlueLight);
 		}
 
-		> div.selectedText{
+		> .selectedText{
 			line-height: var(--size);
 			flex: 1;
 		}
 
-		> div.leftButton {
+		> .leftButton {
 			padding-left:6px;
 			clip-path:
 				polygon(
@@ -50,7 +50,7 @@ div.switchButton {
 			}
 		}
 
-		> div.rightButton {
+		> .rightButton {
 			padding-right:6px;
 			clip-path:
 				polygon(
@@ -67,8 +67,8 @@ div.switchButton {
 			}
 		}
 
-		> div.leftButton,
-		> div.rightButton {
+		> .leftButton,
+		> .rightButton {
 			line-height: calc(var(--size) * 0.9);
 			width: var(--size);
 			font-size: calc(var(--size) / 1.8);

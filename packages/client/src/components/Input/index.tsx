@@ -1,6 +1,6 @@
 import './input.scss';
 import {ChangeEvent, FC, useState} from "react";
-import {Fn} from "../../types";
+import {Fn} from "client/src/types";
 
 // Тип компонента инпут
 type InputProps = {

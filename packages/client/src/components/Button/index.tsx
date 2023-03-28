@@ -1,6 +1,6 @@
 import {FC} from "react";
 import './button.scss';
-import {Fn} from "../../types";
+import {Fn} from "client/src/types";
 
 // Тип конпонента кнопка
 type ButtonProps = {
