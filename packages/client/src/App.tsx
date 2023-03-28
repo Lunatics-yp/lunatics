@@ -1,7 +1,7 @@
 // import {useEffect} from 'react'
-import './styles/app.scss';
-import {Background} from './components/Background';
-import {PageExample} from './pages/Example';
+import 'client/src/styles/app.scss';
+import {Background} from 'client/src/components/Background';
+import {PageExample} from 'client/src/pages/Example';
 
 function App() {
 	// useEffect(() => {

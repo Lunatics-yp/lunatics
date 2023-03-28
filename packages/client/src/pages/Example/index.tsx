@@ -1,10 +1,10 @@
-import {PageContent} from '../../components/PageContent';
-import {Header} from '../../components/Header';
-import {Menu} from '../../components/Menu';
-import {SwitchButton} from '../../components/SwitchButton';
-import {Button} from '../../components/Button';
-import {Input} from '../../components/Input';
-import {Footer} from '../../components/Footer';
+import {PageContent} from 'client/src/components/PageContent';
+import {Header} from 'client/src/components/Header';
+import {Menu} from 'client/src/components/Menu';
+import {SwitchButton} from 'client/src/components/SwitchButton';
+import {Button} from 'client/src/components/Button';
+import {Input} from 'client/src/components/Input';
+import {Footer} from 'client/src/components/Footer';
 import './example.scss';
 
 export const PageExample = () => {
