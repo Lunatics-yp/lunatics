@@ -37,15 +37,15 @@ export const PageExample = () => {
 				/>
 				<Button
 					text='Кнопка 1'
-					callback={buttonCallback}
+					clickCallback={buttonCallback}
 				/>
 				<Button
 					text='Кнопка 2'
-					callback={buttonCallback}
+					clickCallback={buttonCallback}
 				/>
 				<Button
 					text='Кнопка 3'
-					callback={buttonCallback}
+					clickCallback={buttonCallback}
 				/>
 			</Menu>
 			<Footer>Подвал</Footer>
