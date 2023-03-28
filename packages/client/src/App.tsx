@@ -1,7 +1,7 @@
 // import {useEffect} from 'react'
 import './styles/app.scss';
-import {Background} from "./components/Background";
-import {PageExample} from "./pages/Example";
+import {Background} from './components/Background';
+import {PageExample} from './pages/Example';
 
 function App() {
 	// useEffect(() => {
@@ -15,7 +15,7 @@ function App() {
 	// 	FetchServerData()
 	// }, [])
 
-	return (<div className="app">
+	return (<div className='app'>
 		<PageExample/>
 		<Background/>
 	</div>);

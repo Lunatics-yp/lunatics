@@ -1,6 +1,6 @@
-import {FC} from "react";
+import {FC} from 'react';
 import './button.scss';
-import {Fn} from "client/src/types";
+import {Fn} from 'client/src/types';
 
 // Тип конпонента кнопка
 type ButtonProps = {
@@ -20,6 +20,6 @@ export const Button: FC<ButtonProps> = ({text, callback}) => {
 	};
 
 	return (
-		<div className="button" onClick={clickEvent}>{text}</div>
+		<div className='button' onClick={clickEvent}>{text}</div>
 	);
 };

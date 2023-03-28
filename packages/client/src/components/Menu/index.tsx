@@ -1,4 +1,4 @@
-import {FC, ReactNode} from "react";
+import {FC, ReactNode} from 'react';
 import './menu.scss';
 
 // Тип компонента меню
@@ -9,7 +9,7 @@ type MenuProps = {
 // Компонент меню.
 export const Menu: FC<MenuProps> = ({children}) => {
 	return (
-		<div className="menu">
+		<div className='menu'>
 			{children}
 		</div>
 	);

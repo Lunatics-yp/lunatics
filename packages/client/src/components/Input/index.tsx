@@ -1,6 +1,6 @@
 import './input.scss';
-import {ChangeEvent, FC, useState} from "react";
-import {Fn} from "client/src/types";
+import {ChangeEvent, FC, useState} from 'react';
+import {Fn} from 'client/src/types';
 
 // Тип компонента инпут
 type InputProps = {
@@ -36,13 +36,13 @@ export const Input: FC<InputProps> = (props) => {
 	};
 
 	return (
-		<div className="input">
+		<div className='input'>
 			<input
 				value={value}
 				onChange={changeHandler}
 				onBlur={blurHandler}
 			/>
-			<div className="underLine"></div>
+			<div className='underLine'></div>
 		</div>
 	);
 };

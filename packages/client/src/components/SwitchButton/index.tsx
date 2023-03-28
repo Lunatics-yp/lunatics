@@ -1,6 +1,6 @@
-import {FC, useState} from "react";
+import {FC, useState} from 'react';
 import './switchButton.scss';
-import {Fn} from "client/src/types";
+import {Fn} from 'client/src/types';
 
 // Тип компонента селектора
 type SwitchButtonType = {
@@ -42,19 +42,19 @@ export const SwitchButton: FC<SwitchButtonType> = (props) => {
 
 	const labelRender = () => {
 		if (label.length) {
-			return <div className="label">{label}</div>;
+			return <div className='label'>{label}</div>;
 		} else {
 			return null;
 		}
 	};
 
 	return (
-		<div className="switchButton">
+		<div className='switchButton'>
 			{labelRender()}
-			<div className="switchElements">
-				<div className="leftButton" onClick={switchHandler(-1)}></div>
-				<div className="selectedText">{list[selectedValue]}</div>
-				<div className="rightButton" onClick={switchHandler(1)}></div>
+			<div className='switchElements'>
+				<div className='leftButton' onClick={switchHandler(-1)}></div>
+				<div className='selectedText'>{list[selectedValue]}</div>
+				<div className='rightButton' onClick={switchHandler(1)}></div>
 			</div>
 		</div>
 	);

@@ -1,4 +1,4 @@
-import {FC, ReactNode} from "react";
+import {FC, ReactNode} from 'react';
 import './header.scss';
 
 // Тип компонента заголовок окна
@@ -9,6 +9,6 @@ type HeaderProps = {
 // Компонент заголовок окна
 export const Header: FC<HeaderProps> = ({children}) => {
 	return (
-		<div className="header">{children}</div>
+		<div className='header'>{children}</div>
 	);
 };
