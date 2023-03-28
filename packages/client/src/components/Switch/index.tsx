@@ -1,5 +1,5 @@
 import {FC, useState} from 'react';
-import './switchButton.scss';
+import './switch.scss';
 import {Fn} from 'client/src/types';
 
 // Тип компонента селектора
@@ -11,20 +11,20 @@ type SwitchButtonType = {
 	// Заголовок для селектора
 	label?: string,
 	// Метод, вызываемый при изменении значения селектора
-	onChange?: Fn<void, number>
+	onSwitch: Fn<void, number>
 };
 
 // Компонент селектора
-export const SwitchButton: FC<SwitchButtonType> = (props) => {
+export const Switch: FC<SwitchButtonType> = (props) => {
 	const {
 		label = '',
 		list = [],
 		defaultValue = 0,
-		onChange = undefined
+		onSwitch
 	} = props;
 	const [selectedValue, setSelectedValue] = useState(defaultValue);
 
-	const switchHandler = (x: number) => {
+	const onSwitchHandler = (x: number) => {
 		return () => {
 			const maxValue = list.length - 1;
 			let newValue = selectedValue + x;
@@ -34,27 +34,25 @@ export const SwitchButton: FC<SwitchButtonType> = (props) => {
 				newValue = maxValue;
 			}
 			setSelectedValue(newValue);
-			if (onChange) {
-				onChange(newValue);
-			}
+			onSwitch(newValue);
 		};
 	};
 
 	const labelRender = () => {
 		if (label.length) {
-			return <div className='label'>{label}</div>;
+			return <div className="label">{label}</div>;
 		} else {
 			return null;
 		}
 	};
 
 	return (
-		<div className='switchButton'>
+		<div className="switch">
 			{labelRender()}
-			<div className='switchElements'>
-				<div className='leftButton' onClick={switchHandler(-1)}></div>
-				<div className='selectedText'>{list[selectedValue]}</div>
-				<div className='rightButton' onClick={switchHandler(1)}></div>
+			<div className="switchElements">
+				<div className="leftButton" onClick={onSwitchHandler(-1)}></div>
+				<div className="selectedText">{list[selectedValue]}</div>
+				<div className="rightButton" onClick={onSwitchHandler(1)}></div>
 			</div>
 		</div>
 	);

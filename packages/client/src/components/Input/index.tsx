@@ -16,7 +16,7 @@ type InputProps = {
 export const Input: FC<InputProps> = ({text = '', onChange = undefined, onBlur = undefined}) => {
 	const [value, setValue] = useState(text);
 
-	const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+	const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;
 		setValue(value);
 		if (onChange) {
@@ -24,7 +24,7 @@ export const Input: FC<InputProps> = ({text = '', onChange = undefined, onBlur =
 		}
 	};
 
-	const blurHandler = () => {
+	const onBlurHandler = () => {
 		if (onBlur) {
 			onBlur(value);
 		}
@@ -34,8 +34,8 @@ export const Input: FC<InputProps> = ({text = '', onChange = undefined, onBlur =
 		<div className="input">
 			<input
 				value={value}
-				onChange={changeHandler}
-				onBlur={blurHandler}
+				onChange={onChangeHandler}
+				onBlur={onBlurHandler}
 			/>
 			<div className="underLine"></div>
 		</div>

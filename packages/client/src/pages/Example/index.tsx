@@ -1,6 +1,6 @@
 import {Header} from 'client/src/components/Header';
 import {Menu} from 'client/src/components/Menu';
-import {SwitchButton} from 'client/src/components/SwitchButton';
+import {Switch} from 'client/src/components/Switch';
 import {Button} from 'client/src/components/Button';
 import {Input} from 'client/src/components/Input';
 import {Footer} from 'client/src/components/Footer';
@@ -24,11 +24,11 @@ export const PageExample = () => {
 		<div className='pageExample'>
 			<Header>Заголовок</Header>
 			<Menu>
-				<SwitchButton
+				<Switch
 					label='Селектор'
 					list={['Альфа', 'Бетта', 'Гамма']}
-					onChange={switchCallback}
-				></SwitchButton>
+					onSwitch={switchCallback}
+				></Switch>
 				<Input
 					text='Инпут'
 					onChange={inputCallback}
