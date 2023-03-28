@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { PageExample } from './pages/Example';
+import App from './App';
 import { TestPage } from './pages/TestPage';
 import {
   createBrowserRouter,
@@ -13,7 +13,7 @@ import 'client/src/styles/app.scss';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <PageExample />,
+    element: <App />,
   },
   {
     path: "/test",
