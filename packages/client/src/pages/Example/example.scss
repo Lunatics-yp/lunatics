@@ -1,16 +1,7 @@
-.pageExample {
-	display: flex;
-	flex-flow: column nowrap;
-	position: fixed;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 1;
+@import 'client/src/styles/mixins';
 
-	> div:not(div.header,div.footer) {
-		flex: 1;
-	}
+.pageExample {
+	@include menuFlexVertical;
 
 	.menu {
 		width: 400px;

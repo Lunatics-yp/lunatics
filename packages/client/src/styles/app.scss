@@ -1,11 +1,10 @@
 @import 'vendor/modern-normalize';
 @import 'variables';
 @import 'reset';
+@import 'mixins';
 
 div.app {
+	@include fullscreen;
+
 	position: relative;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
 }
