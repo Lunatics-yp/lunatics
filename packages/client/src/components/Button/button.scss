@@ -18,12 +18,12 @@ div.button {
 	padding-left: calc(var(--height) / 3);
 	font-size: calc(var(--height) / 3);
 	line-height: var(--height);
-	color: #001e44;
-	background: #bbf2f6;
+	color: var(--colorBlueDark);
+	background: var(--colorBlueLight);
 	white-space: nowrap;
 
 	&:hover {
-		color: #fffcf3;
-		background-image: linear-gradient(to top, #fd830c, #f7ba45);
+		color: var(--colorYellowWhite);
+		background-image: var(--gradientOrangeYellow);
 	}
 }

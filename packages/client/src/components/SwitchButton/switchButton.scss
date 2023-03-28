@@ -9,7 +9,7 @@ div.switchButton {
 		height: 20px;
 		line-height: 20px;
 		padding-left: 52px;
-		color: #e7f3ff;
+		color: var(--colorBlueWhite);
 	}
 
 	> div.switchElements {
@@ -23,9 +23,9 @@ div.switchButton {
 			--size: 50px;
 
 			height: var(--size);
-			color: #001e44;
+			color: var(--colorBlueDark);
 			text-align: center;
-			background: #bbf2f6;
+			background: var(--colorBlueLight);
 		}
 
 		> div.selectedText{
@@ -74,8 +74,8 @@ div.switchButton {
 			font-size: calc(var(--size) / 1.8);
 
 			&:hover {
-				color: #fffcf3;
-				background-image: linear-gradient(to top, #fd830c, #f7ba45);
+				color: var(--colorYellowWhite);
+				background-image: var(--gradientOrangeYellow);
 			}
 		}
 	}

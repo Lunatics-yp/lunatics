@@ -14,7 +14,7 @@ div.input {
 			0 100%,
 			0 var(--crop)
 	);
-	background: #05b4c3;
+	background: var(--colorBlueSky);
 	white-space: nowrap;
 
 	> input {
@@ -24,7 +24,7 @@ div.input {
 		font-size: calc(var(--height) / 3);
 		font-weight: bold;
 		line-height: var(--height);
-		color: #fffcf3;
+		color: var(--colorYellowWhite);
 		background: transparent;
 		text-align: center;
 		border: none;
@@ -39,7 +39,7 @@ div.input {
 		top: calc(100% - var(--height));
 		width: 100%;
 		height: var(--height);
-		background: #bbf2f6;
+		background: var(--colorBlueLight);
 		clip-path:
 			polygon(
 				0 0,
@@ -56,10 +56,8 @@ div.input {
 
 	&:hover,
 	&:focus-within {
-		// background: #dcffff;
-
 		> div.underLine {
-			background-image: linear-gradient(to top, #fd830c, #fa9929);
+			background-image: var(--gradientOrangeYellowDark);
 		}
 	}
 }

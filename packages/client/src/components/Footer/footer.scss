@@ -4,8 +4,8 @@ div.footer{
 	position: relative;
 	height: var(--height);
 	width: 100%;
-	background: #fff;
-	color: #0c1c3d;
+	background: var(--colorBlueWhite);
+	color: var(--colorBlueDark);
 	text-transform: uppercase;
 	padding-left: calc(var(--height) / 3);
 	font-size: calc(var(--height) / 2.5);
