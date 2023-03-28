@@ -1,0 +1,29 @@
+div.button {
+	--width: 100%;
+	--height: 50px;
+	--crop: 20px;
+	--cropX: calc(var(--width) - var(--crop));
+	--cropY: calc(var(--height) - var(--crop));
+
+	width: var(--width);
+	height: var(--height);
+	clip-path:
+		polygon(
+			0 0,
+			100% 0,
+			100% var(--cropY),
+			var(--cropX) 100%,
+			0% 100%
+	);
+	padding-left: calc(var(--height) / 3);
+	font-size: calc(var(--height) / 3);
+	line-height: var(--height);
+	color: #001e44;
+	background: #bbf2f6;
+	white-space: nowrap;
+
+	&:hover {
+		color: #fffcf3;
+		background-image: linear-gradient(to top, #fd830c, #f7ba45);
+	}
+}

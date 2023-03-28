@@ -1,0 +1,16 @@
+div.header{
+	--height: 50px;
+	--borderSize: 5px;
+
+	position: relative;
+	height: var(--height);
+	width: 100%;
+	background: #07b4c5;
+	color: #f5ffff;
+	text-transform: uppercase;
+	padding-left: calc(var(--height) / 3);
+	font-size: calc(var(--height) / 2.5);
+	font-weight: bold;
+	line-height: calc(var(--height) - var(--borderSize));
+	border-bottom: var(--borderSize) solid #f5ffff;
+}

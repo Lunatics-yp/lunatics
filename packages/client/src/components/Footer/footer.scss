@@ -1,0 +1,14 @@
+div.footer{
+	--height: 50px;
+
+	position: relative;
+	height: var(--height);
+	width: 100%;
+	background: #fff;
+	color: #0c1c3d;
+	text-transform: uppercase;
+	padding-left: calc(var(--height) / 3);
+	font-size: calc(var(--height) / 2.5);
+	font-weight: bold;
+	line-height: var(--height);
+}

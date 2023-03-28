@@ -1,0 +1,83 @@
+div.switchButton {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: flex-end;
+	align-items: stretch;
+	gap:6px;
+
+	> div.label {
+		height: 20px;
+		line-height: 20px;
+		padding-left: 52px;
+		color: #e7f3ff;
+	}
+
+	> div.switchElements {
+		display: flex;
+		flex-flow: row nowrap;
+		gap: 4px;
+
+		> div.leftButton,
+		> div.rightButton,
+		> div.selectedText{
+			--size: 50px;
+
+			height: var(--size);
+			color: #001e44;
+			text-align: center;
+			background: #bbf2f6;
+		}
+
+		> div.selectedText{
+			line-height: var(--size);
+			flex: 1;
+		}
+
+		> div.leftButton {
+			padding-left:6px;
+			clip-path:
+				polygon(
+					20% 0,
+					100% 0,
+					100% 100%,
+					50% 100%,
+					0 50%,
+					0 20%,
+			);
+
+			&::before {
+				content: '‹';
+			}
+		}
+
+		> div.rightButton {
+			padding-right:6px;
+			clip-path:
+				polygon(
+					0 0,
+					80% 0,
+					100% 20%,
+					100% 50%,
+					50% 100%,
+					0 100%
+			);
+
+			&::before {
+				content: '›';
+			}
+		}
+
+		> div.leftButton,
+		> div.rightButton {
+			line-height: calc(var(--size) * 0.9);
+			width: var(--size);
+			font-size: calc(var(--size) / 1.8);
+
+			&:hover {
+				color: #fffcf3;
+				background-image: linear-gradient(to top, #fd830c, #f7ba45);
+			}
+		}
+	}
+
+}
