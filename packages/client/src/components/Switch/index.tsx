@@ -5,13 +5,13 @@ import {Fn} from 'client/src/types';
 // Тип компонента селектора
 type SwitchButtonType = {
 	// Список значений
-	list: string[],
+	list: string[];
 	// Индекс дефолтного значения
-	defaultValue?: number,
+	defaultValue?: number;
 	// Заголовок для селектора
-	label?: string,
+	label?: string;
 	// Метод, вызываемый при изменении значения селектора
-	onSwitch: Fn<void, number>
+	onSwitch: Fn<void, number>;
 };
 
 // Компонент селектора

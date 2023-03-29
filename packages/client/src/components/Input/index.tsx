@@ -5,11 +5,11 @@ import {Fn} from 'client/src/types';
 // Тип компонента инпут
 type InputProps = {
 	// Изначальный текст в инпуте
-	text?: string,
+	text?: string;
 	// Метод, вызываемый при изменении текста в инпуте
-	onChange?: Fn<void, string>,
+	onChange?: Fn<void, string>;
 	// Метод, вызываемый при потере фокуса в инпуте
-	onBlur?: Fn<void, string>,
+	onBlur?: Fn<void, string>;
 };
 
 // Компонент инпут
