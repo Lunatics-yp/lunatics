@@ -1,0 +1,10 @@
+@import 'client/src/styles/mixins';
+
+.pageMainMenu {
+	@include menuFlexVertical;
+
+	.menu {
+		width: 400px;
+		margin: 0 auto;
+	}
+}

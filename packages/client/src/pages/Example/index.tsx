@@ -28,6 +28,12 @@ export const PageExample = () => {
 		<div className='pageExample'>
 			<Header>Заголовок</Header>
 			<Menu>
+				<Button
+					text='Открыть главное меню'
+					onClick={() => {
+						navigate('/mainmenu');
+					}}
+				/>
 				<Switch
 					label='Селектор'
 					list={['Альфа', 'Бетта', 'Гамма']}

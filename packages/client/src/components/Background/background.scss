@@ -3,6 +3,6 @@
 .background {
 	@include fullscreen;
 
-	z-index: 0;
+	z-index: -1;
 	background: var(--colorBackground);
 }
