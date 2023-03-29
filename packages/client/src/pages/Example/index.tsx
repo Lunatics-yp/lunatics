@@ -14,6 +14,8 @@ export const PageExample = () => {
 		console.log('Клик');
 	};
 
+	// Тест работы гит
+
 	const switchCallback = (value: number) => {
 		console.log('Свич', value);
 	};
