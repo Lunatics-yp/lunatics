@@ -3,25 +3,27 @@
 1. Убедитесь что у вас установлен `node` и `docker`
 2. Выполните команду `yarn bootstrap` - это обязательный шаг, без него ничего работать не будет :)
 3. Выполните команду `yarn dev`
-3. Выполните команду `yarn dev --scope=client` чтобы запустить только клиент
-4. Выполните команду `yarn dev --scope=server` чтобы запустить только server
+4. Выполните команду `yarn dev --scope=client` чтобы запустить только клиент
+5. Выполните команду `yarn dev --scope=server` чтобы запустить только server
 
 
 ### Как добавить зависимости?
 В этом проекте используется `monorepo` на основе [`lerna`](https://github.com/lerna/lerna)
 
-Чтобы добавить зависимость для клиента 
+Чтобы добавить зависимость для клиента\
 ```yarn lerna add {your_dep} --scope client```
 
-Для сервера
+Для сервера\
 ```yarn lerna add {your_dep} --scope server```
 
-И для клиента и для сервера
+И для клиента, и для сервера\
 ```yarn lerna add {your_dep}```
 
-
-Если вы хотите добавить dev зависимость, проделайте то же самое, но с флагом `dev`
+Чтобы добавить **dev** зависимость, используйте флаг `--dev` (или `-D`)\
 ```yarn lerna add {your_dep} --dev --scope server```
+
+Чтобы добавить **exact** зависимость, используйте флаг `--exact`\
+```yarn lerna add {your_dep} --exact --scope server```
 
 
 ### Тесты
@@ -32,7 +34,7 @@
 
 ### Линтинг
 
-```yarn lint``` - eslint
+```yarn lint``` - eslint\
 ```yarn stylelint``` - stylelint
 
 ### Форматирование prettier
@@ -43,10 +45,9 @@
 
 ```yarn build```
 
-И чтобы посмотреть что получилось
+И чтобы посмотреть, что получилось
 
-
-`yarn preview --scope client`
+`yarn preview --scope client`\
 `yarn preview --scope server`
 
 ## Хуки

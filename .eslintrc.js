@@ -4,30 +4,46 @@ module.exports = {
 	extends: [
 		'eslint:recommended',
 		'plugin:@typescript-eslint/eslint-recommended',
-		'plugin:@typescript-eslint/recommended',
+		'plugin:@typescript-eslint/recommended'
 	],
-	"parserOptions": {
-		"ecmaVersion": 11
+	parserOptions: {
+		ecmaVersion: 11
 	},
 	env: {
 		browser: true,
 		es2020: true,
-		node: true,
+		node: true
 	},
 	ignorePatterns: [
-		"**/dist/*",
-		"/node_modules",
-		"/tmp",
-		"/server.js"
+		'**/dist/*',
+		'/node_modules',
+		'/tmp',
+		'/server.js'
 	],
-	"rules": {
-		"max-len": [2, 100],
-		"max-params": [2, 3],
-		"no-unused-vars": 0,
-		"@typescript-eslint/no-unused-vars": ["off"], //error
-		"@typescript-eslint/no-inferrable-types": ["off"],
-		'@typescript-eslint/ban-ts-comment': 1,
-		"semi": 1,
-		"@typescript-eslint/semi": 1
+	rules: {
+		'max-len': ['error', 100],
+		'max-params': ['error', 3],
+		'indent': ['error', 'tab'],
+		'no-unused-vars': 'off',
+		'@typescript-eslint/no-unused-vars': ['off'], //error
+		'@typescript-eslint/no-inferrable-types': ['off'],
+		'@typescript-eslint/ban-ts-comment': 'warn',
+		'@typescript-eslint/semi': 'error',
+		'@typescript-eslint/quotes': ['error', 'single'],
+		'@typescript-eslint/comma-dangle': ['error', 'never'],
+		'@typescript-eslint/object-curly-spacing': ['error', 'never'],
+		'@typescript-eslint/member-delimiter-style': [
+			'warn',
+			{
+				'multiline': {
+					'delimiter': 'semi',
+					'requireLast': true
+				},
+				'singleline': {
+					'delimiter': 'semi',
+					'requireLast': false
+				}
+			}
+		]
 	}
 };
