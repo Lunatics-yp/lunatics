@@ -1,26 +1,15 @@
 import {FC, useState} from 'react';
+import {SwitchProps} from './typing';
 import './switch.scss';
-import {Fn} from 'client/src/types';
-
-// Тип компонента селектора
-type SwitchButtonType = {
-	// Список значений
-	list: string[];
-	// Индекс дефолтного значения
-	defaultValue?: number;
-	// Заголовок для селектора
-	label?: string;
-	// Метод, вызываемый при изменении значения селектора
-	onSwitch: Fn<void, number>;
-};
 
 // Компонент селектора
-export const Switch: FC<SwitchButtonType> = (props) => {
+export const Switch: FC<SwitchProps> = (props) => {
 	const {
 		label = '',
 		list = [],
 		defaultValue = 0,
-		onSwitch
+		onSwitch,
+		looped = true
 	} = props;
 	const [selectedValue, setSelectedValue] = useState(defaultValue);
 
@@ -29,9 +18,9 @@ export const Switch: FC<SwitchButtonType> = (props) => {
 			const maxValue = list.length - 1;
 			let newValue = selectedValue + x;
 			if (newValue > maxValue) {
-				newValue = 0;
+				newValue = looped ? 0 : maxValue;
 			} else if (newValue < 0) {
-				newValue = maxValue;
+				newValue = looped ? 0 : 0;
 			}
 			setSelectedValue(newValue);
 			onSwitch(newValue);
