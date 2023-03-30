@@ -1,4 +1,4 @@
-import {Fn} from '../../types';
+import {Fn} from 'client/src/types';
 
 export type SwitchProps = {
 	// Список значений

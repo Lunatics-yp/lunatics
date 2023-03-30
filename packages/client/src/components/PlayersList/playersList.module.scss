@@ -39,17 +39,23 @@
 	display: grid;
 	grid-template-columns: 3fr 2fr 2fr;
 	grid-gap: var(--gap);
-	overflow: scroll;
 	background: var(--colorWhite);
+
+	// Убираем скроллбар
+	overflow: scroll;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+
+	&::-webkit-scrollbar {
+		height: 0;
+		width: 0;
+		background: transparent;
+	}
 
 	> div {
 		text-align: center;
 	}
 
-	&::-webkit-scrollbar {
-		height: 0;
-		width: 0;
-	}
 
 	// Первые три блоков (шапка)
 	> :nth-child(-n+4) {
