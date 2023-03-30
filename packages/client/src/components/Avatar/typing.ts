@@ -1,5 +1,5 @@
 export type  AvatarProps = {
 	src?: string;
-	alt: string;
+	alt?: string;
 	size: 'small' | 'medium' | 'large';
 };
