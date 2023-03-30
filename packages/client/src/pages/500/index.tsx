@@ -1,11 +1,8 @@
 import './500.scss';
 import {Button} from '../../components/Button';
-
+import {useNavigate} from 'react-router-dom';
 export const Page500 = () => {
-
-	const backToGame = () => {
-		console.log('Переход');
-	};
+	const navigate = useNavigate();
 
 	return (
 		<div className='page500'>
@@ -16,10 +13,9 @@ export const Page500 = () => {
 				<div className='buttonConteiner'>
 					<Button
 						text='Вернуться в игру'
-						onClick={backToGame}
+						onClick={() => navigate('/')}
 					/>
 				</div>
-
 			</div>
 		</div>
 	);
