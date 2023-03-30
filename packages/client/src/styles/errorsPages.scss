@@ -1,7 +1,7 @@
-@import 'client/src/styles/mixins';
+@import './mixins';
 
 .page500 {
-	@include fullscreen;
+    @include fullscreen;
 
     display: flex;
 	align-items: center;
@@ -18,7 +18,7 @@
 		}
 
 	     > :nth-child(2) {
-			 color: var(--colorError);
+			 color: var(--colorRedError);
 			 font-size: 22px;
 			 margin: 8px 0;
 		 }

@@ -1,5 +1,7 @@
 export const PATHS = {
 	home: '/',
 	test: '/test',
-	mainMenu: '/mainmenu'
+	mainMenu: '/mainmenu',
+	page500: '/page500',
+	page404: '/page404'
 };
