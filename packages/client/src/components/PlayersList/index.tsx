@@ -1,9 +1,9 @@
 import {Avatar} from 'client/src/components/Avatar';
-import {FC, Fragment} from 'react';
+import React, {FC, Fragment} from 'react';
 import styles from './playersList.module.scss';
 import {playerListProps} from './typing';
 
-export const PlayersList:FC<playerListProps> = ({data, showIndex=false}) => {
+export const PlayersList:FC<playerListProps> = React.memo(({data, showIndex=false}) => {
 
 	const PlayersListTable = () => {
 		const lobbyDataItems = data.map((playerData, index) => {
@@ -31,8 +31,8 @@ export const PlayersList:FC<playerListProps> = ({data, showIndex=false}) => {
 				<div>Игрок</div>
 				<div>Побед онлайн</div>
 				<div>Побед оффлайн</div>
-				<PlayersListTable/>
+				<PlayersListTable />
 			</div>
 		</div>
 	);
-};
+});
