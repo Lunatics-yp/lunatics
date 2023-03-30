@@ -6,9 +6,14 @@
 	height: 100%;
 }
 
-@mixin menuFlexVertical {
+@mixin flexVertical {
 	display: flex;
 	flex-flow: column nowrap;
+}
+
+@mixin menuFlexVertical {
+	@include flexVertical;
+
 	position: fixed;
 	left: 0;
 	top: 0;
@@ -16,10 +21,11 @@
 	height: 100%;
 	z-index: 1;
 
-	> div:not(div.header,div.footer) {
+	> :not(.header,.footer) {
 		flex: 1;
 	}
 }
+
 
 @mixin flexCenter {
 	display: flex;
