@@ -1,7 +1,9 @@
 // import {useEffect} from 'react'
 import 'client/src/styles/app.scss';
 import {Background} from 'client/src/components/Background';
-import {PageExample} from 'client/src/pages/Example';
+// import {PageExample} from 'client/src/pages/Example';
+// import {Page500} from './pages/500';
+import {Page404} from './pages/404';
 
 function App() {
 	// useEffect(() => {
@@ -16,8 +18,9 @@ function App() {
 	// }, [])
 
 	return (<div className='app'>
-		<PageExample/>
 		<Background/>
+		<Page404/>
+
 	</div>);
 }
 
