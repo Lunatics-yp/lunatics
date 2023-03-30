@@ -1,0 +1,31 @@
+@import 'client/src/styles/mixins';
+
+.page500 {
+	@include fullscreen;
+
+    display: flex;
+	align-items: center;
+	justify-content: center;
+
+   .page500Conteiner {
+	   display: flex;
+	   flex-direction: column;
+	   align-items: center;
+	   width: 500px;
+
+   		 > :first-child {
+			 font-size: 100px;
+		}
+
+	     > :nth-child(2) {
+			 color: var(--colorError);
+			 font-size: 22px;
+			 margin: 8px 0;
+		 }
+
+	   .buttonConteiner {
+		   width: 290px;
+		   margin-top: 45px;
+	   }
+   }
+}
