@@ -7,6 +7,7 @@ import {PATHS} from 'client/src/routers/name';
 import {Page500} from 'client/src/pages/500';
 import {Page404} from 'client/src/pages/404';
 import {PageRegister} from 'client/src/pages/Register';
+import {PageAuth} from 'client/src/pages/Auth';
 
 export const router = createBrowserRouter([
 	{
@@ -38,5 +39,9 @@ export const router = createBrowserRouter([
 	{
 		path: PATHS.register,
 		element: <PageRegister />
+	},
+	{
+		path: PATHS.auth,
+		element: <PageAuth />
 	}
 ]);
