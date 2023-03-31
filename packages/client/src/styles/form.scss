@@ -1,0 +1,15 @@
+.form {
+	width: 400px;
+}
+
+.formGroup {
+	margin-bottom: 1rem;
+
+	&_btns {
+		margin-top: 2.5rem;
+
+		> .button {
+			margin-top: 1rem;
+		}
+	}
+}
