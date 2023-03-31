@@ -4,6 +4,7 @@ import {Button} from 'client/src/components/Button';
 import {Input} from 'client/src/components/Input';
 import {Footer} from 'client/src/components/Footer';
 import {Avatar} from 'client/src/components/Avatar';
+import {ButtonBack} from 'client/src/components/ButtonBack';
 import './profile.scss';
 import 'client/src/styles/form.scss';
 
@@ -16,7 +17,10 @@ export const PageProfileChangePas = () => {
 		<div className='pageProfile'>
 			<Header>Прифиль: смена пароля</Header>
 			<div>
-
+				<ButtonBack
+					href='/profile'
+					text='назад'
+				/>
 				<Form className="form">
 					<Avatar
 						size='large'
@@ -37,7 +41,6 @@ export const PageProfileChangePas = () => {
 					</div>
 				</Form>
 			</div>
-			<Footer>Подвал</Footer>
 		</div>
 	);
 };
