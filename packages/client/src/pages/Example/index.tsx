@@ -6,6 +6,7 @@ import {Input} from 'client/src/components/Input';
 import {Footer} from 'client/src/components/Footer';
 import './example.scss';
 import {Link, useNavigate} from 'react-router-dom';
+import {PATHS} from 'client/src/routers/name';
 
 export const PageExample = () => {
 	const navigate = useNavigate();
@@ -59,6 +60,12 @@ export const PageExample = () => {
 					}}
 				/>
 				<Link to='/test'>Переход на страницу test</Link>
+				<Button
+					text='Переход на страницу forum'
+					onClick={() => {
+						navigate(PATHS.forum);
+					}}
+				/>
 			</Menu>
 			<Footer>Подвал</Footer>
 		</div>

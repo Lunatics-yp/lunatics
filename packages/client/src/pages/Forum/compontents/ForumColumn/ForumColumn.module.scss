@@ -1,0 +1,56 @@
+@import 'client/src/styles/app';
+
+.column {
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	gap: 30px;
+	margin-bottom: 15px;
+
+	&__left {
+		@include flexCenter;
+
+		justify-content: flex-start;
+		padding-left: 100px;
+		margin-left: 50px;
+		color: var(--colorBlueWhite);
+		border-bottom: 2px solid var(--colorBlueSky);
+		background-color: var(--colorBlueSky);
+		min-width: 200px;
+		width: 80%;
+		cursor: pointer;
+		clip-path:
+			polygon(
+				5% 0,
+				100% 0,
+				100% 80%,
+				90% 110%,
+				0% 100%
+		);
+
+		@include buttonHover;
+	}
+
+	&__right {
+		display: flex;
+		justify-content: space-between;
+		margin-right: 100px;
+		gap: 96px;
+	}
+}
+
+.item {
+	@include flexCenter;
+
+	width: 100px;
+	min-width: 30px;
+	border: 2px solid var(--colorBlueWhite);
+	border-radius: 20%;
+	padding: 10px 30px;
+
+
+		p {
+		margin: 0;
+		padding: 0;
+		color: var(--colorBlueLight);
+	}
+}

@@ -1,0 +1,18 @@
+@import 'client/src/styles/app';
+
+.wrapper {
+	margin: 20px 100px;
+}
+
+.create {
+	&_forum {
+		display: flex;
+		justify-content: center;
+		gap: 40%;
+		margin: 30px 70px;
+	}
+}
+
+.button {
+	width: 300px;
+}

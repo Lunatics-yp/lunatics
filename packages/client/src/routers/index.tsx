@@ -4,11 +4,16 @@ import {PageExample} from 'client/src/pages/Example';
 import {MainMenu, mainMenuLoader} from 'client/src/pages/MainMenu';
 import {TestPage} from 'client/src/pages/TestPage';
 import {PATHS} from 'client/src/routers/name';
+import {Forum} from 'client/src/pages/Forum';
 
 export const router = createBrowserRouter([
 	{
 		path: PATHS.home,
 		element: <PageExample />
+	},
+	{
+		path: PATHS.forum,
+		element: <Forum />
 	},
 	{
 		path: PATHS.test,

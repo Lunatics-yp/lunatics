@@ -1,0 +1,23 @@
+@import 'client/src/styles/app';
+
+.header {
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	margin: 20px 100px;
+
+	&__right{
+		display: flex;
+		justify-content: space-between;
+	}
+
+	&__left{
+		@include flexCenter;
+		
+		justify-content: flex-start;
+	}
+}
+
+.title {
+	color: var(--colorWhite);
+	font-size: 24px;
+}
