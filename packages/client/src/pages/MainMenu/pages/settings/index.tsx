@@ -4,14 +4,13 @@ import {Menu} from 'client/src/components/Menu';
 import {Footer} from 'client/src/components/Footer';
 import {Button} from 'client/src/components/Button';
 import {Switch} from 'client/src/components/Switch';
+import {PATHS} from 'client/src/routers/name';
 // Импорт реката
-import {FC, useState} from 'react';
+import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-// Импорты внутри компонента
-import {subMenuType} from '../../index';
 
 // Компонент меню настройки
-export const MainMenuSettings: FC<subMenuType> = ({parentUrl}) => {
+export const MainMenuSettings = () => {
 	const [language, setLanguage] = useState(0);
 	const [soundVolume, setSoundVolume] = useState(10);
 	const [musicVolume, setMusicVolume] = useState(10);
@@ -53,7 +52,7 @@ export const MainMenuSettings: FC<subMenuType> = ({parentUrl}) => {
 				<Button
 					text="Назад"
 					onClick={() => {
-						navigate(parentUrl);
+						navigate(PATHS.mainMenu);
 					}}/>
 			</Menu>
 			<Footer>Подвал</Footer>

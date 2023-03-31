@@ -3,14 +3,12 @@ import {Header} from 'client/src/components/Header';
 import {Menu} from 'client/src/components/Menu';
 import {Footer} from 'client/src/components/Footer';
 import {Button} from 'client/src/components/Button';
+import {PATHS} from 'client/src/routers/name';
 // Импорт реката
-import {FC} from 'react';
 import {useNavigate} from 'react-router-dom';
-// Импорты внутри компонента
-import {subMenuType, subPagesPaths} from '../../index';
 
 // Компонент меню Главное меню
-export const MainMenuMain: FC<subMenuType> = (/*{parentUrl}*/) => {
+export const MainMenuMain = () => {
 	const navigate = useNavigate();
 
 	// Временный каллбек для нерабочих кнопок
@@ -25,17 +23,17 @@ export const MainMenuMain: FC<subMenuType> = (/*{parentUrl}*/) => {
 				<Button
 					text="Играть против ИИ"
 					onClick={() => {
-						navigate(`${subPagesPaths.playOffline}`);
+						navigate(`${PATHS.mainMenuPlayAgainstAI}`);
 					}}/>
 				<Button
 					text="Играть онлайн"
 					onClick={() => {
-						navigate(`${subPagesPaths.playOnline}`);
+						navigate(`${PATHS.mainMenuPlayOnline}`);
 					}}/>
 				<Button
 					text="Настройки"
 					onClick={() => {
-						navigate(`${subPagesPaths.settings}`);
+						navigate(`${PATHS.mainMenuSettings}`);
 					}}/>
 				<Button
 					text="Форум"

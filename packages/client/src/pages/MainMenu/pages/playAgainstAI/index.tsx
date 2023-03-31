@@ -4,33 +4,26 @@ import {Menu} from 'client/src/components/Menu';
 import {Footer} from 'client/src/components/Footer';
 import {Button} from 'client/src/components/Button';
 import {Switch} from 'client/src/components/Switch';
+import {PATHS} from 'client/src/routers/name';
 // Импорт реката
 import {useNavigate} from 'react-router-dom';
-import {FC, useState} from 'react';
-// Импорты внутри компонента
-import {subMenuType} from '../../index';
+import {useState} from 'react';
+// Локальные импорты
+import {difficulties} from './difficulties';
+import {modes} from './modes';
 
 // Компонент меню Играть против ИИ
-export const MainMenuPlayOffline: FC<subMenuType> = ({parentUrl}) => {
+export const MainMenuPlayAgainstAI = () => {
 	const navigate = useNavigate();
 	const [difficulty, setDifficulty] = useState(1);
 	const [mode, setMode] = useState(0);
 
 	// Сложность
-	const difficulties = [
-		'Лёгкий',
-		'Средний',
-		'Сложный'
-	];
 	const onDifficultySwitch = (i: number) => {
 		setDifficulty(i);
 	};
 
 	// Режимы
-	const modes = [
-		'Обычный',
-		'Необычный'
-	];
 	const onModeSwitch = (i: number) => {
 		setMode(i);
 	};
@@ -48,7 +41,7 @@ export const MainMenuPlayOffline: FC<subMenuType> = ({parentUrl}) => {
 					list={difficulties}
 					defaultValue={difficulty}
 					label={'Уровень сложности'}
-					onSwitch={onDifficultySwitch} />
+					onSwitch={onDifficultySwitch}/>
 				<Switch
 					list={modes}
 					defaultValue={mode}
@@ -60,7 +53,7 @@ export const MainMenuPlayOffline: FC<subMenuType> = ({parentUrl}) => {
 				<Button
 					text="Назад"
 					onClick={() => {
-						navigate(parentUrl);
+						navigate(PATHS.mainMenu);
 					}}/>
 			</Menu>
 			<Footer>Подвал</Footer>

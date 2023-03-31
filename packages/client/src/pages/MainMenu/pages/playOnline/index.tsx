@@ -5,16 +5,16 @@ import {Footer} from 'client/src/components/Footer';
 import {Button} from 'client/src/components/Button';
 import {Switch} from 'client/src/components/Switch';
 import {PlayersList} from 'client/src/components/PlayersList';
-import {playerListDataType} from 'client/src/components/PlayersList/typing';
+import {TPlayerData} from 'client/src/components/PlayersList/typing';
+import {PATHS} from 'client/src/routers/name';
 // Импорт реката
-import {FC, useState} from 'react';
+import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 // Импорты внутри компонента
 import styles from './playOnline.module.scss';
-import {subMenuType} from '../../index';
 
 // Временная загрушка списка игроков в лобби
-const lobbyData: playerListDataType = [
+const lobbyData: TPlayerData = [
 	{
 		nickname: 'Aaaaa',
 		winsOnline: 10,
@@ -63,7 +63,7 @@ const lobbyData: playerListDataType = [
 ];
 
 // Компонент меню Играть Онлайн
-export const MainMenuPlayOnline: FC<subMenuType> = ({parentUrl}) => {
+export const MainMenuPlayOnline = () => {
 	const navigate = useNavigate();
 	const [mode, setMode] = useState(0);
 
@@ -93,7 +93,7 @@ export const MainMenuPlayOnline: FC<subMenuType> = ({parentUrl}) => {
 					<Button
 						text="Назад"
 						onClick={() => {
-							navigate(parentUrl);
+							navigate(PATHS.mainMenu);
 						}}/>
 				</Menu>
 			</div>
