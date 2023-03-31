@@ -4,5 +4,7 @@ export const PATHS = {
 	mainMenu: '/mainmenu',
 	page500: '/page500',
 	page404: '/page404',
-	register: '/register'
+	register: '/register',
+	profile: '/profile',
+	profileChangePas: '/profileChangePas'
 };
