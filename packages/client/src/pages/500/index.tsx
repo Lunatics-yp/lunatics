@@ -6,11 +6,11 @@ export const Page500 = () => {
 
 	return (
 		<div className='page500'>
-			<div className='page500Conteiner'>
+			<div className='page500Container'>
 				<div>500</div>
 				<p>Внутренняя ошибка сервера</p>
 				<p>Мы о ней знаем и скоро её исправим</p>
-				<div className='buttonConteiner'>
+				<div className='buttonContainer'>
 					<Button
 						text='Вернуться на главную'
 						onClick={() => navigate('/')}

@@ -7,10 +7,10 @@ export const Page404 = () => {
 
 	return (
 		<div className='page500'>
-			<div className='page500Conteiner'>
+			<div className='page500Container'>
 				<div>404</div>
 				<p>Страница не найдена</p>
-				<div className='buttonConteiner'>
+				<div className='buttonContainer'>
 					<Button
 						text='Вернуться на главную'
 						onClick={() => navigate('/')}
