@@ -1,19 +1,18 @@
 import './input.scss';
 import {ChangeEvent, FC, useState} from 'react';
-import {Fn} from 'client/src/types';
-
-// Тип компонента инпут
-type InputProps = {
-	// Изначальный текст в инпуте
-	text?: string;
-	// Метод, вызываемый при изменении текста в инпуте
-	onChange?: Fn<void, string>;
-	// Метод, вызываемый при потере фокуса в инпуте
-	onBlur?: Fn<void, string>;
-};
+import {Label} from 'client/src/components/Label';
+import {InputProps} from 'src/components/Input/typing';
 
 // Компонент инпут
-export const Input: FC<InputProps> = ({text = '', onChange = undefined, onBlur = undefined}) => {
+export const Input: FC<InputProps> = (props) => {
+	const {
+		label = '',
+		text = '',
+		type = 'text',
+		onChange = undefined,
+		onBlur = undefined
+	} = props;
+
 	const [value, setValue] = useState(text);
 
 	const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -31,13 +30,17 @@ export const Input: FC<InputProps> = ({text = '', onChange = undefined, onBlur =
 	};
 
 	return (
-		<div className="input">
-			<input
-				value={value}
-				onChange={onChangeHandler}
-				onBlur={onBlurHandler}
-			/>
-			<div className="underLine"></div>
+		<div className='formGroup'>
+			<Label label={label} />
+			<div className='input'>
+				<input
+					value={value}
+					type={type}
+					onChange={onChangeHandler}
+					onBlur={onBlurHandler}
+				/>
+				<div className='underLine'></div>
+			</div>
 		</div>
 	);
 };
