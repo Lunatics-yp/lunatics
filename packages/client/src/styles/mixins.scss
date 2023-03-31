@@ -21,14 +21,13 @@
 	height: 100%;
 	z-index: 1;
 
-	> :not(.header,.footer) {
+	> div:not(div.header,div.footer) {
 		flex: 1;
 	}
 }
-
 
 @mixin flexCenter {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-  }
+}
