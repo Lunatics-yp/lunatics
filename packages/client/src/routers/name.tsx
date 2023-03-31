@@ -8,5 +8,10 @@ export const PATHS = {
 	page500: '/page500',
 	page404: '/page404',
 	register: '/register',
+<<<<<<< HEAD
 	auth: '/auth'
+=======
+	profile: '/profile',
+	profileChangePas: '/profileChangePas'
+>>>>>>> 60f8216 (Добавил пути страниц в роутинг)
 };
