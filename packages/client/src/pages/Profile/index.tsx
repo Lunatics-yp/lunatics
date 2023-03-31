@@ -4,7 +4,7 @@ import {Button} from 'client/src/components/Button';
 import {Input} from 'client/src/components/Input';
 import {Footer} from 'client/src/components/Footer';
 import {Avatar} from 'client/src/components/Avatar';
-
+import {ButtonBack} from 'client/src/components/ButtonBack';
 import './profile.scss';
 import 'client/src/styles/form.scss';
 
@@ -18,6 +18,10 @@ export const PageProfile = () => {
 		<div className='pageProfile'>
 			<Header>Прифиль игрока</Header>
 			<div>
+				<ButtonBack
+					href='/'
+					text='назад'
+				/>
 				<Form className="form">
 					<Avatar
 						size='large'
