@@ -6,6 +6,7 @@ import {TestPage} from 'client/src/pages/TestPage';
 import {PATHS} from 'client/src/routers/name';
 import {Page500} from 'client/src/pages/500';
 import {Page404} from 'client/src/pages/404';
+import {PageRegister} from 'client/src/pages/Register';
 
 export const router = createBrowserRouter([
 	{
@@ -33,5 +34,9 @@ export const router = createBrowserRouter([
 	{
 		path: PATHS.page404,
 		element: <Page404 />
+	},
+	{
+		path: PATHS.register,
+		element: <PageRegister />
 	}
 ]);
