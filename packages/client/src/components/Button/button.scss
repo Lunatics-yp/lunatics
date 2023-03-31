@@ -21,9 +21,19 @@
 	color: var(--colorBlueDark);
 	background: var(--colorBlueLight);
 	white-space: nowrap;
+	outline: none;
+	border:none;
 
-	&:hover {
-		color: var(--colorYellowWhite);
-		background-image: var(--gradientOrangeYellow);
+	&:disabled {
+		transition: all 500ms;
+		opacity: 0.7;
+		color: var(--colorYellowWhite)
+	}
+
+	&:not([disabled]) {
+			&:hover {
+			color: var(--colorYellowWhite);
+			background-image: var(--gradientOrangeYellow);
+		}
 	}
 }

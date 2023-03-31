@@ -77,7 +77,9 @@ export const ForumBox = () => {
 					placeholder='Новая тема'
 				/>
 				<div className={styles.button}>
-					<Button text='Создать форум' onClick={createTopic}/>
+					<Button
+						disabled={!newTopic.value}
+						text='Создать форум' onClick={createTopic}/>
 				</div>
 			</div>
 			{ForumColumnElements}
