@@ -5,7 +5,7 @@ import {Outlet} from 'react-router-dom';
 // Основной компонент главного меню
 export const MainMenu = () => {
 	return (
-		<div className="pageMainMenu">
+		<div className='pageMainMenu'>
 			<Outlet/>
 		</div>
 	);

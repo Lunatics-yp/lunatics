@@ -21,28 +21,28 @@ export const MainMenuMain = () => {
 			<Header>Главное меню</Header>
 			<Menu>
 				<Button
-					text="Играть против ИИ"
+					text='Играть против ИИ'
 					onClick={() => {
 						navigate(`${PATHS.mainMenuPlayAgainstAI}`);
 					}}/>
 				<Button
-					text="Играть онлайн"
+					text='Играть онлайн'
 					onClick={() => {
 						navigate(`${PATHS.mainMenuPlayOnline}`);
 					}}/>
 				<Button
-					text="Настройки"
+					text='Настройки'
 					onClick={() => {
 						navigate(`${PATHS.mainMenuSettings}`);
 					}}/>
 				<Button
-					text="Форум"
+					text='Форум'
 					onClick={callbackNull}/>
 				<Button
-					text="Авторы"
+					text='Авторы'
 					onClick={callbackNull}/>
 				<Button
-					text="Выйти"
+					text='Выйти'
 					onClick={callbackNull}/>
 			</Menu>
 			<Footer>Подвал</Footer>

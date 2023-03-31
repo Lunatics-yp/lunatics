@@ -50,7 +50,7 @@ export const MainMenuSettings = () => {
 					onSwitch={onMusicVolumeSwitch}
 					looped={false}/>
 				<Button
-					text="Назад"
+					text='Назад'
 					onClick={() => {
 						navigate(PATHS.mainMenu);
 					}}/>

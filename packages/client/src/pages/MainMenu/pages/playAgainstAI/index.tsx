@@ -48,10 +48,10 @@ export const MainMenuPlayAgainstAI = () => {
 					label={'Режим игры'}
 					onSwitch={onModeSwitch}/>
 				<Button
-					text="Начать игру"
+					text='Начать игру'
 					onClick={callbackNull}/>
 				<Button
-					text="Назад"
+					text='Назад'
 					onClick={() => {
 						navigate(PATHS.mainMenu);
 					}}/>

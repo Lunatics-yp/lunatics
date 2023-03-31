@@ -91,7 +91,7 @@ export const MainMenuPlayOnline = () => {
 				<PlayersList data={lobbyData}/>
 				<Menu>
 					<Button
-						text="Назад"
+						text='Назад'
 						onClick={() => {
 							navigate(PATHS.mainMenu);
 						}}/>
