@@ -10,6 +10,7 @@ trim_trailing_whitespace = true
 [*.{js,jsx,ts,tsx,css,scss}]
 ij_typescript_use_double_quotes = false
 ij_typescript_force_quote_style = true
+ij_typescript_import_prefer_absolute_path = true
 
 [*.json]
 indent_size = 2
