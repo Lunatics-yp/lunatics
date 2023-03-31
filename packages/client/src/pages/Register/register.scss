@@ -1,0 +1,10 @@
+@import 'client/src/styles/mixins';
+
+.pageRegister {
+	@include menuFlexVertical;
+
+	.form {
+		padding: 32px 16px;
+		margin: 0 auto;
+	}
+}

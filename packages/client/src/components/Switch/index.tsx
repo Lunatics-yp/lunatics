@@ -1,6 +1,7 @@
 import {FC, useState} from 'react';
 import './switch.scss';
 import {Fn} from 'client/src/types';
+import {Label} from 'client/src/components/Label';
 
 // Тип компонента селектора
 type SwitchButtonType = {
@@ -22,6 +23,7 @@ export const Switch: FC<SwitchButtonType> = (props) => {
 		defaultValue = 0,
 		onSwitch
 	} = props;
+
 	const [selectedValue, setSelectedValue] = useState(defaultValue);
 
 	const onSwitchHandler = (x: number) => {
@@ -38,18 +40,10 @@ export const Switch: FC<SwitchButtonType> = (props) => {
 		};
 	};
 
-	const labelRender = () => {
-		if (label.length) {
-			return <div className="label">{label}</div>;
-		} else {
-			return null;
-		}
-	};
-
 	return (
-		<div className="switch">
-			{labelRender()}
-			<div className="switchElements">
+		<div className="formGroup">
+			<Label label={label} />
+			<div className="switch">
 				<div className="leftButton" onClick={onSwitchHandler(-1)}></div>
 				<div className="selectedText">{list[selectedValue]}</div>
 				<div className="rightButton" onClick={onSwitchHandler(1)}></div>
