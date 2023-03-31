@@ -1,10 +1,10 @@
-export type playerListDataType = {
+export type TPlayerData = {
 	nickname: string;
 	winsOnline: number;
 	winsOffline: number;
 }[];
 
-export type playerListProps = {
-	data: playerListDataType;
+export type TPlayersListProps = {
+	data: TPlayerData;
 	showIndex?: boolean;
 };

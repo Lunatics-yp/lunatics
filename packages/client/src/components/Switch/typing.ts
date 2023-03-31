@@ -1,6 +1,6 @@
 import {Fn} from 'client/src/types';
 
-export type SwitchProps = {
+export type TSwitch = {
 	// Список значений
 	list: string[];
 	// Индекс дефолтного значения
