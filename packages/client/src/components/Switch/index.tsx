@@ -31,11 +31,11 @@ export const Switch: FC<TSwitch> = (props) => {
 
 	return (
 		<div className='formGroup'>
-			<Label label={label} />
+			<Label label={label}/>
 			<div className='switch'>
 				<div className='leftButton' onClick={onSwitchHandler(-1)}></div>
 				<div className='selectedText'>{list[selectedValue]}</div>
-				<div className="'rightButton" onClick={onSwitchHandler(1)}></div>
+				<div className='rightButton' onClick={onSwitchHandler(1)}></div>
 			</div>
 		</div>
 	);

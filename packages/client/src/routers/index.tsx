@@ -1,7 +1,5 @@
-
 import {createBrowserRouter} from 'react-router-dom';
 import {PageExample} from 'client/src/pages/Example';
-//import {MainMenu, mainMenuLoader} from 'client/src/pages/MainMenu';
 import {MainMenu} from 'client/src/pages/MainMenu';
 import {MainMenuMain} from '../pages/MainMenu/pages/main';
 import {MainMenuPlayAgainstAI} from '../pages/MainMenu/pages/playAgainstAI';
@@ -17,15 +15,15 @@ import {PageAuth} from 'client/src/pages/Auth';
 export const router = createBrowserRouter([
 	{
 		path: PATHS.home,
-		element: <PageExample />
+		element: <PageExample/>
 	},
 	{
 		path: PATHS.test,
-		element: <TestPage />
+		element: <TestPage/>
 	},
 	{
 		path: PATHS.mainMenu,
-		element: <MainMenu />,
+		element: <MainMenu/>,
 		children: [
 			{
 				path: PATHS.mainMenu,
@@ -47,18 +45,18 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: PATHS.page500,
-		element: <Page500 />
+		element: <Page500/>
 	},
 	{
 		path: PATHS.page404,
-		element: <Page404 />
+		element: <Page404/>
 	},
 	{
 		path: PATHS.register,
-		element: <PageRegister />
+		element: <PageRegister/>
 	},
 	{
 		path: PATHS.auth,
-		element: <PageAuth />
+		element: <PageAuth/>
 	}
 ]);
