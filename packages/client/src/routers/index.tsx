@@ -1,19 +1,18 @@
-import { createBrowserRouter } from 'react-router-dom';
-import { PageExample } from 'client/src/pages/Example';
-import { MainMenu } from 'client/src/pages/MainMenu';
-import { MainMenuMain } from '../pages/MainMenu/pages/main';
-import { MainMenuPlayAgainstAI } from '../pages/MainMenu/pages/playAgainstAI';
-import { MainMenuPlayOnline } from '../pages/MainMenu/pages/playOnline';
-import { MainMenuSettings } from '../pages/MainMenu/pages/settings';
-import { TestPage } from 'client/src/pages/TestPage';
-import { PATHS } from 'client/src/routers/name';
-import { Page500 } from 'client/src/pages/500';
-import { Page404 } from 'client/src/pages/404';
-import { PageRegister } from 'client/src/pages/Register';
-import { PageAuth } from 'client/src/pages/Auth';
-import { PageProfile } from 'client/src/pages/Profile';
-import { PageProfileChangePas } from 'client/src/pages/ProfileChangePas';
-
+import {createBrowserRouter} from 'react-router-dom';
+import {PageExample} from 'client/src/pages/Example';
+import {MainMenu} from 'client/src/pages/MainMenu';
+import {MainMenuMain} from '../pages/MainMenu/pages/main';
+import {MainMenuPlayAgainstAI} from '../pages/MainMenu/pages/playAgainstAI';
+import {MainMenuPlayOnline} from '../pages/MainMenu/pages/playOnline';
+import {MainMenuSettings} from '../pages/MainMenu/pages/settings';
+import {TestPage} from 'client/src/pages/TestPage';
+import {PATHS} from 'client/src/routers/name';
+import {Page500} from 'client/src/pages/500';
+import {Page404} from 'client/src/pages/404';
+import {PageRegister} from 'client/src/pages/Register';
+import {PageAuth} from 'client/src/pages/Auth';
+import {PageProfile} from 'client/src/pages/Profile';
+import {PageprofileChangePassword} from 'client/src/pages/ProfileChangePas';
 
 export const router = createBrowserRouter([
 	{
@@ -23,6 +22,15 @@ export const router = createBrowserRouter([
 	{
 		path: PATHS.test,
 		element: <TestPage />
+	},
+	{
+
+		path: PATHS.profile,
+		element: <PageProfile />
+	},
+	{
+		path: PATHS.profileChangePassword,
+		element: <PageprofileChangePassword />
 	},
 	{
 		path: PATHS.mainMenu,
