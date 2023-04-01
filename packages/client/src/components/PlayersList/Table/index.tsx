@@ -1,6 +1,6 @@
 import {FC, Fragment} from 'react';
-import {Avatar} from 'src/components/Avatar';
-import {TPlayersListProps} from 'src/components/PlayersList/typing';
+import {Avatar} from 'client/src/components/Avatar';
+import {TPlayersListProps} from 'client/src/components/PlayersList/typing';
 
 export const PlayersListTable: FC<TPlayersListProps> = ({data}) => {
 	const lobbyDataItems = data.map((playerData, index) => {
