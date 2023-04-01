@@ -1,14 +1,14 @@
-import {Form} from 'react-router-dom';
+import {Form, useNavigate} from 'react-router-dom';
 import {Header} from 'client/src/components/Header';
 import {Button} from 'client/src/components/Button';
 import {Input} from 'client/src/components/Input';
 import {Avatar} from 'client/src/components/Avatar';
-import {ButtonBack} from 'client/src/components/ButtonBack';
 import './profile.scss';
 import 'client/src/styles/form.scss';
 
 export const PageprofileChangePassword = () => {
 
+	const navigate = useNavigate();
 	const buttonCallback = () => {
 		console.log('Клик');
 	};
@@ -16,10 +16,14 @@ export const PageprofileChangePassword = () => {
 		<div className='pageProfile'>
 			<Header>Прифиль: смена пароля</Header>
 			<div>
-				<ButtonBack
-					href='/profile'
+				<Button
 					text='назад'
+					className='buttonBack'
+					onClick={() => {
+						navigate('/profile');
+					}}
 				/>
+
 				<Form className="form">
 					<Avatar
 						size='large'
@@ -27,6 +31,7 @@ export const PageprofileChangePassword = () => {
 					<Input
 						label='Текущий пароль'
 						type='password'
+						text='gfhjkm'
 					/>
 					<Input
 						label='Новый пароль'

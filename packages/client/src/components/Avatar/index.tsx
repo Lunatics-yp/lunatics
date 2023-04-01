@@ -12,7 +12,7 @@ export const Avatar: FC<AvatarProps> = ({src, alt = '', size = 'small'}) => {
 			<img
 				src={src ?? defaultUserPhoto}
 				alt={alt}
-				className = {className}
+				className={className}
 			/>
 		</div>
 	);

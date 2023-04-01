@@ -3,7 +3,6 @@ import {Header} from 'client/src/components/Header';
 import {Button} from 'client/src/components/Button';
 import {Input} from 'client/src/components/Input';
 import {Avatar} from 'client/src/components/Avatar';
-import {ButtonBack} from 'client/src/components/ButtonBack';
 import './profile.scss';
 import 'client/src/styles/form.scss';
 
@@ -17,13 +16,17 @@ export const PageProfile = () => {
 		<div className='pageProfile'>
 			<Header>Прифиль игрока</Header>
 			<div>
-				<ButtonBack
-					href='/'
+				<Button
 					text='назад'
+					className='buttonBack'
+					onClick={() => {
+						navigate('/');
+					}}
 				/>
 				<Form className="form">
 					<Avatar
 						size='large'
+						editable={true}
 					/>
 					<Input
 						label='Логин'
