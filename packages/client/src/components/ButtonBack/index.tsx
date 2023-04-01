@@ -1,17 +1,10 @@
 import {FC} from 'react';
 import './ButtonBack.scss';
 import {Link} from 'react-router-dom';
-
-// Тип конпонента кнопка
-type ButtonBackProps = {
-	// Текст кнопки
-	text: string;
-	//путь для перехода
-	href: string;
-};
+import {TButtonBackProps} from './typing';
 
 // Компонент кнопка назад
-export const ButtonBack: FC<ButtonBackProps> = ({text = '', href = ''}) => {
+export const ButtonBack: FC<TButtonBackProps> = ({text = '', href = ''}) => {
 	return (
 		<div className="buttonBack">
 			<Link to={href}>
