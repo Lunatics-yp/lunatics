@@ -1,16 +1,14 @@
 {
 	"compilerOptions": {
-		// Правила от djpont
 		"noImplicitAny": true,
 		"sourceMap": true,
-		"baseUrl": "./",
+		"baseUrl": "../",
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"strictNullChecks": true,
 		"outDir": "dist",
 		"declaration": false,
 		"suppressImplicitAnyIndexErrors": true,
-		// Правила, которые были изначально
 		"target": "ESNext",
 		"useDefineForClassFields": true,
 		"lib": [

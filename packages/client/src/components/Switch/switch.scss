@@ -5,7 +5,7 @@
 
 	> .leftButton,
 	> .rightButton,
-	> .selectedText{
+	> .selectedText {
 		--size: 50px;
 
 		height: var(--size);
@@ -14,22 +14,22 @@
 		background: var(--colorBlueLight);
 	}
 
-	> .selectedText{
+	> .selectedText {
 		line-height: var(--size);
 		flex: 1;
 	}
 
 	> .leftButton {
-		padding-left:6px;
+		padding-left: 6px;
 		clip-path:
 			polygon(
-					20% 0,
-					100% 0,
-					100% 100%,
-					50% 100%,
-					0 50%,
-					0 20%,
-			);
+				20% 0,
+				100% 0,
+				100% 100%,
+				50% 100%,
+				0 50%,
+				0 20%,
+		);
 
 		&::before {
 			content: '‹';
@@ -37,16 +37,16 @@
 	}
 
 	> .rightButton {
-		padding-right:6px;
+		padding-right: 6px;
 		clip-path:
 			polygon(
-					0 0,
-					80% 0,
-					100% 20%,
-					100% 50%,
-					50% 100%,
-					0 100%
-			);
+				0 0,
+				80% 0,
+				100% 20%,
+				100% 50%,
+				50% 100%,
+				0 100%
+		);
 
 		&::before {
 			content: '›';

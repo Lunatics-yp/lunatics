@@ -25,6 +25,11 @@ module.exports = {
 		'max-params': ['error', 3],
 		'indent': ['error', 'tab'],
 		'no-unused-vars': 'off',
+		'no-multiple-empty-lines': [
+			'error',
+			{'max': 1, 'maxEOF': 0}
+		],
+		'quotes': ['error', 'single'],
 		'@typescript-eslint/no-unused-vars': ['off'], //error
 		'@typescript-eslint/no-inferrable-types': ['off'],
 		'@typescript-eslint/ban-ts-comment': 'warn',

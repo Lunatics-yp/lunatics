@@ -1,27 +1,16 @@
-import {FC, useState} from 'react';
-import './switch.scss';
-import {Fn} from 'client/src/types';
 import {Label} from 'client/src/components/Label';
-
-// Тип компонента селектора
-type SwitchButtonType = {
-	// Список значений
-	list: string[];
-	// Индекс дефолтного значения
-	defaultValue?: number;
-	// Заголовок для селектора
-	label?: string;
-	// Метод, вызываемый при изменении значения селектора
-	onSwitch: Fn<void, number>;
-};
+import {FC, useState} from 'react';
+import {TSwitch} from './typing';
+import './switch.scss';
 
 // Компонент селектора
-export const Switch: FC<SwitchButtonType> = (props) => {
+export const Switch: FC<TSwitch> = (props) => {
 	const {
 		label = '',
 		list = [],
 		defaultValue = 0,
-		onSwitch
+		onSwitch,
+		looped = true
 	} = props;
 
 	const [selectedValue, setSelectedValue] = useState(defaultValue);
@@ -31,9 +20,9 @@ export const Switch: FC<SwitchButtonType> = (props) => {
 			const maxValue = list.length - 1;
 			let newValue = selectedValue + x;
 			if (newValue > maxValue) {
-				newValue = 0;
+				newValue = looped ? 0 : maxValue;
 			} else if (newValue < 0) {
-				newValue = maxValue;
+				newValue = looped ? maxValue : 0;
 			}
 			setSelectedValue(newValue);
 			onSwitch(newValue);
@@ -41,12 +30,12 @@ export const Switch: FC<SwitchButtonType> = (props) => {
 	};
 
 	return (
-		<div className="formGroup">
-			<Label label={label} />
-			<div className="switch">
-				<div className="leftButton" onClick={onSwitchHandler(-1)}></div>
-				<div className="selectedText">{list[selectedValue]}</div>
-				<div className="rightButton" onClick={onSwitchHandler(1)}></div>
+		<div className='formGroup'>
+			<Label label={label}/>
+			<div className='switch'>
+				<div className='leftButton' onClick={onSwitchHandler(-1)}></div>
+				<div className='selectedText'>{list[selectedValue]}</div>
+				<div className='rightButton' onClick={onSwitchHandler(1)}></div>
 			</div>
 		</div>
 	);
