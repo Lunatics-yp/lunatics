@@ -8,7 +8,7 @@ import {Page500} from 'client/src/pages/500';
 import {Page404} from 'client/src/pages/404';
 import {PageRegister} from 'client/src/pages/Register';
 import {PageProfile} from 'client/src/pages/Profile';
-import {PageProfileChangePas} from 'client/src/pages/ProfileChangePas';
+import {PageprofileChangePassword} from 'src/pages/ProfileChangePas';
 
 export const router = createBrowserRouter([
 	{
@@ -24,8 +24,8 @@ export const router = createBrowserRouter([
 		element: <PageProfile />
 	},
 	{
-		path: PATHS.profileChangePas,
-		element: <PageProfileChangePas />
+		path: PATHS.profileChangePassword,
+		element: <PageprofileChangePassword />
 	},
 	{
 		path: PATHS.mainMenu,

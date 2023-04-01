@@ -2,7 +2,6 @@ import {Form, useNavigate} from 'react-router-dom';
 import {Header} from 'client/src/components/Header';
 import {Button} from 'client/src/components/Button';
 import {Input} from 'client/src/components/Input';
-import {Footer} from 'client/src/components/Footer';
 import {Avatar} from 'client/src/components/Avatar';
 import {ButtonBack} from 'client/src/components/ButtonBack';
 import './profile.scss';
@@ -33,7 +32,7 @@ export const PageProfile = () => {
 						label='E-mail'
 						type='email'
 					/>
-					<div className="formGroup_btns">
+					<div className='formGroup_btns'>
 						<Button
 							text='Смена аватарки'
 							onClick={buttonCallback}

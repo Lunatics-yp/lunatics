@@ -6,5 +6,5 @@ export const PATHS = {
 	page404: '/page404',
 	register: '/register',
 	profile: '/profile',
-	profileChangePas: '/profileChangePas'
+	profileChangePassword: '/profileChangePassword'
 };

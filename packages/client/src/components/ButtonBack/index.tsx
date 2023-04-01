@@ -1,6 +1,5 @@
 import {FC} from 'react';
 import './ButtonBack.scss';
-import {Fn} from 'client/src/types';
 import {Link} from 'react-router-dom';
 
 // Тип конпонента кнопка
