@@ -40,7 +40,7 @@ export const PageProfile = () => {
 						<Button
 							text='Смена пароля'
 							onClick={() => {
-								navigate('/profileChangePas');
+								navigate('/profileChangePassword');
 							}}
 						/>
 						<Button
