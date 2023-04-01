@@ -1,18 +1,19 @@
 import {FC} from 'react';
 import './button.scss';
 import {Fn} from 'client/src/types';
+import {ButtonHTMLAttributes} from 'react';
 
 // Тип конпонента кнопка
-type ButtonProps = {
+type TButtonProps = {
 	// Текст кнопки
 	text: string;
 	// Метод, вызываемый при клике на кнопку
 	onClick: Fn<void>;
-};
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
 // Компонент кнопка
-export const Button: FC<ButtonProps> = ({text, onClick}) => {
+export const Button: FC<TButtonProps> = ({text, className = 'button', onClick}) => {
 	return (
-		<div className='button' onClick={onClick}>{text}</div>
+		<button className={className} onClick={onClick}>{text}</button>
 	);
 };
