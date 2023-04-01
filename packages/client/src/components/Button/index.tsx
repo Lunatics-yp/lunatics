@@ -6,14 +6,13 @@ import {Fn} from 'client/src/types';
 type ButtonProps = {
 	// Текст кнопки
 	text: string;
-	className?: string;
 	// Метод, вызываемый при клике на кнопку
 	onClick: Fn<void>;
 };
 
 // Компонент кнопка
-export const Button: FC<ButtonProps> = ({text, className = 'button', onClick}) => {
+export const Button: FC<ButtonProps> = ({text, onClick}) => {
 	return (
-		<div className={className} onClick={onClick}>{text}</div>
+		<div className='button' onClick={onClick}>{text}</div>
 	);
 };
