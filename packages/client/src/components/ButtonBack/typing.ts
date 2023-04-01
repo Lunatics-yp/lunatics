@@ -1,5 +1,7 @@
-export type  AvatarProps = {
-	src?: string;
-	alt?: string;
-	size: 'small' | 'medium' | 'large';
+export type TButtonBackProps = {
+	// Текст кнопки
+	text: string;
+	//путь для перехода
+	href: string;
 };
+
