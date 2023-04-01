@@ -26,7 +26,6 @@ export const PageProfile = () => {
 				<Form className="form">
 					<Avatar
 						size='large'
-						editable={true}
 					/>
 					<Input
 						label='Логин'
