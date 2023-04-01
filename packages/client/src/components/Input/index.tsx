@@ -1,7 +1,7 @@
 import './input.scss';
 import {ChangeEvent, FC, useState} from 'react';
 import {Label} from 'client/src/components/Label';
-import {InputProps} from 'src/components/Input/typing';
+import {InputProps} from 'client/src/components/Input/typing';
 
 // Компонент инпут
 export const Input: FC<InputProps> = (props) => {
