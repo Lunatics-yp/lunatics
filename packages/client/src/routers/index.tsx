@@ -12,7 +12,7 @@ import {Page404} from 'client/src/pages/404';
 import {PageRegister} from 'client/src/pages/Register';
 import {PageAuth} from 'client/src/pages/Auth';
 import {PageProfile} from 'client/src/pages/Profile';
-import {PageprofileChangePassword} from 'client/src/pages/ProfileChangePas';
+import {PageprofileChangePassword} from 'client/src/pages/ProfileChangePassword';
 
 export const router = createBrowserRouter([
 	{
