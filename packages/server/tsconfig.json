@@ -1,45 +1,44 @@
 {
 	"compilerOptions": {
-		"noImplicitAny": true,
-		"sourceMap": true,
-		"baseUrl": "./",
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"strictNullChecks": true,
-		"outDir": "dist",
-		"declaration": false,
-		"suppressImplicitAnyIndexErrors": true,
-		"target": "ESNext",
-		"useDefineForClassFields": true,
-		"lib": [
-			"DOM",
-			"DOM.Iterable",
-			"ESNext"
-		],
-		"allowJs": false,
-		"skipLibCheck": true,
-		"esModuleInterop": false,
+		// Правила от djpont
 		"allowSyntheticDefaultImports": true,
-		"strict": true,
-		"forceConsistentCasingInFileNames": true,
-		"module": "ESNext",
-		"moduleResolution": "Node",
-		"resolveJsonModule": true,
+		"allowJs": true,
+		"strictNullChecks": true,
 		"isolatedModules": true,
-		"noEmit": true,
-		"jsx": "react-jsx"
-	},
-	"references": [
-		{
-			"path": "./tsconfig.node.json"
-		}
-	],
-	"include": [
-		"src"
-	],
-	"exclude": [
-		"node_modules",
-		"**/test.ts",
-		"**/test.tsx"
-	]
+		"suppressImplicitAnyIndexErrors": true,
+		// Правила, которые были изначально
+		"composite": true,
+		"target": "es2019",
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"esModuleInterop": true,
+		"sourceMap": true,
+		"declaration": true,
+		"declarationMap": true,
+		"removeComments": true,
+		"strict": true,
+		"noImplicitAny": true,
+		"noImplicitReturns": true,
+		"noImplicitOverride": true,
+		"noFallthroughCasesInSwitch": true,
+		"noUnusedParameters": false, //true
+		"noUnusedLocals": false, //true
+		"forceConsistentCasingInFileNames": true,
+		"importsNotUsedAsValues": "error",
+		"lib": [
+			"es2019",
+			"esnext.asynciterable"
+		],
+		"types": [
+			"node",
+			"jest"
+		],
+		"baseUrl": ".",
+		"paths": {
+			"*": [
+				"types/*"
+			]
+		},
+		"outDir": "dist"
+	}
 }
