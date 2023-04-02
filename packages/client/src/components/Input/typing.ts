@@ -1,4 +1,4 @@
-import {Fn} from 'src/types';
+import {Fn} from 'client/src/types';
 
 export type InputType = 'text' | 'password' | 'email' | 'tel' | 'file';
 

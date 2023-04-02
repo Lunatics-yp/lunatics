@@ -1,0 +1,21 @@
+@import 'client/src/styles/mixins';
+
+.content {
+	@include flexVertical;
+}
+
+.menu {
+	width: 600px;
+}
+
+.label {
+	width: 550px;
+	height: 20px;
+	line-height: 20px;
+	margin: 0 auto 6px;
+	color: var(--colorYellowWhite);
+}
+
+
+
+
