@@ -8,6 +8,8 @@ import {Page500} from 'client/src/pages/500';
 import {Page404} from 'client/src/pages/404';
 import {PageRegister} from 'client/src/pages/Register';
 import {Forum} from 'client/src/pages/Forum';
+import {ForumTopic} from 'client/src/pages/Forum/ForumTopic';
+import {ForumBox} from 'client/src/pages/Forum/compontents/ForumBox';
 
 export const router = createBrowserRouter([
 	{
@@ -16,7 +18,17 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: PATHS.forum,
-		element: <Forum />
+		element: <Forum />,
+		children: [
+			{
+				path: PATHS.forum,
+				element: <ForumBox />
+			},
+			{
+				path: PATHS.topic,
+				element: <ForumTopic />
+			}
+		]
 	},
 	{
 		path: PATHS.test,

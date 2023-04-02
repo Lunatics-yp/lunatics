@@ -1,9 +1,10 @@
-import styles from './ForumBox.module.scss';
+import {useState} from 'react';
+import {useInput} from 'client/src/hooks/useInput';
 import {ForumColumn} from '../ForumColumn';
 import {ForumHeader} from '../ForumHeader';
 import {Button} from 'client/src/components/Button';
-import {useState} from 'react';
-import {useInput} from 'client/src/hooks/useInput';
+import styles from './ForumBox.module.scss';
+
 
 const dataMock = [
 	{
@@ -33,8 +34,6 @@ type TDataMock = {
 	answers: number;
 };
 
-
-
 export const ForumBox = () => {
 
 	const [value, setValue] = useState(dataMock);
@@ -60,8 +59,8 @@ export const ForumBox = () => {
 				topics: 0,
 				answers: 0
 			}]);
-
 		}
+
 		newTopic.reset();
 
 	}
@@ -79,10 +78,14 @@ export const ForumBox = () => {
 				<div className={styles.button}>
 					<Button
 						disabled={!newTopic.value}
-						text='Создать форум' onClick={createTopic}/>
+						text='Создать форум'
+						onClick={createTopic}
+					/>
 				</div>
 			</div>
-			{ForumColumnElements}
+			<div className={styles.topic__list}>
+				{ForumColumnElements}
+			</div>
 		</div>
 	);
 };

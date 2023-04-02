@@ -1,11 +1,11 @@
 import {NavLink} from 'react-router-dom';
 import styles from './ForumColumn.module.scss';
 
-export const ForumColumn = ({forum='NewGAMES', topics=0, answers=0, id=0}) => {
-
+export const ForumColumn = ({forum='New Topic', topics=0, answers=0, id=0}) => {
+	const TOPIC = 'topic/';
 	return (
 		<div className={styles.column}>
-			<NavLink to={forum}>
+			<NavLink to={TOPIC + forum}>
 				<div onClick={()=>{console.log(`clicked ${id}`);
 				}} className={`${styles.column__left} ${styles.forum}`}>
 					<p>{forum}</p>

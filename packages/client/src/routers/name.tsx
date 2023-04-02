@@ -5,5 +5,6 @@ export const PATHS = {
 	page500: '/page500',
 	page404: '/page404',
 	register: '/register',
-	forum: '/forum/*'
+	forum: '/forum',
+	topic: '/forum/topic/*'
 };
