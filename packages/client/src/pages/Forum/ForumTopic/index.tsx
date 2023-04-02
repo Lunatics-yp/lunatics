@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {useLocation, NavLink} from 'react-router-dom';
+import {NavLink, useParams} from 'react-router-dom';
 import {PATHS} from 'client/src/routers/name';
 import {Avatar} from 'client/src/components/Avatar';
 import {Button} from 'client/src/components/Button';
@@ -14,9 +14,7 @@ const dataMock = [
 type TDataMock = {id: number; isOwner: boolean; text: string};
 
 export const ForumTopic = () => {
-	const {pathname} = useLocation();
-	const topicName = pathname.slice(13);
-
+	const topicName = useParams().topicTitle;
 	const [isFocusing, setIsfocusing] = useState(false);
 	const [messages, setMessages] = useState(dataMock);
 	const newMessage = useInput('');
@@ -58,7 +56,7 @@ export const ForumTopic = () => {
 							<h2>Темы</h2>
 						</NavLink>
 						<span className={styles.arrow}>{'>'}</span>
-						<h2>Просмотр темы {topicName} </h2>
+						<h2 className={styles.title}>Просмотр темы {topicName} </h2>
 					</div>
 					<div className={styles.header__right}>
 						<Button
@@ -73,7 +71,7 @@ export const ForumTopic = () => {
 				<div className={styles.footer}>
 					<div className={styles.reply}>
 						<div className={styles.reply__avatar}>
-							<Avatar size='small' />
+							<Avatar size='small'/>
 						</div>
 						<div className={styles.reply__field}>
 							<textarea

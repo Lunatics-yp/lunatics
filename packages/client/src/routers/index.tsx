@@ -25,7 +25,7 @@ export const router = createBrowserRouter([
 				element: <ForumBox />
 			},
 			{
-				path: PATHS.topic,
+				path: ':topicTitle',
 				element: <ForumTopic />
 			}
 		]
