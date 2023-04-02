@@ -40,5 +40,3 @@ export const Message = ({message}: TMessageProps) => {
 		</div>
 	);
 };
-
-

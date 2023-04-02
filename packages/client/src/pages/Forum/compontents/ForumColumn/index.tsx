@@ -21,4 +21,3 @@ export const ForumColumn = ({forum='New Topic', topics=0, answers=0, id=0}) => {
 		</div>
 	);
 };
-
