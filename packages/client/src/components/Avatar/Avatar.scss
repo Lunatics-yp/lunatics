@@ -1,15 +1,16 @@
-@import 'client/src/styles/app';
-
+@import "client/src/styles/app";
 .avatar {
 	@include flexCenter;
-
 	margin: 5px;
 
+	&__input {
+		display: none;
+	}
 	&__img {
 		width: 35px;
 		height: 35px;
 		border-radius: 50%;
-		object-fit:cover;
+		object-fit: cover;
 	}
 
 	&--large {
@@ -21,7 +22,7 @@
 		width: 80px;
 		height: 80px;
 	}
-	
+
 	&--small {
 		width: 35px;
 		height: 35px;
