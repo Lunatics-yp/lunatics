@@ -90,8 +90,12 @@ export const ForumTopic = () => {
 					{isFocusing && (
 						<div className={styles.footer__control}>
 							<div className={styles.footer__actions}>
-								<Button text='Отмена' onClick={onCancelHandler}/>
-								<Button text='Отправить' onClick={onSubmitHandler}/>
+								<Button text='Отмена'  onClick={onCancelHandler}
+									className={`${styles.cancel} ${styles.defaultBtn}`}
+								/>
+								<Button text='Отправить' onClick={onSubmitHandler}
+									className={`${styles.submit} ${styles.defaultBtn}`}
+								/>
 							</div>
 						</div>
 					)}
