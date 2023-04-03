@@ -28,7 +28,7 @@ export const PageRegister: FC<RegisterPageProps> = () => {
 			<div>
 				<Form className="form" onSubmit={handleSubmit}>
 					<Input
-						value={values['login']}
+						value={values['login'] ? values['login'] : '' }
 						label='Логин'
 						name ='login'
 						onChange={onChange}
@@ -39,7 +39,7 @@ export const PageRegister: FC<RegisterPageProps> = () => {
 					<Input
 						label='E-mail'
 						type='email'
-						value={values['email']}
+						value={values['email'] ? values['email'] : ''}
 						name ='email'
 						onChange={onChange}
 					/>
@@ -49,7 +49,7 @@ export const PageRegister: FC<RegisterPageProps> = () => {
 					<Input
 						label='Пароль'
 						type='password'
-						value={values['password']}
+						value={values['password'] ? values['password'] : ''}
 						name ='password'
 						onChange={onChange}
 					/>
