@@ -6,7 +6,7 @@ export type InputType = 'text' | 'password' | 'email' | 'tel' | 'file';
 export type InputProps = {
 	// Заголовок
 	label?: string;
-	// Изначальный текст в инпуте
+	// значение инпута
 	value?:  string | number | readonly string[] | undefined;
 	// Input type
 	type?: InputType;
@@ -15,7 +15,7 @@ export type InputProps = {
 	// Input placeholder
 	placeholder?: string;
 	// Метод, вызываемый при изменении текста в инпуте
-	handleChange?: ChangeEventHandler<HTMLInputElement> | undefined;
+	onChange?: ChangeEventHandler<HTMLInputElement> | undefined;
 	// Метод, вызываемый при потере фокуса в инпуте
 	onBlur?: Fn<void, string>;
 };

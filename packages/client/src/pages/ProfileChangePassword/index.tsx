@@ -31,7 +31,7 @@ export const PageProfileChangePassword = () => {
 					<Input
 						label='Текущий пароль'
 						type='password'
-						text='gfhjkm'
+						value='gfhjkm'
 					/>
 					<Input
 						label='Новый пароль'

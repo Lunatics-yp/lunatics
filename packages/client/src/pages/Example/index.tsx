@@ -20,10 +20,6 @@ export const PageExample = () => {
 		console.log('Свич', value);
 	};
 
-	const inputCallback = (text: string) => {
-		console.log('Инпут', text);
-	};
-
 	return (
 		<div className='pageExample'>
 			<Header>Заголовок</Header>
@@ -40,9 +36,7 @@ export const PageExample = () => {
 					onSwitch={switchCallback}
 				></Switch>
 				<Input
-					text='Инпут'
-					onChange={inputCallback}
-					onBlur={inputCallback}
+					value='Инпут'
 				/>
 				<Button
 					text='Кнопка 1'

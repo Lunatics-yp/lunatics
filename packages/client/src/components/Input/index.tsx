@@ -11,9 +11,8 @@ export const Input: FC<InputProps> = (props) => {
 		onBlur,
 		value,
 		name,
-		handleChange
+		onChange
 	} = props;
-
 	const onBlurHandler = () => {
 		if (onBlur) {
 			if (typeof value === 'string') {
@@ -29,7 +28,7 @@ export const Input: FC<InputProps> = (props) => {
 					value={value}
 					type={type}
 					name={name}
-					onChange={handleChange}
+					onChange={onChange}
 					onBlur={onBlurHandler}
 				/>
 				<div className='underLine'></div>

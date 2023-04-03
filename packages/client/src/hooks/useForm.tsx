@@ -65,7 +65,7 @@ export const useForm = (callback: Fn<void>) => {
 		}
 	};
 
-	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+	const onChange = (event: ChangeEvent<HTMLInputElement>) => {
 		if(submitError) {
 			setSubmitError('');
 		}
@@ -92,7 +92,7 @@ export const useForm = (callback: Fn<void>) => {
 	return {
 		values,
 		errors,
-		handleChange,
+		onChange,
 		handleSubmit,
 		submitError
 	};

@@ -14,7 +14,7 @@ export const PageAuth = () => {
 		console.log('Form is submitted');
 		console.log('Form Values ', values);
 	};
-	const {handleChange, values,errors, handleSubmit, submitError} = useForm(formAuth);
+	const {onChange, values,errors, handleSubmit, submitError} = useForm(formAuth);
 
 	const buttonBackHandler = () => {
 		navigate('/');
@@ -29,7 +29,7 @@ export const PageAuth = () => {
 						value={values['login']}
 						label='Логин'
 						name ='login'
-						handleChange={handleChange}
+						onChange={onChange}
 					/>
 					{
 						errors['login'] && <p className='formError'>{errors['login']}</p>
@@ -39,7 +39,7 @@ export const PageAuth = () => {
 						type='password'
 						value={values['password']}
 						name ='password'
-						handleChange={handleChange}
+						onChange={onChange}
 					/>
 					{
 						errors['password'] && <p className='formError'>{errors['password']}</p>

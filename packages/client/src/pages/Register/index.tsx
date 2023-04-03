@@ -21,7 +21,7 @@ export const PageRegister: FC<RegisterPageProps> = () => {
 	};
 
 	const navigate = useNavigate();
-	const {handleChange, values,errors, handleSubmit, submitError} = useForm(formRegister);
+	const {onChange, values,errors, handleSubmit, submitError} = useForm(formRegister);
 	return (
 		<div className='pageRegister'>
 			<Header>Регистрация</Header>
@@ -31,7 +31,7 @@ export const PageRegister: FC<RegisterPageProps> = () => {
 						value={values['login']}
 						label='Логин'
 						name ='login'
-						handleChange={handleChange}
+						onChange={onChange}
 					/>
 					{
 						errors['login'] && <p className='formError'>{errors['login']}</p>
@@ -41,7 +41,7 @@ export const PageRegister: FC<RegisterPageProps> = () => {
 						type='email'
 						value={values['email']}
 						name ='email'
-						handleChange={handleChange}
+						onChange={onChange}
 					/>
 					{
 						errors['email'] && <p className='formError'>{errors['email']}</p>
@@ -51,7 +51,7 @@ export const PageRegister: FC<RegisterPageProps> = () => {
 						type='password'
 						value={values['password']}
 						name ='password'
-						handleChange={handleChange}
+						onChange={onChange}
 					/>
 					{
 						errors['password'] && <p className='formError'>{errors['password']}</p>
