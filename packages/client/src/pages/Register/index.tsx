@@ -1,36 +1,36 @@
+import {FC, FormEventHandler} from 'react';
 import {Form, useNavigate} from 'react-router-dom';
 import {Header} from 'client/src/components/Header';
 import {Button} from 'client/src/components/Button';
 import {Input} from 'client/src/components/Input';
 import {Footer} from 'client/src/components/Footer';
-import './register.scss';
+import {InputsNames, useForm} from 'client/src/hooks/useForm';
 import 'client/src/styles/form.scss';
 import 'client/src/components/Button/button.scss';
-import {useForm} from 'client/src/hooks/useForm';
-import {FC, FormEventHandler} from 'react';
+import './register.scss';
 
-type RegisterPageProps = {
+type TRegisterPageProps = {
 	onSubmit?: FormEventHandler<HTMLFormElement>;
 };
-export const PageRegister: FC<RegisterPageProps> = () => {
+export const PageRegister: FC<TRegisterPageProps> = () => {
 
 	//Функция, вызываемая при событии submit
-	const formRegister = () => {
+	const onFormRegister = () => {
 		console.log('Form is submitted');
 		console.log('Form Values ', values);
 	};
 
 	const navigate = useNavigate();
-	const {onChange, values,errors, handleSubmit, submitError} = useForm(formRegister);
+	const {onChange, values,errors, handleSubmit, submitError} = useForm(onFormRegister);
 	return (
 		<div className='pageRegister'>
 			<Header>Регистрация</Header>
 			<div>
 				<Form className="form" onSubmit={handleSubmit}>
 					<Input
-						value={values['login'] ? values['login'] : '' }
+						value={values['login'] ?? '' }
 						label='Логин'
-						name ='login'
+						name ={InputsNames.login}
 						onChange={onChange}
 					/>
 					{
@@ -39,8 +39,8 @@ export const PageRegister: FC<RegisterPageProps> = () => {
 					<Input
 						label='E-mail'
 						type='email'
-						value={values['email'] ? values['email'] : ''}
-						name ='email'
+						value={values['email'] ?? ''}
+						name ={InputsNames.email}
 						onChange={onChange}
 					/>
 					{
@@ -49,18 +49,18 @@ export const PageRegister: FC<RegisterPageProps> = () => {
 					<Input
 						label='Пароль'
 						type='password'
-						value={values['password'] ? values['password'] : ''}
-						name ='password'
+						value={values['password'] ?? ''}
+						name ={InputsNames.password}
 						onChange={onChange}
 					/>
 					{
 						errors['password'] && <p className='formError'>{errors['password']}</p>
 					}
 					<div className="formGroup_btns">
-						<input
+						<Button
+							text='Зарегистрироваться'
 							type='submit'
-							className='button'
-							value='Зарегистрироваться'/>
+						/>
 						{
 							submitError && <p className='formError'>{submitError}</p>
 						}

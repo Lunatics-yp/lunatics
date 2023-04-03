@@ -8,12 +8,14 @@ type TButtonProps = {
 	// Текст кнопки
 	text: string;
 	// Метод, вызываемый при клике на кнопку
-	onClick: Fn<void>;
+	onClick?: Fn<void>;
+	type?: string
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 // Компонент кнопка
-export const Button: FC<TButtonProps> = ({text, className = 'button', onClick}) => {
+export const Button: FC<TButtonProps> = (props) => {
+	const {text, className = 'button', onClick} = props;
 	return (
-		<button className={className} onClick={onClick}>{text}</button>
+		<button {...props} className={className} onClick={onClick}>{text}</button>
 	);
 };

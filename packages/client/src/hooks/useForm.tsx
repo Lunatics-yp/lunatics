@@ -2,6 +2,12 @@ import {ChangeEvent, useState} from 'react';
 import {Fn} from 'client/src/types';
 import {REG_EMAIL, REG_LOGIN, REG_PASSWORD} from 'client/src/regExp';
 
+export enum InputsNames {
+	login = 'login',
+	email = 'email',
+	password = 'password'
+}
+
 function omit(obj: Record<string, string>, fields: string) {
 	const result = {};
 	Object.keys(obj).forEach(element => {
@@ -20,7 +26,7 @@ export const useForm = (callback: Fn<void>) => {
 	const validate = ( name: string, value: string) => {
 
 		switch (name) {
-		case 'login':
+		case InputsNames.login :
 			if (!REG_LOGIN.test(value)) {
 				setErrors({
 					...errors,
@@ -33,7 +39,7 @@ export const useForm = (callback: Fn<void>) => {
 			}
 			break;
 
-		case 'email':
+		case InputsNames.email:
 			if (
 				!REG_EMAIL.test(value)
 			) {
@@ -47,7 +53,7 @@ export const useForm = (callback: Fn<void>) => {
 			}
 			break;
 
-		case 'password':
+		case InputsNames.password:
 			if (
 				!REG_PASSWORD.test(value)
 			) {
