@@ -2,22 +2,21 @@
 
 .header {
 	display: grid;
-	grid-template-columns: 2fr 1fr;
-	margin: 20px 100px;
 
 	&__right{
-		display: flex;
-		justify-content: space-between;
+		letter-spacing: 1px;
 	}
 
 	&__left{
-		@include flexCenter;
-		
-		justify-content: flex-start;
+		display: flex;
+		width: 100%;
+		padding-left: 30px;
+		font-weight: 700;
 	}
 }
 
 .title {
 	color: var(--colorWhite);
 	font-size: 24px;
+	text-align: center;
 }

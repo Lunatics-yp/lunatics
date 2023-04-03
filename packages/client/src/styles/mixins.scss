@@ -34,6 +34,20 @@
 
 @mixin buttonHover {
 	&:hover {
+		transition: all 500ms ease-in-out;
+		transform: translateX(25px);
+		border-bottom: 2px solid var(--colorBlueLight);
+		opacity: 0.9;
+	}
+
+	&:active {
 		border-bottom: 2px solid var(--colorYellow);
+	}
+}
+
+@mixin linkReset {
+	a {
+		text-decoration: none;
+		color: inherit;
 	}
 }

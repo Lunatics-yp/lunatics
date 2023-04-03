@@ -5,7 +5,6 @@ import {ForumHeader} from '../ForumHeader';
 import {Button} from 'client/src/components/Button';
 import styles from './ForumBox.module.scss';
 
-
 const dataMock = [
 	{
 		id: 1,
@@ -66,27 +65,29 @@ export const ForumBox = () => {
 	}
 
 	return (
-		<div className={styles.wrapper}>
-			<ForumHeader/>
-			<div className={styles.create_forum}>
-				<input
-					onChange={newTopic.onChange}
-					value={newTopic.value}
-					type='text'
-					placeholder='Новая тема'
-				/>
-				<div className={styles.button}>
-					<Button
-						disabled={!newTopic.value}
-						text='Создать форум'
-						onClick={createTopic}
+		<>
+			<div className={styles.wrapper}>
+				<div className={styles.topic__list}>
+					<ForumHeader/>
+					<div></div>
+					<input
+						onChange={newTopic.onChange}
+						value={newTopic.value}
+						type='text'
+						placeholder='Новая тема'
+						className={styles.input}
+						maxLength={50}
 					/>
+					<div className={styles.button}>
+						<Button
+							disabled={!newTopic.value}
+							text='Создать форум'
+							onClick={createTopic}
+						/>
+					</div>
+					{ForumColumnElements.reverse()}
 				</div>
 			</div>
-			<div className={styles.topic__list}>
-				{ForumColumnElements}
-			</div>
-		</div>
+		</>
 	);
 };
-
