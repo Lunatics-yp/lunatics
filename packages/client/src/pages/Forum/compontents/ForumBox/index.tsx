@@ -35,10 +35,10 @@ type TDataMock = {
 
 export const ForumBox = () => {
 
-	const [value, setValue] = useState(dataMock);
+	const [forumTopics, setFormTopics] = useState(dataMock);
 	const newTopic = useInput('');
 
-	const ForumColumnElements = value.map((forum: TDataMock) => (
+	const ForumColumnElements = forumTopics.map((forum: TDataMock) => (
 		<ForumColumn
 			key={forum.id}
 			id={forum.id}
@@ -52,7 +52,7 @@ export const ForumBox = () => {
 
 		if (newTopic.value) {
 
-			setValue(prev => [...prev, {
+			setFormTopics(prev => [...prev, {
 				id: prev[prev.length-1].id + 1 ,
 				forums: newTopic.value,
 				topics: 0,
