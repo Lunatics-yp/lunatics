@@ -5,13 +5,16 @@ import {Input} from 'client/src/components/Input';
 import {Footer} from 'client/src/components/Footer';
 import './auth.scss';
 import 'client/src/styles/form.scss';
+import {useForm} from 'client/src/hooks/useForm';
 
 export const PageAuth = () => {
 	const navigate = useNavigate();
-
-	const buttonSubmitHandler = () => {
-		console.log('Отправка формы');
+	//Функция, вызываемая при событии submit
+	const formAuth = () => {
+		console.log('Form is submitted');
+		console.log('Form Values ', values);
 	};
+	const {handleChange, values,errors, handleSubmit, submitError} = useForm(formAuth);
 
 	const buttonBackHandler = () => {
 		navigate('/');
@@ -21,19 +24,34 @@ export const PageAuth = () => {
 		<div className='pageAuth'>
 			<Header>Авторизация</Header>
 			<div>
-				<Form className="form">
+				<Form className="form" onSubmit={handleSubmit}>
 					<Input
+						value={values['login']}
 						label='Логин'
+						name ='login'
+						handleChange={handleChange}
 					/>
+					{
+						errors['login'] && <p className='formError'>{errors['login']}</p>
+					}
 					<Input
 						label='Пароль'
 						type='password'
+						value={values['password']}
+						name ='password'
+						handleChange={handleChange}
 					/>
+					{
+						errors['password'] && <p className='formError'>{errors['password']}</p>
+					}
 					<div className="formGroup_btns">
-						<Button
-							text='Авторизоваться'
-							onClick={buttonSubmitHandler}
-						/>
+						<input
+							type='submit'
+							className='button'
+							value='Авторизоваться'/>
+						{
+							submitError && <p className='formError'>{submitError}</p>
+						}
 						<Button
 							text='Вернуться на главную'
 							onClick={buttonBackHandler}
