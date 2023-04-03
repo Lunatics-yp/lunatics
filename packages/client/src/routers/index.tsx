@@ -16,6 +16,7 @@ import {ForumBox} from 'client/src/pages/Forum/compontents/ForumBox';
 import {PageAuth} from 'client/src/pages/Auth';
 import {PageProfile} from 'client/src/pages/Profile';
 import {PageProfileChangePassword} from 'client/src/pages/ProfileChangePassword';
+import {ForumDiscussion} from 'client/src/pages/Forum/ForumDiscussion';
 
 export const router = createBrowserRouter([
 	{
@@ -24,15 +25,21 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: PATHS.forum,
-		element: <Forum />,
+		element: <Forum/>,
 		children: [
 			{
 				path: PATHS.forum,
-				element: <ForumBox />
+				element: <ForumBox/>
 			},
 			{
-				path: ':topicTitle',
-				element: <ForumTopic />
+				path: ':disccussionTitle',
+				element: <ForumDiscussion />,
+				children: [
+					{
+						path: ':topicTitle',
+						element: <ForumTopic />
+					}
+				]
 			}
 		]
 	},

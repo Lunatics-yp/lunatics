@@ -2,6 +2,7 @@
 
 .wrapper {
 	@include linkReset;
+	@include headerForumTopicWithLinks;
 
 	display: flex;
 	justify-content: center;
@@ -26,53 +27,12 @@
 	  }
 }
 
-.header{
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	padding: 0 20px;
-	color: var(--colorBackground);
-
-	&__left {
-		display: flex;
-		align-items: flex-start;
-		column-gap: 20px;
-
-		a {
-			color: var(--colorBlueSky);
-
-			&:hover {
-				opacity: 0.7;
-			}
-		}
-	}
-
-	&__right {
-		width: 200px;
-		margin: 20px;
-	}
-}
-
-.title {
-	text-overflow: ellipsis;
-	word-break: break-word;
-}
-
-.arrow {
-	@include flexCenter;
-
-	font-weight: 700;
-	margin: 20px 0;
-	font-size: 1.5em;
-}
-
 .container {
 	margin-top: 15px;
 	width: 80%;
 	background-color: var(--colorBlueWhite);
 	border: 2px solid var(--colorGreyLight);
 	border-radius: 1rem;
-
 
 	&__messages {
 		max-height: 356px;

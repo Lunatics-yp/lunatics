@@ -9,7 +9,7 @@ export const PATHS = {
 	page404: '/page404',
 	register: '/register',
 	forum: '/forum',
-	topic: '/forum/topic/*',
+	topic: '/forum/topic',
 	auth: '/auth',
 	profile: '/profile',
 	profileChangePassword: '/profileChangePassword'

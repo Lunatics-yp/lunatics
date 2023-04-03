@@ -1,0 +1,27 @@
+@import 'client/src/styles/app';
+
+.wrapper {
+	@include linkReset;
+	@include headerForumTopicWithLinks;
+
+	display: flex;
+	justify-content: center;
+}
+
+.title {
+	&_base {
+	color: var(--colorBlueWhite);
+	}
+}
+
+.container {
+	margin-top: 15px;
+	width: 80%;
+	border-radius: 1rem;
+	padding: 0 20px;
+
+	&__elements {
+		display: grid;
+
+	}
+}

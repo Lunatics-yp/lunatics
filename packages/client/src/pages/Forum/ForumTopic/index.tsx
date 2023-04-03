@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {NavLink, useParams} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import {PATHS} from 'client/src/routers/name';
 import {Avatar} from 'client/src/components/Avatar';
 import {Button} from 'client/src/components/Button';
@@ -52,11 +52,15 @@ export const ForumTopic = () => {
 			<div className={styles.container}>
 				<header className={styles.header}>
 					<div className={styles.header__left}>
-						<NavLink to={PATHS.forum}>
-							<h2>Темы</h2>
-						</NavLink>
+						<Link to={PATHS.forum}>
+							<h2 className={styles.title}>Форумы</h2>
+						</Link>
 						<span className={styles.arrow}>{'>'}</span>
-						<h2 className={styles.title}>Просмотр темы {topicName} </h2>
+						<Link to={PATHS.topic}>
+							<h2 className={styles.title}>Темы</h2>
+						</Link>
+						<span className={styles.arrow}>{'>'}</span>
+						<h2 className={styles.title_color}>{topicName}</h2>
 					</div>
 					<div className={styles.header__right}>
 						<Button
