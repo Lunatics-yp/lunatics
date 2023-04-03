@@ -9,6 +9,7 @@ export const Input: FC<InputProps> = (props) => {
 		label = '',
 		text = '',
 		type = 'text',
+		name = '',
 		onChange = undefined,
 		onBlur = undefined
 	} = props;
@@ -19,7 +20,7 @@ export const Input: FC<InputProps> = (props) => {
 		const value = e.target.value;
 		setValue(value);
 		if (onChange) {
-			onChange(value);
+			onChange(value, name);
 		}
 	};
 
@@ -38,6 +39,7 @@ export const Input: FC<InputProps> = (props) => {
 					type={type}
 					onChange={onChangeHandler}
 					onBlur={onBlurHandler}
+					name={name}
 				/>
 				<div className='underLine'></div>
 			</div>

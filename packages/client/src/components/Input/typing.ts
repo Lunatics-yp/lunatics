@@ -11,6 +11,7 @@ export type InputProps = {
 	type?: InputType;
 	// Input placeholder
 	placeholder?: string;
+	name?: string;
 	// Метод, вызываемый при изменении текста в инпуте
 	onChange?: Fn<void, string>;
 	// Метод, вызываемый при потере фокуса в инпуте
