@@ -16,6 +16,10 @@ export const MainMenuMain = () => {
 		console.log('Клик по кнопке');
 	};
 
+	const goToForum = () => {
+		navigate(`${PATHS.forum}`);
+	};
+
 	return (
 		<>
 			<Header>Главное меню</Header>
@@ -37,7 +41,7 @@ export const MainMenuMain = () => {
 					}}/>
 				<Button
 					text='Форум'
-					onClick={callbackNull}/>
+					onClick={goToForum}/>
 				<Button
 					text='Авторы'
 					onClick={callbackNull}/>

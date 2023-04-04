@@ -8,6 +8,7 @@
 	background-color: var(--colorBackgroud);
 	padding: 7px 0;
 	margin: 0 20px;
+	transition: all var(--AnimationTimeBase);
 
 	&__title {
 		@include flexCenter;
@@ -50,29 +51,31 @@
 	background-color: var(--colorYellowBlue);
 	width: 100%;
 	border-radius: 2px;
+	transition: all var(--AnimationTimeBase);
 
 	p {
 		margin: 18px 0;
 		color: var(--colorWhite);
 		font-size: 20px;
+		transition: all var(--AnimationTimeBase);
 	}
 }
 
 a:hover {
 		.element {
 			&__title {
-			transition: all 500ms;
+			transition: all var(--AnimationTimeBase);
 			background-color: var(--colorYellowGrayishDark);
 		}
 	}
 }
 
 a:hover .title {
-	transition: all 500ms;
+	transition: all var(--AnimationTimeBase);
 	background-color: var(--colorYellowDirt);
 
 	p {
-		transition: all 500ms;
+		transition: all var(--AnimationTimeBase);
 		color: var(--colorSlateGrey);
 	}
 }

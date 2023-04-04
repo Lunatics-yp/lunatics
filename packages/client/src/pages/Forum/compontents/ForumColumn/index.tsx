@@ -1,7 +1,11 @@
+import {FC} from 'react';
 import {NavLink} from 'react-router-dom';
+import {TForumColumnProps} from './typing';
 import styles from './ForumColumn.module.scss';
 
-export const ForumColumn = ({forum = 'New Topic', topics = 0, answers = 0, id = 0}) => {
+export const ForumColumn:FC<TForumColumnProps> = (props) => {
+	const {forum, topics = 0, answers = 0, id = 0} = props;
+
 	return (
 		<>
 			<NavLink to={forum} className={styles.link}>

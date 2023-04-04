@@ -1,10 +1,10 @@
+import {FC} from 'react';
 import {Avatar} from 'client/src/components/Avatar';
 import styles from './Message.module.scss';
 import {TMessageProps} from './typing';
 
-export const Message = ({message}: TMessageProps) => {
-	const {isOwner} = message;
-	const messageTest = message.text;
+export const Message: FC<TMessageProps> = ({message}) => {
+	const {isOwner, text} = message;
 	return (
 		<div className={styles.wrapper}>
 			{!isOwner && <Avatar size='medium'/>}
@@ -17,7 +17,7 @@ export const Message = ({message}: TMessageProps) => {
 					</span>
 					<span className={styles.message__date}>23 мар 2023 в 21:31</span>
 				</div>
-				<p>{messageTest}</p>
+				<p>{text}</p>
 				{/* Чтобы сделать цвет красным нужно добавить класс ${styles.like} */}
 				<div className={`${styles.message__reaction}`}>
 					<svg

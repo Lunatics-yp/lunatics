@@ -20,7 +20,7 @@
 			90% 110%,
 			0% 100%
 	);
-	transition: all 500ms;
+	transition: all var(--AnimationTimeBase);
 	transform: translateX(0);
 	opacity: 0.9;
 

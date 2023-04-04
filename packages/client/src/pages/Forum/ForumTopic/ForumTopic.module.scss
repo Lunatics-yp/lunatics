@@ -1,8 +1,7 @@
 @import 'client/src/styles/app';
 
 .wrapper {
-	@include linkReset;
-	@include headerForumTopicWithLinks;
+	// @include linkReset;
 
 	display: flex;
 	justify-content: center;
@@ -10,13 +9,13 @@
 	*::-webkit-scrollbar {
 		width: 12px;
 
-	  }
+	}
 
-	  *::-webkit-scrollbar-track {
+	*::-webkit-scrollbar-track {
 		background: var(--colorBlueWhite);
-	  }
+	}
 
-	  *::-webkit-scrollbar-thumb {
+	*::-webkit-scrollbar-thumb {
 		background-color: var(--colorWhiteSmoke);
 		border-radius: 10px;
 		border: 3px solid  var(--colorBlueWhite);
@@ -24,7 +23,7 @@
 		&:hover {
 		  background-color: var(--colorGreyLight);
 		}
-	  }
+	}
 }
 
 .container {

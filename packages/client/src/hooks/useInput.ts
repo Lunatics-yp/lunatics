@@ -8,11 +8,15 @@ export function useInput(initialValue: string) {
 	}
 
 	function reset () {
+		setValue(initialValue);
+	}
+
+	function nulling () {
 		setValue('');
 	}
 
 	return {
-		value, onChange, reset
+		value, onChange, reset, nulling
 	};
 
 }

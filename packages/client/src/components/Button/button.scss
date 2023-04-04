@@ -18,7 +18,7 @@
 	border:none;
 
 	&:disabled {
-		transition: all 500ms;
+		transition: all var(--AnimationTimeBase);
 		opacity: 0.7;
 		color: var(--colorYellowWhite)
 	}

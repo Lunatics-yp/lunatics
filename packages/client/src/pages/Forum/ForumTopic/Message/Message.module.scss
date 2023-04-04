@@ -60,16 +60,15 @@
 			cursor: pointer;
 		}
 
-		svg	{
+		svg {
 			fill: transparent;
 			width: 16px;
 			height: 13px;
 			display: block;
 			stroke: var(--colorSlateGrey);
 			transform: scale(1);
-			transition: all 200ms;
-			transition: transform 500ms;
-
+			transition: all var(--AnimationTimeSmall);
+			transition: transform var(--AnimationTimeBase);
 		}
 
 		&:hover {
@@ -81,8 +80,8 @@
 			fill: var(--colorRadicalRed);
 			stroke: var(--colorRadicalRed);
 			transform: scale(1.3);
-			transition: all 200ms ease;
-			transition: transform 500ms ease;
+			transition: all var(--AnimationTimeSmall) ease;
+			transition: transform var(--AnimationTimeBase) ease;
 		}
 	}
 

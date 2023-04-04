@@ -15,6 +15,10 @@ export const PageExample = () => {
 		console.log('Клик');
 	};
 
+	const goToForum = () => {
+		navigate(`${PATHS.forum}`);
+	};
+
 	// Тест работы гит
 
 	const switchCallback = (value: number) => {
@@ -61,10 +65,8 @@ export const PageExample = () => {
 				/>
 				<Link to='/test'>Переход на страницу test</Link>
 				<Button
-					text='Переход на страницу forum'
-					onClick={() => {
-						navigate(PATHS.forum);
-					}}
+					text='Переход на страницу Форум'
+					onClick={goToForum}
 				/>
 			</Menu>
 			<Footer>Подвал</Footer>

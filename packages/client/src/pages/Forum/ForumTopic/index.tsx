@@ -1,9 +1,8 @@
 import {useState} from 'react';
-import {Link, useParams} from 'react-router-dom';
-import {PATHS} from 'client/src/routers/name';
 import {Avatar} from 'client/src/components/Avatar';
 import {Button} from 'client/src/components/Button';
 import {useInput} from 'client/src/hooks/useInput';
+import {ForumTopicHeader} from './ForumTopicHeader/ForumTopicHeader';
 import {Message} from './Message';
 import styles from './ForumTopic.module.scss';
 
@@ -14,14 +13,13 @@ const dataMock = [
 type TDataMock = {id: number; isOwner: boolean; text: string};
 
 export const ForumTopic = () => {
-	const topicName = useParams().topicTitle;
 	const [isFocusing, setIsfocusing] = useState(false);
 	const [messages, setMessages] = useState(dataMock);
 	const newMessage = useInput('');
 
 	function onCancelHandler() {
 		setIsfocusing(false);
-		newMessage.reset();
+		newMessage.nulling();
 	}
 
 	function onFocusHandler() {
@@ -36,7 +34,7 @@ export const ForumTopic = () => {
 				text: newMessage.value
 			}]);
 
-			newMessage.reset();
+			newMessage.nulling();
 		}
 	}
 
@@ -50,25 +48,7 @@ export const ForumTopic = () => {
 	return (
 		<main className={styles.wrapper}>
 			<div className={styles.container}>
-				<header className={styles.header}>
-					<div className={styles.header__left}>
-						<Link to={PATHS.forum}>
-							<h2 className={styles.title}>Форумы</h2>
-						</Link>
-						<span className={styles.arrow}>{'>'}</span>
-						<Link to={PATHS.topic}>
-							<h2 className={styles.title}>Темы</h2>
-						</Link>
-						<span className={styles.arrow}>{'>'}</span>
-						<h2 className={styles.title_color}>{topicName}</h2>
-					</div>
-					<div className={styles.header__right}>
-						<Button
-							text='Редактировать тему'
-							onClick={()=>{console.log('Открытие модального окна');}}
-						/>
-					</div>
-				</header>
+				<ForumTopicHeader/>
 				<div className={styles.container__messages}>
 					{MessageElements}
 				</div>

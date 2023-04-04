@@ -52,12 +52,12 @@ export const ForumBox = () => {
 
 		if (newTopic.value) {
 
-			setFormTopics(prev => [...prev, {
+			setFormTopics(prev => [{
 				id: prev[prev.length-1].id + 1 ,
 				forums: newTopic.value,
 				topics: 0,
 				answers: 0
-			}]);
+			}, ...prev]);
 		}
 
 		newTopic.reset();
@@ -65,29 +65,27 @@ export const ForumBox = () => {
 	}
 
 	return (
-		<>
-			<div className={styles.wrapper}>
-				<div className={styles.topic__list}>
-					<ForumHeader/>
-					<div></div>
-					<input
-						onChange={newTopic.onChange}
-						value={newTopic.value}
-						type='text'
-						placeholder='Новая тема'
-						className={styles.input}
-						maxLength={50}
+		<div className={styles.wrapper}>
+			<div className={styles.topic__list}>
+				<ForumHeader/>
+				<div></div>
+				<input
+					onChange={newTopic.onChange}
+					value={newTopic.value}
+					type='text'
+					placeholder='Новая тема'
+					className={styles.input}
+					maxLength={50}
+				/>
+				<div className={styles.button}>
+					<Button
+						disabled={!newTopic.value}
+						text='Создать форум'
+						onClick={createTopic}
 					/>
-					<div className={styles.button}>
-						<Button
-							disabled={!newTopic.value}
-							text='Создать форум'
-							onClick={createTopic}
-						/>
-					</div>
-					{ForumColumnElements.reverse()}
 				</div>
+				{ForumColumnElements}
 			</div>
-		</>
+		</div>
 	);
 };
