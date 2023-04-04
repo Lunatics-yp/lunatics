@@ -1,13 +1,13 @@
 import {session} from './session';
 
 type TChangePassword = {
-	oldPassword: 'string';
-	newPassword: 'string';
+	oldPassword: string;
+	newPassword: string;
 };
 
 type TChangeUserForm = {
-	login: 'string';
-	email: 'string';
+	login: string;
+	email: string;
 };
 
 export const ProfileApi = {

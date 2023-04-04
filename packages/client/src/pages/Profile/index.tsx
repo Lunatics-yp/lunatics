@@ -23,13 +23,13 @@ export const PageProfile = () => {
 		ProfileApi.changeUserForm(loginEmail);
 	};
 
-	const onAvatarChange = (file) => {
+	const onAvatarChange = (file: string | Blob) => {
 		const formData = new FormData();
 		formData.append('avatar', file);
 		// api call change avatar
 	};
 
-	const onChangeInputName = (value, name) => {
+	const onChangeInputName = (value: string, name: string) => {
 		setLoginEmail(_prevValues => ({..._prevValues, [name]: value}));
 	};
 
