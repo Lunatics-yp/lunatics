@@ -23,11 +23,11 @@ export const PageProfile = () => {
 		ProfileApi.changeUserForm(loginEmail);
 	};
 
-	const onAvatarChange = (file: string | Blob) => {
-		const formData = new FormData();
-		formData.append('avatar', file);
-		// api call change avatar
-	};
+	// const onAvatarChange = (file: string | Blob) => {
+	// 	const formData = new FormData();
+	// 	formData.append('avatar', file);
+	// 	// api call change avatar
+	// };
 
 	const onChangeInputName = (value: string, name: string) => {
 		setLoginEmail(_prevValues => ({..._prevValues, [name]: value}));
@@ -48,7 +48,7 @@ export const PageProfile = () => {
 				<Avatar
 					size='large'
 					editable
-					onClick={onAvatarChange}
+				// onClick={onAvatarChange}
 				/>
 				<Input
 					label='Логин'
