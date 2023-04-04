@@ -1,6 +1,7 @@
 import {ChangeEvent, useState} from 'react';
 import {Fn} from 'client/src/types';
 import {REG_EMAIL, REG_LOGIN, REG_PASSWORD} from 'client/src/regExp';
+import {emailError, loginError, passwordError} from 'client/src/errors/errors';
 
 export enum InputsNames {
 	login = 'login',
@@ -30,8 +31,7 @@ export const useForm = (callback: Fn<void>) => {
 			if (!REG_LOGIN.test(value)) {
 				setErrors({
 					...errors,
-					login: ' Логин должен начинаться с буквы, может содержать ' +
-						'   латинские буквы и цифры, от 3 до 32 символов'
+					login: loginError
 				});
 			} else {
 				const newObj = omit(errors, 'login');
@@ -40,12 +40,10 @@ export const useForm = (callback: Fn<void>) => {
 			break;
 
 		case InputsNames.email:
-			if (
-				!REG_EMAIL.test(value)
-			) {
+			if (!REG_EMAIL.test(value)) {
 				setErrors({
 					...errors,
-					email: 'Email введен неверно'
+					email: emailError
 				});
 			} else {
 				const newObj = omit(errors, 'email');
@@ -54,14 +52,10 @@ export const useForm = (callback: Fn<void>) => {
 			break;
 
 		case InputsNames.password:
-			if (
-				!REG_PASSWORD.test(value)
-			) {
+			if (!REG_PASSWORD.test(value)) {
 				setErrors({
 					...errors,
-					password: 'Пароль должен содержать только латинские буквы, могут быть цифры,' +
-						' тире и подчеркивание, минимум одна строчная и одна заглавная буква, ' +
-						'минимум одна цифра, от 8 до 32 символов'
+					password: passwordError
 				});
 			} else {
 				const newObj = omit(errors, 'password');
