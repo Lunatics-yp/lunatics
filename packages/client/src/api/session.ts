@@ -12,7 +12,8 @@ session.interceptors.response.use(
 			window.location.href = '/';
 		}
 		if (error.response.status === 500) {
-			alert('500 error');
+			window.location.href = '/page500';
+			console.error(error.response);
 		}
 		return Promise.reject(error);
 	}
