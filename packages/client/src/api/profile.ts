@@ -1,12 +1,11 @@
 import {session} from './session';
 
-type changePassword = {
+type TChangePassword = {
 	oldPassword: 'string';
 	newPassword: 'string';
 };
 
-type changeUserForm = {
-
+type TChangeUserForm = {
 	login: 'string';
 	email: 'string';
 };
@@ -20,7 +19,7 @@ export default {
 		return session.get('/auth/user');
 	},
 
-	changePassword(usersPasswords: changePassword) {
+	changePassword(usersPasswords: TChangePassword) {
 		return session.put('/user/password', {changePasswordRequest: usersPasswords});
 	},
 
@@ -28,7 +27,7 @@ export default {
 		return session.put('/user/profile/avatar', form,
 			{headers: {'Content-Type': 'multipart/form-data'}});
 	},
-	changeUserForm(userForm: changeUserForm) {
+	changeUserForm(userForm: TChangeUserForm) {
 		return session.put('user/profile', {changeUserFormRequest: userForm});
 	}
 };
