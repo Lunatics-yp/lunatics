@@ -1,12 +1,11 @@
 import {session} from './session';
 
-type changePassword = {
+type TChangePassword = {
 	oldPassword: 'string';
 	newPassword: 'string';
 };
 
-type changeUserForm = {
-
+type TChangeUserForm = {
 	login: 'string';
 	email: 'string';
 };
