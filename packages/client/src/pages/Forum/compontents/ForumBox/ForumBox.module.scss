@@ -1,9 +1,9 @@
 @import 'client/src/styles/app';
 
 .wrapper {
-	margin: 20px 100px;
-
 	@include linkReset;
+
+	margin: 20px 100px;
 }
 
 .create {
