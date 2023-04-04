@@ -1,4 +1,4 @@
-export type AvatarProps = {
+export type TAvatarProps = {
 	src?: string;
 	alt?: string;
 	size: 'small' | 'medium' | 'large';

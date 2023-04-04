@@ -10,7 +10,7 @@ type TChangeUserForm = {
 	email: 'string';
 };
 
-export default {
+export const ProfileApi = {
 	getUserInfoByIdById(id: string) {
 		return session.get(`/user/${id}`);
 	},

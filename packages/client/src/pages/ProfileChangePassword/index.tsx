@@ -4,7 +4,7 @@ import {Header} from 'client/src/components/Header';
 import {Button} from 'client/src/components/Button';
 import {Input} from 'client/src/components/Input';
 import {Avatar} from 'client/src/components/Avatar';
-import profile from 'client/src/api/profile';
+import {ProfileApi} from 'client/src/api/profile';
 import 'client/src/styles/form.scss';
 import './profile.scss';
 
@@ -17,7 +17,7 @@ export const PageProfileChangePassword = () => {
 
 	const navigate = useNavigate();
 	const buttonCallback = () => {
-		profile.changePassword(passwords);
+		ProfileApi.changePassword(passwords);
 	};
 
 	const onInputChange = (value, name) => {
