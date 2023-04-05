@@ -21,7 +21,7 @@ export const PageRegister: FC<TRegisterPageProps> = () => {
 	};
 
 	const navigate = useNavigate();
-	const {onChange, values,errors, handleSubmit, submitError} = useForm(onFormRegister);
+	const {onChange, values, errors, handleSubmit, submitError} = useForm(onFormRegister);
 	return (
 		<div className='pageRegister'>
 			<Header>Регистрация</Header>
@@ -32,30 +32,24 @@ export const PageRegister: FC<TRegisterPageProps> = () => {
 						label='Логин'
 						name ={InputsNames.login}
 						onChange={onChange}
+						errors={errors}
 					/>
-					{
-						errors['login'] && <p className='formError'>{errors['login']}</p>
-					}
 					<Input
 						label='E-mail'
 						type='email'
 						value={values['email'] ?? ''}
 						name ={InputsNames.email}
 						onChange={onChange}
+						errors={errors}
 					/>
-					{
-						errors['email'] && <p className='formError'>{errors['email']}</p>
-					}
 					<Input
 						label='Пароль'
 						type='password'
 						value={values['password'] ?? ''}
 						name ={InputsNames.password}
 						onChange={onChange}
+						errors={errors}
 					/>
-					{
-						errors['password'] && <p className='formError'>{errors['password']}</p>
-					}
 					<div className="formGroup_btns">
 						<Button
 							text='Зарегистрироваться'

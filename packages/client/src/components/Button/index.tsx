@@ -14,8 +14,8 @@ type TButtonProps = {
 
 // Компонент кнопка
 export const Button: FC<TButtonProps> = (props) => {
-	const {text, className = 'button', onClick} = props;
+	const {text, className = 'button'} = props;
 	return (
-		<button {...props} className={className} onClick={onClick}>{text}</button>
+		<button {...props} className={className} >{text}</button>
 	);
 };

@@ -30,20 +30,16 @@ export const PageAuth = () => {
 						label='Логин'
 						name ={InputsNames.login}
 						onChange={onChange}
+						errors={errors}
 					/>
-					{
-						errors['login'] && <p className='formError'>{errors['login']}</p>
-					}
 					<Input
 						label='Пароль'
 						type='password'
 						value={values['password'] ?? ''}
 						name ={InputsNames.password}
 						onChange={onChange}
+						errors={errors}
 					/>
-					{
-						errors['password'] && <p className='formError'>{errors['password']}</p>
-					}
 					<div className="formGroup_btns">
 						<Button
 							text='Авторизоваться'

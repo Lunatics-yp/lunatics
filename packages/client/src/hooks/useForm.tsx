@@ -2,28 +2,18 @@ import {ChangeEvent, useState} from 'react';
 import {Fn} from 'client/src/types';
 import {REG_EMAIL, REG_LOGIN, REG_PASSWORD} from 'client/src/regExp';
 import {emailError, loginError, passwordError} from 'client/src/errors/errors';
+import {omit} from 'client/src/utils/omit';
 
 export enum InputsNames {
 	login = 'login',
 	email = 'email',
 	password = 'password'
 }
-
-function omit(obj: Record<string, string>, fields: string) {
-	const result = {};
-	Object.keys(obj).forEach(element => {
-
-		if(!fields.includes(element)) {
-			result[element] = obj[element];
-		}
-	});
-	return result;
-}
 export const useForm = (callback: Fn<void>) => {
 
-	const [values, setValues] = useState({});
-	const [errors, setErrors] = useState({});
-	const [submitError, setSubmitError] = useState('');
+	const [values, setValues] = useState<Record<string, string>>({});
+	const [errors, setErrors] = useState<Record<string, string>>({});
+	const [submitError, setSubmitError] = useState<string>('');
 	const validate = ( name: string, value: string) => {
 
 		switch (name) {
@@ -34,7 +24,7 @@ export const useForm = (callback: Fn<void>) => {
 					login: loginError
 				});
 			} else {
-				const newObj = omit(errors, 'login');
+				const newObj = omit(errors, ['login']);
 				setErrors(newObj);
 			}
 			break;
@@ -46,7 +36,7 @@ export const useForm = (callback: Fn<void>) => {
 					email: emailError
 				});
 			} else {
-				const newObj = omit(errors, 'email');
+				const newObj = omit(errors, ['email']);
 				setErrors(newObj);
 			}
 			break;
@@ -58,7 +48,7 @@ export const useForm = (callback: Fn<void>) => {
 					password: passwordError
 				});
 			} else {
-				const newObj = omit(errors, 'password');
+				const newObj = omit(errors, ['password']);
 				setErrors(newObj);
 			}
 			break;
@@ -69,14 +59,13 @@ export const useForm = (callback: Fn<void>) => {
 		if(submitError) {
 			setSubmitError('');
 		}
-		const name = event.target.name;
-		const val = event.target.value;
+		const {name, value} = event.target;
 
-		validate( name, val);
+		validate( name, value);
 
 		setValues({
 			...values,
-			[name]: val
+			[name]: value
 		});
 	};
 

@@ -11,15 +11,15 @@ export const Input: FC<InputProps> = (props) => {
 		onBlur,
 		value,
 		name,
-		onChange
+		onChange,
+		errors
 	} = props;
 	const onBlurHandler = () => {
-		if (onBlur) {
-			if (typeof value === 'string') {
-				onBlur(value);
-			}
+		if (onBlur && value) {
+			onBlur(value);
 		}
 	};
+
 	return (
 		<div className='formGroup'>
 			<Label label={label} />
@@ -30,9 +30,22 @@ export const Input: FC<InputProps> = (props) => {
 					name={name}
 					onChange={onChange}
 					onBlur={onBlurHandler}
+					data-errors={errors}
 				/>
 				<div className='underLine'></div>
 			</div>
+			{
+				name==='login' && errors && errors['login']  &&
+					<p className='formError'>{errors['login']}</p>
+			}
+			{
+				name==='email' && errors && errors['email'] &&
+					<p className='formError'>{errors['email']}</p>
+			}
+			{
+				name==='password' && errors && errors['password'] &&
+					<p className='formError'>{errors['password']}</p>
+			}
 		</div>
 	);
 };
