@@ -34,7 +34,7 @@
 
 @mixin buttonHover {
 	&:hover {
-		transition: all var(--AnimationTimeBase) ease-in-out;
+		transition: all var(--animationTimeBase) ease-in-out;
 		transform: translateX(25px);
 		border-bottom: 2px solid var(--colorBlueLight);
 		opacity: 0.9;

@@ -19,8 +19,6 @@ export const PageExample = () => {
 		navigate(`${PATHS.forum}`);
 	};
 
-	// Тест работы гит
-
 	const switchCallback = (value: number) => {
 		console.log('Свич', value);
 	};

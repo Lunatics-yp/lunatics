@@ -19,10 +19,14 @@ export const Message: FC<TMessageProps> = ({message}) => {
 					<span className={styles.message__date}>23 мар 2023 в 21:31</span>
 				</div>
 				<p>{text}</p>
-				{/* Чтобы сделать цвет красным нужно добавить класс ${styles.like} */}
 				<div className={`${styles.message__reaction}`}>
 					<Like/>
-					<span>1</span>
+					{/* Чтобы сделать цвет красным
+					нужно добавить класс ${styles.reaction__count_like}*/}
+					<span
+						className={`${styles.reaction__count}`}>
+						1
+					</span>
 				</div>
 			</div>
 		</div>

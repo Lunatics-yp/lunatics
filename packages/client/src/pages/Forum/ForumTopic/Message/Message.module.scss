@@ -5,17 +5,6 @@
 	border-top: 1px solid var(--colorGreyLight);
 }
 
-.like {
-	svg {
-		fill: var(--colorRadicalRed);
-		stroke: var(--colorRadicalRed);
-	}
-
-	span {
-		color: var(--colorRadicalRed);
-	}
-}
-
 .message {
 	position: relative;
 	border-radius: 12px;
@@ -55,33 +44,8 @@
 		height: 24px;
 		margin-right: 5px;
 
-
-		span {
-			cursor: pointer;
-		}
-
-		svg {
-			fill: transparent;
-			width: 16px;
-			height: 13px;
-			display: block;
-			stroke: var(--colorSlateGrey);
-			transform: scale(1);
-			transition: all var(--AnimationTimeSmall);
-			transition: transform var(--AnimationTimeBase);
-		}
-
 		&:hover {
 			cursor: pointer;
-		}
-
-		&:hover svg {
-			cursor: pointer;
-			fill: var(--colorRadicalRed);
-			stroke: var(--colorRadicalRed);
-			transform: scale(1.3);
-			transition: all var(--AnimationTimeSmall) ease;
-			transition: transform var(--AnimationTimeBase) ease;
 		}
 	}
 
@@ -98,5 +62,15 @@
 
 	&__date {
 		color: var(--colorSlateGrey);
+	}
+}
+
+.reaction {
+	&__count {
+		cursor: pointer;
+
+		&_like {
+			color: var(--colorRadicalRed);
+		}
 	}
 }

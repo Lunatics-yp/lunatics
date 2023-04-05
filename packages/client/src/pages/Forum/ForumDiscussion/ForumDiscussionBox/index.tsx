@@ -11,7 +11,7 @@ const dataMock = [
 ];
 
 export const ForumDiscussionBox = () => {
-	const topicName = useParams().disccussionTitle;
+	const {disccussionTitle} = useParams();
 	const topics = dataMock;
 
 	const topicElements = topics.map((topic) => (
@@ -33,7 +33,7 @@ export const ForumDiscussionBox = () => {
 						</Link>
 						<span className={`${styles.arrow} ${styles.title_base}`}>{'>'}</span>
 						<h2 className={`${styles.title} ${styles.title_base}`}>Просмотр форума</h2>
-						<h2 className={styles.title_base}>{topicName}</h2>
+						<h2 className={styles.title_base}>{disccussionTitle}</h2>
 					</div>
 					<div className={styles.header__right}>
 						<Button

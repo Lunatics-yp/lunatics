@@ -1,6 +1,14 @@
-export const Like = () => {
+import {FC} from 'react';
+import {TLikeProps} from './typing';
+import './Like.scss';
+
+export const Like: FC<TLikeProps> = (props) => {
+	const {color} = props;
+
+	const className = `like ${color ? `like--${color}` : ''}`;
 	return (
 		<svg
+			className={className}
 			fill='none'
 			viewBox='0 0 24 24'
 			strokeWidth={1.5}

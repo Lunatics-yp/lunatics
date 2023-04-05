@@ -74,7 +74,6 @@ export const router = createBrowserRouter([
 			{
 				path: PATHS.mainMenuSettings,
 				element: <MainMenuSettings/>
-
 			}
 		]
 	},

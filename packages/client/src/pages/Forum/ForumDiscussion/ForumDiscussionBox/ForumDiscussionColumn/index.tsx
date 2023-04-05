@@ -11,7 +11,7 @@ export const ForumDiscussionColumn: FC<TForumDiscussionColumnProps> = (props) =>
 			<Link to={`${title}`}>
 				<div className={styles.element__title}>
 					<div className={styles.title}>
-						<p>{title}</p>
+						<p className={styles.title__text}>{title}</p>
 					</div>
 				</div>
 			</Link>

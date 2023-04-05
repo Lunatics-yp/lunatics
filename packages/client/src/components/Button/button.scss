@@ -14,11 +14,11 @@
 	color: var(--colorBlueDark);
 	background: var(--colorBlueLight);
 	white-space: nowrap;
-	outline: none;
-	border:none;
+	outline: solid var(--colorBlueSky);
+	border: none;
 
 	&:disabled {
-		transition: all var(--AnimationTimeBase);
+		transition: all var(--animationTimeBase);
 		opacity: 0.7;
 		color: var(--colorYellowWhite)
 	}

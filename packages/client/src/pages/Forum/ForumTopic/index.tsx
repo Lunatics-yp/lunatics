@@ -13,17 +13,17 @@ const dataMock = [
 type TDataMock = {id: number; isOwner: boolean; text: string};
 
 export const ForumTopic = () => {
-	const [isFocusing, setIsfocusing] = useState(false);
+	const [isFocusing, setIsFocusing] = useState(false);
 	const [messages, setMessages] = useState(dataMock);
 	const newMessage = useInput('');
 
 	function onCancelHandler() {
-		setIsfocusing(false);
+		setIsFocusing(false);
 		newMessage.nulling();
 	}
 
 	function onFocusHandler() {
-		setIsfocusing(true);
+		setIsFocusing(true);
 	}
 
 	function onSubmitHandler() {
