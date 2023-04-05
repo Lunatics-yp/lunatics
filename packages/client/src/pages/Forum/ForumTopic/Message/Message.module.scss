@@ -1,0 +1,76 @@
+@import 'client/src/styles/app';
+
+.wrapper {
+	display: flex;
+	border-top: 1px solid var(--colorGreyLight);
+}
+
+.message {
+	position: relative;
+	border-radius: 12px;
+	font-size: 12px;
+	line-height: 15px;
+	padding: 11px;
+	max-width: 402px;
+	min-width: 202px;
+	word-break: break-word;
+	white-space: pre-wrap;
+	margin: 21px 10px;
+
+	&_text{
+		background-color: var(--colorBlueLight);
+	}
+
+	&_me {
+		justify-content: flex-end;
+		background-color: var(--colorGreyLight);
+		margin-left: auto;
+		margin-right: 20px;
+	}
+
+	&__reaction {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		gap: 3px;
+		position: absolute;
+		right: 6px;
+		bottom: 1px;
+		color: var(--colorSlateGrey);
+		font-weight: 600;
+		font-size: 10px;
+		line-height: 10px;
+		width: 33px;
+		height: 24px;
+		margin-right: 5px;
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+
+	&__info {
+		display: flex;
+		gap: 10px;
+		font-size: 13px;
+	}
+
+	&__author{
+		color: var(--colorBlueSky);
+		font-weight: bold;
+	}
+
+	&__date {
+		color: var(--colorSlateGrey);
+	}
+}
+
+.reaction {
+	&__count {
+		cursor: pointer;
+
+		&_like {
+			color: var(--colorRadicalRed);
+		}
+	}
+}
