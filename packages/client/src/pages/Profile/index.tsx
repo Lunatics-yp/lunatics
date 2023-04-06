@@ -29,7 +29,7 @@ export const PageProfile = () => {
 		// api call change avatar
 	};
 
-	const onChangeInputName = (e) => {
+	const onChangeInputName = (e: {target: {name: string; value: string}}) => {
 		const {target: {name, value}} = e;
 
 		setLoginEmail(_prevValues => ({..._prevValues, [name]: value}));
