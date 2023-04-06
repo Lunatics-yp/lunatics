@@ -4,14 +4,14 @@ import {Header} from 'client/src/components/Header';
 import {Button} from 'client/src/components/Button';
 import {Input} from 'client/src/components/Input';
 import {Avatar} from 'client/src/components/Avatar';
+import {PATHS} from 'client/src/routers/name';
 import {ProfileApi} from 'client/src/api/profile';
 import 'client/src/styles/form.scss';
 import './profile.scss';
 
 export const PageProfileChangePassword = () => {
-	// const { password } = useSelector('из стора возьму данные пользователя')
 	const [passwords, setPasswords] = useState({
-		oldPassword: 'gfhjkm',
+		oldPassword: '',
 		newPassword: ''
 	});
 
@@ -34,7 +34,7 @@ export const PageProfileChangePassword = () => {
 					text='назад'
 					className='buttonBack'
 					onClick={() => {
-						navigate(-1);
+						navigate(`${PATHS.profile}`);
 					}}
 				/>
 

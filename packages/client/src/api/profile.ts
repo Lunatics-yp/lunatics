@@ -1,33 +1,24 @@
-import {session} from './session';
-
-type TChangePassword = {
-	oldPassword: string;
-	newPassword: string;
-};
-
-type TChangeUserForm = {
-	login: string;
-	email: string;
-};
+import {axios} from './axios';
+import {TChangePassword, TChangeUserForm} from './typing';
 
 export const ProfileApi = {
 	getUserInfoByIdById(id: string) {
-		return session.get(`/user/${id}`);
+		return axios.get(`/user/${id}`);
 	},
 
 	getUserInfo() {
-		return session.get('/auth/user');
+		return axios.get('/auth/user');
 	},
 
 	changePassword(usersPasswords: TChangePassword) {
-		return session.put('/user/password', {changePasswordRequest: usersPasswords});
+		return axios.put('/user/password', {changePasswordRequest: usersPasswords});
 	},
 
 	changeAvatarData(form: FormData): Promise<string> {
-		return session.put('/user/profile/avatar', form,
+		return axios.put('/user/profile/avatar', form,
 			{headers: {'Content-Type': 'multipart/form-data'}});
 	},
 	changeUserForm(userForm: TChangeUserForm) {
-		return session.put('user/profile', {changeUserFormRequest: userForm});
+		return axios.put('user/profile', {changeUserFormRequest: userForm});
 	}
 };

@@ -3,4 +3,5 @@ export type TAvatarProps = {
 	alt?: string;
 	size: 'small' | 'medium' | 'large';
 	editable?: boolean;
+	onChange?: (file: File) => void;
 };

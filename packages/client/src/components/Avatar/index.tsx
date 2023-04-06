@@ -8,10 +8,18 @@ export const Avatar: FC<TAvatarProps> = (props) => {
 		src,
 		alt = '',
 		size = 'small',
-		editable = false
+		editable = false,
+		onChange
 	} = props;
 
 	const className = `avatar__img avatar--${size}`;
+
+	function forAvatar(e: React.ChangeEvent<HTMLInputElement>) {
+		const fileChange: File = e.target.files![0];
+		if (onChange !== undefined) {
+			onChange(fileChange);
+		}
+	}
 
 	return (
 		<label className='avatar'>
@@ -21,7 +29,11 @@ export const Avatar: FC<TAvatarProps> = (props) => {
 				className={className}
 			/>
 
-			{editable && <input type='file' className='avatar__input' />}
+			{editable && <input
+				type='file'
+				className='avatar__input'
+				onChange={forAvatar}
+			/>}
 		</label>
 
 	);

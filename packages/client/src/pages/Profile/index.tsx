@@ -11,11 +11,9 @@ import './profile.scss';
 
 export const PageProfile = () => {
 
-	// const { login, email } = useSelector('из стора возьму данные пользователя')
-
 	const [loginEmail, setLoginEmail] = useState({
-		login: 'admin',
-		email: 'zzz@gamil'
+		login: '',
+		email: ''
 	});
 	const navigate = useNavigate();
 
@@ -23,11 +21,13 @@ export const PageProfile = () => {
 		ProfileApi.changeUserForm(loginEmail);
 	};
 
-	// const onAvatarChange = (file: string | Blob) => {
-	// 	const formData = new FormData();
-	// 	formData.append('avatar', file);
-	// 	// api call change avatar
-	// };
+	const onAvatarChange = (file: File) => {
+		const formData = new FormData();
+		formData.append('avatar', file);
+		ProfileApi.changeAvatarData(formData);
+		// console.log('1');
+		// api call change avatar
+	};
 
 	const onChangeInputName = (value: string, name: string) => {
 		setLoginEmail(_prevValues => ({..._prevValues, [name]: value}));
@@ -36,7 +36,6 @@ export const PageProfile = () => {
 	return (
 		<div className='pageProfile'>
 			<Header>Прифиль игрока</Header>
-			<div></div>
 			<Button
 				text='назад'
 				className='buttonBack'
@@ -44,11 +43,11 @@ export const PageProfile = () => {
 					navigate('/');
 				}}
 			/>
-			<Form className="form">
+			<Form className='form'>
 				<Avatar
 					size='large'
 					editable
-				// onClick={onAvatarChange}
+					onChange={onAvatarChange}
 				/>
 				<Input
 					label='Логин'
