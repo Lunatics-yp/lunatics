@@ -1,39 +1,63 @@
+import {FC, FormEventHandler} from 'react';
 import {Form, useNavigate} from 'react-router-dom';
 import {Header} from 'client/src/components/Header';
 import {Button} from 'client/src/components/Button';
 import {Input} from 'client/src/components/Input';
 import {Footer} from 'client/src/components/Footer';
-import './register.scss';
+import {InputsNames, useForm} from 'client/src/hooks/useForm';
 import 'client/src/styles/form.scss';
+import 'client/src/components/Button/button.scss';
+import './register.scss';
 
-export const PageRegister = () => {
-	const navigate = useNavigate();
+type TRegisterPageProps = {
+	onSubmit?: FormEventHandler<HTMLFormElement>;
+};
+export const PageRegister: FC<TRegisterPageProps> = () => {
 
-	const buttonCallback = () => {
-		console.log('Клик');
+	//Функция, вызываемая при событии submit
+	const onFormRegister = () => {
+		console.log('Form is submitted');
+		console.log('Form Values ', values);
 	};
 
+	const navigate = useNavigate();
+	const {onChange, values, errors, handleSubmit, submitError} = useForm(onFormRegister);
 	return (
 		<div className='pageRegister'>
 			<Header>Регистрация</Header>
 			<div>
-				<Form className="form">
+				<Form className="form" onSubmit={handleSubmit}>
 					<Input
+						value={values['login'] ?? '' }
 						label='Логин'
+						name ={InputsNames.login}
+						onChange={onChange}
+						errors={errors}
 					/>
 					<Input
 						label='E-mail'
 						type='email'
+						value={values['email'] ?? ''}
+						name ={InputsNames.email}
+						onChange={onChange}
+						errors={errors}
 					/>
 					<Input
 						label='Пароль'
 						type='password'
+						value={values['password'] ?? ''}
+						name ={InputsNames.password}
+						onChange={onChange}
+						errors={errors}
 					/>
 					<div className="formGroup_btns">
 						<Button
 							text='Зарегистрироваться'
-							onClick={buttonCallback}
+							type='submit'
 						/>
+						{
+							submitError && <p className='formError'>{submitError}</p>
+						}
 						<Button
 							text='Вернуться на главную'
 							onClick={() => {

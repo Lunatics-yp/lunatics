@@ -8,7 +8,8 @@ type TButtonProps = {
 	// Текст кнопки
 	text: string;
 	// Метод, вызываемый при клике на кнопку
-	onClick: Fn<void>;
+	onClick?: Fn<void>;
+	type?: string
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 // Компонент кнопка

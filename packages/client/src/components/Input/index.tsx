@@ -1,30 +1,21 @@
-import './input.scss';
-import {ChangeEvent, FC, useState} from 'react';
+import {FC} from 'react';
 import {Label} from 'client/src/components/Label';
 import {InputProps} from 'client/src/components/Input/typing';
+import './input.scss';
 
 // Компонент инпут
 export const Input: FC<InputProps> = (props) => {
 	const {
 		label = '',
-		text = '',
 		type = 'text',
-		onChange = undefined,
-		onBlur = undefined
+		onBlur,
+		value,
+		name,
+		onChange,
+		errors
 	} = props;
-
-	const [value, setValue] = useState(text);
-
-	const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-		const value = e.target.value;
-		setValue(value);
-		if (onChange) {
-			onChange(value);
-		}
-	};
-
 	const onBlurHandler = () => {
-		if (onBlur) {
+		if (onBlur && value) {
 			onBlur(value);
 		}
 	};
@@ -36,11 +27,25 @@ export const Input: FC<InputProps> = (props) => {
 				<input
 					value={value}
 					type={type}
-					onChange={onChangeHandler}
+					name={name}
+					onChange={onChange}
 					onBlur={onBlurHandler}
+					data-errors={errors}
 				/>
 				<div className='underLine'></div>
 			</div>
+			{
+				name==='login' && errors && errors['login']  &&
+					<p className='formError'>{errors['login']}</p>
+			}
+			{
+				name==='email' && errors && errors['email'] &&
+					<p className='formError'>{errors['email']}</p>
+			}
+			{
+				name==='password' && errors && errors['password'] &&
+					<p className='formError'>{errors['password']}</p>
+			}
 		</div>
 	);
 };
