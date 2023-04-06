@@ -8,11 +8,14 @@ import {authAPI} from 'client/src/api/auth';
 import {PATHS} from 'client/src/routers/name';
 
 interface IFormValues {
+	first_name: string;
 	login: string;
+	email: string;
+	phone: string;
 	password: string;
 }
 
-export const LoginForm = () => {
+export const RegisterForm = () => {
 	const navigate = useNavigate();
 
 	const [formAlert, setFormAlert] = useState('');
@@ -25,22 +28,30 @@ export const LoginForm = () => {
 		values: IFormValues,
 		{setSubmitting}: FormikHelpers<IFormValues>
 	) => {
-		const data = await authAPI.login({
+		const data = await authAPI.register({
 			login: values.login,
-			password: values.password
+			email: values.email,
+			password: values.password,
+			// Дополняем обязательными фейковыми данными (для выполнения условий API)
+			first_name: '',
+			second_name: '',
+			phone: '79120000000'
 		});
 
-		setFormAlert(data.reason || '');
+		const {reason = ''} = data;
+
+		setFormAlert(reason);
 
 		setSubmitting(false);
 
-		if (typeof data.reason === 'undefined') {
+		if (!reason) {
 			navigate(PATHS.mainMenu);
 		}
 	};
 
 	const initialValues: IFormValues = {
 		login: '',
+		email: '',
 		password: ''
 	};
 
@@ -57,13 +68,18 @@ export const LoginForm = () => {
 						name='login'
 					/>
 					<InputFormik
+						label='E-mail'
+						name='email'
+						type='email'
+					/>
+					<InputFormik
 						label='Пароль'
 						name='password'
 						type='password'
 					/>
 					<div className="formGroup_btns">
 						<Button
-							text='Авторизоваться'
+							text='Зарегистрироваться'
 							type='submit'
 							disabled={isSubmitting}
 						/>
