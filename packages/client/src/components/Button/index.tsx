@@ -9,7 +9,7 @@ type TButtonProps = {
 	text: string;
 	// Метод, вызываемый при клике на кнопку
 	onClick?: Fn<void>;
-	type?: string
+	type?: string;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 // Компонент кнопка

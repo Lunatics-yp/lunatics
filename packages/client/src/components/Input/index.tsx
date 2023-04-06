@@ -35,16 +35,16 @@ export const Input: FC<InputProps> = (props) => {
 				<div className='underLine'></div>
 			</div>
 			{
-				name==='login' && errors && errors['login']  &&
-					<p className='formError'>{errors['login']}</p>
+				name === 'login' && errors && errors['login'] &&
+				<p className='formError'>{errors['login']}</p>
 			}
 			{
-				name==='email' && errors && errors['email'] &&
-					<p className='formError'>{errors['email']}</p>
+				name === 'email' && errors && errors['email'] &&
+				<p className='formError'>{errors['email']}</p>
 			}
 			{
-				name==='password' && errors && errors['password'] &&
-					<p className='formError'>{errors['password']}</p>
+				name === 'password' && errors && errors['password'] &&
+				<p className='formError'>{errors['password']}</p>
 			}
 		</div>
 	);
