@@ -6,6 +6,7 @@ import {Input} from 'client/src/components/Input';
 import {Footer} from 'client/src/components/Footer';
 import './example.scss';
 import {Link, useNavigate} from 'react-router-dom';
+import {PATHS} from 'client/src/routers/name';
 
 export const PageExample = () => {
 	const navigate = useNavigate();
@@ -14,7 +15,9 @@ export const PageExample = () => {
 		console.log('Клик');
 	};
 
-	// Тест работы гит
+	const goToForum = () => {
+		navigate(`${PATHS.forum}`);
+	};
 
 	const switchCallback = (value: number) => {
 		console.log('Свич', value);
@@ -53,6 +56,10 @@ export const PageExample = () => {
 					}}
 				/>
 				<Link to='/test'>Переход на страницу test</Link>
+				<Button
+					text='Переход на страницу Форум'
+					onClick={goToForum}
+				/>
 			</Menu>
 			<Footer>Подвал</Footer>
 		</div>

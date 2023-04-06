@@ -1,0 +1,56 @@
+@import 'client/src/styles/app';
+
+.forum {
+	@include flexCenter;
+
+	font-size: 20px;
+	font-weight: 600;
+	color: var(--colorBlueWhite);
+	border-bottom: 2px solid var(--colorBlueSky);
+	background-color: var(--colorBlueSky);
+	min-width: 200px;
+	width: 80%;
+	word-break: break-word;
+	cursor: pointer;
+	clip-path:
+		polygon(
+			5% 0,
+			100% 0,
+			100% 80%,
+			90% 110%,
+			0% 100%
+	);
+	transition: all var(--animationTimeBase);
+	transform: translateX(0);
+	opacity: 0.9;
+
+	p {
+		margin: 0;
+		padding-right: 20%;
+	}
+
+	@include buttonHover;
+}
+
+.item {
+	@include flexCenter;
+
+	width: 100px;
+	min-width: 30px;
+	border: 2px solid var(--colorBlueWhite);
+	border-radius: 20%;
+	padding: 10px 30px;
+
+		p {
+		margin: 0;
+		padding: 0;
+		color: var(--colorBlueLight);
+		font-size: 18px;
+	}
+}
+
+.link {
+	width: 100%;
+	display: flex;
+	outline: none;
+}

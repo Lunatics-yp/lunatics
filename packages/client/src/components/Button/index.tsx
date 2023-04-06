@@ -16,6 +16,6 @@ type TButtonProps = {
 export const Button: FC<TButtonProps> = (props) => {
 	const {text, className = 'button'} = props;
 	return (
-		<button {...props} className={className} >{text}</button>
+		<button {...props} className={className}>{text}</button>
 	);
 };
