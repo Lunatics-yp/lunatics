@@ -1,27 +1,12 @@
 import {api} from './request';
-import {TErrorAPI, TUserDTO} from './types';
-
-type TNullObject = Record<string, never>;
-
-export type TLoginRequestData = {
-  login: string;
-  password: string;
-};
-
-type TLoginResponseData = TNullObject | TErrorAPI;
-
-export type TRegisterRequestData = {
-  first_name: string;
-  second_name: string;
-  login: string;
-  email: string;
-  password: string;
-  phone: string;
-};
-
-type TRegisterResponseData = {id: number} | TErrorAPI;
-
-type TUserResponseData = TUserDTO | TErrorAPI;
+import {
+	TLoginRequestData,
+	TLoginResponseData,
+	TNullObject,
+	TRegisterRequestData,
+	TRegisterResponseData,
+	TUserResponseData
+} from './typing';
 
 export const authAPI = {
 	register: (data: TRegisterRequestData) => (
