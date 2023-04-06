@@ -17,10 +17,10 @@ export const MainMenuMain = () => {
 		console.log('Клик по кнопке');
 	};
 
-
 	const handleLogout = async () => {
 		await authAPI.logout();
 		navigate(PATHS.auth);
+	};
 
 	const goToForum = () => {
 		navigate(`${PATHS.forum}`);
