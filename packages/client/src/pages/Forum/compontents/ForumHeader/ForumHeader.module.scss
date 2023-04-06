@@ -1,0 +1,22 @@
+@import 'client/src/styles/app';
+
+.header {
+	display: grid;
+
+	&__right{
+		letter-spacing: 1px;
+	}
+
+	&__left{
+		display: flex;
+		width: 100%;
+		padding-left: 30px;
+		font-weight: 700;
+	}
+}
+
+.title {
+	color: var(--colorWhite);
+	font-size: 24px;
+	text-align: center;
+}

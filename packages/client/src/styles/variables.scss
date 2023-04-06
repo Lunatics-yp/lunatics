@@ -7,10 +7,30 @@
 	// --colorLink: #0d6efd;
 	// --colorLinkHover: #094bb0;
 
+	// TIME:
+
+	--animationTimeBase: 500ms;
+	--animationTimeSmall: 200ms;
+
+	// COLORS:
+
 	// White
 	--colorWhite: #fff;
+	--colorWhiteSmoke: #efefef;
+
+	// Grey
+	--colorGreyDark: #3a393a;
+	--colorSlateGrey: #818c99;
+	--colorGreyLight: #dce1e6;
+	--colorBrightGrey: #eaeaea;
 
 	// Yellow
+	--colorYellowDirt: #3b3d34;
+	--colorYellowGrayishDark: #59594e;
+	--colorYellowGamboge: #c90;
+	--colorYellowBlue: #b48f0a;
+	--colorYellow: #fa9929;
+	--colorYellowLemon: #ffde11;
 	--colorYellowWhite: #fffcf3;
 	--colorOrange: #fd830c;
 	--gradientOrangeYellow: linear-gradient(to top, var(--colorOrange), #f7ba45);
@@ -24,8 +44,15 @@
 	--colorBackground: #07405b;
 	--colorBlueDark: #001e44;
 
+	// Purple
+	--colorPurpleLight: #8f65b7;
+	--colorPurple: #551a8b;
+
 	// Gray
 	--colorGray: #ddd;
+
+	// Red
+	--colorRadicalRed: #ff3347;
 
 	// Error
 	--colorRedError: #d93d3d;

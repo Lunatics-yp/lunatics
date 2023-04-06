@@ -17,9 +17,13 @@ export const MainMenuMain = () => {
 		console.log('Клик по кнопке');
 	};
 
+
 	const handleLogout = async () => {
 		await authAPI.logout();
 		navigate(PATHS.auth);
+
+	const goToForum = () => {
+		navigate(`${PATHS.forum}`);
 	};
 
 	return (
@@ -43,7 +47,7 @@ export const MainMenuMain = () => {
 					}}/>
 				<Button
 					text='Форум'
-					onClick={callbackNull}/>
+					onClick={goToForum}/>
 				<Button
 					text='Авторы'
 					onClick={callbackNull}/>
