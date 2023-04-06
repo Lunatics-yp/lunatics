@@ -29,13 +29,15 @@ export const PageProfile = () => {
 		// api call change avatar
 	};
 
-	const onChangeInputName = (value: string, name: string) => {
+	const onChangeInputName = (e) => {
+		const {target: {name, value}} = e;
+
 		setLoginEmail(_prevValues => ({..._prevValues, [name]: value}));
 	};
 
 	return (
 		<div className='pageProfile'>
-			<Header>Прифиль игрока</Header>
+			<Header>Профиль игрока</Header>
 			<Button
 				text='назад'
 				className='buttonBack'

@@ -10,14 +10,38 @@ import {PATHS} from 'client/src/routers/name';
 import {Page500} from 'client/src/pages/500';
 import {Page404} from 'client/src/pages/404';
 import {PageRegister} from 'client/src/pages/Register';
+import {Forum} from 'client/src/pages/Forum';
+import {ForumTopic} from 'client/src/pages/Forum/ForumTopic';
+import {ForumBox} from 'client/src/pages/Forum/compontents/ForumBox';
 import {PageAuth} from 'client/src/pages/Auth';
 import {PageProfile} from 'client/src/pages/Profile';
 import {PageProfileChangePassword} from 'client/src/pages/ProfileChangePassword';
+import {ForumDiscussion} from 'client/src/pages/Forum/ForumDiscussion';
 
 export const router = createBrowserRouter([
 	{
 		path: PATHS.home,
 		element: <PageExample/>
+	},
+	{
+		path: PATHS.forum,
+		element: <Forum/>,
+		children: [
+			{
+				path: PATHS.forum,
+				element: <ForumBox/>
+			},
+			{
+				path: ':disccussionTitle',
+				element: <ForumDiscussion />,
+				children: [
+					{
+						path: ':topicTitle',
+						element: <ForumTopic />
+					}
+				]
+			}
+		]
 	},
 	{
 		path: PATHS.test,
@@ -50,7 +74,6 @@ export const router = createBrowserRouter([
 			{
 				path: PATHS.mainMenuSettings,
 				element: <MainMenuSettings/>
-        
 			}
 		]
 	},

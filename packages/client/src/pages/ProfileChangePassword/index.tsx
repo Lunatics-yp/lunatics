@@ -20,7 +20,8 @@ export const PageProfileChangePassword = () => {
 		ProfileApi.changePassword(passwords);
 	};
 
-	const onInputChange = (value: string, name: string) => {
+	const onInputChange = (e) => {
+		const {target: {name, value}} = e;
 		setPasswords(_prevValues => ({..._prevValues, [name]: value}));
 	};
 
