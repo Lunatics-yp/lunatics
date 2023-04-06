@@ -5,7 +5,6 @@ import {InputType} from 'client/src/components/Input/typing';
 type TInputFormikExtraProps = {
 	label?: string;
 	type?: InputType;
-	placeholder?: string;
 };
 
 export type TInputFormikProps = FieldHookConfig<string> & TInputFormikExtraProps;

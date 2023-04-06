@@ -76,7 +76,7 @@ export const RegisterForm = () => {
 						name='password'
 						type='password'
 					/>
-					<div className="formGroup_btns">
+					<div className='formGroup_btns'>
 						<Button
 							text='Зарегистрироваться'
 							type='submit'

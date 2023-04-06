@@ -61,7 +61,7 @@ export const LoginForm = () => {
 						name='password'
 						type='password'
 					/>
-					<div className="formGroup_btns">
+					<div className='formGroup_btns'>
 						<Button
 							text='Авторизоваться'
 							type='submit'
