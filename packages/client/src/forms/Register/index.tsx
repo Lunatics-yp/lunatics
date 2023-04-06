@@ -5,13 +5,12 @@ import {Button} from 'client/src/components/Button';
 import {InputFormik} from 'client/src/components/InputFormik';
 import {Alert} from 'client/src/components/Alert';
 import {authAPI} from 'client/src/api/auth';
+import {isErrorAPI} from 'client/src/api/request/utilits';
 import {PATHS} from 'client/src/routers/name';
 
 interface IFormValues {
-	first_name: string;
 	login: string;
 	email: string;
-	phone: string;
 	password: string;
 }
 
@@ -38,15 +37,15 @@ export const RegisterForm = () => {
 			phone: '79120000000'
 		});
 
-		const {reason = ''} = data;
-
-		setFormAlert(reason);
-
 		setSubmitting(false);
 
-		if (!reason) {
-			navigate(PATHS.mainMenu);
+		if (isErrorAPI(data)) {
+			setFormAlert(data.reason);
+			return;
 		}
+
+		setFormAlert('');
+		navigate(PATHS.mainMenu);
 	};
 
 	const initialValues: IFormValues = {
