@@ -1,5 +1,5 @@
 import {TErrorAPI} from '../typingAPI';
 
-export const isErrorAPI = (data: unknown | TErrorAPI): data is TErrorAPI => {
-	return data && (data as TErrorAPI).reason !== undefined;
+export const isErrorAPI = (data: unknown): data is TErrorAPI => {
+	return typeof data === 'object' && (data as TErrorAPI).reason !== undefined;
 };
