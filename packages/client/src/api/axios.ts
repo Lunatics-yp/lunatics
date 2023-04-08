@@ -1,7 +1,8 @@
 import axiosLib from 'axios';
+import {API_CONFIG} from 'client/src/config/api';
 
 export const axios = axiosLib.create({
-	baseURL: 'https://ya-praktikum.tech/api/v2',
+	baseURL: API_CONFIG.endpoint,
 });
 
 axios.interceptors.response.use(
