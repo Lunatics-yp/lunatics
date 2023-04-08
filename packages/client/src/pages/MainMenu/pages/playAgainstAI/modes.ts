@@ -1,4 +1,4 @@
 export const modes = [
 	'Обычный',
-	'Необычный'
+	'Необычный',
 ] as string[];

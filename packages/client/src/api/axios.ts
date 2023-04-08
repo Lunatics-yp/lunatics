@@ -1,7 +1,7 @@
 import axiosLib from 'axios';
 
 export const axios = axiosLib.create({
-	baseURL: 'https://ya-praktikum.tech/api/v2'
+	baseURL: 'https://ya-praktikum.tech/api/v2',
 });
 
 axios.interceptors.response.use(
@@ -16,5 +16,5 @@ axios.interceptors.response.use(
 			alert('Сервер сломан');
 		}
 		return Promise.reject(error);
-	}
+	},
 );

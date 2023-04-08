@@ -5,7 +5,7 @@ import './alert.scss';
 export const Alert: FC<TAlertProps> = (props) => {
 	const {
 		text = '',
-		type = 'error'
+		type = 'error',
 	} = props;
 	return (
 		<div className={`alert alert_${type}`}>{text}</div>

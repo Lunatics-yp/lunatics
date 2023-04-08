@@ -10,20 +10,20 @@ const dataMock = [
 		id: 1,
 		forums: 'lalal',
 		topics: 58,
-		answers: 77
+		answers: 77,
 	},
 	{
 		id: 2,
 		forums: 'laladdwl',
 		topics: 5,
-		answers: 8
+		answers: 8,
 	},
 	{
 		id: 3,
 		forums: 'PRiVET',
 		topics: 5,
-		answers: 8
-	}
+		answers: 8,
+	},
 ];
 
 type TDataMock = {
@@ -53,10 +53,10 @@ export const ForumBox = () => {
 		if (newTopic.value) {
 
 			setFormTopics(prev => [{
-				id: prev[prev.length-1].id + 1 ,
+				id: prev[prev.length - 1].id + 1,
 				forums: newTopic.value,
 				topics: 0,
-				answers: 0
+				answers: 0,
 			}, ...prev]);
 		}
 

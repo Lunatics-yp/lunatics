@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import React, {FC} from 'react';
 import {TAvatarProps} from './typing';
 import defaultUserPhoto from 'client/src/assets/images/defaultUserPhoto.jpg';
 import './Avatar.scss';
@@ -9,15 +9,17 @@ export const Avatar: FC<TAvatarProps> = (props) => {
 		alt = '',
 		size = 'small',
 		editable = false,
-		onChange
+		onChange,
 	} = props;
 
 	const className = `avatar__img avatar--${size}`;
 
 	function forAvatar(e: React.ChangeEvent<HTMLInputElement>) {
-		const fileChange: File = e.target.files![0];
-		if (onChange !== undefined) {
-			onChange(fileChange);
+		if(e.target.files) {
+			const fileChange: File = e.target.files[0];
+			if (onChange !== undefined) {
+				onChange(fileChange);
+			}
 		}
 	}
 

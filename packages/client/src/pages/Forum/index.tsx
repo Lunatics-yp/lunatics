@@ -4,7 +4,7 @@ import {Header} from 'client/src/components/Header';
 export const Forum = () => {
 	return (
 		<>
-			<Header children={'Forum'}/>
+			<Header>Forum</Header>
 			<Outlet/>
 		</>
 	);

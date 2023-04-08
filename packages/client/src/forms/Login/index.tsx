@@ -23,11 +23,11 @@ export const LoginForm = () => {
 
 	const handleSubmit = async (
 		values: IFormValues,
-		{setSubmitting}: FormikHelpers<IFormValues>
+		{setSubmitting}: FormikHelpers<IFormValues>,
 	) => {
 		const data = await authAPI.login({
 			login: values.login,
-			password: values.password
+			password: values.password,
 		});
 
 		setFormAlert(data.reason || '');
@@ -41,7 +41,7 @@ export const LoginForm = () => {
 
 	const initialValues: IFormValues = {
 		login: '',
-		password: ''
+		password: '',
 	};
 
 	return (
@@ -72,7 +72,6 @@ export const LoginForm = () => {
 							onClick={handleBack}
 						/>
 					</div>
-
 				</Form>
 			)}
 		</Formik>

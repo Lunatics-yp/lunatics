@@ -62,8 +62,8 @@
 }
 
 a:hover {
-		.element {
-			&__title {
+	.element {
+		&__title {
 			transition: all var(--animationTimeBase);
 			background-color: var(--colorYellowGrayishDark);
 		}

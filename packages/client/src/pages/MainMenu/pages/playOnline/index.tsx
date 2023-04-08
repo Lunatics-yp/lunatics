@@ -18,48 +18,48 @@ const lobbyData: TPlayerData = [
 	{
 		nickname: 'Aaaaa',
 		winsOnline: 10,
-		winsOffline: 20
+		winsOffline: 20,
 	},
 	{
 		nickname: 'Bbbbb',
 		winsOnline: 30,
-		winsOffline: 40
+		winsOffline: 40,
 	},
 	{
 		nickname: 'Ccccc',
 		winsOnline: 50,
-		winsOffline: 60
+		winsOffline: 60,
 	},
 	{
 		nickname: 'Bbbbb',
 		winsOnline: 30,
-		winsOffline: 40
+		winsOffline: 40,
 	},
 	{
 		nickname: 'Ccccc',
 		winsOnline: 50,
-		winsOffline: 60
+		winsOffline: 60,
 	},
 	{
 		nickname: 'Bbbbb',
 		winsOnline: 30,
-		winsOffline: 40
+		winsOffline: 40,
 	},
 	{
 		nickname: 'Ccccc',
 		winsOnline: 50,
-		winsOffline: 60
+		winsOffline: 60,
 	},
 	{
 		nickname: 'Yyyyy',
 		winsOnline: 50,
-		winsOffline: 60
+		winsOffline: 60,
 	},
 	{
 		nickname: 'Eeeee',
 		winsOnline: 50,
-		winsOffline: 60
-	}
+		winsOffline: 60,
+	},
 ];
 
 // Компонент меню Играть Онлайн
@@ -70,7 +70,7 @@ export const MainMenuPlayOnline = () => {
 	// Режимы игры
 	const modes = [
 		'Обычный',
-		'Необычный'
+		'Необычный',
 	];
 	const onModeSwitch = (i: number) => {
 		setMode(i);

@@ -1,4 +1,4 @@
-import {ChangeEvent, useState} from 'react';
+import {ChangeEvent, FormEvent, useState} from 'react';
 import {Fn} from 'client/src/types';
 import {REG_EMAIL, REG_LOGIN, REG_PASSWORD} from 'client/src/regExp';
 import {emailError, loginError, passwordError} from 'client/src/errors/errors';
@@ -7,7 +7,7 @@ import {omit} from 'client/src/utils/omit';
 export enum InputsNames {
 	login = 'login',
 	email = 'email',
-	password = 'password'
+	password = 'password',
 }
 export const useForm = (callback: Fn<void>) => {
 
@@ -21,7 +21,7 @@ export const useForm = (callback: Fn<void>) => {
 			if (!REG_LOGIN.test(value)) {
 				setErrors({
 					...errors,
-					login: loginError
+					login: loginError,
 				});
 			} else {
 				const newObj = omit(errors, ['login']);
@@ -33,7 +33,7 @@ export const useForm = (callback: Fn<void>) => {
 			if (!REG_EMAIL.test(value)) {
 				setErrors({
 					...errors,
-					email: emailError
+					email: emailError,
 				});
 			} else {
 				const newObj = omit(errors, ['email']);
@@ -45,7 +45,7 @@ export const useForm = (callback: Fn<void>) => {
 			if (!REG_PASSWORD.test(value)) {
 				setErrors({
 					...errors,
-					password: passwordError
+					password: passwordError,
 				});
 			} else {
 				const newObj = omit(errors, ['password']);
@@ -65,11 +65,11 @@ export const useForm = (callback: Fn<void>) => {
 
 		setValues({
 			...values,
-			[name]: value
+			[name]: value,
 		});
 	};
 
-	const handleSubmit = (event: any) => {
+	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
 		if (event) event.preventDefault();
 		if (Object.keys(errors).length === 0 && Object.keys(values).length !== 0) {
 			callback();
@@ -83,6 +83,6 @@ export const useForm = (callback: Fn<void>) => {
 		errors,
 		onChange,
 		handleSubmit,
-		submitError
+		submitError,
 	};
 };

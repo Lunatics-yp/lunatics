@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom';
 import {TForumColumnProps} from './typing';
 import styles from './ForumColumn.module.scss';
 
-export const ForumColumn:FC<TForumColumnProps> = (props) => {
+export const ForumColumn: FC<TForumColumnProps> = (props) => {
 	const {forum, topics = 0, answers = 0, id = 0} = props;
 
 	return (

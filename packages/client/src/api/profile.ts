@@ -20,5 +20,5 @@ export const ProfileApi = {
 	},
 	changeUserForm(userForm: TChangeUserForm) {
 		return axios.put('user/profile', {changeUserFormRequest: userForm});
-	}
+	},
 };

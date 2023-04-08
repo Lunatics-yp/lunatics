@@ -1,6 +1,6 @@
-export function omit<T extends Record<string, any>, T2 extends [...(keyof T)[]] >(
+export function omit<T extends Record<string, unknown>, T2 extends [...(keyof T)[]]>(
 	obj: T,
-	field: T2
+	field: T2,
 ): {
 	[K2 in Exclude<keyof T, T2[number]>]: T[K2];
 } {

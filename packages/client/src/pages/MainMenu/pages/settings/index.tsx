@@ -8,6 +8,8 @@ import {PATHS} from 'client/src/routers/name';
 // Импорт реката
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+// Локальные импорты
+import {languages} from './languages';
 
 // Компонент меню настройки
 export const MainMenuSettings = () => {
@@ -17,10 +19,6 @@ export const MainMenuSettings = () => {
 	const navigate = useNavigate();
 
 	// Язык
-	const languages = [
-		'Русский',
-		'English'
-	];
 	const onLanguageSwitch = (i: number) => setLanguage(i);
 
 	// Громкость

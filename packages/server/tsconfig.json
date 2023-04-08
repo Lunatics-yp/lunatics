@@ -33,7 +33,7 @@
 			"node",
 			"jest"
 		],
-		"baseUrl": ".",
+		"baseUrl": "../",
 		"paths": {
 			"*": [
 				"types/*"
