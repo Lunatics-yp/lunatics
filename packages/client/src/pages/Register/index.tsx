@@ -2,6 +2,8 @@ import {FC, FormEventHandler} from 'react';
 import {Form, useNavigate} from 'react-router-dom';
 import {Header} from 'client/src/components/Header';
 import {Footer} from 'client/src/components/Footer';
+import {Button} from 'client/src/components/Button';
+import {Input} from 'client/src/components/Input';
 import {InputsNames, useForm} from 'client/src/hooks/useForm';
 import 'client/src/styles/form.scss';
 import 'client/src/components/Button/button.scss';
