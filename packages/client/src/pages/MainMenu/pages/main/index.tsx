@@ -6,6 +6,7 @@ import {Button} from 'client/src/components/Button';
 import {PATHS} from 'client/src/routers/name';
 // Импорт реката
 import {useNavigate} from 'react-router-dom';
+import {authAPI} from 'client/src/api/auth';
 
 // Компонент меню Главное меню
 export const MainMenuMain = () => {
@@ -14,6 +15,11 @@ export const MainMenuMain = () => {
 	// Временный каллбек для нерабочих кнопок
 	const callbackNull = () => {
 		console.log('Клик по кнопке');
+	};
+
+	const handleLogout = async () => {
+		await authAPI.logout();
+		navigate(PATHS.auth);
 	};
 
 	const goToForum = () => {
@@ -47,7 +53,7 @@ export const MainMenuMain = () => {
 					onClick={callbackNull}/>
 				<Button
 					text='Выйти'
-					onClick={callbackNull}/>
+					onClick={handleLogout}/>
 			</Menu>
 			<Footer>Подвал</Footer>
 		</>

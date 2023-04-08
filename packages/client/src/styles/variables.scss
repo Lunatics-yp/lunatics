@@ -32,8 +32,9 @@
 	--colorYellow: #fa9929;
 	--colorYellowLemon: #ffde11;
 	--colorYellowWhite: #fffcf3;
-	--gradientOrangeYellow: linear-gradient(to top, #fd830c, #f7ba45);
-	--gradientOrangeYellowDark: linear-gradient(to top, #fd830c, #fa9929);
+	--colorOrange: #fd830c;
+	--gradientOrangeYellow: linear-gradient(to top, var(--colorOrange), #f7ba45);
+	--gradientOrangeYellowDark: linear-gradient(to top, var(--colorOrange), #fa9929);
 
 	// Blue
 	--colorBlueWhite: #f5ffff;
