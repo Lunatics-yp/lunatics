@@ -13,6 +13,7 @@ import {PageRegister} from 'client/src/pages/Register';
 import {Forum} from 'client/src/pages/Forum';
 import {ForumTopic} from 'client/src/pages/Forum/ForumTopic';
 import {ForumBox} from 'client/src/pages/Forum/compontents/ForumBox';
+import {GamePage} from 'client/src/pages/Game';
 import {PageAuth} from 'client/src/pages/Auth';
 import {PageProfile} from 'client/src/pages/Profile';
 import {PageProfileChangePassword} from 'client/src/pages/ProfileChangePassword';
@@ -46,6 +47,10 @@ export const router = createBrowserRouter([
 	{
 		path: PATHS.test,
 		element: <TestPage/>,
+	},
+	{
+		path: PATHS.game,
+		element: <GamePage/>,
 	},
 	{
 		path: PATHS.profile,

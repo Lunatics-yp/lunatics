@@ -1,0 +1,131 @@
+const CANVAS_WIDTH = 1200;
+const CANVAS_HEIGHT = 1000;
+const CELL_HEIGHT = 30;
+const CELL_WIDTH = 30;
+
+const BATTLEFIELD_WIDTH = CELL_HEIGHT * 10;
+const BATTLEFIELD_HEIGHT = CELL_WIDTH * 10;
+
+const PREPARATION_SCREEN_START_FIELD_COORD_X = 10;
+const PREPARATION_SCREEN_START_FIELD_COORD_Y = 300;
+
+const BACKGROUND_COLOR_SHIP = '#B3B3B3';
+const BORDER_COLOR_SHIP = '#818181';
+
+const shipDatas = [
+	{
+		id: 1,
+		size: 4,
+		startPosition: {
+			x: 65 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+			y: 190 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+		},
+		color: BACKGROUND_COLOR_SHIP,
+		borderColor: BORDER_COLOR_SHIP,
+	},
+	{
+		id: 2,
+		size: 3,
+		startPosition: {
+			x: 15 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+			y: 135 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+		},
+		color: BACKGROUND_COLOR_SHIP,
+		borderColor: BORDER_COLOR_SHIP,
+	},
+	{
+		id: 3,
+		size: 3,
+
+		startPosition: {
+			x: 155 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+			y: 135 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+		},
+		color: BACKGROUND_COLOR_SHIP,
+		borderColor: BORDER_COLOR_SHIP,
+	},
+	{
+		id: 4,
+		size: 2,
+		startPosition: {
+			x: PREPARATION_SCREEN_START_FIELD_COORD_X,
+			y: 80 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+		},
+		color: BACKGROUND_COLOR_SHIP,
+		borderColor: BORDER_COLOR_SHIP,
+	},
+	{
+		id: 5,
+		size: 2,
+		startPosition: {
+			x: 105 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+			y: 80 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+		},
+		color: BACKGROUND_COLOR_SHIP,
+		borderColor: BORDER_COLOR_SHIP,
+
+	},
+	{
+		id: 6,
+		size: 2,
+		startPosition: {
+			x: 210 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+			y: 80 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+		},
+		color: BACKGROUND_COLOR_SHIP,
+		borderColor: BORDER_COLOR_SHIP,
+	},
+	{
+		id: 8,
+		size: 1,
+		startPosition: {
+			x: 25 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+			y: 25 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+		},
+		color: BACKGROUND_COLOR_SHIP,
+		borderColor: BORDER_COLOR_SHIP,
+
+	},
+	{
+		id: 9,
+		size: 1,
+		startPosition: {
+			x: 85 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+			y: 25 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+		},
+		color: BACKGROUND_COLOR_SHIP,
+		borderColor: BORDER_COLOR_SHIP,
+
+	},
+	{
+		id: 10,
+		size: 1,
+		startPosition: {
+			x: 145 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+			y: 25 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+		},
+		color: BACKGROUND_COLOR_SHIP,
+		borderColor: BORDER_COLOR_SHIP,
+
+	},
+	{
+		id: 7,
+		size: 1,
+		startPosition: {
+			x: 205 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+			y: 25 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+		},
+		color: BACKGROUND_COLOR_SHIP,
+		borderColor: BORDER_COLOR_SHIP,
+	},
+];
+
+export {
+	CANVAS_WIDTH,
+	CANVAS_HEIGHT,
+	CELL_WIDTH,
+	CELL_HEIGHT,
+	shipDatas,
+	BATTLEFIELD_WIDTH,
+	BATTLEFIELD_HEIGHT,
+};
