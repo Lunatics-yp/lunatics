@@ -1,14 +1,16 @@
-import {FC, ReactNode} from 'react';
+import {FC} from 'react';
+import {TFooterProps} from 'client/src/components/Footer/typing';
 import './footer.scss';
 
-// Тип компонента подвал
-type FooterProps = {
-	children: ReactNode;
-};
-
 // Компонент подвал
-export const Footer: FC<FooterProps> = ({children}) => {
+export const Footer: FC<TFooterProps> = (props) => {
+	const {children, className, ...attrs} = props;
 	return (
-		<div className='footer'>{children}</div>
+		<div
+			className={`footer ${className ?? ''}`}
+			{...attrs}
+		>
+			{children}
+		</div>
 	);
 };

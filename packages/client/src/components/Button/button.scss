@@ -8,7 +8,7 @@
 	width: var(--width);
 	height: var(--height);
 	clip-path: polygon(0 0, 100% 0, 100% var(--cropY), var(--cropX) 100%, 0% 100%);
-	padding-left: calc(var(--height) / 3);
+	padding-right: calc(var(--crop) / 2);
 	font-size: calc(var(--height) / 3);
 	line-height: var(--height);
 	color: var(--colorBlueDark);
