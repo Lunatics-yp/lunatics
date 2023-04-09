@@ -28,8 +28,8 @@ export const GamePage = () => {
 		//отрисовка кораблей 
 		shipDatas.forEach(ship => {
 			canvasContainer.update({
-				x: ship.startPosition.x,
-				y: ship.startPosition.y,
+				x: ship.position.x,
+				y: ship.position.y,
 				width: ship.size * CELL_WIDTH,
 				height: CELL_HEIGHT,
 				color: ship.color,

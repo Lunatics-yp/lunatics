@@ -1,6 +1,5 @@
 import {
-	CANVAS_WIDTH,
-	CANVAS_HEIGHT,
+	CANVAS_WIDTH, CANVAS_HEIGHT,
 } from './constants';
 import {TRect} from './typing';
 
