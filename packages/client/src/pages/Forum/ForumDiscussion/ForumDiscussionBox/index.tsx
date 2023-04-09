@@ -7,7 +7,7 @@ import styles from './ForumDiscussionBox.module.scss';
 const dataMock = [
 	{id: 1, title: 'Sky Wars', name: 'Obi Wan Kenobi', date: 'the 22th of December'},
 	{id: 2, title: 'Благодарность разработчикам', name: 'Евгений Малкин', date: 'вчера'},
-	{id: 3, title: 'Война и мир', name: 'Лев Толстой', date: '1867 год'}
+	{id: 3, title: 'Война и мир', name: 'Лев Толстой', date: '1867 год'},
 ];
 
 export const ForumDiscussionBox = () => {

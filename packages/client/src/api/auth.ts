@@ -5,7 +5,7 @@ import {
 	TNullObject,
 	TRegisterRequestData,
 	TRegisterResponseData,
-	TUserResponseData
+	TUserResponseData,
 } from './typing';
 
 export const authAPI = {
@@ -21,5 +21,5 @@ export const authAPI = {
 	),
 	logout: () => (
 		api.post<TNullObject, TNullObject>('auth/logout')
-	)
+	),
 };

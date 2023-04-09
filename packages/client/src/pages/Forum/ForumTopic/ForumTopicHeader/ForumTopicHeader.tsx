@@ -21,7 +21,9 @@ export const ForumTopicHeader = () => {
 			<div className={styles.header__right}>
 				<Button
 					text='Редактировать тему'
-					onClick={()=>{console.log('Открытие модального окна');}}
+					onClick={() => {
+						console.log('Открытие модального окна');
+					}}
 				/>
 			</div>
 		</div>

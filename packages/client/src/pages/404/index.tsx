@@ -1,3 +1,4 @@
+import {PATHS} from 'client/src/routers/name';
 import 'client/src/styles/errorsPages.scss';
 import {Button} from 'client/src/components/Button';
 import {useNavigate} from 'react-router-dom';
@@ -13,7 +14,7 @@ export const Page404 = () => {
 				<div className='buttonContainer'>
 					<Button
 						text='Вернуться на главную'
-						onClick={() => navigate('/')}
+						onClick={() => navigate(PATHS.home)}
 					/>
 				</div>
 			</div>

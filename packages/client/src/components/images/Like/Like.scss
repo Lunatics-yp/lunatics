@@ -7,7 +7,6 @@
 	display: block;
 	transform: scale(1);
 	transition: all var(--animationTimeSmall);
-	transition: transform var(--animationTimeBase);
 
 	&:hover {
 		cursor: pointer;
@@ -15,7 +14,6 @@
 		stroke: var(--colorRadicalRed);
 		transform: scale(1.3);
 		transition: all var(--animationTimeSmall) ease;
-		transition: transform var(--animationTimeBase) ease;
 	}
 
 	&--red {

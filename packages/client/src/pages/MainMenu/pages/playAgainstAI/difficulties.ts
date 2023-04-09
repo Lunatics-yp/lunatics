@@ -1,5 +1,5 @@
 export const difficulties = [
 	'Лёгкий',
 	'Средний',
-	'Сложный'
+	'Сложный',
 ] as string[];

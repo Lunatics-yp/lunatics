@@ -21,7 +21,7 @@ import {ForumDiscussion} from 'client/src/pages/Forum/ForumDiscussion';
 export const router = createBrowserRouter([
 	{
 		path: PATHS.home,
-		element: <PageExample/>
+		element: <PageExample/>,
 	},
 	{
 		path: PATHS.forum,
@@ -29,31 +29,31 @@ export const router = createBrowserRouter([
 		children: [
 			{
 				path: PATHS.forum,
-				element: <ForumBox/>
+				element: <ForumBox/>,
 			},
 			{
 				path: ':disccussionTitle',
-				element: <ForumDiscussion />,
+				element: <ForumDiscussion/>,
 				children: [
 					{
 						path: ':topicTitle',
-						element: <ForumTopic />
-					}
-				]
-			}
-		]
+						element: <ForumTopic/>,
+					},
+				],
+			},
+		],
 	},
 	{
 		path: PATHS.test,
-		element: <TestPage/>
+		element: <TestPage/>,
 	},
 	{
 		path: PATHS.profile,
-		element: <PageProfile/>
+		element: <PageProfile/>,
 	},
 	{
 		path: PATHS.profileChangePassword,
-		element: <PageProfileChangePassword/>
+		element: <PageProfileChangePassword/>,
 	},
 	{
 		path: PATHS.mainMenu,
@@ -61,36 +61,36 @@ export const router = createBrowserRouter([
 		children: [
 			{
 				path: PATHS.mainMenu,
-				element: <MainMenuMain/>
+				element: <MainMenuMain/>,
 			},
 			{
 				path: PATHS.mainMenuPlayAgainstAI,
-				element: <MainMenuPlayAgainstAI/>
+				element: <MainMenuPlayAgainstAI/>,
 			},
 			{
 				path: PATHS.mainMenuPlayOnline,
-				element: <MainMenuPlayOnline/>
+				element: <MainMenuPlayOnline/>,
 			},
 			{
 				path: PATHS.mainMenuSettings,
-				element: <MainMenuSettings/>
-			}
-		]
+				element: <MainMenuSettings/>,
+			},
+		],
 	},
 	{
 		path: PATHS.page500,
-		element: <Page500/>
+		element: <Page500/>,
 	},
 	{
 		path: PATHS.page404,
-		element: <Page404/>
+		element: <Page404/>,
 	},
 	{
 		path: PATHS.register,
-		element: <PageRegister/>
+		element: <PageRegister/>,
 	},
 	{
 		path: PATHS.auth,
-		element: <PageAuth/>
-	}
+		element: <PageAuth/>,
+	},
 ]);

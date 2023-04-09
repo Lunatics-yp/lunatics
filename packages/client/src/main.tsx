@@ -9,7 +9,7 @@ import 'client/src/styles/app.scss';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>
-		<RouterProvider router={router} />
-		<Background />
-	</React.StrictMode>
+		<RouterProvider router={router}/>
+		<Background/>
+	</React.StrictMode>,
 );

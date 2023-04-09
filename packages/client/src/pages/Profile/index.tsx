@@ -13,7 +13,7 @@ export const PageProfile = () => {
 
 	const [loginEmail, setLoginEmail] = useState({
 		login: '',
-		email: ''
+		email: '',
 	});
 	const navigate = useNavigate();
 

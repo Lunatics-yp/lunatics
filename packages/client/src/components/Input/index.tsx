@@ -12,7 +12,7 @@ export const Input: FC<InputProps> = (props) => {
 		value,
 		name,
 		onChange,
-		errors
+		errors,
 	} = props;
 	const onBlurHandler = () => {
 		if (onBlur && value) {
@@ -22,7 +22,7 @@ export const Input: FC<InputProps> = (props) => {
 
 	return (
 		<div className='formGroup'>
-			<Label label={label} />
+			<Label label={label}/>
 			<div className='input'>
 				<input
 					value={value}

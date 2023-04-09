@@ -7,9 +7,9 @@ export default {
 	testEnvironment: 'jsdom',
 	testMatch: ['<rootDir>/src/**/*.test.{ts,tsx}'],
 	globals: {
-		__SERVER_PORT__: process.env.SERVER_PORT
+		__SERVER_PORT__: process.env.SERVER_PORT,
 	},
 	moduleNameMapper: {
-		'\\.(css|less|scss|sass)$': 'identity-obj-proxy'
-	}
+		'\\.(css|less|scss|sass)$': 'identity-obj-proxy',
+	},
 };

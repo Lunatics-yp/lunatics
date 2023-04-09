@@ -25,7 +25,7 @@ export const RegisterForm = () => {
 
 	const handleSubmit = async (
 		values: IFormValues,
-		{setSubmitting}: FormikHelpers<IFormValues>
+		{setSubmitting}: FormikHelpers<IFormValues>,
 	) => {
 		const data = await authAPI.register({
 			login: values.login,
@@ -34,7 +34,7 @@ export const RegisterForm = () => {
 			// Дополняем обязательными фейковыми данными (для выполнения условий API)
 			first_name: '',
 			second_name: '',
-			phone: '79120000000'
+			phone: '79120000000',
 		});
 
 		setSubmitting(false);
@@ -51,7 +51,7 @@ export const RegisterForm = () => {
 	const initialValues: IFormValues = {
 		login: '',
 		email: '',
-		password: ''
+		password: '',
 	};
 
 	return (
@@ -87,7 +87,6 @@ export const RegisterForm = () => {
 							onClick={handleBack}
 						/>
 					</div>
-
 				</Form>
 			)}
 		</Formik>

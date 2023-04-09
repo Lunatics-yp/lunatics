@@ -8,9 +8,13 @@ import styles from './ForumTopic.module.scss';
 
 const dataMock = [
 	{id: 1, isOwner: true, text: 'Хей! Привет, мы рады попрепетвовать тебя на нашем форуме!'},
-	{id: 2, isOwner: false, text: 'Как ты прошел этот непроходимый уровень?'}
+	{id: 2, isOwner: false, text: 'Как ты прошел этот непроходимый уровень?'},
 ];
-type TDataMock = {id: number; isOwner: boolean; text: string};
+type TDataMock = {
+	id: number;
+	isOwner: boolean;
+	text: string;
+};
 
 export const ForumTopic = () => {
 	const [isFocusing, setIsFocusing] = useState(false);
@@ -28,10 +32,10 @@ export const ForumTopic = () => {
 
 	function onSubmitHandler() {
 		if (newMessage.value) {
-			setMessages(prev => [ ...prev, {
-				id: prev[prev.length-1].id + 1,
+			setMessages(prev => [...prev, {
+				id: prev[prev.length - 1].id + 1,
 				isOwner: true,
-				text: newMessage.value
+				text: newMessage.value,
 			}]);
 
 			newMessage.nulling();
@@ -70,10 +74,14 @@ export const ForumTopic = () => {
 					{isFocusing && (
 						<div className={styles.footer__control}>
 							<div className={styles.footer__actions}>
-								<Button text='Отмена'  onClick={onCancelHandler}
+								<Button
+									text='Отмена'
+									onClick={onCancelHandler}
 									className={`${styles.cancel} ${styles.defaultBtn}`}
 								/>
-								<Button text='Отправить' onClick={onSubmitHandler}
+								<Button
+									text='Отправить'
+									onClick={onSubmitHandler}
 									className={`${styles.submit} ${styles.defaultBtn}`}
 								/>
 							</div>

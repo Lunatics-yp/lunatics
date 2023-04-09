@@ -1,3 +1,4 @@
+import {PATHS} from 'client/src/routers/name';
 import {Form, useNavigate} from 'react-router-dom';
 import {Header} from 'client/src/components/Header';
 import {Footer} from 'client/src/components/Footer';
@@ -14,21 +15,21 @@ export const PageAuth = () => {
 		console.log('Form is submitted');
 		console.log('Form Values ', values);
 	};
-	const {onChange, values,errors, handleSubmit, submitError} = useForm(onFormAuth);
+	const {onChange, values, errors, handleSubmit, submitError} = useForm(onFormAuth);
 
 	const buttonBackHandler = () => {
-		navigate('/');
+		navigate(PATHS.home);
 	};
 
 	return (
 		<div className='pageAuth'>
 			<Header>Авторизация</Header>
 			<div>
-				<Form className="form" onSubmit={handleSubmit}>
+				<Form className='form' onSubmit={handleSubmit}>
 					<Input
 						value={values['login'] ?? ''}
 						label='Логин'
-						name ={InputsNames.login}
+						name={InputsNames.login}
 						onChange={onChange}
 						errors={errors}
 					/>
@@ -36,11 +37,11 @@ export const PageAuth = () => {
 						label='Пароль'
 						type='password'
 						value={values['password'] ?? ''}
-						name ={InputsNames.password}
+						name={InputsNames.password}
 						onChange={onChange}
 						errors={errors}
 					/>
-					<div className="formGroup_btns">
+					<div className='formGroup_btns'>
 						<Button
 							text='Авторизоваться'
 							type='submit'

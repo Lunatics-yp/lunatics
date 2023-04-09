@@ -12,7 +12,7 @@ import './profile.scss';
 export const PageProfileChangePassword = () => {
 	const [passwords, setPasswords] = useState({
 		oldPassword: '',
-		newPassword: ''
+		newPassword: '',
 	});
 
 	const navigate = useNavigate();
@@ -39,7 +39,7 @@ export const PageProfileChangePassword = () => {
 					}}
 				/>
 
-				<Form className="form">
+				<Form className='form'>
 					<Avatar
 						size='large'
 					/>

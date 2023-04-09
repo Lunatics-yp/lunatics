@@ -9,7 +9,7 @@ import 'client/src/components/Input/input.scss';
 export const InputFormik: FC<TInputFormikProps> = (props) => {
 	const {
 		label = '',
-		type = 'text'
+		type = 'text',
 	} = props;
 
 	const [field] = useField(props);

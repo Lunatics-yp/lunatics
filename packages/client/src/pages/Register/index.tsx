@@ -26,11 +26,11 @@ export const PageRegister: FC<TRegisterPageProps> = () => {
 		<div className='pageRegister'>
 			<Header>Регистрация</Header>
 			<div>
-				<Form className="form" onSubmit={handleSubmit}>
+				<Form className='form' onSubmit={handleSubmit}>
 					<Input
-						value={values['login'] ?? '' }
+						value={values['login'] ?? ''}
 						label='Логин'
-						name ={InputsNames.login}
+						name={InputsNames.login}
 						onChange={onChange}
 						errors={errors}
 					/>
@@ -38,7 +38,7 @@ export const PageRegister: FC<TRegisterPageProps> = () => {
 						label='E-mail'
 						type='email'
 						value={values['email'] ?? ''}
-						name ={InputsNames.email}
+						name={InputsNames.email}
 						onChange={onChange}
 						errors={errors}
 					/>
@@ -46,11 +46,11 @@ export const PageRegister: FC<TRegisterPageProps> = () => {
 						label='Пароль'
 						type='password'
 						value={values['password'] ?? ''}
-						name ={InputsNames.password}
+						name={InputsNames.password}
 						onChange={onChange}
 						errors={errors}
 					/>
-					<div className="formGroup_btns">
+					<div className='formGroup_btns'>
 						<Button
 							text='Зарегистрироваться'
 							type='submit'

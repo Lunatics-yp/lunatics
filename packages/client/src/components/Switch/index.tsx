@@ -10,7 +10,7 @@ export const Switch: FC<TSwitch> = (props) => {
 		list = [],
 		defaultValue = 0,
 		onSwitch,
-		looped = true
+		looped = true,
 	} = props;
 
 	const [selectedValue, setSelectedValue] = useState(defaultValue);
