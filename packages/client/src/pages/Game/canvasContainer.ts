@@ -24,7 +24,7 @@ export class CanvasContainer {
 	}
 	// рисование одного блока(квадратика)
 	rect({
-		x, y, width, height, color, borderColor,
+		x, y, width, height, fillColor, borderColor,
 	}: TRect) {
 		this.context.beginPath();
 		this.context.moveTo(x, y);
@@ -35,18 +35,14 @@ export class CanvasContainer {
 		if (borderColor) {
 			this.context.stroke();
 		}
-		//для кораблей доп
-		if (color) {
-			this.context.fillStyle = color;
+		//для кораблей дополнительные стили
+		if (fillColor) {
+			this.context.fillStyle = fillColor;
 			this.context.fill();
 		}
 	}
 
-	update({
-		x, y, width, height, color, borderColor,
-	}: TRect) {
-		this.rect({
-			x, y, width, height, color, borderColor,
-		} as TRect);
+	update(rect: TRect) {
+		this.rect(rect);
 	}
 }

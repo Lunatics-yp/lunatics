@@ -3,6 +3,6 @@ export type TRect = {
 	y: number;
 	width: number;
 	height: number;
-	color?: string | undefined;
-	borderColor?: string | undefined;
+	fillColor?: string;
+	borderColor?: string;
 };
