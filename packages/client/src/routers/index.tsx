@@ -1,5 +1,5 @@
 import {createBrowserRouter} from 'react-router-dom';
-import {PageExample} from 'client/src/pages/Example';
+import {PageLanding} from 'client/src/pages/Landing';
 import {MainMenu} from 'client/src/pages/MainMenu';
 import {MainMenuMain} from '../pages/MainMenu/pages/main';
 import {MainMenuPlayAgainstAI} from '../pages/MainMenu/pages/playAgainstAI';
@@ -21,7 +21,7 @@ import {ForumDiscussion} from 'client/src/pages/Forum/ForumDiscussion';
 export const router = createBrowserRouter([
 	{
 		path: PATHS.home,
-		element: <PageExample/>,
+		element: <PageLanding/>,
 	},
 	{
 		path: PATHS.forum,

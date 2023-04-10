@@ -21,6 +21,10 @@ export const PageAuth = () => {
 		navigate(PATHS.home);
 	};
 
+	const buttonPlayAsGuestHandler = () => {
+		navigate(PATHS.mainMenu);
+	};
+
 	return (
 		<div className='pageAuth'>
 			<Header>Авторизация</Header>
@@ -49,6 +53,10 @@ export const PageAuth = () => {
 						{
 							submitError && <p className='formError'>{submitError}</p>
 						}
+						<Button
+							text='Играть как гость'
+							onClick={buttonPlayAsGuestHandler}
+						/>
 						<Button
 							text='Вернуться на главную'
 							onClick={buttonBackHandler}
