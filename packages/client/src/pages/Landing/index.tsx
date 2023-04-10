@@ -8,6 +8,7 @@ import {Footer} from 'client/src/components/Footer';
 import logoImage from 'client/src/assets/images/landingLogoImage.webp';
 import logoText from 'client/src/assets/images/landingLogoText.webp';
 import landingBackground  from 'client/src/assets/images/landingBackground.webp';
+import gutHubImage from 'client/src/assets/images/github.png';
 // Локальные импорты
 import styles from './landing.module.scss';
 import {gameDescription, gameRules} from './texts';
@@ -19,11 +20,11 @@ export const PageLanding = () => {
 	const rulesElementRef = useRef<HTMLDivElement>(null);
 
 	const goToAuth = () => {
-		navigate(`${PATHS.auth}`);
+		navigate(PATHS.auth);
 	};
 
 	const goToForum = () => {
-		navigate(`${PATHS.forum}`);
+		navigate(PATHS.forum);
 	};
 
 	const goToRules = () => {
@@ -42,15 +43,14 @@ export const PageLanding = () => {
 			backgroundImage: `url(${logoText})`,
 		},
 		githubImage: {
-			// eslint-disable-next-line max-len
-			backgroundImage: 'url(\'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png\')',
+			backgroundImage: `url(${gutHubImage})`,
 		},
 	};
 
 	return (
-		<>
+		<div className={styles.pageLanding}>
 			<div
-				className={styles.pageLanding}
+				className={styles.content}
 				style={pageStyles.pageBackground}
 			>
 				<div className={styles.logoImage} style={pageStyles.logoImage}>
@@ -78,6 +78,6 @@ export const PageLanding = () => {
 					</a>
 				</div>
 			</Footer>
-		</>
+		</div>
 	);
 };

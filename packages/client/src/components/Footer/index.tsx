@@ -1,5 +1,5 @@
 import {FC} from 'react';
-import {TFooterProps} from 'client/src/components/Footer/typing';
+import {TFooterProps} from './typing';
 import './footer.scss';
 
 // Компонент подвал
