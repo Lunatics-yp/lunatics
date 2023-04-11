@@ -13,8 +13,7 @@ export const Avatar: FC<TAvatarProps> = (props) => {
 		onChange,
 	} = props;
 
-	let srcImg;
-	src ? srcImg = API_CONFIG.resources + src : srcImg = defaultUserPhoto;
+	const srcImg = src ? API_CONFIG.resources + src : defaultUserPhoto;
 
 	const className = `avatar__img avatar--${size}`;
 
