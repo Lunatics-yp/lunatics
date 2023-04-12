@@ -56,7 +56,13 @@ div.input {
 	&:hover,
 	&:focus-within {
 		> .underLine {
-			background-image: var(--gradientOrangeYellowDark);
+			background: var(--gradientOrangeYellowDark);
+		}
+	}
+
+	.hasError & {
+		> .underLine {
+			background: var(--colorRedError) !important;
 		}
 	}
 }
