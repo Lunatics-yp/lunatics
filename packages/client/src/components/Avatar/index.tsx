@@ -1,11 +1,12 @@
 import React, {FC} from 'react';
+import {API_CONFIG} from 'client/src/config/api';
 import {TAvatarProps} from './typing';
 import defaultUserPhoto from 'client/src/assets/images/defaultUserPhoto.jpg';
 import './Avatar.scss';
 
 export const Avatar: FC<TAvatarProps> = (props) => {
 	const {
-		src,
+		src = null,
 		alt = '',
 		size = 'small',
 		editable = false,
@@ -13,6 +14,8 @@ export const Avatar: FC<TAvatarProps> = (props) => {
 	} = props;
 
 	const className = `avatar__img avatar--${size}`;
+
+	const imgSrc = src ? `${API_CONFIG.resources}${src}` : defaultUserPhoto;
 
 	function forAvatar(e: React.ChangeEvent<HTMLInputElement>) {
 		if(e.target.files) {
@@ -26,7 +29,7 @@ export const Avatar: FC<TAvatarProps> = (props) => {
 	return (
 		<label className='avatar'>
 			<img
-				src={src ?? defaultUserPhoto}
+				src={imgSrc}
 				alt={alt}
 				className={className}
 			/>
