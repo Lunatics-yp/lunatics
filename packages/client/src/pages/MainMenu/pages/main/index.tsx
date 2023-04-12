@@ -19,11 +19,15 @@ export const MainMenuMain = () => {
 
 	const handleLogout = async () => {
 		await authAPI.logout();
-		navigate(PATHS.auth);
+		navigate(PATHS.home);
 	};
 
 	const goToForum = () => {
 		navigate(`${PATHS.forum}`);
+	};
+
+	const goToProfile = () => {
+		navigate(PATHS.profile);
 	};
 
 	return (
@@ -45,6 +49,9 @@ export const MainMenuMain = () => {
 					onClick={() => {
 						navigate(`${PATHS.mainMenuSettings}`);
 					}}/>
+				<Button
+					text='Профиль'
+					onClick={goToProfile}/>
 				<Button
 					text='Форум'
 					onClick={goToForum}/>
