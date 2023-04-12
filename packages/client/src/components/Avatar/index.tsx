@@ -1,6 +1,7 @@
 import React, {FC} from 'react';
-import {TAvatarProps} from './typing';
 import defaultUserPhoto from 'client/src/assets/images/defaultUserPhoto.jpg';
+import {API_CONFIG} from 'client/src/config/api';
+import {TAvatarProps} from './typing';
 import './Avatar.scss';
 
 export const Avatar: FC<TAvatarProps> = (props) => {
@@ -11,6 +12,8 @@ export const Avatar: FC<TAvatarProps> = (props) => {
 		editable = false,
 		onChange,
 	} = props;
+
+	const srcImg = src ? API_CONFIG.resources + src : defaultUserPhoto;
 
 	const className = `avatar__img avatar--${size}`;
 
@@ -26,7 +29,7 @@ export const Avatar: FC<TAvatarProps> = (props) => {
 	return (
 		<label className='avatar'>
 			<img
-				src={src ?? defaultUserPhoto}
+				src={srcImg}
 				alt={alt}
 				className={className}
 			/>

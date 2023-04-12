@@ -1,9 +1,12 @@
 import {Link, useParams} from 'react-router-dom';
+import {useAppDispatch} from 'client/src/hooks/redux';
+import {fetchUser} from 'client/src/stores/reducers/auth/authThunks';
 import {PATHS} from 'client/src/routers/name';
 import {Button} from 'client/src/components/Button';
 import styles from './ForumTopicHeader.module.scss';
 
 export const ForumTopicHeader = () => {
+	const dispatch = useAppDispatch();
 	const topicName = useParams().topicTitle;
 	return (
 		<div className={styles.header}>
@@ -23,6 +26,9 @@ export const ForumTopicHeader = () => {
 					text='Редактировать тему'
 					onClick={() => {
 						console.log('Открытие модального окна');
+						// для теста добавил диспач сюда,
+						// если вы залогинены, в сторе появится юзер
+						dispatch(fetchUser());
 					}}
 				/>
 			</div>
