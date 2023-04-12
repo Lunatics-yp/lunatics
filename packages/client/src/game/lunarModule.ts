@@ -23,6 +23,15 @@ export class LunarModule {
 		this._aliveCellsCount = size;
 	}
 
+	// Заглушка, чтобы TS не ругался на неиспользуемые параметры класса
+	getInfo = () => {
+		return {
+			name: this._name,
+			isLocated: this._isLocated,
+			isAlive: this._isAlive,
+		};
+	};
+
 	// Форма лунного модуля
 	getShape = () => {
 		return this._shape;
