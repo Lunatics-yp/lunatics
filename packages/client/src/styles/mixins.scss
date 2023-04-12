@@ -6,6 +6,11 @@
 	height: 100%;
 }
 
+@mixin flexHorizontal {
+	display: flex;
+	flex-flow: row nowrap;
+}
+
 @mixin flexVertical {
 	display: flex;
 	flex-flow: column nowrap;
