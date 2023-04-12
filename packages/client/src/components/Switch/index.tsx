@@ -11,11 +11,13 @@ export const Switch: FC<TSwitch> = (props) => {
 		defaultValue = 0,
 		onSwitch,
 		looped = true,
+		value,
 	} = props;
 
 	const [selectedValue, setSelectedValue] = useState(defaultValue);
 
 	const onSwitchHandler = (x: number) => {
+
 		return () => {
 			const maxValue = list.length - 1;
 			let newValue = selectedValue + x;
@@ -34,7 +36,7 @@ export const Switch: FC<TSwitch> = (props) => {
 			<Label label={label}/>
 			<div className='switch'>
 				<div className='leftButton' onClick={onSwitchHandler(-1)}></div>
-				<div className='selectedText'>{list[selectedValue]}</div>
+				<div className='selectedText'>{value ?? list[selectedValue]}</div>
 				<div className='rightButton' onClick={onSwitchHandler(1)}></div>
 			</div>
 		</div>

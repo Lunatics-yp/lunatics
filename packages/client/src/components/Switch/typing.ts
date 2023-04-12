@@ -11,4 +11,6 @@ export type TSwitch = {
 	onSwitch: Fn<void, number>;
 	// Зациклить список
 	looped?: boolean;
+	// Значение из store
+	value?: string | number;
 };

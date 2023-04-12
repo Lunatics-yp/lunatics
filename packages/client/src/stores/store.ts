@@ -1,5 +1,6 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import authReducer from './reducers/auth/authSlice';
+import userSettingsReducer from './reducers/userSettings/userSettingsSlice';
 
 /**
  * Автоматически комбинирует slice reducers,
@@ -7,6 +8,7 @@ import authReducer from './reducers/auth/authSlice';
  */
 const rootReducer = combineReducers({
 	authReducer,
+	userSettingsReducer,
 });
 
 export const setupStore = () => {
