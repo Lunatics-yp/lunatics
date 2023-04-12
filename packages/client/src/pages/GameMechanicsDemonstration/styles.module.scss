@@ -1,0 +1,29 @@
+@import 'client/src/styles/mixins';
+
+.pageGameMechanicsDemonstration {
+	@include fullscreen;
+	@include flexVertical;
+}
+
+.content {
+	flex-grow: 1;
+	color: #c1c7c7;
+}
+
+.menu {
+	@include flexVertical;
+
+	width: 400px;
+	gap: 10px;
+}
+
+.inputsBlock {
+	@include flexHorizontal;
+
+	width: 100%;
+	gap: 10px;
+
+	> * {
+		flex-grow: 1;
+	}
+}
