@@ -1,5 +1,7 @@
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import {useAppSelector} from 'client/src/hooks/redux';
+import {authSelectors} from 'client/src/stores/reducers/auth/authSlice';
 import {Formik, Form, FormikHelpers} from 'formik';
 import {Alert} from 'client/src/components/Alert';
 import {Avatar} from 'client/src/components/Avatar';
@@ -13,13 +15,14 @@ import {userAPI} from 'client/src/api/user';
 import {authAPI} from 'client/src/api/auth';
 
 interface IFormValues {
-	avatar: string | null;
+	avatar?: string | null;
 	login: string;
 	email: string;
 }
 
 export const ProfileForm = () => {
 	const navigate = useNavigate();
+	const {user} = useAppSelector(authSelectors.user);
 
 	const [formAlert, setFormAlert] = useState('');
 
@@ -87,10 +90,9 @@ export const ProfileForm = () => {
 	};
 
 	const initialValues: IFormValues = {
-		// @todo нужно передавать реальные данные пользователя из store
-		avatar: null,
-		login: '',
-		email: '',
+		avatar: user?.avatar ?? null,
+		login: user ? user?.login : '',
+		email: user ? user?.email : '',
 	};
 
 	return (

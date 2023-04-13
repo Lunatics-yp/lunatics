@@ -1,6 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {TAuthState} from './typing';
+import {RootState} from 'client/src/stores/store';
 import {authThunks} from './authThunks';
+import {TAuthState} from './typing';
 
 const initialState: TAuthState = {
 	isLoading: false,
@@ -65,4 +66,7 @@ export const authSlice = createSlice({
 	},
 });
 
+export const authSelectors = {
+	user: (state: RootState) => state.authReducer,
+};
 export default authSlice.reducer;
