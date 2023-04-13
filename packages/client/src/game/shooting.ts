@@ -1,31 +1,31 @@
 import {GameMechanic} from './gameMechanic';
-import {LunarModule} from './lunarModule';
-import {MoonGround} from './moonGround';
-import {MoonGroundCellStatus, TCoordinates, TMoonGroundShootingRespond} from './typing';
+import {SpaceModule} from './spaceModule';
+import {SpaceGround} from './spaceGround';
+import {TCellStatus, TCoordinates, TShootRespond} from './typing';
 
 // Класс стрельбы по игровому полю
 export class Shooting extends GameMechanic {
 
 	constructor(
-		moonGround: MoonGround,
-		modules: LunarModule[],
+		moonGround: SpaceGround,
+		modules: SpaceModule[],
 	) {
 		super(moonGround, modules);
 	}
 
 	/**
-	* Метод выстрела по игровому полю
-	* @param {TCoordinates} coordinates - Координата для выстрела
-	* @returns {TMoonGroundShootingRespond} - Возвращает объект с результатом выстрела
-	* @description Метод выстрела по игровому полю
-	* - `hadShoot` (boolean): Был ли произведён выстрел
-	* - `hit` (boolean): Было ли попадание в лунный модуль
-	* - `destroyed` (boolean): Было ли полное уничтожение лунного модуля
+	 * Метод выстрела по игровому полю
+	 * @param {TCoordinates} coordinates - Координата для выстрела
+	 * @returns {TShootRespond} - Возвращает объект с результатом выстрела
+	 * @description Метод выстрела по игровому полю
+	 * - `hadShoot` (boolean): Был ли произведён выстрел
+	 * - `hit` (boolean): Было ли попадание в лунный модуль
+	 * - `destroyed` (boolean): Было ли полное уничтожение лунного модуля
 	 */
-	shoot = (coordinates: TCoordinates): TMoonGroundShootingRespond => {
+	shoot = (coordinates: TCoordinates): TShootRespond => {
 		// Метод нанесения урона по лунному модулю
 		const hit = () => {
-			const lunarModule = LunarModule.findLunarModule(this.getLunarModules(), coordinates);
+			const lunarModule = SpaceModule.findLunarModule(this.getLunarModules(), coordinates);
 			if (lunarModule) {
 				const hitRespond = lunarModule.hit(coordinates);
 				// Выводим в консоль результаты выстрела (для разработчика)
@@ -33,7 +33,7 @@ export class Shooting extends GameMechanic {
 				if (hitRespond.destroyed && hitRespond.lunarModule) {
 					return destroy(hitRespond.lunarModule);
 				} else {
-					this.getMoonGround().setCellStatus(coordinates, MoonGroundCellStatus.BURNING);
+					this.getMoonGround().setCellStatus(coordinates, TCellStatus.BURNING);
 					return {
 						hadShoot: true,
 						hit: true,
@@ -46,10 +46,10 @@ export class Shooting extends GameMechanic {
 
 		// Метод уничтожения лунного модуля
 		// Вызывается, если лунный модуль вернул destroyed: true
-		const destroy = (lunarModule: LunarModule) => {
+		const destroy = (lunarModule: SpaceModule) => {
 			const lunarModuleCoordinates = lunarModule.getMapPosition();
 			for (const mapCoordinates of lunarModuleCoordinates) {
-				this.getMoonGround().setCellStatus(mapCoordinates, MoonGroundCellStatus.DESTROYED);
+				this.getMoonGround().setCellStatus(mapCoordinates, TCellStatus.DESTROYED);
 			}
 			return {
 				hadShoot: true,
@@ -60,7 +60,7 @@ export class Shooting extends GameMechanic {
 
 		// Метод промаха
 		const miss = () => {
-			this.getMoonGround().setCellStatus(coordinates, MoonGroundCellStatus.MISSED);
+			this.getMoonGround().setCellStatus(coordinates, TCellStatus.MISSED);
 			return {
 				hadShoot: true,
 				hit: false,
@@ -73,10 +73,10 @@ export class Shooting extends GameMechanic {
 			// Если да, то узнаём статус клетки и выполняем ранение (hit) или промах (miss)
 			const prevStatus = this.getMoonGround().getCellStatus(coordinates);
 			switch (prevStatus) {
-			case MoonGroundCellStatus.OCCUPIED:
-				return hit();
-			case MoonGroundCellStatus.EMPTY:
-				return miss();
+				case TCellStatus.OCCUPIED:
+					return hit();
+				case TCellStatus.EMPTY:
+					return miss();
 			}
 		}
 

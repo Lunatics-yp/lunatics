@@ -1,27 +1,27 @@
 import {
-	MoonGroundCellStatus,
+	TCellStatus,
 	TCoordinates,
-	TMoonGroundCell,
-	TMoonGroundData,
-	TMoonGroundMap,
+	TCell,
+	TSpaceGroundProps,
+	TMap,
 } from './typing';
 
 // Данные для первоначального заполнения клетки
 // На самом деле status перезаписывается полученным из пропсов,
 // но если initStatus не указан, то остаётся этот
-const emptyCell: TMoonGroundCell = {
-	status: MoonGroundCellStatus.EMPTY,
+const emptyCell: TCell = {
+	status: TCellStatus.EMPTY,
 };
 
 // Класс игрового поля
-export class MoonGround {
+export class SpaceGround {
 
-	private readonly _map: TMoonGroundMap; // Карта игрового поля, двумерный массив статусов ячеек
+	private readonly _map: TMap; // Карта игрового поля, двумерный массив статусов ячеек
 
-	constructor(data: TMoonGroundData) {
+	constructor(data: TSpaceGroundProps) {
 		// Статус для первоначального заполнения клеток.
 		// Используется для заполнения клеток вражеского поля статусом Unknown, а своего Empty
-		const {initStatus = MoonGroundCellStatus.EMPTY} = data;
+		const {initStatus = TCellStatus.EMPTY} = data;
 		// Сначала создаём пустой двумерный массив
 		this._map = new Array(data.height).fill(undefined)
 			.map(() => new Array(data.width).fill(undefined));
@@ -90,7 +90,7 @@ export class MoonGround {
 		// Тогда часть "окружающих" клеток окажется вне поля, это не является отказом
 		for (const oneCoordinate of allCoordinates) {
 			if (this.isPositionInsideMap(oneCoordinate)
-				&& this._map[oneCoordinate.y][oneCoordinate.x].status !== MoonGroundCellStatus.EMPTY
+				&& this._map[oneCoordinate.y][oneCoordinate.x].status !== TCellStatus.EMPTY
 			) {
 				result = false;
 			}
@@ -100,7 +100,7 @@ export class MoonGround {
 	};
 
 	// Установить статус клетки игрового поля
-	setCellStatus = (coordinates: TCoordinates, status: MoonGroundCellStatus) => {
+	setCellStatus = (coordinates: TCoordinates, status: TCellStatus) => {
 		// Внутри карты X и Y меняются местами для двумерного массива
 		this._map[coordinates.y][coordinates.x].status = status;
 	};
@@ -115,13 +115,13 @@ export class MoonGround {
 	// Нельзя стрелять, если координата вне границ игрового поля,
 	// или если по координате уже был произведён выстрел
 	getCanShootHere = (coordinates: TCoordinates) => {
-		if (this.isPositionInsideMap(coordinates)) {
-			const cellStatus = this.getCellStatus(coordinates);
-			return (cellStatus !== MoonGroundCellStatus.BURNING
-				&& cellStatus !== MoonGroundCellStatus.DESTROYED
-				&& cellStatus !== MoonGroundCellStatus.MISSED);
-		}else{
+		if (!this.isPositionInsideMap(coordinates)) {
 			return false;
+		} else {
+			const cellStatus = this.getCellStatus(coordinates);
+			return (cellStatus !== TCellStatus.BURNING
+				&& cellStatus !== TCellStatus.DESTROYED
+				&& cellStatus !== TCellStatus.MISSED);
 		}
 	};
 }

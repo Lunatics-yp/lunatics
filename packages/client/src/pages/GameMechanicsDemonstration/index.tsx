@@ -7,12 +7,12 @@ import {Header} from 'client/src/components/Header';
 import {Input} from 'client/src/components/Input';
 // Импорт игровых механик
 import {Shooting} from 'client/src/game/shooting';
-import {MoonGround} from 'client/src/game/moonGround';
+import {SpaceGround} from 'client/src/game/spaceGround';
 import {Placement} from 'client/src/game/placement';
 import {
-	MoonGroundCellStatus,
-	TMoonGroundDisplayProps,
-	TLunarModulesTypesToBePlacement,
+	TCellStatus,
+	TSpaceGroundDisplayProps,
+	TShapesList,
 } from 'client/src/game/typing';
 // Локальные импорты
 import {shape1, shape2, shape3, shape4} from './shapes';
@@ -20,27 +20,27 @@ import styles from './styles.module.scss';
 
 // ВРЕМЕННЫЙ метод для отображения текущего состояния карты на странице
 // В дальнейшем будет заменён на canvas
-const convertMapStatusToSymbol = (status: MoonGroundCellStatus) => {
+const convertMapStatusToSymbol = (status: TCellStatus) => {
 	switch (status) {
-	case MoonGroundCellStatus.UNKNOWN:
-		return '[?]';
-	case MoonGroundCellStatus.EMPTY:
-		return '[ ]';
-	case MoonGroundCellStatus.OCCUPIED:
-		return '[▒]';
-	case MoonGroundCellStatus.MISSED:
-		return '[·]';
-	case MoonGroundCellStatus.BURNING:
-		return '[v]';
-	case MoonGroundCellStatus.DESTROYED:
-		return '[Χ]';
-	default:
-		return ' E ';
+		case TCellStatus.UNKNOWN:
+			return '[?]';
+		case TCellStatus.EMPTY:
+			return '[ ]';
+		case TCellStatus.OCCUPIED:
+			return '[▒]';
+		case TCellStatus.MISSED:
+			return '[·]';
+		case TCellStatus.BURNING:
+			return '[v]';
+		case TCellStatus.DESTROYED:
+			return '[Χ]';
+		default:
+			return ' E ';
 	}
 };
 
 // Список форм лунных модулей для расстановки (зависит от режима игры)
-const lunarModulesTypesToBePlacement: TLunarModulesTypesToBePlacement = [
+const lunarModulesTypesToBePlacement: TShapesList = [
 	{
 		name: 'Четверной',
 		shape: shape4,
@@ -65,7 +65,7 @@ const lunarModulesTypesToBePlacement: TLunarModulesTypesToBePlacement = [
 
 // ВРЕМЕННЫЙ метод для отрисовки текущего состояния карты на страницу
 // В дальнейшем будет заменён на "игровые механики на canvas"
-const MoonGroundDisplay: FC<TMoonGroundDisplayProps> = (props) => {
+const MoonGroundDisplay: FC<TSpaceGroundDisplayProps> = (props) => {
 	const {map} = props;
 	let mapDisplayView = '';
 
@@ -78,10 +78,10 @@ const MoonGroundDisplay: FC<TMoonGroundDisplayProps> = (props) => {
 	}
 
 	mapDisplayView += '\n';
-	mapDisplayView += `${convertMapStatusToSymbol(MoonGroundCellStatus.OCCUPIED)}Лунный модуль, `;
-	mapDisplayView += `${convertMapStatusToSymbol(MoonGroundCellStatus.BURNING)}Ранен, `;
-	mapDisplayView += `${convertMapStatusToSymbol(MoonGroundCellStatus.DESTROYED)}Уничтожен, `;
-	mapDisplayView += `${convertMapStatusToSymbol(MoonGroundCellStatus.MISSED)}Промах\n\n`;
+	mapDisplayView += `${convertMapStatusToSymbol(TCellStatus.OCCUPIED)}Лунный модуль, `;
+	mapDisplayView += `${convertMapStatusToSymbol(TCellStatus.BURNING)}Ранен, `;
+	mapDisplayView += `${convertMapStatusToSymbol(TCellStatus.DESTROYED)}Уничтожен, `;
+	mapDisplayView += `${convertMapStatusToSymbol(TCellStatus.MISSED)}Промах\n\n`;
 
 	return (
 		<div>
@@ -91,7 +91,7 @@ const MoonGroundDisplay: FC<TMoonGroundDisplayProps> = (props) => {
 };
 
 export const PageGameMechanicsDemonstration = () => {
-	// стейт для ререндера страрички
+	// стейт для ререндера странички
 	// В режиме работы с canvas вместо него будет requestAnimationFrame
 	const [rerender, setRerender] = useState(false);
 
@@ -101,7 +101,7 @@ export const PageGameMechanicsDemonstration = () => {
 	const [cursorY, setCursorY] = useState(0);
 
 	// Игровое поле заданного размера
-	const [playerMoonGround] = useState(new MoonGround({
+	const [playerMoonGround] = useState(new SpaceGround({
 		width: 10,
 		height: 10,
 	}));

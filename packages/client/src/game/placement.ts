@@ -1,9 +1,9 @@
 import {GameMechanic} from './gameMechanic';
-import {LunarModule} from './lunarModule';
-import {MoonGround} from './moonGround';
+import {SpaceModule} from './spaceModule';
+import {SpaceGround} from './spaceGround';
 import {
-	MoonGroundCellStatus,
-	TLunarModulesTypesToBePlacement,
+	TCellStatus,
+	TShapesList,
 	TCoordinates,
 } from './typing';
 
@@ -11,15 +11,15 @@ import {
 export class Placement extends GameMechanic{
 
 	constructor(
-		moonGround: MoonGround,
-		modulesTypesToBePlacement: TLunarModulesTypesToBePlacement,
+		moonGround: SpaceGround,
+		modulesTypesToBePlacement: TShapesList,
 	) {
-		const modules: LunarModule[] = [];
+		const modules: SpaceModule[] = [];
 		// Перебираем полученный типы и формы лунных модулей и создаём экземпляры LunarModule
 		for (const moduleData of modulesTypesToBePlacement) {
 			const {name, shape, count} = moduleData;
 			for (let x = 0; x < count; x++) {
-				modules.push(new LunarModule({name, shape}));
+				modules.push(new SpaceModule({name, shape}));
 			}
 		}
 		super(moonGround, modules);
@@ -27,12 +27,12 @@ export class Placement extends GameMechanic{
 
 	/**
 Метод размещения модуля на игровом поле
-@param {LunarModule} lunarModule - Экземпляр LunarModule, который будет размещён
+@param {SpaceModule} lunarModule - Экземпляр LunarModule, который будет размещён
 @param {TCoordinates} position - Координаты "головы" лунного модуля
 @param {boolean} [rotate90=false] - Поворот на 90 градусов
 	 */
 	locateModuleToGround = (
-		lunarModule: LunarModule,
+		lunarModule: SpaceModule,
 		position: TCoordinates,
 		rotate90 = false,
 	) => {
@@ -57,7 +57,7 @@ export class Placement extends GameMechanic{
 			for (const mapCoordinate of mapCoordinates) {
 				this.getMoonGround().setCellStatus(
 					{x: mapCoordinate.x, y: mapCoordinate.y},
-					MoonGroundCellStatus.OCCUPIED);
+					TCellStatus.OCCUPIED);
 			}
 			lunarModule.setLocatedToMap(mapCoordinates);
 		}

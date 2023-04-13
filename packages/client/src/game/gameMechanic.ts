@@ -1,11 +1,11 @@
-import {LunarModule} from './lunarModule';
-import {MoonGround} from './moonGround';
+import {SpaceModule} from './spaceModule';
+import {SpaceGround} from './spaceGround';
 
 export class GameMechanic {
-	private readonly _moonGround: MoonGround; // ссылка на экземпляр игрового поля
-	private readonly _modules: LunarModule[] = []; // массив лунных модулей
+	private readonly _moonGround: SpaceGround; // ссылка на экземпляр игрового поля
+	private readonly _modules: SpaceModule[] = []; // массив лунных модулей
 
-	constructor(moonGround: MoonGround, lunarModules: LunarModule[]) {
+	constructor(moonGround: SpaceGround, lunarModules: SpaceModule[]) {
 		this._moonGround=moonGround;
 		this._modules=lunarModules;
 	}

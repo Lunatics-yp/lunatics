@@ -1,8 +1,8 @@
-import {LunarModule} from './lunarModule';
+import {SpaceModule} from './spaceModule';
 
 // Статус клетки
 /* eslint-disable no-unused-vars */
-export enum MoonGroundCellStatus {
+export enum TCellStatus {
 	UNKNOWN = 'UNKNOWN',
 	EMPTY = 'EMPTY',
 	OCCUPIED = 'OCCUPIED',
@@ -13,12 +13,12 @@ export enum MoonGroundCellStatus {
 /* eslint-enable no-unused-vars */
 
 // Тип для клетки игрового поля
-export type TMoonGroundCell = {
-	status: MoonGroundCellStatus;
+export type TCell = {
+	status: TCellStatus;
 };
 
 // Тип для игрового поля
-export type TMoonGroundMap = TMoonGroundCell[][];
+export type TMap = TCell[][];
 
 // Тип координаты
 export type TCoordinates = {
@@ -32,44 +32,44 @@ export type TFixedCoordinates = {
 	readonly y: number;
 };
 
-// Тип данных для конструктора класса MoonGround
-export type TMoonGroundData = {
+// Тип данных для конструктора класса SpaceGround
+export type TSpaceGroundProps = {
 	width: number;
 	height: number;
-	initStatus?: MoonGroundCellStatus; // Статус для первоначального заполнения клеток
+	initStatus?: TCellStatus; // Статус для первоначального заполнения клеток
 };
 
 // Тип формы лунного модуля
-export type TLunarModuleShape = TFixedCoordinates[];
+export type TShape = TFixedCoordinates[];
 
 // Тип пропсов для конструктора лунного модуля
-export type TLunarModuleProps = {
+export type TSpaceModuleProps = {
 	readonly name: string;
-	readonly shape: TLunarModuleShape;
+	readonly shape: TShape;
 };
 
 // Тип списка типов лунных модулей для расстановки
-export type TLunarModulesTypesToBePlacement = {
+export type TShapesList = {
 	name: string;
 	shape: TFixedCoordinates[];
 	count: number;
 }[];
 
 // Тип для ответа получения урона по Lunar Module
-export type TLunarModuleHitRespond = {
+export type THitRespond = {
 	destroyed: boolean;
-	lunarModule? : LunarModule;
+	lunarModule? : SpaceModule;
 };
 
 // Тип для ответа на выстрел по карте
-export type TMoonGroundShootingRespond = {
+export type TShootRespond = {
 	hadShoot: boolean;
 	hit?: boolean;
 	destroyed?: boolean;
 };
 
 // ВРЕМЕННЫЙ тип для отображения карты на экране
-export type TMoonGroundDisplayProps = {
-	map: TMoonGroundMap;
+export type TSpaceGroundDisplayProps = {
+	map: TMap;
 	rerender: boolean;
 };
