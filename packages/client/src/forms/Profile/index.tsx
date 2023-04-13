@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {useAppSelector} from 'client/src/hooks/redux';
+import {useAppDispatch, useAppSelector} from 'client/src/hooks/redux';
 import {authSelectors} from 'client/src/stores/reducers/auth/authSlice';
 import {Formik, Form, FormikHelpers} from 'formik';
 import {Alert} from 'client/src/components/Alert';
@@ -13,6 +13,7 @@ import {REG_EMAIL, REG_LOGIN} from 'client/src/regExp';
 import {PATHS} from 'client/src/routers/name';
 import {userAPI} from 'client/src/api/user';
 import {authAPI} from 'client/src/api/auth';
+import {changeUserData} from 'client/src/stores/reducers/auth/authThunks';
 
 interface IFormValues {
 	avatar?: string | null;
@@ -22,6 +23,7 @@ interface IFormValues {
 
 export const ProfileForm = () => {
 	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
 	const {user} = useAppSelector(authSelectors.user);
 
 	const [formAlert, setFormAlert] = useState('');
@@ -48,34 +50,42 @@ export const ProfileForm = () => {
 		values: IFormValues,
 		{setSubmitting}: FormikHelpers<IFormValues>,
 	) => {
-		// Получаем актуальные данные о пользователе
-		// @todo условно актуальные данные будут хранится в store
-		const userData = await authAPI.getUser();
+		try {
+			// @todo проверять авторизацию через hoc и убрать дополнительное условие
+			// условие нужно, чтобы данные, которые не изменяются и не выводятся, не обновились
+			const userData = user ?? await authAPI.getUser();
+			console.log(userData);
 
-		if (isErrorAPI(userData)) {
-			setFormAlert(userData.reason);
-			return;
+			if (isErrorAPI(userData)) {
+				setFormAlert(userData.reason);
+				return;
+			}
+
+			const data = await dispatch(
+				changeUserData({
+					login: values.login,
+					email: values.email,
+					// дополняем необходимыми для API полями (из userData), которых нет в форме
+					first_name: userData.first_name,
+					second_name: userData.second_name,
+					phone: userData.phone,
+					display_name: userData.display_name || '',
+				}),
+			);
+
+			setSubmitting(false);
+
+			if (isErrorAPI(data)) {
+				setFormAlert(data.reason);
+				return;
+			}
+
+			setFormAlert('');
+			navigate(PATHS.mainMenu);
+
+		} catch (rejectedValue) {
+			console.log(rejectedValue);
 		}
-
-		const data = await userAPI.changeUser({
-			login: values.login,
-			email: values.email,
-			// дополняем необходимыми для API полями (из userData), которых нет в форме
-			first_name: userData.first_name,
-			second_name: userData.second_name,
-			phone: userData.phone,
-			display_name: userData.display_name || '',
-		});
-
-		setSubmitting(false);
-
-		if (isErrorAPI(data)) {
-			setFormAlert(data.reason);
-			return;
-		}
-
-		setFormAlert('');
-		navigate(PATHS.mainMenu);
 	};
 
 	const handleValidate = (values: IFormValues) => {
