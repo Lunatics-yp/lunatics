@@ -1,80 +1,29 @@
-import {useState} from 'react';
-import {Form, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {Header} from 'client/src/components/Header';
+import {ProfileForm} from 'client/src/forms/Profile';
 import {Button} from 'client/src/components/Button';
-import {Input} from 'client/src/components/Input';
-import {Avatar} from 'client/src/components/Avatar';
 import {PATHS} from 'client/src/routers/name';
-import {ProfileApi} from 'client/src/api/profile';
 import 'client/src/styles/form.scss';
 import './profile.scss';
 
 export const PageProfile = () => {
-
-	const [loginEmail, setLoginEmail] = useState({
-		login: '',
-		email: '',
-	});
 	const navigate = useNavigate();
 
-	const buttonCallback = () => {
-		ProfileApi.changeUserForm(loginEmail);
-	};
-
-	const onAvatarChange = (file: File) => {
-		const formData = new FormData();
-		formData.append('avatar', file);
-		ProfileApi.changeAvatarData(formData);
-		// console.log('1');
-		// api call change avatar
-	};
-
-	const onChangeInputName = (e: {target: {name: string; value: string}}) => {
-		const {target: {name, value}} = e;
-
-		setLoginEmail(_prevValues => ({..._prevValues, [name]: value}));
+	const goToMainMenu = () => {
+		navigate(PATHS.mainMenu);
 	};
 
 	return (
 		<div className='pageProfile'>
 			<Header>Профиль игрока</Header>
-			<Button
-				text='назад'
-				className='buttonBack'
-				onClick={() => {
-					navigate('/');
-				}}
-			/>
-			<Form className='form'>
-				<Avatar
-					size='large'
-					editable
-					onChange={onAvatarChange}
+			<div>
+				<Button
+					text='Назад'
+					className='buttonBack'
+					onClick={goToMainMenu}
 				/>
-				<Input
-					label='Логин'
-					name='login'
-					onChange={onChangeInputName}
-				/>
-				<Input
-					label='E-mail'
-					type='email'
-					name='email'
-					onChange={onChangeInputName}
-				/>
-				<div className='formGroup_btns'>
-					<Button
-						text='Смена пароля'
-						onClick={() => {
-							navigate(`${PATHS.profileChangePassword}`);
-						}}
-					/>
-					<Button
-						text='Сохранить'
-						onClick={buttonCallback}
-					/>
-				</div>
-			</Form>
+				<ProfileForm/>
+			</div>
 		</div>
 	);
 };

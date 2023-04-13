@@ -7,6 +7,8 @@ import {Alert} from 'client/src/components/Alert';
 import {authAPI} from 'client/src/api/auth';
 import {isErrorAPI} from 'client/src/api/request/utilits';
 import {PATHS} from 'client/src/routers/name';
+import {emailError, loginError, passwordError} from 'client/src/errors/errors';
+import {REG_EMAIL, REG_LOGIN, REG_PASSWORD} from 'client/src/regExp';
 
 interface IFormValues {
 	login: string;
@@ -19,8 +21,12 @@ export const RegisterForm = () => {
 
 	const [formAlert, setFormAlert] = useState('');
 
-	const handleBack = () => {
+	const goToHome = () => {
 		navigate(PATHS.home);
+	};
+
+	const goToAuth = () => {
+		navigate(PATHS.auth);
 	};
 
 	const handleSubmit = async (
@@ -48,6 +54,20 @@ export const RegisterForm = () => {
 		navigate(PATHS.mainMenu);
 	};
 
+	const handleValidate = (values: IFormValues) => {
+		const errors: Partial<IFormValues> = {};
+		if (!REG_LOGIN.test(values.login)) {
+			errors.login = loginError;
+		}
+		if (!REG_PASSWORD.test(values.password)) {
+			errors.password = passwordError;
+		}
+		if (!REG_EMAIL.test(values.email)) {
+			errors.email = emailError;
+		}
+		return errors;
+	};
+
 	const initialValues: IFormValues = {
 		login: '',
 		email: '',
@@ -58,6 +78,7 @@ export const RegisterForm = () => {
 		<Formik
 			initialValues={initialValues}
 			onSubmit={handleSubmit}
+			validate={handleValidate}
 		>
 			{({isSubmitting}) => (
 				<Form className='form'>
@@ -83,8 +104,12 @@ export const RegisterForm = () => {
 							disabled={isSubmitting}
 						/>
 						<Button
+							text='У меня есть аккаунт'
+							onClick={goToAuth}
+						/>
+						<Button
 							text='Вернуться на главную'
-							onClick={handleBack}
+							onClick={goToHome}
 						/>
 					</div>
 				</Form>
