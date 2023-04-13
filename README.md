@@ -1,3 +1,32 @@
+<div align='center'>
+
+# Лунатики
+
+<!-- https://shields.io/ -->
+
+![lerna](https://img.shields.io/badge/lerna-5.4.3-blue)
+![vite](https://img.shields.io/badge/vite-3.2.5-blue)
+![typescript](https://img.shields.io/badge/typescript-4.9.5-blue)
+[![Authors](https://img.shields.io/badge/Authors-Lunatics-blue)](https://github.com/orgs/Lunatics-yp/people?query=role%3Aowner)
+
+</div>
+
+Реализация игры "Лунатики", основанной на правилах игры "Морской бой".
+
+Проект создан в учебных целях в рамках курса [Мидл фронтенд разработчик](https://practicum.yandex.ru/middle-frontend/) от Яндекс Практикума.
+
+---
+
+## Демо проекта
+
+- https://lunatics-git-dev-lunatics-yp.vercel.app
+
+## Документация проекта
+
+- https://github.com/FrontHeads/tanchiki/tree/dev/docs
+
+- - - - -
+
 ### Как запускать?
 
 1. Убедитесь что у вас установлен `node` и `docker`
