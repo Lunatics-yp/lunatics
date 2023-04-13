@@ -5,7 +5,7 @@ import styles from './home.module.scss';
 export const Home = () => {
 	const navigate = useNavigate();
 	const goToHome = () => {
-		navigate(PATHS.mainMenu);
+		navigate(PATHS.home);
 	};
 	return (
 		<button

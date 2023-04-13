@@ -5,7 +5,10 @@ import {Home} from 'client/src/components/images/Home';
 export const Forum = () => {
 	return (
 		<>
-			<Header><Home/><div>Forum</div></Header>
+			<Header>
+				<Home/>
+				<div>Forum</div>
+			</Header>
 			<Outlet/>
 		</>
 	);
