@@ -2,6 +2,8 @@
 	--height: 50px;
 	--borderSize: 5px;
 
+	display: flex;
+	align-items: center;
 	position: relative;
 	height: var(--height);
 	width: 100%;

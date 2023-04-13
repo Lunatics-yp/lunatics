@@ -2,12 +2,16 @@ import {TErrorAPI, TUserDTO} from './typingAPI';
 
 export type TNullObject = Record<string, never>;
 
+/* Login */
+
 export type TLoginRequestData = {
 	login: string;
 	password: string;
 };
 
 export type TLoginResponseData = TNullObject | TErrorAPI;
+
+/* Register */
 
 export type TRegisterRequestData = {
 	first_name: string;
@@ -20,14 +24,20 @@ export type TRegisterRequestData = {
 
 export type TRegisterResponseData = {id: number} | TErrorAPI;
 
-export type TUserResponseData = TUserDTO;
+/* User */
 
-export type TChangePassword = {
-  oldPassword: string;
-  newPassword: string;
+export type TUserResponseData = TUserDTO | TErrorAPI;
+
+export type TChangePasswordRequestData = {
+	oldPassword: string;
+	newPassword: string;
 };
 
-export type TChangeUserForm = {
-  login: string;
-  email: string;
+export type TChangeUserRequestData = {
+	login: string;
+	email: string;
+	first_name: string;
+	second_name: string;
+	phone: string;
+	display_name: string;
 };
