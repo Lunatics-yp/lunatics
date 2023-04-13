@@ -33,6 +33,7 @@ export class CanvasContainer {
 		this.context.lineTo(x, y + height);
 
 		if (borderColor) {
+			this.context.strokeStyle = borderColor;
 			this.context.stroke();
 		}
 		//для кораблей дополнительные стили
