@@ -1,18 +1,39 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {authAPI} from 'client/src/api/auth';
+import {TLoginRequestData} from 'client/src/api/typing';
 
 // Для взаимодействия с асинхронными actions используем createAsyncThunk.
 export const fetchUser = createAsyncThunk(
 	'auth/fetchUser',
 	async (_, thunkAPI) => {
 		try {
-			const response = await authAPI.getUser();
-			return response;
+			return await authAPI.getUser();
 		} catch(e) {
-			return thunkAPI.rejectWithValue('Не удалось получить данные');
-
+			return thunkAPI.rejectWithValue(e);
 		}
 	},
 );
 
-export const authThunks = {fetchUser};
+export const login = createAsyncThunk(
+	'auth/login',
+	async (data: TLoginRequestData, thunkAPI ) => {
+		try {
+			return await authAPI.login(data);
+		} catch(e) {
+			throw thunkAPI.rejectWithValue(e);
+		}
+	},
+);
+
+export const logout = createAsyncThunk(
+	'auth/logout',
+	async (_, thunkAPI) =>{
+		try {
+			return  await authAPI.logout();
+		} catch(e) {
+			return thunkAPI.rejectWithValue(e);
+		}
+	},
+);
+
+export const authThunks = {fetchUser, login};

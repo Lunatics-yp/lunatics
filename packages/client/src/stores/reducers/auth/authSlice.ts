@@ -16,6 +16,7 @@ export const authSlice = createSlice({
 	},
 	extraReducers: (builder) => {
 		builder
+		// fetchUser
 			.addCase(authThunks.fetchUser.fulfilled, (state, action) => {
 				state.isLoading = false;
 				state.user = action.payload;
@@ -28,7 +29,17 @@ export const authSlice = createSlice({
 				state.isLoading = false;
 				state.error = action.error.message as string;
 				state.user = null;
-			});
+			})
+		// login
+			.addCase(authThunks.login.pending, (state) => {
+				state.isLoading = true;
+				state.error = '';
+			})
+			.addCase(authThunks.login.rejected, (state, action) => {
+				state.isLoading = false;
+				state.error = action.error.message as string;
+			})
+		;
 	},
 });
 

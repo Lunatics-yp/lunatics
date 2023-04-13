@@ -1,10 +1,11 @@
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {Formik, Form, FormikHelpers} from 'formik';
+import {fetchUser, login} from 'client/src/stores/reducers/auth/authThunks';
+import {useAppDispatch} from 'client/src/hooks/redux';
 import {Button} from 'client/src/components/Button';
 import {InputFormik} from 'client/src/components/InputFormik';
 import {Alert} from 'client/src/components/Alert';
-import {authAPI} from 'client/src/api/auth';
 import {PATHS} from 'client/src/routers/name';
 import {requiredError} from 'client/src/errors/errors';
 import {isErrorAPI} from 'client/src/api/request/utilits';
@@ -18,6 +19,8 @@ export const AuthForm = () => {
 	const navigate = useNavigate();
 
 	const [formAlert, setFormAlert] = useState('');
+
+	const dispatch = useAppDispatch();
 
 	const goToHome = () => {
 		navigate(PATHS.home);
@@ -35,20 +38,27 @@ export const AuthForm = () => {
 		values: IFormValues,
 		{setSubmitting}: FormikHelpers<IFormValues>,
 	) => {
-		const data = await authAPI.login({
-			login: values.login,
-			password: values.password,
-		});
+		try {
+			const data = await dispatch(login({
+				login: values.login,
+				password: values.password,
+			})).unwrap();
 
-		setSubmitting(false);
+			setSubmitting(false);
 
-		if (isErrorAPI(data)) {
-			setFormAlert(data.reason);
-			return;
+			// @todo проверять авторизацию через hoc и убрать дополнительное условие
+			if (isErrorAPI(data) && data.reason !== 'User already in system') {
+				setFormAlert(data.reason);
+				return;
+			}
+
+			setFormAlert('');
+			await dispatch(fetchUser());
+			navigate(PATHS.mainMenu);
+
+		} catch (rejectedValue) {
+			console.log(rejectedValue);
 		}
-
-		setFormAlert('');
-		navigate(PATHS.mainMenu);
 	};
 
 	const handleValidate = (values: IFormValues) => {
