@@ -1,67 +1,34 @@
-import {useState} from 'react';
+import {useAppDispatch, useAppSelector} from 'client/src/hooks/redux';
+import {forumActions, forumSelectors} from 'client/src/stores/reducers/forum/forumSlice';
 import {useInput} from 'client/src/hooks/useInput';
 import {ForumColumn} from '../ForumColumn';
 import {ForumHeader} from '../ForumHeader';
 import {Button} from 'client/src/components/Button';
 import styles from './ForumBox.module.scss';
 
-const dataMock = [
-	{
-		id: 1,
-		forums: 'lalal',
-		topics: 58,
-		answers: 77,
-	},
-	{
-		id: 2,
-		forums: 'laladdwl',
-		topics: 5,
-		answers: 8,
-	},
-	{
-		id: 3,
-		forums: 'PRiVET',
-		topics: 5,
-		answers: 8,
-	},
-];
-
-type TDataMock = {
-	id: number;
-	forums: string;
-	topics: number;
-	answers: number;
-};
-
 export const ForumBox = () => {
 
-	const [forumTopics, setFormTopics] = useState<TDataMock[]>(dataMock);
 	const newTopic = useInput('');
+	const forums = useAppSelector(forumSelectors.forums);
+	const dispatch = useAppDispatch();
 
-	const ForumColumnElements = forumTopics.map((forum) => (
+	const ForumColumnElements = forums.map((forum) => (
 		<ForumColumn
 			key={forum.id}
 			id={forum.id}
-			forum={forum.forums}
-			topics={forum.topics}
-			answers={forum.answers}
+			title={forum.title}
+			discussionsCount={forum.discussionsCount}
+			answersCount={forum.answersCount}
 		/>
 	));
 
 	function createTopic() {
 
-		if (newTopic.value) {
-
-			setFormTopics(prev => [{
-				id: prev[prev.length - 1].id + 1,
-				forums: newTopic.value,
-				topics: 0,
-				answers: 0,
-			}, ...prev]);
+		if (newTopic.value.trim() !== '') {
+			dispatch(forumActions.addForum(newTopic.value.trim()));
 		}
 
 		newTopic.reset();
-
 	}
 
 	return (

@@ -1,6 +1,7 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import authReducer from './reducers/auth/authSlice';
 import userSettingsReducer from './reducers/userSettings/userSettingsSlice';
+import forumReducer from './reducers/forum/forumSlice';
 
 /**
  * Автоматически комбинирует slice reducers,
@@ -9,6 +10,7 @@ import userSettingsReducer from './reducers/userSettings/userSettingsSlice';
 const rootReducer = combineReducers({
 	authReducer,
 	userSettingsReducer,
+	forumReducer,
 });
 
 export const setupStore = () => {
