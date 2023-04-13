@@ -58,11 +58,11 @@ export class SpaceModule {
 	};
 
 	/**
-	* Найти модуль по координатам на игровом поле
-	* @param {SpaceModule[]} lunarModules - Искомый лунный модуль
-	* @param {TCoordinates} mapCoordinates - Координаты на игровом поле
-	* @returns {SpaceModule | null} - Возвращает экземпляр LunarModule или null
-	*/
+	 * Найти модуль по координатам на игровом поле
+	 * @param {SpaceModule[]} lunarModules - Искомый лунный модуль
+	 * @param {TCoordinates} mapCoordinates - Координаты на игровом поле
+	 * @returns {SpaceModule | null} - Возвращает экземпляр LunarModule или null
+	 */
 	static findLunarModule = (
 		lunarModules: SpaceModule[],
 		mapCoordinates: TCoordinates,
@@ -92,22 +92,22 @@ export class SpaceModule {
 		// Проверяем, действительно ли по заданным координатам текущий лунный модуль
 		if (SpaceModule.findLunarModule([this], mapCoordinates) !== this) {
 			throw new Error('Неверно выбран Lunar Module для получения урона');
+		}
+		this._aliveCellsCount--; // Отнимаем одну "жизнь", минусуем целую ячейку
+		if (this._aliveCellsCount < 0) {
+			throw new Error('Здоровье Lunar Module ниже нуля');
+		}
+		if (this._aliveCellsCount === 0) {
+			// Если целых ячеек не осталось, то ставим статус "убит"
+			this._isAlive = false;
+			return {
+				destroyed: true,
+				lunarModule: this,
+			};
 		} else {
-			this._aliveCellsCount--; // Отнимаем одну "жизнь", минусуем целую ячейку
-			if(this._aliveCellsCount < 0) {
-				throw new Error('Здоровье Lunar Module ниже нуля');
-			}else if(this._aliveCellsCount === 0) {
-				// Если целых ячеек не осталось, то ставим статус "убит"
-				this._isAlive = false;
-				return {
-					destroyed: true,
-					lunarModule: this,
-				};
-			}else {
-				return {
-					destroyed: false,
-				};
-			}
+			return {
+				destroyed: false,
+			};
 		}
 	};
 }

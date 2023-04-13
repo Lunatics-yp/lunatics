@@ -26,21 +26,20 @@ export class Shooting extends GameMechanic {
 		// Метод нанесения урона по лунному модулю
 		const hit = () => {
 			const lunarModule = SpaceModule.findLunarModule(this.getLunarModules(), coordinates);
-			if (lunarModule) {
-				const hitRespond = lunarModule.hit(coordinates);
-				// Выводим в консоль результаты выстрела (для разработчика)
-				console.log(hitRespond);
-				if (hitRespond.destroyed && hitRespond.lunarModule) {
-					return destroy(hitRespond.lunarModule);
-				} else {
-					this.getMoonGround().setCellStatus(coordinates, TCellStatus.BURNING);
-					return {
-						hadShoot: true,
-						hit: true,
-					};
-				}
-			} else {
+			if (!lunarModule) {
 				throw new Error('Не найден LunarModule по заданным координатам!');
+			}
+			const hitRespond = lunarModule.hit(coordinates);
+			// Выводим в консоль результаты выстрела (для разработчика)
+			console.log(hitRespond);
+			if (hitRespond.destroyed && hitRespond.lunarModule) {
+				return destroy(hitRespond.lunarModule);
+			} else {
+				this.getMoonGround().setCellStatus(coordinates, TCellStatus.BURNING);
+				return {
+					hadShoot: true,
+					hit: true,
+				};
 			}
 		};
 
