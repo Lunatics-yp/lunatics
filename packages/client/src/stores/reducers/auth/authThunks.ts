@@ -36,4 +36,4 @@ export const logout = createAsyncThunk(
 	},
 );
 
-export const authThunks = {fetchUser, login};
+export const authThunks = {fetchUser, login, logout};

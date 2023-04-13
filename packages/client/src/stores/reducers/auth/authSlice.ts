@@ -39,6 +39,19 @@ export const authSlice = createSlice({
 				state.isLoading = false;
 				state.error = action.error.message as string;
 			})
+		// logout
+			.addCase(authThunks.logout.fulfilled, (state) => {
+				state.isLoading = false;
+				state.user = null;
+			})
+			.addCase(authThunks.logout.pending, (state) => {
+				state.isLoading = true;
+				state.error = '';
+			})
+			.addCase(authThunks.logout.rejected, (state, action) => {
+				state.isLoading = false;
+				state.error = action.error.message as string;
+			})
 		;
 	},
 });
