@@ -39,6 +39,15 @@ export const authSlice = createSlice({
 				state.isLoading = false;
 				state.error = action.error.message as string;
 			})
+		// register
+			.addCase(authThunks.register.pending, (state) => {
+				state.isLoading = true;
+				state.error = '';
+			})
+			.addCase(authThunks.register.rejected, (state, action) => {
+				state.isLoading = false;
+				state.error = action.error.message as string;
+			})
 		// logout
 			.addCase(authThunks.logout.fulfilled, (state) => {
 				state.isLoading = false;

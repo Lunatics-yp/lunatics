@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {authAPI} from 'client/src/api/auth';
-import {TLoginRequestData} from 'client/src/api/typing';
+import {TLoginRequestData, TRegisterRequestData} from 'client/src/api/typing';
 
 // Для взаимодействия с асинхронными actions используем createAsyncThunk.
 export const fetchUser = createAsyncThunk(
@@ -25,6 +25,17 @@ export const login = createAsyncThunk(
 	},
 );
 
+export const register = createAsyncThunk(
+	'auth/register',
+	async (data: TRegisterRequestData, thunkAPI ) => {
+		try {
+			return await authAPI.register(data);
+		} catch(e) {
+			throw thunkAPI.rejectWithValue(e);
+		}
+	},
+);
+
 export const logout = createAsyncThunk(
 	'auth/logout',
 	async (_, thunkAPI) =>{
@@ -36,4 +47,4 @@ export const logout = createAsyncThunk(
 	},
 );
 
-export const authThunks = {fetchUser, login, logout};
+export const authThunks = {fetchUser, login, register, logout};
