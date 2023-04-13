@@ -54,4 +54,15 @@ export const changeUserData = createAsyncThunk(
 	},
 );
 
-export const authThunks = {fetchUser, login, register, logout, changeUserData};
+export const changeUserAvatar = createAsyncThunk(
+	'profile/changeAvatar',
+	async (data: FormData, thunkAPI) => {
+		try {
+			return await userAPI.changeAvatar(data);
+		} catch (e) {
+			return thunkAPI.rejectWithValue(e);
+		}
+	},
+);
+
+export const authThunks = {fetchUser, login, register, logout, changeUserData, changeUserAvatar};

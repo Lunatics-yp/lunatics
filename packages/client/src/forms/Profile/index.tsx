@@ -2,6 +2,7 @@ import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from 'client/src/hooks/redux';
 import {authSelectors} from 'client/src/stores/reducers/auth/authSlice';
+import {changeUserAvatar, changeUserData} from 'client/src/stores/reducers/auth/authThunks';
 import {Formik, Form, FormikHelpers} from 'formik';
 import {Alert} from 'client/src/components/Alert';
 import {Avatar} from 'client/src/components/Avatar';
@@ -11,15 +12,16 @@ import {isErrorAPI} from 'client/src/api/request/utilits';
 import {emailError, loginError} from 'client/src/errors/errors';
 import {REG_EMAIL, REG_LOGIN} from 'client/src/regExp';
 import {PATHS} from 'client/src/routers/name';
-import {userAPI} from 'client/src/api/user';
 import {authAPI} from 'client/src/api/auth';
-import {changeUserData} from 'client/src/stores/reducers/auth/authThunks';
 
 interface IFormValues {
 	avatar?: string | null;
 	login: string;
 	email: string;
 }
+
+// 1 Мбайт
+const MAX_SIZE = 1048576;
 
 export const ProfileForm = () => {
 	const navigate = useNavigate();
@@ -33,17 +35,26 @@ export const ProfileForm = () => {
 	};
 
 	const handleAvatarChange = async (file: File) => {
-		const formData = new FormData();
-		formData.append('avatar', file);
-		const data = await userAPI.changeAvatar(formData);
+		try {
+			const formData = new FormData();
+			
+			formData.append('avatar', file);
+			const formDataSize = (formData?.get('avatar') as {size: number})?.size;
+			const data = await dispatch(changeUserAvatar(formData)).unwrap();
+			
+			if (isErrorAPI(data)) {
+				setFormAlert(data.reason);
+				return;
+			} else if (formDataSize >= MAX_SIZE) {
+				setFormAlert('Слишком большой размер загружаемого файла');
+				return;
+			}
 
-		if (isErrorAPI(data)) {
-			setFormAlert(data.reason);
-			return;
+			setFormAlert('');
+			navigate(PATHS.mainMenu);
+		} catch (rejectedValue) {
+			console.log(rejectedValue);
 		}
-
-		setFormAlert('');
-		navigate(PATHS.mainMenu);
 	};
 
 	const handleSubmit = async (

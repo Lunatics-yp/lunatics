@@ -62,6 +62,7 @@ export const authSlice = createSlice({
 				state.isLoading = false;
 				state.error = action.error.message as string;
 			})
+		// changeUserData
 			.addCase(authThunks.changeUserData.fulfilled, (state, action) => {
 				state.isLoading = false;
 				state.user = action.payload;
@@ -71,6 +72,19 @@ export const authSlice = createSlice({
 				state.error = '';
 			})
 			.addCase(authThunks.changeUserData.rejected, (state, action) => {
+				state.isLoading = false;
+				state.error = action.error.message as string;
+			})
+		// changeAvatar
+			.addCase(authThunks.changeUserAvatar.fulfilled, (state, action) => {
+				state.isLoading = false;
+				if (action.payload.avatar) state.user = action.payload;
+			})
+			.addCase(authThunks.changeUserAvatar.pending, (state) => {
+				state.isLoading = true;
+				state.error = '';
+			})
+			.addCase(authThunks.changeUserAvatar.rejected, (state, action) => {
 				state.isLoading = false;
 				state.error = action.error.message as string;
 			})
