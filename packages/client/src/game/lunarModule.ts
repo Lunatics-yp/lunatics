@@ -61,7 +61,7 @@ export class LunarModule {
 	* Найти модуль по координатам на игровом поле
 	* @param {LunarModule[]} lunarModules - Искомый лунный модуль
 	* @param {TCoordinates} mapCoordinates - Координаты на игровом поле
-	* @returns {LunarModule | null} - Вощвращает экземпляр LunarModule или null
+	* @returns {LunarModule | null} - Возвращает экземпляр LunarModule или null
 	*/
 	static findLunarModule = (
 		lunarModules: LunarModule[],
@@ -83,7 +83,7 @@ export class LunarModule {
 	/**
 	 * Выстрел по лунному модулю
 	 * @param {TCoordinates} mapCoordinates - Координата на игровом поле
-	 * @returns {TLunarModuleHitRespond} - Вощвращает объект с результатом выстрела
+	 * @returns {TLunarModuleHitRespond} - Возвращает объект с результатом выстрела
 	 * @description
 	 * - `destroyed` (boolean): Было ли полное уничтожение лунного модуля
 	 * - `lunarModule` (LunarModule): Экземпляр уничтоженного лунного модуля

@@ -75,7 +75,7 @@ export class Placement extends GameMechanic{
 
 	// Метод рандомной расстановки всех лунных моделей
 	randomLocateAllModulesToGround = () => {
-		// Кол-во попыток на каждую ячейку. Вычислено эксперементально.
+		// Кол-во попыток на каждую ячейку. Вычислено экспериментально.
 		const cyclesPerOneCell = 10;
 		const {width: mapWidth, height: mapHeight} = this.getMoonGround().getMapSize();
 		// Лимит для цикла (во избежание бесконечного цикла)
@@ -86,7 +86,7 @@ export class Placement extends GameMechanic{
 		let subCyclesCount = 0;
 		// Общее кол-во лунных модулей
 		const modulesCount = this.getLunarModules().length;
-		// Кол-во размещённых на поле можулей
+		// Кол-во размещённых на поле модулей
 		let locatedModulesCount: number = 0;
 		// Засекаем время
 		const timeStart = performance.now();
@@ -98,14 +98,14 @@ export class Placement extends GameMechanic{
 			for (const lunarModule of this.getLunarModules()) {
 				let isLocated = false;
 				let thisSubCycle = 0;
-				// Подцикл - попылка разместить текущий лунный модуль на карте
+				// Подцикл - попытка разместить текущий лунный модуль на карте
 				do {
 					thisSubCycle++;
 					const randomX = Math.floor(Math.random() * (mapWidth + 1));
 					const randomY = Math.floor(Math.random() * (mapHeight + 1));
 					const randomRotate90 = Math.random() >= 0.5;
 					// Пытаемся разместить модуль по текущим координатам
-					// Возвращает boolean успеха
+					// Возвращает 'boolean' успеха
 					isLocated = this.locateModuleToGround(
 						lunarModule,
 						{x: randomX, y: randomY},
@@ -125,13 +125,13 @@ export class Placement extends GameMechanic{
 				locatedModulesCount = 0;
 			}
 		} while (locatedModulesCount < modulesCount && cyclesCount < cyclesLimit);
-		// Вычисляем, все ли лунные модули были размерещны на поле
+		// Вычисляем, все ли лунные модули были размещены на поле
 		const isAllModulesLocated = locatedModulesCount === modulesCount;
 		// Если нет, то очищаем карту
 		if (!isAllModulesLocated) {
 			this.clear();
 		}
-		// Выводим инфу для разработчика в консоль
+		// Выводим информацию для разработчика в консоль
 		const timeSpent = Math.round(performance.now() - timeStart);
 		console.log(`Рандомная расстановка. Успех = ${isAllModulesLocated}`);
 		console.log(`циклов = ${cyclesCount}, подциклов = ${subCyclesCount}, ${timeSpent}ms`);

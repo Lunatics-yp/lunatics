@@ -6,7 +6,7 @@ import {
 	TMoonGroundMap,
 } from './typing';
 
-// Данные для первоначального запонения клетки
+// Данные для первоначального заполнения клетки
 // На самом деле status перезаписывается полученным из пропсов,
 // но если initStatus не указан, то остаётся этот
 const emptyCell: TMoonGroundCell = {
@@ -19,8 +19,8 @@ export class MoonGround {
 	private readonly _map: TMoonGroundMap; // Карта игрового поля, двумерный массив статусов ячеек
 
 	constructor(data: TMoonGroundData) {
-		// Статус для первоначального заполнения клеток
-		// Будет используется, чтобы клетки вражеского поля заполнить Unknown, а своего Empty
+		// Статус для первоначального заполнения клеток.
+		// Используется для заполнения клеток вражеского поля статусом Unknown, а своего Empty
 		const {initStatus = MoonGroundCellStatus.EMPTY} = data;
 		// Сначала создаём пустой двумерный массив
 		this._map = new Array(data.height).fill(undefined)
@@ -86,7 +86,7 @@ export class MoonGround {
 
 		// Перебираем полученный массив
 		// Если клетка внутри поля и не пустая, то нельзя
-		// Клетка может оказаться вне поля, если модуль распологается возле стенки
+		// Клетка может оказаться вне поля, если модуль располагается возле стенки
 		// Тогда часть "окружающих" клеток окажется вне поля, это не является отказом
 		for (const oneCoordinate of allCoordinates) {
 			if (this.isPositionInsideMap(oneCoordinate)

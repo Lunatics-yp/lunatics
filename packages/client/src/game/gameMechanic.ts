@@ -15,9 +15,8 @@ export class GameMechanic {
 		return this._modules;
 	};
 
-	// Полчить ссылку на экземпляр игрового поля
+	// Получить ссылку на экземпляр игрового поля
 	getMoonGround = () => {
 		return this._moonGround;
 	};
-
 }

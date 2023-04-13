@@ -16,7 +16,7 @@ export class Shooting extends GameMechanic {
 	/**
 	* Метод выстрела по игровому полю
 	* @param {TCoordinates} coordinates - Координата для выстрела
-	* @returns {TMoonGroundShootingRespond} - Вощвращает объект с результатом выстрела
+	* @returns {TMoonGroundShootingRespond} - Возвращает объект с результатом выстрела
 	* @description Метод выстрела по игровому полю
 	* - `hadShoot` (boolean): Был ли произведён выстрел
 	* - `hit` (boolean): Было ли попадание в лунный модуль
