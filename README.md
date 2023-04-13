@@ -23,7 +23,7 @@
 
 ## Документация проекта
 
-- https://github.com/FrontHeads/tanchiki/tree/dev/docs
+- [Документация проекта](/docs)
 
 - - - - -
 
