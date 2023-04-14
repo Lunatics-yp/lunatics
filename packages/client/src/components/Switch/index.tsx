@@ -14,7 +14,12 @@ export const Switch: FC<TSwitch> = (props) => {
 		value,
 	} = props;
 
-	const [selectedValue, setSelectedValue] = useState(defaultValue);
+	let newDefaultValue = null;
+	if(!defaultValue && value && typeof value === 'string' && list.indexOf(value) !== -1){
+		newDefaultValue = list.indexOf(value);
+	}
+
+	const [selectedValue, setSelectedValue] = useState( newDefaultValue ?? defaultValue);
 
 	const onSwitchHandler = (x: number) => {
 

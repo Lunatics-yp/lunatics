@@ -120,8 +120,8 @@ export const ProfileForm = () => {
 
 	const initialValues: IFormValues = {
 		avatar: user?.avatar ?? null,
-		login: user ? user?.login : '',
-		email: user ? user?.email : '',
+		login: user?.login ?? '',
+		email: user?.email ?? '',
 	};
 
 	return (

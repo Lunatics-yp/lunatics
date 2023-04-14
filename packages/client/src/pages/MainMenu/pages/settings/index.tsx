@@ -5,12 +5,12 @@ import {
 	userSettingsActions,
 	userSettingsSelectors,
 } from 'client/src/stores/reducers/userSettings/userSettingsSlice';
+import {Languages} from 'client/src/stores/reducers/userSettings/typing';
 import {Header} from 'client/src/components/Header';
 import {Menu} from 'client/src/components/Menu';
 import {Footer} from 'client/src/components/Footer';
 import {Button} from 'client/src/components/Button';
 import {Switch} from 'client/src/components/Switch';
-import {languages} from './languages';
 
 // Компонент меню настройки
 export const MainMenuSettings = () => {
@@ -41,8 +41,9 @@ export const MainMenuSettings = () => {
 			<Header>Настройки</Header>
 			<Menu>
 				<Switch
+					// defaultValue={0}
 					value={language}
-					list={languages}
+					list={[Languages.Russian, Languages.English]}
 					label='Язык'
 					onSwitch={onLanguageSwitch}/>
 				<Switch
