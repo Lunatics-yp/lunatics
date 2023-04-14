@@ -41,7 +41,6 @@ export const MainMenuSettings = () => {
 			<Header>Настройки</Header>
 			<Menu>
 				<Switch
-					// defaultValue={0}
 					value={language}
 					list={[Languages.Russian, Languages.English]}
 					label='Язык'
