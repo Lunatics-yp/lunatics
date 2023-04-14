@@ -1,7 +1,7 @@
+import {useNavigate} from 'react-router-dom';
 import {PATHS} from 'client/src/routers/name';
 import 'client/src/styles/errorsPages.scss';
 import {Button} from 'client/src/components/Button';
-import {useNavigate} from 'react-router-dom';
 
 export const Page500 = () => {
 	const navigate = useNavigate();

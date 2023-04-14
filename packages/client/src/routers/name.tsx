@@ -12,5 +12,8 @@ export const PATHS = {
 	topic: '/forum/topic',
 	auth: '/auth',
 	profile: '/profile',
+	placement: '/placement',
+	game: '/game',
+	gameResults: '/gameResults',
 	profileChangePassword: '/profileChangePassword',
 };

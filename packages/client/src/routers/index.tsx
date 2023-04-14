@@ -17,6 +17,11 @@ import {PageAuth} from 'client/src/pages/Auth';
 import {PageProfile} from 'client/src/pages/Profile';
 import {PageProfileChangePassword} from 'client/src/pages/ProfileChangePassword';
 import {ForumDiscussion} from 'client/src/pages/Forum/ForumDiscussion';
+// @ts-ignore
+import {SetShipsPage} from 'client/src/pages/Game/setShipsPage';
+// @ts-ignore
+import {GamePage} from 'client/src/pages/Game/gamePage';
+import {GameResultsPage} from 'client/src/pages/Game/gameResultsPage';
 
 export const router = createBrowserRouter([
 	{
@@ -92,5 +97,17 @@ export const router = createBrowserRouter([
 	{
 		path: PATHS.auth,
 		element: <PageAuth/>,
+	},
+	{
+		path: PATHS.placement,
+		element: <SetShipsPage/>,
+	},
+	{
+		path: PATHS.game,
+		element: <GamePage/>,
+	},
+	{
+		path: PATHS.gameResults,
+		element: <GameResultsPage/>,
 	},
 ]);
