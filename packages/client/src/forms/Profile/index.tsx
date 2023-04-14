@@ -37,23 +37,25 @@ export const ProfileForm = () => {
 	const handleAvatarChange = async (file: File) => {
 		try {
 			const formData = new FormData();
-			
 			formData.append('avatar', file);
 			const formDataSize = (formData?.get('avatar') as {size: number})?.size;
+
+			if (formDataSize >= MAX_SIZE) {
+				setFormAlert('Слишком большой размер загружаемого файла');
+				return;
+			}
+
 			const data = await dispatch(changeUserAvatar(formData)).unwrap();
-			
+
 			if (isErrorAPI(data)) {
 				setFormAlert(data.reason);
-				return;
-			} else if (formDataSize >= MAX_SIZE) {
-				setFormAlert('Слишком большой размер загружаемого файла');
 				return;
 			}
 
 			setFormAlert('');
 			navigate(PATHS.mainMenu);
 		} catch (rejectedValue) {
-			console.log(rejectedValue);
+			console.error(rejectedValue);
 		}
 	};
 
@@ -65,7 +67,6 @@ export const ProfileForm = () => {
 			// @todo проверять авторизацию через hoc и убрать дополнительное условие
 			// условие нужно, чтобы данные, которые не изменяются и не выводятся, не обновились
 			const userData = user ?? await authAPI.getUser();
-			console.log(userData);
 
 			if (isErrorAPI(userData)) {
 				setFormAlert(userData.reason);
@@ -95,7 +96,7 @@ export const ProfileForm = () => {
 			navigate(PATHS.mainMenu);
 
 		} catch (rejectedValue) {
-			console.log(rejectedValue);
+			console.error(rejectedValue);
 		}
 	};
 

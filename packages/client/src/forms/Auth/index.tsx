@@ -57,7 +57,7 @@ export const AuthForm = () => {
 			navigate(PATHS.mainMenu);
 
 		} catch (rejectedValue) {
-			console.log(rejectedValue);
+			console.error(rejectedValue);
 		}
 	};
 

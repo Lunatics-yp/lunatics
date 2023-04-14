@@ -30,7 +30,9 @@ export const forumSlice = createSlice({
 		addForum(state, {payload}: PayloadAction<string>) {
 			state.forums.push({
 				id: getNextId(state.forums),
-				discussionsCount: 0, answersCount: 0, title: payload,
+				discussionsCount: 0,
+				answersCount: 0,
+				title: payload,
 			});
 		},
 		// Сообщения

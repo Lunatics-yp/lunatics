@@ -16,8 +16,7 @@ export const userSettingsSlice = createSlice({
 	initialState,
 	reducers: {
 		toggleLanguage(state,  {payload}: PayloadAction<number>) {
-			payload === 0 ? state.settings.language = 'Русский' :
-				state.settings.language = 'English';
+			state.settings.language = (payload === 0) ? 'Русский' : 'English';
 		},
 		changeSoundVolume(state, {payload}: PayloadAction<number>) {
 			state.settings.soundVolume = payload;

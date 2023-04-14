@@ -8,21 +8,27 @@ import {
 } from 'client/src/api/typing';
 
 // Для взаимодействия с асинхронными actions используем createAsyncThunk.
-export const fetchUser = createAsyncThunk('auth/fetchUser', async (_, thunkAPI) => {
-	try {
-		return await authAPI.getUser();
-	} catch (e) {
-		return thunkAPI.rejectWithValue(e);
-	}
-});
+export const fetchUser = createAsyncThunk(
+	'auth/fetchUser',
+	async (_, thunkAPI) => {
+		try {
+			return await authAPI.getUser();
+		} catch (e) {
+			return thunkAPI.rejectWithValue(e);
+		}
+	},
+);
 
-export const login = createAsyncThunk('auth/login', async (data: TLoginRequestData, thunkAPI) => {
-	try {
-		return await authAPI.login(data);
-	} catch (e) {
-		throw thunkAPI.rejectWithValue(e);
-	}
-});
+export const login = createAsyncThunk(
+	'auth/login',
+	async (data: TLoginRequestData, thunkAPI) => {
+		try {
+			return await authAPI.login(data);
+		} catch (e) {
+			throw thunkAPI.rejectWithValue(e);
+		}
+	},
+);
 
 export const register = createAsyncThunk(
 	'auth/register',
@@ -35,13 +41,16 @@ export const register = createAsyncThunk(
 	},
 );
 
-export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
-	try {
-		return await authAPI.logout();
-	} catch (e) {
-		return thunkAPI.rejectWithValue(e);
-	}
-});
+export const logout = createAsyncThunk(
+	'auth/logout',
+	async (_, thunkAPI) => {
+		try {
+			return await authAPI.logout();
+		} catch (e) {
+			return thunkAPI.rejectWithValue(e);
+		}
+	},
+);
 
 export const changeUserData = createAsyncThunk(
 	'profile/changeUser',
