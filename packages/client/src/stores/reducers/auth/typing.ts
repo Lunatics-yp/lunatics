@@ -1,5 +1,3 @@
-import {TUserDTO} from 'client/src/api/typingAPI';
-
 export type TAuthState = {
 	user: TUser | null;
 	isLoading: boolean;

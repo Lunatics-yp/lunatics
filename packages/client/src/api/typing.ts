@@ -26,7 +26,7 @@ export type TRegisterResponseData = {id: number} | TErrorAPI;
 
 /* User */
 
-export type TUserResponseData = TUserDTO;
+export type TUserResponseData = TUserDTO | TErrorAPI;
 
 export type TChangePasswordRequestData = {
 	oldPassword: string;

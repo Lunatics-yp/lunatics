@@ -2,7 +2,12 @@ import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from 'client/src/hooks/redux';
 import {authSelectors} from 'client/src/stores/reducers/auth/authSlice';
-import {changeUserAvatar, changeUserData} from 'client/src/stores/reducers/auth/authThunks';
+import {
+	changeUserAvatar,
+	changeUserData,
+	fetchUser,
+} from 'client/src/stores/reducers/auth/authThunks';
+import {TUser} from 'client/src/stores/reducers/auth/typing';
 import {Formik, Form, FormikHelpers} from 'formik';
 import {Alert} from 'client/src/components/Alert';
 import {Avatar} from 'client/src/components/Avatar';
@@ -12,7 +17,6 @@ import {isErrorAPI} from 'client/src/api/request/utilits';
 import {emailError, loginError} from 'client/src/errors/errors';
 import {REG_EMAIL, REG_LOGIN} from 'client/src/regExp';
 import {PATHS} from 'client/src/routers/name';
-import {authAPI} from 'client/src/api/auth';
 
 interface IFormValues {
 	avatar?: string | null;
@@ -65,8 +69,11 @@ export const ProfileForm = () => {
 	) => {
 		try {
 			// @todo проверять авторизацию через hoc и убрать дополнительное условие
-			// условие нужно, чтобы данные, которые не изменяются и не выводятся, не обновились
-			const userData = user ?? await authAPI.getUser();
+			if (!user) {
+				await  dispatch(fetchUser());
+			}
+
+			const userData = user as TUser;
 
 			if (isErrorAPI(userData)) {
 				setFormAlert(userData.reason);
@@ -78,10 +85,10 @@ export const ProfileForm = () => {
 					login: values.login,
 					email: values.email,
 					// дополняем необходимыми для API полями (из userData), которых нет в форме
-					first_name: userData.first_name,
-					second_name: userData.second_name,
+					first_name: userData.firstName,
+					second_name: userData.secondName,
 					phone: userData.phone,
-					display_name: userData.display_name || '',
+					display_name: userData.displayName || '',
 				}),
 			);
 
