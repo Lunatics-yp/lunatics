@@ -2,8 +2,6 @@
 
 # Лунатики
 
-<!-- https://shields.io/ -->
-
 ![lerna](https://img.shields.io/badge/lerna-5.4.3-blue)
 ![vite](https://img.shields.io/badge/vite-3.2.5-blue)
 ![typescript](https://img.shields.io/badge/typescript-4.9.5-blue)

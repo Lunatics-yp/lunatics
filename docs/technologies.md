@@ -4,12 +4,11 @@
 
 - React
 - React Router
-- Redux
-- Redux Thunk
+- Redux Toolkit
 - Typescript
 - Canvas API
 - NodeJS
-- Postcss (SCSS)
+- SCSS
 - Axios
 - Formik
 - NodeJS 15+
