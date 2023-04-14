@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {RootState} from 'client/src/stores/store';
+import {transformUser} from 'client/src/api/apiTransformers';
 import {authThunks} from './authThunks';
 import {TAuthState} from './typing';
 
@@ -20,7 +21,7 @@ export const authSlice = createSlice({
 		// fetchUser
 			.addCase(authThunks.fetchUser.fulfilled, (state, action) => {
 				state.isLoading = false;
-				state.user = action.payload;
+				state.user = transformUser(action.payload);
 			})
 			.addCase(authThunks.fetchUser.pending, (state) => {
 				state.isLoading = true;
@@ -65,7 +66,7 @@ export const authSlice = createSlice({
 		// changeUserData
 			.addCase(authThunks.changeUserData.fulfilled, (state, action) => {
 				state.isLoading = false;
-				state.user = action.payload;
+				state.user = transformUser(action.payload);
 			})
 			.addCase(authThunks.changeUserData.pending, (state) => {
 				state.isLoading = true;
@@ -78,7 +79,7 @@ export const authSlice = createSlice({
 		// changeAvatar
 			.addCase(authThunks.changeUserAvatar.fulfilled, (state, action) => {
 				state.isLoading = false;
-				if (action.payload.avatar) state.user = action.payload;
+				if (action.payload.avatar) state.user = transformUser(action.payload);
 			})
 			.addCase(authThunks.changeUserAvatar.pending, (state) => {
 				state.isLoading = true;
