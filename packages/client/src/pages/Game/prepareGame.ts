@@ -53,23 +53,23 @@ export class PrepareGame {
 			row.forEach((cell) => {
 				let fillColor = '';
 				switch (cell.status) {
-				case MoonGroundCellStatus.EMPTY:
-					fillColor = EMPTY_COLOR;
-					break;
-				case MoonGroundCellStatus.MISSED:
-					fillColor = MISSED_COLOR;
-					break;
+					case MoonGroundCellStatus.EMPTY:
+						fillColor = EMPTY_COLOR;
+						break;
+					case MoonGroundCellStatus.MISSED:
+						fillColor = MISSED_COLOR;
+						break;
 
-				case MoonGroundCellStatus.OCCUPIED:
-					fillColor = OCCUPIED_COLOR;
-					break;
-				case MoonGroundCellStatus.BURNING:
-					fillColor = BURNING_COLOR;
-					break;
+					case MoonGroundCellStatus.OCCUPIED:
+						fillColor = OCCUPIED_COLOR;
+						break;
+					case MoonGroundCellStatus.BURNING:
+						fillColor = BURNING_COLOR;
+						break;
 
-				case MoonGroundCellStatus.DESTROYED:
-					fillColor = DESTROYED_COLOR;
-					break;
+					case MoonGroundCellStatus.DESTROYED:
+						fillColor = DESTROYED_COLOR;
+						break;
 				}
 
 				this.canvasContainer.update({
