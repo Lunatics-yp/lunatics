@@ -1,0 +1,18 @@
+@import 'client/src/styles/app';
+
+.home {
+	border: none;
+	background-color: transparent;
+	margin-right: 5px;
+
+	&__icon {
+		width: 30px;
+		height: 30px;
+		stroke: var(--colorWhite);
+
+		&:hover {
+			cursor: pointer;
+			opacity: 0.7;
+		}
+	}
+}

@@ -12,10 +12,12 @@ export const InputFormik: FC<TInputFormikProps> = (props) => {
 		type = 'text',
 	} = props;
 
-	const [field] = useField(props);
+	const [field, meta] = useField(props);
+
+	const fieldError = meta.touched && meta.error ? meta.error : null;
 
 	return (
-		<div className='formGroup'>
+		<div className={`formGroup ${fieldError && 'hasError'}`}>
 			<Label label={label}/>
 			<div className='input'>
 				<input
@@ -24,6 +26,9 @@ export const InputFormik: FC<TInputFormikProps> = (props) => {
 				/>
 				<div className='underLine'></div>
 			</div>
+			{fieldError && (
+				<div className='formError'>{fieldError}</div>
+			)}
 		</div>
 	);
 };

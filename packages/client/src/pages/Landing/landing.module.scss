@@ -1,0 +1,103 @@
+@import 'client/src/styles/mixins';
+
+.pageLanding {
+	@include flexVertical;
+
+	justify-content: space-between;
+	min-height: 100%;
+}
+
+.content {
+	flex-grow: 1;
+	overflow-x: visible;
+	overflow-y: auto;
+	padding: 0 10% 20px;
+	min-height: calc(100% - 55px);
+	color: var(--colorGreyLight);
+	text-shadow:
+		0 1px 5px var(--colorBlack),
+		0 1px 10px var(--colorBlack),
+		0 1px 10px var(--colorBlack);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+
+	h1,
+	h2 {
+		text-align: center;
+	}
+
+	h1 {
+		font-size: 1.6rem;
+	}
+
+	h2 {
+		font-size: 1.4rem;
+		margin-top: 2rem;
+	}
+
+	p {
+		text-align: justify;
+		line-height: 1.3rem;
+	}
+
+	ol {
+		list-style-type: decimal;
+		padding-left: 20px;
+	}
+
+	ol li {
+		text-align: justify;
+		margin-bottom: 10px;
+		line-height: 1.3rem;
+	}
+}
+
+.logoImage,
+.logoText {
+	width: 100%;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center center;
+}
+
+.logoImage {
+	height: 200px;
+	padding-top: 80px;
+}
+
+.logoText {
+	height: 150px;
+}
+
+.buttons {
+	text-align: center;
+	padding: 35px 0 5px;
+
+	button {
+		--width: 140px;
+		--height: 35px;
+
+		font-size: 1rem;
+		cursor: pointer;
+	}
+
+	button:not(:last-child) {
+		margin-right: 20px;
+	}
+}
+
+.linkToGitHub {
+	width: 300px;
+	height: 100%;
+	margin: 0 auto;
+	padding-left: 45px;
+	font-size: 0.67rem;
+	background-repeat: no-repeat;
+	background-size: auto 70%;
+	background-position: left center;
+
+	a {
+		text-decoration: underline;
+	}
+}

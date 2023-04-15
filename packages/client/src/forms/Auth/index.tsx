@@ -6,19 +6,29 @@ import {InputFormik} from 'client/src/components/InputFormik';
 import {Alert} from 'client/src/components/Alert';
 import {authAPI} from 'client/src/api/auth';
 import {PATHS} from 'client/src/routers/name';
+import {requiredError} from 'client/src/errors/errors';
+import {isErrorAPI} from 'client/src/api/request/utilits';
 
 interface IFormValues {
 	login: string;
 	password: string;
 }
 
-export const LoginForm = () => {
+export const AuthForm = () => {
 	const navigate = useNavigate();
 
 	const [formAlert, setFormAlert] = useState('');
 
-	const handleBack = () => {
+	const goToHome = () => {
 		navigate(PATHS.home);
+	};
+
+	const goToMainMenu = () => {
+		navigate(PATHS.mainMenu);
+	};
+
+	const goToRegister = () => {
+		navigate(PATHS.register);
 	};
 
 	const handleSubmit = async (
@@ -30,13 +40,26 @@ export const LoginForm = () => {
 			password: values.password,
 		});
 
-		setFormAlert(data.reason || '');
-
 		setSubmitting(false);
 
-		if (typeof data.reason === 'undefined') {
-			navigate(PATHS.mainMenu);
+		if (isErrorAPI(data)) {
+			setFormAlert(data.reason);
+			return;
 		}
+
+		setFormAlert('');
+		navigate(PATHS.mainMenu);
+	};
+
+	const handleValidate = (values: IFormValues) => {
+		const errors: Partial<IFormValues> = {};
+		if (!values.login) {
+			errors.login = requiredError;
+		}
+		if (!values.password) {
+			errors.password = requiredError;
+		}
+		return errors;
 	};
 
 	const initialValues: IFormValues = {
@@ -48,6 +71,7 @@ export const LoginForm = () => {
 		<Formik
 			initialValues={initialValues}
 			onSubmit={handleSubmit}
+			validate={handleValidate}
 		>
 			{({isSubmitting}) => (
 				<Form className='form'>
@@ -68,8 +92,16 @@ export const LoginForm = () => {
 							disabled={isSubmitting}
 						/>
 						<Button
+							text='Нет аккаунта?'
+							onClick={goToRegister}
+						/>
+						<Button
+							text='Играть как гость'
+							onClick={goToMainMenu}
+						/>
+						<Button
 							text='Вернуться на главную'
-							onClick={handleBack}
+							onClick={goToHome}
 						/>
 					</div>
 				</Form>

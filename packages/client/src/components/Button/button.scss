@@ -8,7 +8,7 @@
 	width: var(--width);
 	height: var(--height);
 	clip-path: polygon(0 0, 100% 0, 100% var(--cropY), var(--cropX) 100%, 0% 100%);
-	padding-left: calc(var(--height) / 3);
+	padding-right: calc(var(--crop) / 2);
 	font-size: calc(var(--height) / 3);
 	line-height: var(--height);
 	color: var(--colorBlueDark);
@@ -33,16 +33,18 @@
 }
 
 .buttonBack {
-	--width: 5%;
-	--height: 59px;
-	--crop: 30px;
-	--cropX: calc(var(--width) - var(--crop));
+	--width: 90px;
+	--height: 50px;
+	--crop: 10px;
+	--cropX: 0;
 	--cropY: calc(var(--height) - var(--crop));
 
-	padding: 8px 16px;
-	background: var(--colorBlueLight);
 	width: var(--width);
-	clip-path: polygon(0 0, 100% 0, 100% var(--cropY), var(--cropX) 100%, 0% 100%);
+	height: var(--height);
+	border: none;
+	padding: 0 10px var(--crop);
+	background: var(--colorBlueLight);
+	clip-path: polygon(0 0, 100% 0, 100% var(--cropY), 0 100%, 0 0);
 
 	&:hover {
 		background: var(--colorGray);

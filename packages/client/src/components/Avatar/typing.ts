@@ -1,5 +1,5 @@
 export type TAvatarProps = {
-	src?: string;
+	src?: string | null;
 	alt?: string;
 	size: 'small' | 'medium' | 'large';
 	editable?: boolean;
