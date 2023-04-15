@@ -17,41 +17,41 @@ export const useForm = (callback: Fn<void>) => {
 	const validate = ( name: string, value: string) => {
 
 		switch (name) {
-		case InputsNames.login :
-			if (!REG_LOGIN.test(value)) {
-				setErrors({
-					...errors,
-					login: loginError,
-				});
-			} else {
-				const newObj = omit(errors, ['login']);
-				setErrors(newObj);
-			}
-			break;
+			case InputsNames.login :
+				if (!REG_LOGIN.test(value)) {
+					setErrors({
+						...errors,
+						login: loginError,
+					});
+				} else {
+					const newObj = omit(errors, ['login']);
+					setErrors(newObj);
+				}
+				break;
 
-		case InputsNames.email:
-			if (!REG_EMAIL.test(value)) {
-				setErrors({
-					...errors,
-					email: emailError,
-				});
-			} else {
-				const newObj = omit(errors, ['email']);
-				setErrors(newObj);
-			}
-			break;
+			case InputsNames.email:
+				if (!REG_EMAIL.test(value)) {
+					setErrors({
+						...errors,
+						email: emailError,
+					});
+				} else {
+					const newObj = omit(errors, ['email']);
+					setErrors(newObj);
+				}
+				break;
 
-		case InputsNames.password:
-			if (!REG_PASSWORD.test(value)) {
-				setErrors({
-					...errors,
-					password: passwordError,
-				});
-			} else {
-				const newObj = omit(errors, ['password']);
-				setErrors(newObj);
-			}
-			break;
+			case InputsNames.password:
+				if (!REG_PASSWORD.test(value)) {
+					setErrors({
+						...errors,
+						password: passwordError,
+					});
+				} else {
+					const newObj = omit(errors, ['password']);
+					setErrors(newObj);
+				}
+				break;
 		}
 	};
 
