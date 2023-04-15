@@ -43,8 +43,8 @@ export class SpaceGround {
 
 	// Очистка игрового поля
 	clear = () => {
-		for (let y = 0; y < this.map.length; y++) {
-			for (let x = 0; x < this.map[y].length; x++) {
+		for (let y = 0; y < this.map.size.height; y++) {
+			for (let x = 0; x < this.map.size.width; x++) {
 				this.map[y][x] = {...emptyCell};
 			}
 		}
