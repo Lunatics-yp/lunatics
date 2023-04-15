@@ -1,7 +1,7 @@
 const CANVAS_WIDTH = 1200;
 const CANVAS_HEIGHT = 1000;
 const CELL_SIZE = 30;
-
+const RADIUS = 10;
 const BATTLEFIELD_WIDTH = CELL_SIZE * 10;
 const BATTLEFIELD_HEIGHT = CELL_SIZE * 10;
 
@@ -24,6 +24,11 @@ const shipDatas = [
 			x: 65 + PREPARATION_SCREEN_START_FIELD_COORD_X,
 			y: 190 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
 		},
+		position: {
+			x: 0,
+			y: 0,
+		},
+		cells: [],
 		color: BACKGROUND_COLOR_SHIP,
 		borderColor: BORDER_COLOR_SHIP,
 	},
@@ -34,6 +39,11 @@ const shipDatas = [
 			x: 15 + PREPARATION_SCREEN_START_FIELD_COORD_X,
 			y: 135 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
 		},
+		position: {
+			x: 0,
+			y: 0,
+		},
+		cells: [],
 		color: BACKGROUND_COLOR_SHIP,
 		borderColor: BORDER_COLOR_SHIP,
 	},
@@ -44,83 +54,123 @@ const shipDatas = [
 			x: 155 + PREPARATION_SCREEN_START_FIELD_COORD_X,
 			y: 135 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
 		},
+		position: {
+			x: 0,
+			y: 0,
+		},
+		cells: [],
 		color: BACKGROUND_COLOR_SHIP,
 		borderColor: BORDER_COLOR_SHIP,
 	},
-	{
-		id: 4,
-		size: 2,
-		startPosition: {
-			x: PREPARATION_SCREEN_START_FIELD_COORD_X,
-			y: 80 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
-		},
-		color: BACKGROUND_COLOR_SHIP,
-		borderColor: BORDER_COLOR_SHIP,
-	},
-	{
-		id: 5,
-		size: 2,
-		startPosition: {
-			x: 105 + PREPARATION_SCREEN_START_FIELD_COORD_X,
-			y: 80 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
-		},
-		color: BACKGROUND_COLOR_SHIP,
-		borderColor: BORDER_COLOR_SHIP,
+	// {
+	// 	id: 4,
+	// 	size: 2,
+	// 	startPosition: {
+	// 		x: PREPARATION_SCREEN_START_FIELD_COORD_X,
+	// 		y: 80 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+	// 	},
+	// 	position: {
+	// 		x: 0,
+	// 		y: 0,
+	// 	},
+	// 	cells: [],
+	// 	color: BACKGROUND_COLOR_SHIP,
+	// 	borderColor: BORDER_COLOR_SHIP,
+	// },
+	// {
+	// 	id: 5,
+	// 	size: 2,
+	// 	startPosition: {
+	// 		x: 105 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+	// 		y: 80 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+	// 	},
+	// 	position: {
+	// 		x: 0,
+	// 		y: 0,
+	// 	},
+	// 	cells: [],
+	// 	color: BACKGROUND_COLOR_SHIP,
+	// 	borderColor: BORDER_COLOR_SHIP,
 
-	},
-	{
-		id: 6,
-		size: 2,
-		startPosition: {
-			x: 210 + PREPARATION_SCREEN_START_FIELD_COORD_X,
-			y: 80 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
-		},
-		color: BACKGROUND_COLOR_SHIP,
-		borderColor: BORDER_COLOR_SHIP,
-	},
-	{
-		id: 8,
-		size: 1,
-		startPosition: {
-			x: 25 + PREPARATION_SCREEN_START_FIELD_COORD_X,
-			y: 25 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
-		},
-		color: BACKGROUND_COLOR_SHIP,
-		borderColor: BORDER_COLOR_SHIP,
+	// },
+	// {
+	// 	id: 6,
+	// 	size: 2,
+	// 	startPosition: {
+	// 		x: 210 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+	// 		y: 80 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+	// 	},
+	// 	position: {
+	// 		x: 0,
+	// 		y: 0,
+	// 	},
+	// 	cells: [],
+	// 	color: BACKGROUND_COLOR_SHIP,
+	// 	borderColor: BORDER_COLOR_SHIP,
+	// },
+	// {
+	// 	id: 8,
+	// 	size: 1,
+	// 	startPosition: {
+	// 		x: 25 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+	// 		y: 25 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+	// 	},
+	// 	position: {
+	// 		x: 0,
+	// 		y: 0,
+	// 	},
+	// 	cells: [],
+	// 	color: BACKGROUND_COLOR_SHIP,
+	// 	borderColor: BORDER_COLOR_SHIP,
 
-	},
-	{
-		id: 9,
-		size: 1,
-		startPosition: {
-			x: 85 + PREPARATION_SCREEN_START_FIELD_COORD_X,
-			y: 25 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
-		},
-		color: BACKGROUND_COLOR_SHIP,
-		borderColor: BORDER_COLOR_SHIP,
+	// },
+	// {
+	// 	id: 9,
+	// 	size: 1,
+	// 	startPosition: {
+	// 		x: 85 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+	// 		y: 25 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+	// 	},
+	// 	position: {
+	// 		x: 0,
+	// 		y: 0,
+	// 	},
+	// 	cells: [],
+	// 	color: BACKGROUND_COLOR_SHIP,
+	// 	borderColor: BORDER_COLOR_SHIP,
 
-	},
-	{
-		id: 10,
-		size: 1,
-		startPosition: {
-			x: 145 + PREPARATION_SCREEN_START_FIELD_COORD_X,
-			y: 25 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
-		},
-		color: BACKGROUND_COLOR_SHIP,
-		borderColor: BORDER_COLOR_SHIP,
+	// },
+	// {
+	// 	id: 10,
+	// 	size: 1,
+	// 	startPosition: {
+	// 		x: 145 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+	// 		y: 25 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+	// 	},
+	// 	position: {
+	// 		x: 0,
+	// 		y: 0,
+	// 	},
+	// 	cells: [],
+	// 	color: BACKGROUND_COLOR_SHIP,
+	// 	borderColor: BORDER_COLOR_SHIP,
 
-	},
-	{
-		id: 7,
-		size: 1,
-		startPosition: {
-			x: 205 + PREPARATION_SCREEN_START_FIELD_COORD_X,
-			y: 25 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
-		},
-		color: BACKGROUND_COLOR_SHIP,
-		borderColor: BORDER_COLOR_SHIP,
-	},
+	// },
+	// {
+	// 	id: 7,
+	// 	size: 1,
+	// 	startPosition: {
+	// 		x: 205 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+	// 		y: 25 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+	// 	},
+	// 	position: {
+	// 		x: 0,
+	// 		y: 0,
+	// 	},
+	// 	cells: [],
+	// 	color: BACKGROUND_COLOR_SHIP,
+	// 	borderColor: BORDER_COLOR_SHIP,
+	// },
 ];
 
 export {
@@ -135,4 +185,8 @@ export {
 	MISSED_COLOR,
 	BURNING_COLOR,
 	DESTROYED_COLOR,
+	RADIUS,
+	PREPARATION_SCREEN_START_FIELD_COORD_X,
+	PREPARATION_SCREEN_START_FIELD_COORD_Y,
+	BORDER_COLOR_SHIP,
 };

@@ -43,6 +43,10 @@ export class CanvasContainer {
 		}
 	}
 
+	clear() {
+		this.context.clearRect(0, 0, this.element.width, this.element.height);
+	}
+
 	update(rect: TRect) {
 		this.rect(rect);
 	}
