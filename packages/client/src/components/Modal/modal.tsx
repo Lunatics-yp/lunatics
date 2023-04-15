@@ -1,10 +1,8 @@
-import React, {FC} from 'react';
-import './styles.scss';
+import {FC} from 'react';
+import './modal.scss';
+import {TModalProps} from './typing';
 
-type TProps = {
-   children: React.ReactNode[];
-};
-export const Modal: FC<TProps> = (props) => {
+export const Modal: FC<TModalProps> = (props) => {
 	return (
 		<>
 			<div className='modal'>
@@ -14,7 +12,7 @@ export const Modal: FC<TProps> = (props) => {
 				</div>
 				{props.children[1]}
 				<div className=' underlineBottom'/>
-				<div className='buttonsModal'>
+				<div className='modalButtons'>
 					{props.children[2]}
 				</div>
 			</div>

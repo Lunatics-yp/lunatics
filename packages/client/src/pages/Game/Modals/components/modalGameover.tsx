@@ -6,13 +6,14 @@ type TProps = {
 	result: string;
 };
 export const ModalGameover: FC<TProps> = (props) => {
+	const {winner , result} = props;
 	return (
 		<div>
 			<div className='playerName'>
 				<Avatar size='small'/>
-				<div >{props.winner}</div>
+				<div >{winner}</div>
 			</div>
-			<div className='modalGameOverResult'>{props.result}</div>
+			<div className='modalGameOverResult'>{result}</div>
 		</div>
 	);
 };

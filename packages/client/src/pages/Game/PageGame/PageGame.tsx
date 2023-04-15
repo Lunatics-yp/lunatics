@@ -31,6 +31,11 @@ export const PageGame = () => {
 	};
 	const isWinner =  true;
 	const whoseTurn = 1;
+	const classNamePlayer1 = `playerName playerName1 ${whoseTurn === 1 ? 'turn' : 'wait'}`;
+	const classNamePlayer2 = `playerName playerName2 ${whoseTurn !== 1 ? 'turn' : 'wait'}`;
+	const classNameTurn = `${whoseTurn !== 1 ? ' playersTurn playerName2 turn '
+		: ' playersTurn playerName1 turn'}`;
+
 	//для отображения модального окна с подсказками
 	const [gameActions, setGameActions] = useState(true);
 	const gameActionsName = {
@@ -54,8 +59,7 @@ export const PageGame = () => {
 			<div className='gamePageContainer'>
 				<div className='firstPlayer'>
 					<div
-						className= {whoseTurn === 1 ? ' playerName playerName1 turn'
-							: ' playerName playerName1 wait'}>
+						className= {classNamePlayer1}>
 						<Avatar size='small'/>
 						<div >{players.player1}</div>
 					</div>
@@ -65,8 +69,7 @@ export const PageGame = () => {
 					</div>
 				</div>
 				<div>
-					<div className={whoseTurn !== 1 ? ' playerName playerName2 turn  '
-						: ' playerName playerName2 wait'}>
+					<div className= {classNamePlayer2}>
 						<Avatar size='small'/>
 						<div >{players.player2}</div>
 					</div>
@@ -76,8 +79,8 @@ export const PageGame = () => {
 					</div>
 				</div>
 			</div>
-			<div className={whoseTurn !== 1 ? ' playersTurn playerName2 turn '
-				: ' playersTurn playerName1 turn'} >Ходит
+			<div className={classNameTurn} >
+				Ходит
 				<p>{players.player1}</p>
 			</div>
 			<Button

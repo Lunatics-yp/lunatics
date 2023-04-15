@@ -59,9 +59,15 @@ export const PageSetShips = () => {
 				<Button text='Начать бой' className='button'
 					disabled={!isShipsOnBoard}
 					onClick={() => navigate(PATHS.game)}/>
-				<Button text='Очистить поле' onClick={clearBoard}/>
-				<Button text='Расставить корабли произвольно' onClick={setShipsOnBoard}/>
-				<Button text='Покинуть игру' onClick={() => navigate(PATHS.mainMenu)}/>
+				<Button
+					text='Очистить поле'
+					onClick={clearBoard}/>
+				<Button
+					text='Расставить корабли произвольно'
+					onClick={setShipsOnBoard}/>
+				<Button
+					text='Покинуть игру'
+					onClick={() => navigate(PATHS.mainMenu)}/>
 			</div>
 			<Footer className='footerPlacement'>
 				Расположите свои лунные модули на игровом поле
