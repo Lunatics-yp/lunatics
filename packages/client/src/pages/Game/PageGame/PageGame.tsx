@@ -1,18 +1,20 @@
 import {useNavigate} from 'react-router-dom';
 import {useState} from 'react';
+import {PATHS} from 'client/src/routers/name';
 import {Background} from 'client/src/components/Background';
 import {Header} from 'client/src/components/Header';
 import {Button} from 'client/src/components/Button';
-// @ts-ignore
-import {Canvas} from 'client/src/pages/Game/setShipsPage';
+import {Canvas} from 'client/src/pages/Game/PageSetShips/PageSetShips';
 import {Footer} from 'client/src/components/Footer';
 import {Avatar} from 'client/src/components/Avatar';
 import {Timer} from 'client/src/utils/timer';
-import {ModalGameover} from 'client/src/pages/Game/Modals/modalGameover';
 import {ModalGameActions} from 'client/src/pages/Game/Modals/modalGameActions';
-import './style.css';
+import {Modal} from 'client/src/components/Modal/modal';
+import {ModalGameover} from 'client/src/pages/Game/Modals/components/modalGameover';
+import {ModalGameoverButtons} from 'client/src/pages/Game/Modals/components/modalGameoverButtons';
+import './styles.scss';
 
-export const GamePage = () => {
+export const PageGame = () => {
 
 	const navigate = useNavigate();
 	//данные из стора
@@ -22,27 +24,32 @@ export const GamePage = () => {
 		player1: 'Jack',
 		player2: 'Jon',
 	};
+	const winner = players.player1;
+	const result = {
+		win: 'Победа!',
+		lose: 'Поражение :(',
+	};
 	const isWinner =  true;
 	const whoseTurn = 1;
 	//для отображения модального окна с подсказками
-	const [gameAction, setGameActions] = useState(true);
-	const gameActionName = {
+	const [gameActions, setGameActions] = useState(true);
+	const gameActionsName = {
 		whoseTurn: `Ходит ${players.player1}`,
 		miss: 'Мимо',
 		hitShip: 'Подбил модуль!',
 		destroy: 'Уничтожил модуль!',
 	};
-
+	const timeout = 4000;
 	//убирает подсказки через 4 сек
 	const timeOut = () => {
 		setTimeout( () => {
 			setGameActions(false);
-		}, 4000);
+		}, timeout);
 	};
-	if(gameAction) timeOut();
+	if(gameActions) timeOut();
 
 	return (
-		<div className='gameOverOpacity'>
+		<div>
 			<Header>Игра</Header>
 			<div className='gamePageContainer'>
 				<div className='firstPlayer'>
@@ -76,16 +83,20 @@ export const GamePage = () => {
 			<Button
 				className='buttonExitGame button'
 				text='Покинуть игру'
-				onClick={() => navigate('/mainmenu')}
+				onClick={() => navigate(PATHS.mainMenu)}
 			/>
-			<Footer className='footerPlacement footer'>
+			<Footer className='footerPlacement'>
 				<Timer isGameOver={isWinner}/>
 			</Footer>
 			{ isWinner  &&
-				<ModalGameover/>
+				<Modal>
+					<p></p>
+					<ModalGameover winner={winner} result={result.win}></ModalGameover>
+					<ModalGameoverButtons/>
+				</Modal>
 			}
-			{ gameAction &&
-				<ModalGameActions text={gameActionName.hitShip}/>
+			{ gameActions &&
+				<ModalGameActions text={gameActionsName.hitShip}/>
 			}
 			<Background/>
 		</div>

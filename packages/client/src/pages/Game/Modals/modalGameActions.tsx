@@ -1,11 +1,11 @@
 import {FC} from 'react';
-import 'client/src/pages/Game/style.css';
+import './modals.scss';
 
-interface Props {
+type TProps = {
 	text: string;
-}
-export const ModalGameActions: FC<Props> = (props) => {
-	const text = props.text;
+};
+export const ModalGameActions: FC<TProps> = (props) => {
+	const {text} = props;
 
 	return (
 		<div className='modalGameActions'>

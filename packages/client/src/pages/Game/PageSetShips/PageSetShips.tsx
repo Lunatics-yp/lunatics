@@ -5,7 +5,7 @@ import {Background} from 'client/src/components/Background';
 import {Header} from 'client/src/components/Header';
 import {Button} from 'client/src/components/Button';
 import {Footer} from 'client/src/components/Footer';
-import './style.css';
+import './styles.scss';
 
 //Canvas будет из реализации команды, это просто временно добавила
 export const Canvas = () => {
@@ -36,7 +36,7 @@ export const Canvas = () => {
 		/>
 	);
 };
-export const SetShipsPage = () => {
+export const PageSetShips = () => {
 	const navigate = useNavigate();
 	const [isShipsOnBoard, setIsShipsOnBoard] = useState(false);
 	const setShipsOnBoard = () => {
@@ -56,14 +56,14 @@ export const SetShipsPage = () => {
 				<Canvas/>
 			</div>
 			<div className='buttonsContainer'>
-				<Button text='Начать бой'
+				<Button text='Начать бой' className='button'
 					disabled={!isShipsOnBoard}
 					onClick={() => navigate(PATHS.game)}/>
 				<Button text='Очистить поле' onClick={clearBoard}/>
 				<Button text='Расставить корабли произвольно' onClick={setShipsOnBoard}/>
 				<Button text='Покинуть игру' onClick={() => navigate(PATHS.mainMenu)}/>
 			</div>
-			<Footer className='footerPlacement footer'>
+			<Footer className='footerPlacement'>
 				Расположите свои лунные модули на игровом поле
 			</Footer>
 			<Background/>

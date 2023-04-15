@@ -1,0 +1,38 @@
+.playerName {
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: center;
+	margin-top: 5%;
+}
+
+.modalGameOverResult {
+	display: flex;
+	justify-content: center;
+	font-size: 30px;
+	margin-top: 20px;
+}
+
+.buttonModalGameOver {
+	width: 140px;
+	height: 40px;
+	margin-left: 20px;
+	text-align: center;
+}
+
+.modalGameActions {
+	width: 270px;
+	height: fit-content;
+	text-shadow: 0 8px 9px black ;
+	border-radius: 30px;
+	position: absolute;
+	top: calc(100vh / 2 - 190px);
+	right: calc(100vw / 2 - 270px / 2);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: var(--colorOrange);
+	font-size: 30px;
+}
+
+

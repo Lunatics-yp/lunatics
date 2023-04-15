@@ -1,11 +1,11 @@
 import {FC, useEffect, useState} from 'react';
 
-interface Props {
+type TProps = {
 	isGameOver: boolean;
-}
-let timerId: any;
+};
+let timerId: NodeJS.Timer;
 
-export const Timer: FC<Props> = (props) => {
+export const Timer: FC<TProps> = (props) => {
 	const [time, setTime] = useState('');
 	let sec = 0;
 	let min = 0;

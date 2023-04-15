@@ -1,11 +1,12 @@
 import {useNavigate} from 'react-router-dom';
+import {PATHS} from 'client/src/routers/name';
 import {Background} from 'client/src/components/Background';
 import {Header} from 'client/src/components/Header';
 import {Button} from 'client/src/components/Button';
 import {Footer} from 'client/src/components/Footer';
-import './style.css';
+import './styles.scss';
 
-export const GameResultsPage = () => {
+export const PageGameResults = () => {
 	const navigate = useNavigate();
 
 	//данные из стора
@@ -67,14 +68,14 @@ export const GameResultsPage = () => {
 			<Button
 				className='buttonResultsGame button'
 				text='Играть заново'
-				onClick={() => navigate('/placement')}
+				onClick={() => navigate(PATHS.placement)}
 			/>
 			<Button
 				className='buttonResultsGame button'
 				text='В главное меню'
-				onClick={() => navigate('/mainmenu')}
+				onClick={() => navigate(PATHS.mainMenu)}
 			/>
-			<Footer className='footerPlacement footer'>
+			<Footer className='footerPlacement'>
 				<p>
 					Длительность игры:  {gameTime}
 				</p>

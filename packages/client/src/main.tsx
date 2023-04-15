@@ -9,9 +9,9 @@ import 'client/src/styles/app.scss';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 
-	<React.Fragment>
+	<React.StrictMode>
 		<RouterProvider router={router}/>
 		<Background/>
-	</React.Fragment>,
+	</React.StrictMode>,
 
 );

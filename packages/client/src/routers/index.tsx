@@ -17,11 +17,9 @@ import {PageAuth} from 'client/src/pages/Auth';
 import {PageProfile} from 'client/src/pages/Profile';
 import {PageProfileChangePassword} from 'client/src/pages/ProfileChangePassword';
 import {ForumDiscussion} from 'client/src/pages/Forum/ForumDiscussion';
-// @ts-ignore
-import {SetShipsPage} from 'client/src/pages/Game/setShipsPage';
-// @ts-ignore
-import {GamePage} from 'client/src/pages/Game/gamePage';
-import {GameResultsPage} from 'client/src/pages/Game/gameResultsPage';
+import {PageSetShips} from 'client/src/pages/Game/PageSetShips/PageSetShips';
+import {PageGame} from 'client/src/pages/Game/PageGame/PageGame';
+import {PageGameResults} from 'client/src/pages/Game/PageGameResults/PageGameResults';
 
 export const router = createBrowserRouter([
 	{
@@ -100,14 +98,14 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: PATHS.placement,
-		element: <SetShipsPage/>,
+		element: <PageSetShips/>,
 	},
 	{
 		path: PATHS.game,
-		element: <GamePage/>,
+		element: <PageGame/>,
 	},
 	{
 		path: PATHS.gameResults,
-		element: <GameResultsPage/>,
+		element: <PageGameResults/>,
 	},
 ]);

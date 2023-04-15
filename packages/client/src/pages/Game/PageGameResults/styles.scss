@@ -1,0 +1,75 @@
+.winnerIs {
+	width: fit-content;
+	margin: 3% auto 2%;
+	text-align: center;
+	font-size: 35px;
+	color: #00dbde;
+	font-weight: 600;
+	text-shadow: -6px 0 17px var(--textWinnerShadow), 0 1px 17px var(--textWinnerShadow), 1px 0 17px var(--textWinnerShadow), 0 -1px 17px var(--textWinnerShadow);
+}
+
+tr {
+	height: 55px;
+}
+
+.tableWrapper {
+	width: 40%;
+	margin: 0 auto;
+
+	table {
+		position: relative;
+		width: 100%;
+		border-collapse: collapse;
+		margin: 0 auto 30px;
+
+		thead  {
+			border: 2px solid white;
+			background-color: var(--colorBlueDark);
+			color: var(--colorBlueLight);
+
+			.underline {
+				position: absolute;
+				left: 0;
+				top: 49px;
+				width: 100%;
+				height: 15px;
+				background: var(--colorWhite);
+				z-index: 3;
+				clip-path: polygon(0% 0%, 7% 0%, 9% 42%, 91% 42%, 93% 0%, 100% 0%, 100% 57%, 52% 57%, 50% 100%, 36% 100%, 34% 57%, 0% 57%);
+			}
+		}
+
+		tbody {
+			tr {
+				:nth-child(2), :nth-child(3) {
+					text-align: center;
+					width: 155px;
+					background-color: var(--colorBlueSky);
+				}
+
+				:first-child {
+					width: 170px;
+					padding-left: 15px;
+					background-color: var(--colorBlueTeal);
+				}
+
+				td {
+					border: 2px solid white;
+				}
+			}
+		}
+	}
+}
+
+.buttonResultsGame {
+	margin: 15px auto;
+	width: 250px;
+	display: block;
+}
+
+.footer  {
+	p {
+		margin: 0;
+	}
+}
+
