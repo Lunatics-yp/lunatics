@@ -17,6 +17,7 @@ import {PageAuth} from 'client/src/pages/Auth';
 import {PageProfile} from 'client/src/pages/Profile';
 import {PageProfileChangePassword} from 'client/src/pages/ProfileChangePassword';
 import {ForumDiscussion} from 'client/src/pages/Forum/ForumDiscussion';
+import {PageGameMechanicsDemonstration} from 'client/src/pages/GameMechanicsDemonstration';
 
 export const router = createBrowserRouter([
 	{
@@ -92,5 +93,9 @@ export const router = createBrowserRouter([
 	{
 		path: PATHS.auth,
 		element: <PageAuth/>,
+	},
+	{
+		path: PATHS.gameMechanicsDemonstration,
+		element: <PageGameMechanicsDemonstration/>,
 	},
 ]);

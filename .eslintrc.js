@@ -27,7 +27,7 @@ module.exports = {
 	rules: {
 		'max-len': ['error', 100],
 		'max-params': ['error', 3],
-		'indent': ['error', 'tab'],
+		'indent': ['error', 'tab', {'SwitchCase': 1}],
 		'no-unused-vars': 'warn',
 		'no-multiple-empty-lines': [
 			'error',

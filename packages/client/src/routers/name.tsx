@@ -13,4 +13,5 @@ export const PATHS = {
 	auth: '/auth',
 	profile: '/profile',
 	profileChangePassword: '/profileChangePassword',
+	gameMechanicsDemonstration: '/gameMechanicsDemonstration',
 };
