@@ -14,7 +14,6 @@ import {passwordError, requiredError} from 'client/src/errors/errors';
 import {REG_PASSWORD} from 'client/src/regExp';
 
 interface IFormValues {
-	avatar?: string | null;
 	oldPassword: string;
 	newPassword: string;
 }
@@ -57,7 +56,6 @@ export const ProfileChangePasswordForm = () => {
 	};
 
 	const initialValues: IFormValues = {
-		avatar: user?.avatar ?? null,
 		oldPassword: '',
 		newPassword: '',
 	};
@@ -71,7 +69,7 @@ export const ProfileChangePasswordForm = () => {
 			{({isSubmitting}) => (
 				<Form className='form'>
 					<Avatar
-						src={initialValues.avatar}
+						src={user?.avatar}
 						size='large'
 					/>
 					<Alert text={formAlert}/>

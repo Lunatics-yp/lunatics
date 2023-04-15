@@ -42,9 +42,8 @@ export const ProfileForm = () => {
 		try {
 			const formData = new FormData();
 			formData.append('avatar', file);
-			const formDataSize = (formData?.get('avatar') as {size: number})?.size;
 
-			if (formDataSize >= MAX_SIZE) {
+			if (file.size >= MAX_SIZE) {
 				setFormAlert('Слишком большой размер загружаемого файла');
 				return;
 			}
@@ -74,11 +73,6 @@ export const ProfileForm = () => {
 			}
 
 			const userData = user as TUser;
-
-			if (isErrorAPI(userData)) {
-				setFormAlert(userData.reason);
-				return;
-			}
 
 			const data = await dispatch(
 				changeUserData({

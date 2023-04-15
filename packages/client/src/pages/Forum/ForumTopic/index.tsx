@@ -9,7 +9,7 @@ import {Message} from './Message';
 import styles from './ForumTopic.module.scss';
 
 export const ForumTopic = () => {
-	
+
 	const {user} = useAppSelector(state => state.authReducer);
 	const [isFocusing, setIsFocusing] = useState(false);
 	const newMessage = useInput('');
@@ -26,11 +26,14 @@ export const ForumTopic = () => {
 	}
 
 	function onSubmitHandler() {
-		if (newMessage.value.trim()) {
+		const messageContent = newMessage.value.trim();
+
+		if (messageContent) {
 			dispatch(forumActions.addMessage(
-				newMessage.value.trim(),
+				messageContent,
 			));
 		}
+
 		newMessage.nulling();
 	}
 
