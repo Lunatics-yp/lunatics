@@ -115,7 +115,7 @@ export const PageGameMechanicsDemonstration = () => {
 	// Экземпляр класса Стрельбы по игровому полю
 	const [playerShooting] = useState(new Shooting(
 		playerMoonGround,
-		playerPlacement.getLunarModules(),
+		playerPlacement.modules,
 	));
 
 	// Метод для принудительного ререндера игрового поля на странице
@@ -165,7 +165,7 @@ export const PageGameMechanicsDemonstration = () => {
 				<Header>Демонстрация игровых механик</Header>
 				<div className={styles.content}>
 					pageGameMechanicsDemonstration
-					<MoonGroundDisplay map={playerMoonGround.getMap()} rerender={rerender}/>
+					<MoonGroundDisplay map={playerMoonGround.map} rerender={rerender}/>
 					<div className={styles.menu}>
 						<Button
 							text='Очистить игровое поле'

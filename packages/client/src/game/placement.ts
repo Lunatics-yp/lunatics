@@ -8,35 +8,35 @@ import {
 } from './typing';
 
 // Класс режима размещения лунных модулей
-export class Placement extends GameMechanic{
+export class Placement extends GameMechanic {
 
 	constructor(
-		moonGround: SpaceGround,
+		spaceGround: SpaceGround,
 		modulesTypesToBePlacement: TShapesList,
 	) {
 		const modules: SpaceModule[] = [];
-		// Перебираем полученный типы и формы лунных модулей и создаём экземпляры LunarModule
+		// Перебираем полученный типы и формы лунных модулей и создаём экземпляры SpaceModule
 		for (const moduleData of modulesTypesToBePlacement) {
 			const {name, shape, count} = moduleData;
 			for (let x = 0; x < count; x++) {
 				modules.push(new SpaceModule({name, shape}));
 			}
 		}
-		super(moonGround, modules);
+		super(spaceGround, modules);
 	}
 
 	/**
-Метод размещения модуля на игровом поле
-@param {SpaceModule} lunarModule - Экземпляр LunarModule, который будет размещён
-@param {TCoordinates} position - Координаты "головы" лунного модуля
-@param {boolean} [rotate90=false] - Поворот на 90 градусов
+	 * Метод размещения модуля на игровом поле
+	 * @param {SpaceModule} spaceModule - Экземпляр SpaceModule, который будет размещён
+	 * @param {TCoordinates} position - Координаты "головы" лунного модуля
+	 * @param {boolean} [rotate90=false] - Поворот на 90 градусов
 	 */
 	locateModuleToGround = (
-		lunarModule: SpaceModule,
+		spaceModule: SpaceModule,
 		position: TCoordinates,
 		rotate90 = false,
 	) => {
-		const shape = lunarModule.getShape();
+		const shape = spaceModule.shape;
 		// Вычисляем координаты на игровом поле для всех ячеек лунного модуля
 		const mapCoordinates: TCoordinates[] = [];
 		for (const shapeCell of shape) {
@@ -47,7 +47,7 @@ export class Placement extends GameMechanic{
 		// Проверяем каждую ячейку, можно ли её разместить на игровом поле
 		let result = true;
 		for (const mapCoordinate of mapCoordinates) {
-			if (!this.getMoonGround().getCanPlaceCellHere(mapCoordinate)) {
+			if (!this.ground.isCanPlaceCellHere(mapCoordinate)) {
 				result = false;
 			}
 		}
@@ -55,20 +55,20 @@ export class Placement extends GameMechanic{
 		// И передаём лунному модулю массив занимаемых на поле координат
 		if (result) {
 			for (const mapCoordinate of mapCoordinates) {
-				this.getMoonGround().setCellStatus(
+				this.ground.setCellStatus(
 					{x: mapCoordinate.x, y: mapCoordinate.y},
 					TCellStatus.OCCUPIED);
 			}
-			lunarModule.setLocatedToMap(mapCoordinates);
+			spaceModule.mapPosition = mapCoordinates;
 		}
 		return result;
 	};
 
 	// Метод очистки игрового поля и сброса координат лунных модулей
 	clear = () => {
-		this.getMoonGround().clear();
-		for (const lunarModule of this.getLunarModules()) {
-			lunarModule.unsetLocatedToMap();
+		this.ground.clear();
+		for (const module of this.modules) {
+			module.unsetLocatedToMap();
 		}
 		console.log('Игровое поле очищено');
 	};
@@ -77,7 +77,7 @@ export class Placement extends GameMechanic{
 	randomLocateAllModulesToGround = () => {
 		// Кол-во попыток на каждую ячейку. Вычислено экспериментально.
 		const cyclesPerOneCell = 10;
-		const {width: mapWidth, height: mapHeight} = this.getMoonGround().getMapSize();
+		const {width: mapWidth, height: mapHeight} = this.ground.map.size;
 		// Лимит для цикла (во избежание бесконечного цикла)
 		const cyclesLimit = mapWidth * mapHeight * cyclesPerOneCell;
 		// Кол-во основных попыток (циклов)
@@ -85,7 +85,7 @@ export class Placement extends GameMechanic{
 		// Кол-во подциклов
 		let subCyclesCount = 0;
 		// Общее кол-во лунных модулей
-		const modulesCount = this.getLunarModules().length;
+		const modulesCount = this.modules.length;
 		// Кол-во размещённых на поле модулей
 		let locatedModulesCount: number = 0;
 		// Засекаем время
@@ -95,7 +95,7 @@ export class Placement extends GameMechanic{
 			// В начале каждой попытки очищаем поле и модули
 			this.clear();
 			// Перебираем все лунные модули
-			for (const lunarModule of this.getLunarModules()) {
+			for (const module of this.modules) {
 				let isLocated = false;
 				let thisSubCycle = 0;
 				// Подцикл - попытка разместить текущий лунный модуль на карте
@@ -107,7 +107,7 @@ export class Placement extends GameMechanic{
 					// Пытаемся разместить модуль по текущим координатам
 					// Возвращает 'boolean' успеха
 					isLocated = this.locateModuleToGround(
-						lunarModule,
+						module,
 						{x: randomX, y: randomY},
 						randomRotate90,
 					);

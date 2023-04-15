@@ -24,32 +24,31 @@ export class SpaceModule {
 	}
 
 	// Заглушка, чтобы TS не ругался на неиспользуемые параметры класса
-	getInfo = () => {
+	get info() {
 		return {
 			name: this._name,
 			isLocated: this._isLocated,
 			isAlive: this._isAlive,
 		};
-	};
+	}
 
 	// Форма лунного модуля
-	getShape = () => {
+	get shape(): TFixedCoordinates[] {
 		return this._shape;
-	};
+	}
 
 	// Координаты на игровом поле
-	getMapPosition = () => {
+	get mapPosition(): TCoordinates[] {
 		return this._mapCoordinates;
-	};
+	}
 
-	// Установить координаты на игровом поле
-	setLocatedToMap = (coordinates: TCoordinates[]) => {
+	set mapPosition(coordinates: TCoordinates[]) {
 		if (coordinates.length !== this._size) {
 			throw new Error('Количество координат отличается от размера');
 		}
 		this._isLocated = true;
 		this._mapCoordinates = coordinates;
-	};
+	}
 
 	// Сбросить координаты на игровом поле
 	unsetLocatedToMap = () => {
@@ -59,20 +58,20 @@ export class SpaceModule {
 
 	/**
 	 * Найти модуль по координатам на игровом поле
-	 * @param {SpaceModule[]} lunarModules - Искомый лунный модуль
+	 * @param {SpaceModule[]} spaceModules - Искомый лунный модуль
 	 * @param {TCoordinates} mapCoordinates - Координаты на игровом поле
 	 * @returns {SpaceModule | null} - Возвращает экземпляр LunarModule или null
 	 */
-	static findLunarModule = (
-		lunarModules: SpaceModule[],
+	static findSpaceModule = (
+		spaceModules: SpaceModule[],
 		mapCoordinates: TCoordinates,
 	): SpaceModule | null => {
-		for (const lunarModule of lunarModules) {
-			for (const lunarModuleCellCoordinates of lunarModule._mapCoordinates) {
-				if (lunarModuleCellCoordinates.x === mapCoordinates.x
-					&& lunarModuleCellCoordinates.y === mapCoordinates.y
+		for (const module of spaceModules) {
+			for (const moduleCellCoordinates of module.mapPosition) {
+				if (moduleCellCoordinates.x === mapCoordinates.x
+					&& moduleCellCoordinates.y === mapCoordinates.y
 				) {
-					return lunarModule;
+					return module;
 				}
 			}
 		}
@@ -90,7 +89,7 @@ export class SpaceModule {
 	 */
 	hit = (mapCoordinates: TCoordinates): THitRespond => {
 		// Проверяем, действительно ли по заданным координатам текущий лунный модуль
-		if (SpaceModule.findLunarModule([this], mapCoordinates) !== this) {
+		if (SpaceModule.findSpaceModule([this], mapCoordinates) !== this) {
 			throw new Error('Неверно выбран Lunar Module для получения урона');
 		}
 		this._aliveCellsCount--; // Отнимаем одну "жизнь", минусуем целую ячейку
@@ -102,7 +101,7 @@ export class SpaceModule {
 			this._isAlive = false;
 			return {
 				destroyed: true,
-				lunarModule: this,
+				spaceModule: this,
 			};
 		} else {
 			return {

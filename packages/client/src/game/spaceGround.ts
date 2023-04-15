@@ -4,6 +4,7 @@ import {
 	TCell,
 	TSpaceGroundProps,
 	TMap,
+	TSize,
 } from './typing';
 
 // Данные для первоначального заполнения клетки
@@ -34,29 +35,24 @@ export class SpaceGround {
 	}
 
 	// Карта игрового поля
-	getMap = () => {
-		return this._map;
-	};
-
-	// Размеры игрового поля
-	getMapSize = () => {
-		const height = this.getMap().length - 1;
-		const width = this.getMap()[0].length - 1;
-		return {height, width};
-	};
+	get map(): TMap & {size: TSize} {
+		const height = this._map.length - 1;
+		const width = this._map[0].length - 1;
+		return Object.assign(this._map, {size: {height, width}});
+	}
 
 	// Очистка игрового поля
 	clear = () => {
-		for (let y = 0; y < this._map.length; y++) {
-			for (let x = 0; x < this._map[y].length; x++) {
-				this._map[y][x] = {...emptyCell};
+		for (let y = 0; y < this.map.length; y++) {
+			for (let x = 0; x < this.map[y].length; x++) {
+				this.map[y][x] = {...emptyCell};
 			}
 		}
 	};
 
 	// Входит ли координата в игровое поле
-	isPositionInsideMap = (coordinates: TCoordinates) => {
-		const {width: mapWidth, height: mapHeight} = this.getMapSize();
+	isPositionInsideMap = (coordinates: TCoordinates): boolean => {
+		const {width: mapWidth, height: mapHeight} = this.map.size;
 		return (coordinates.x >= 0
 			&& coordinates.y >= 0
 			&& coordinates.y <= mapHeight
@@ -64,7 +60,7 @@ export class SpaceGround {
 	};
 
 	// Проверка, можно ли по выбранным координатам установить ячейку лунного модуля
-	getCanPlaceCellHere = (coordinates: TCoordinates) => {
+	isCanPlaceCellHere = (coordinates: TCoordinates): boolean => {
 		let result = true;
 
 		// Если за пределами - нельзя
@@ -90,7 +86,7 @@ export class SpaceGround {
 		// Тогда часть "окружающих" клеток окажется вне поля, это не является отказом
 		for (const oneCoordinate of allCoordinates) {
 			if (this.isPositionInsideMap(oneCoordinate)
-				&& this._map[oneCoordinate.y][oneCoordinate.x].status !== TCellStatus.EMPTY
+				&& this.map[oneCoordinate.y][oneCoordinate.x].status !== TCellStatus.EMPTY
 			) {
 				result = false;
 			}
@@ -100,21 +96,21 @@ export class SpaceGround {
 	};
 
 	// Установить статус клетки игрового поля
-	setCellStatus = (coordinates: TCoordinates, status: TCellStatus) => {
+	setCellStatus = (coordinates: TCoordinates, status: TCellStatus): void => {
 		// Внутри карты X и Y меняются местами для двумерного массива
-		this._map[coordinates.y][coordinates.x].status = status;
+		this.map[coordinates.y][coordinates.x].status = status;
 	};
 
 	// Получить статус клетки игрового поля
-	getCellStatus = (coordinates: TCoordinates) => {
+	getCellStatus = (coordinates: TCoordinates): TCellStatus => {
 		// Внутри карты X и Y меняются местами для двумерного массива
-		return this._map[coordinates.y][coordinates.x].status;
+		return this.map[coordinates.y][coordinates.x].status;
 	};
 
 	// Узнать, можно ли по выбранной координате стрелять
 	// Нельзя стрелять, если координата вне границ игрового поля,
 	// или если по координате уже был произведён выстрел
-	getCanShootHere = (coordinates: TCoordinates) => {
+	isCanShootHere = (coordinates: TCoordinates): boolean => {
 		if (!this.isPositionInsideMap(coordinates)) {
 			return false;
 		} else {

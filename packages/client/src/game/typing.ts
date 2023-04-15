@@ -32,12 +32,16 @@ export type TFixedCoordinates = {
 	readonly y: number;
 };
 
-// Тип данных для конструктора класса SpaceGround
-export type TSpaceGroundProps = {
+// Тип размера карты
+export type TSize = {
 	width: number;
 	height: number;
-	initStatus?: TCellStatus; // Статус для первоначального заполнения клеток
 };
+
+// Тип данных для конструктора класса SpaceGround
+export type TSpaceGroundProps = {
+	initStatus?: TCellStatus; // Статус для первоначального заполнения клеток
+} & TSize;
 
 // Тип формы лунного модуля
 export type TShape = TFixedCoordinates[];
@@ -55,10 +59,10 @@ export type TShapesList = {
 	count: number;
 }[];
 
-// Тип для ответа получения урона по Lunar Module
+// Тип для ответа получения урона по Space Module
 export type THitRespond = {
 	destroyed: boolean;
-	lunarModule? : SpaceModule;
+	spaceModule?: SpaceModule;
 };
 
 // Тип для ответа на выстрел по карте

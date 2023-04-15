@@ -16,8 +16,6 @@ import {gameDescription, gameRules} from './texts';
 export const PageLanding = () => {
 	const navigate = useNavigate();
 
-	console.log('PageLanding');
-
 	// Элемент для блока с правилами
 	const rulesElementRef = useRef<HTMLDivElement>(null);
 

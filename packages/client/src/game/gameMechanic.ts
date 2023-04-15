@@ -2,21 +2,21 @@ import {SpaceModule} from './spaceModule';
 import {SpaceGround} from './spaceGround';
 
 export class GameMechanic {
-	private readonly _moonGround: SpaceGround; // ссылка на экземпляр игрового поля
+	private readonly _ground: SpaceGround; // ссылка на экземпляр игрового поля
 	private readonly _modules: SpaceModule[] = []; // массив лунных модулей
 
-	constructor(moonGround: SpaceGround, lunarModules: SpaceModule[]) {
-		this._moonGround=moonGround;
-		this._modules=lunarModules;
+	constructor(spaceGround: SpaceGround, spaceModules: SpaceModule[]) {
+		this._ground = spaceGround;
+		this._modules = spaceModules;
 	}
 
 	// Получить массив лунных модулей
-	getLunarModules = () => {
+	get modules(): SpaceModule[] {
 		return this._modules;
-	};
+	}
 
 	// Получить ссылку на экземпляр игрового поля
-	getMoonGround = () => {
-		return this._moonGround;
-	};
+	get ground(): SpaceGround {
+		return this._ground;
+	}
 }
