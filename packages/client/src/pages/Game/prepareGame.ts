@@ -4,7 +4,7 @@ import {
 	CELL_SIZE, shipDatas, EMPTY_COLOR, MISSED_COLOR, OCCUPIED_COLOR,
 	BURNING_COLOR, DESTROYED_COLOR, PREPARATION_SCREEN_START_FIELD_COORD_X,
 	PREPARATION_SCREEN_START_FIELD_COORD_Y, BATTLEFIELD_WIDTH, BATTLEFIELD_HEIGHT,
-	BORDER_COLOR_SHIP,
+	BORDER_COLOR_SHIP, UNKNOWN_COLOR,
 } from './constants';
 
 import {Ship, Coord} from './typing';
@@ -24,6 +24,15 @@ interface MoonGroundCell {
 	y: number;
 	status: MoonGroundCellStatus;
 }
+
+const myColors = {
+	[MoonGroundCellStatus.UNKNOWN]: UNKNOWN_COLOR,
+	[MoonGroundCellStatus.EMPTY]: EMPTY_COLOR,
+	[MoonGroundCellStatus.MISSED]: MISSED_COLOR,
+	[MoonGroundCellStatus.OCCUPIED]: OCCUPIED_COLOR,
+	[MoonGroundCellStatus.BURNING]: BURNING_COLOR,
+	[MoonGroundCellStatus.DESTROYED]: DESTROYED_COLOR,
+};
 
 export class PrepareGame {
 	canvasContainer: CanvasContainer;
@@ -212,7 +221,7 @@ export class PrepareGame {
 
 	prepareBoard() {
 		// создаем двумерный массив 10 на 10 для отрисовки поля
-		this.cellArray = Array.from({length: 10}, () =>
+		const cellArray: MoonGroundCell[][] = Array.from({length: 10}, () =>
 			Array.from({length: 10}, () => ({
 				x: 0,
 				y: 0,
@@ -221,9 +230,9 @@ export class PrepareGame {
 		);
 
 		// заполняем массив ячеек
-		for (let row = 0; row < this.cellArray.length; row++) {
-			for (let col = 0; col < this.cellArray[row].length; col++) {
-				this.cellArray[row][col] = {
+		for (let row = 0; row < cellArray.length; row++) {
+			for (let col = 0; col < cellArray[row].length; col++) {
+				cellArray[row][col] = {
 					x: col * CELL_SIZE,
 					y: row * CELL_SIZE,
 					status: MoonGroundCellStatus.UNKNOWN,
@@ -231,31 +240,11 @@ export class PrepareGame {
 			}
 		}
 
-		// отрисовываем ячейки на холсте 
-		//в зависимости от статуса меняется цвет
-		this.cellArray.forEach((row) => {
+		// отрисовываем ячейки на холсте
+		// в зависимости от статуса меняется цвет
+		cellArray.forEach((row) => {
 			row.forEach((cell) => {
-				let fillColor = '';
-				switch (cell.status) {
-					case MoonGroundCellStatus.EMPTY:
-						fillColor = EMPTY_COLOR;
-						break;
-					case MoonGroundCellStatus.MISSED:
-						fillColor = MISSED_COLOR;
-						break;
-
-					case MoonGroundCellStatus.OCCUPIED:
-						fillColor = OCCUPIED_COLOR;
-						break;
-					case MoonGroundCellStatus.BURNING:
-						fillColor = BURNING_COLOR;
-						break;
-
-					case MoonGroundCellStatus.DESTROYED:
-						fillColor = DESTROYED_COLOR;
-						break;
-				}
-
+				const fillColor = myColors[cell.status];
 				this.canvasContainer.update({
 					x: cell.x,
 					y: cell.y,

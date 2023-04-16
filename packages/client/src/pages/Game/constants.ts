@@ -9,6 +9,7 @@ const PREPARATION_SCREEN_START_FIELD_COORD_X = 10;
 const PREPARATION_SCREEN_START_FIELD_COORD_Y = 300;
 
 const BACKGROUND_COLOR_SHIP = '#B3B3B3';
+const UNKNOWN_COLOR = '#f29e1f';
 const BORDER_COLOR_SHIP = '#818181';
 const EMPTY_COLOR = '#19d470';
 const OCCUPIED_COLOR = '#1938d4';
@@ -62,115 +63,6 @@ const shipDatas = [
 		color: BACKGROUND_COLOR_SHIP,
 		borderColor: BORDER_COLOR_SHIP,
 	},
-	// {
-	// 	id: 4,
-	// 	size: 2,
-	// 	startPosition: {
-	// 		x: PREPARATION_SCREEN_START_FIELD_COORD_X,
-	// 		y: 80 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
-	// 	},
-	// 	position: {
-	// 		x: 0,
-	// 		y: 0,
-	// 	},
-	// 	cells: [],
-	// 	color: BACKGROUND_COLOR_SHIP,
-	// 	borderColor: BORDER_COLOR_SHIP,
-	// },
-	// {
-	// 	id: 5,
-	// 	size: 2,
-	// 	startPosition: {
-	// 		x: 105 + PREPARATION_SCREEN_START_FIELD_COORD_X,
-	// 		y: 80 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
-	// 	},
-	// 	position: {
-	// 		x: 0,
-	// 		y: 0,
-	// 	},
-	// 	cells: [],
-	// 	color: BACKGROUND_COLOR_SHIP,
-	// 	borderColor: BORDER_COLOR_SHIP,
-
-	// },
-	// {
-	// 	id: 6,
-	// 	size: 2,
-	// 	startPosition: {
-	// 		x: 210 + PREPARATION_SCREEN_START_FIELD_COORD_X,
-	// 		y: 80 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
-	// 	},
-	// 	position: {
-	// 		x: 0,
-	// 		y: 0,
-	// 	},
-	// 	cells: [],
-	// 	color: BACKGROUND_COLOR_SHIP,
-	// 	borderColor: BORDER_COLOR_SHIP,
-	// },
-	// {
-	// 	id: 8,
-	// 	size: 1,
-	// 	startPosition: {
-	// 		x: 25 + PREPARATION_SCREEN_START_FIELD_COORD_X,
-	// 		y: 25 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
-	// 	},
-	// 	position: {
-	// 		x: 0,
-	// 		y: 0,
-	// 	},
-	// 	cells: [],
-	// 	color: BACKGROUND_COLOR_SHIP,
-	// 	borderColor: BORDER_COLOR_SHIP,
-
-	// },
-	// {
-	// 	id: 9,
-	// 	size: 1,
-	// 	startPosition: {
-	// 		x: 85 + PREPARATION_SCREEN_START_FIELD_COORD_X,
-	// 		y: 25 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
-	// 	},
-	// 	position: {
-	// 		x: 0,
-	// 		y: 0,
-	// 	},
-	// 	cells: [],
-	// 	color: BACKGROUND_COLOR_SHIP,
-	// 	borderColor: BORDER_COLOR_SHIP,
-
-	// },
-	// {
-	// 	id: 10,
-	// 	size: 1,
-	// 	startPosition: {
-	// 		x: 145 + PREPARATION_SCREEN_START_FIELD_COORD_X,
-	// 		y: 25 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
-	// 	},
-	// 	position: {
-	// 		x: 0,
-	// 		y: 0,
-	// 	},
-	// 	cells: [],
-	// 	color: BACKGROUND_COLOR_SHIP,
-	// 	borderColor: BORDER_COLOR_SHIP,
-
-	// },
-	// {
-	// 	id: 7,
-	// 	size: 1,
-	// 	startPosition: {
-	// 		x: 205 + PREPARATION_SCREEN_START_FIELD_COORD_X,
-	// 		y: 25 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
-	// 	},
-	// 	position: {
-	// 		x: 0,
-	// 		y: 0,
-	// 	},
-	// 	cells: [],
-	// 	color: BACKGROUND_COLOR_SHIP,
-	// 	borderColor: BORDER_COLOR_SHIP,
-	// },
 ];
 
 export {
@@ -189,4 +81,5 @@ export {
 	PREPARATION_SCREEN_START_FIELD_COORD_X,
 	PREPARATION_SCREEN_START_FIELD_COORD_Y,
 	BORDER_COLOR_SHIP,
+	UNKNOWN_COLOR,
 };
