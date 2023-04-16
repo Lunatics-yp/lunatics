@@ -1,5 +1,7 @@
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import {useAppSelector} from 'client/src/hooks/redux';
+import {authSelectors} from 'client/src/stores/reducers/auth/authSlice';
 import {Formik, Form, FormikHelpers} from 'formik';
 import {Avatar} from 'client/src/components/Avatar';
 import {Button} from 'client/src/components/Button';
@@ -18,6 +20,7 @@ interface IFormValues {
 
 export const ProfileChangePasswordForm = () => {
 	const navigate = useNavigate();
+	const {user} = useAppSelector(authSelectors.user);
 
 	const [formAlert, setFormAlert] = useState('');
 
@@ -66,6 +69,7 @@ export const ProfileChangePasswordForm = () => {
 			{({isSubmitting}) => (
 				<Form className='form'>
 					<Avatar
+						src={user?.avatar}
 						size='large'
 					/>
 					<Alert text={formAlert}/>
