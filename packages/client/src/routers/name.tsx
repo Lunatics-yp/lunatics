@@ -6,7 +6,7 @@ export const PATHS = {
 	mainMenuPlayAgainstAI: '/mainmenu/playAgainstAI/',
 	mainMenuSettings: '/mainmenu/settings/',
 	page500: '/page500',
-	page404: '/page404',
+	page404: '*',
 	register: '/register',
 	forum: '/forum',
 	topic: '/forum/topic',

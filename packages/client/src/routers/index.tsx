@@ -18,6 +18,8 @@ import {PageProfile} from 'client/src/pages/Profile';
 import {PageProfileChangePassword} from 'client/src/pages/ProfileChangePassword';
 import {ForumDiscussion} from 'client/src/pages/Forum/ForumDiscussion';
 import {PageGameMechanicsDemonstration} from 'client/src/pages/GameMechanicsDemonstration';
+import {AuthRoute} from './Routes/AuthRoute';
+import {GuestRoute} from './Routes/GuestRoute';
 
 export const router = createBrowserRouter([
 	{
@@ -50,11 +52,19 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: PATHS.profile,
-		element: <PageProfile/>,
+		element: (
+			<AuthRoute>
+				<PageProfile/>
+			</AuthRoute>
+		),
 	},
 	{
 		path: PATHS.profileChangePassword,
-		element: <PageProfileChangePassword/>,
+		element: (
+			<AuthRoute>
+				<PageProfileChangePassword/>
+			</AuthRoute>
+		),
 	},
 	{
 		path: PATHS.mainMenu,
@@ -88,11 +98,19 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: PATHS.register,
-		element: <PageRegister/>,
+		element: (
+			<GuestRoute>
+				<PageRegister/>
+			</GuestRoute>
+		),
 	},
 	{
 		path: PATHS.auth,
-		element: <PageAuth/>,
+		element: (
+			<GuestRoute>
+				<PageAuth/>
+			</GuestRoute>
+		),
 	},
 	{
 		path: PATHS.gameMechanicsDemonstration,
