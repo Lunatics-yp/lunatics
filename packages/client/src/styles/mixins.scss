@@ -6,6 +6,11 @@
 	height: 100%;
 }
 
+@mixin flexHorizontal {
+	display: flex;
+	flex-flow: row nowrap;
+}
+
 @mixin flexVertical {
 	display: flex;
 	flex-flow: column nowrap;
@@ -82,7 +87,6 @@
 
 	.title {
 		text-overflow: ellipsis;
-		word-break: break-word;
 		display: flex;
 		font-size: 24px;
 

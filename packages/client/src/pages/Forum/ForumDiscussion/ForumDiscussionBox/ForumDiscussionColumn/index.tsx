@@ -5,7 +5,7 @@ import {TForumDiscussionColumnProps} from './typing';
 import styles from './ForumDiscussionColumn.module.scss';
 
 export const ForumDiscussionColumn: FC<TForumDiscussionColumnProps> = (props) => {
-	const {title, name, date} = props;
+	const {title, lastAuthorName, date} = props;
 	return (
 		<div className={styles.element}>
 			<Link to={`${title}`}>
@@ -19,7 +19,7 @@ export const ForumDiscussionColumn: FC<TForumDiscussionColumnProps> = (props) =>
 				<Avatar size='small'/>
 				<div className={styles.info}>
 					<div className={styles.info__name}>
-						{name}
+						{lastAuthorName}
 					</div>
 					<span className={styles.info__date}>
 						{date}

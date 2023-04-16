@@ -1,25 +1,22 @@
 import {Link, useParams} from 'react-router-dom';
 import {PATHS} from 'client/src/routers/name';
+import {useAppSelector} from 'client/src/hooks/redux';
+import {forumSelectors} from 'client/src/stores/reducers/forum/forumSlice';
 import {Button} from 'client/src/components/Button';
 import {ForumDiscussionColumn} from './ForumDiscussionColumn';
 import styles from './ForumDiscussionBox.module.scss';
 
-const dataMock = [
-	{id: 1, title: 'Sky Wars', name: 'Obi Wan Kenobi', date: 'the 22th of December'},
-	{id: 2, title: 'Благодарность разработчикам', name: 'Евгений Малкин', date: 'вчера'},
-	{id: 3, title: 'Война и мир', name: 'Лев Толстой', date: '1867 год'},
-];
-
 export const ForumDiscussionBox = () => {
 	const {disccussionTitle} = useParams();
-	const topics = dataMock;
+	
+	const discussions = useAppSelector(forumSelectors.discussions);
 
-	const topicElements = topics.map((topic) => (
+	const topicElements = discussions.map((discussion) => (
 		<ForumDiscussionColumn
-			key={topic.id}
-			title={topic.title}
-			name={topic.name}
-			date={topic.date}
+			key={discussion.id}
+			title={discussion.title}
+			lastAuthorName={discussion.lastAuthorName}
+			date={discussion.date}
 		/>
 	));
 

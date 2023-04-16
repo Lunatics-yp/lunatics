@@ -16,4 +16,5 @@ export const PATHS = {
 	game: '/game',
 	gameResults: '/gameResults',
 	profileChangePassword: '/profileChangePassword',
+	gameMechanicsDemonstration: '/gameMechanicsDemonstration',
 };
