@@ -1,13 +1,11 @@
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {useAppDispatch, useAppSelector} from 'client/src/hooks/redux';
-import {authSelectors} from 'client/src/stores/reducers/auth/authSlice';
+import {useAuth} from 'client/src/hooks/useAuth';
+import {useAppDispatch} from 'client/src/hooks/redux';
 import {
 	changeUserAvatar,
 	changeUserData,
-	fetchUser,
 } from 'client/src/stores/reducers/auth/authThunks';
-import {TUser} from 'client/src/stores/reducers/auth/typing';
 import {Formik, Form, FormikHelpers} from 'formik';
 import {Alert} from 'client/src/components/Alert';
 import {Avatar} from 'client/src/components/Avatar';
@@ -30,7 +28,7 @@ const MAX_SIZE = 1048576;
 export const ProfileForm = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
-	const {user} = useAppSelector(authSelectors.user);
+	const user = useAuth();
 
 	const [formAlert, setFormAlert] = useState('');
 
@@ -68,15 +66,8 @@ export const ProfileForm = () => {
 		{setSubmitting}: FormikHelpers<IFormValues>,
 	) => {
 		try {
-			// @todo проверять авторизацию через hoc и убрать дополнительное условие
 			if (!user) {
-				await  dispatch(fetchUser());
-			}
-
-			const userData = user as TUser;
-
-			if (isErrorAPI(userData)) {
-				setFormAlert(userData.reason);
+				setFormAlert('Вы не авторизованы.');
 				return;
 			}
 
@@ -85,10 +76,10 @@ export const ProfileForm = () => {
 					login: values.login,
 					email: values.email,
 					// дополняем необходимыми для API полями (из userData), которых нет в форме
-					first_name: userData.firstName,
-					second_name: userData.secondName,
-					phone: userData.phone,
-					display_name: userData.displayName || '',
+					first_name: user.firstName,
+					second_name: user.secondName,
+					phone: user.phone,
+					display_name: user.displayName,
 				}),
 			);
 
