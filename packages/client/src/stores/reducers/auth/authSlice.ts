@@ -32,7 +32,7 @@ export const authSlice = createSlice({
 			})
 			.addCase(authThunks.fetchUser.rejected, (state, action) => {
 				state.isLoading = false;
-				state.error = action.error.message as string;
+				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
 				state.user = null;
 			})
 		// login
@@ -42,7 +42,7 @@ export const authSlice = createSlice({
 			})
 			.addCase(authThunks.login.rejected, (state, action) => {
 				state.isLoading = false;
-				state.error = action.error.message as string;
+				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
 			})
 		// register
 			.addCase(authThunks.register.pending, (state) => {
@@ -51,7 +51,7 @@ export const authSlice = createSlice({
 			})
 			.addCase(authThunks.register.rejected, (state, action) => {
 				state.isLoading = false;
-				state.error = action.error.message as string;
+				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
 			})
 		// logout
 			.addCase(authThunks.logout.fulfilled, (state) => {
@@ -64,7 +64,7 @@ export const authSlice = createSlice({
 			})
 			.addCase(authThunks.logout.rejected, (state, action) => {
 				state.isLoading = false;
-				state.error = action.error.message as string;
+				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
 			})
 		// changeUserData
 			.addCase(authThunks.changeUserData.fulfilled, (state, action) => {
@@ -79,7 +79,7 @@ export const authSlice = createSlice({
 			})
 			.addCase(authThunks.changeUserData.rejected, (state, action) => {
 				state.isLoading = false;
-				state.error = action.error.message as string;
+				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
 			})
 		// changeAvatar
 			.addCase(authThunks.changeUserAvatar.fulfilled, (state, action) => {
@@ -94,7 +94,7 @@ export const authSlice = createSlice({
 			})
 			.addCase(authThunks.changeUserAvatar.rejected, (state, action) => {
 				state.isLoading = false;
-				state.error = action.error.message as string;
+				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
 			})
 		;
 	},

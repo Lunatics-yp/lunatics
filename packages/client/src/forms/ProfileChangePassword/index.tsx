@@ -71,7 +71,7 @@ export const ProfileChangePasswordForm = () => {
 			{({isSubmitting}) => (
 				<Form className='form'>
 					<Avatar
-						src={initialValues.avatar}
+						src={user?.avatar}
 						size='large'
 					/>
 					<Alert text={formAlert}/>

@@ -5,12 +5,12 @@ import {
 	userSettingsActions,
 	userSettingsSelectors,
 } from 'client/src/stores/reducers/userSettings/userSettingsSlice';
-import {Languages} from 'client/src/stores/reducers/userSettings/typing';
 import {Header} from 'client/src/components/Header';
 import {Menu} from 'client/src/components/Menu';
 import {Footer} from 'client/src/components/Footer';
 import {Button} from 'client/src/components/Button';
 import {Switch} from 'client/src/components/Switch';
+import {LANGUAGES, VOLUMES} from 'client/src/config/constants';
 
 // Компонент меню настройки
 export const MainMenuSettings = () => {
@@ -28,7 +28,6 @@ export const MainMenuSettings = () => {
 	};
 
 	// Громкость
-	const volumes = (new Array(11)).fill(0).map((_value, index) => `${index}`);
 	const onSoundVolumeSwitch = (i: number) => {
 		dispatch(userSettingsActions.changeSoundVolume(i));
 	};
@@ -42,19 +41,19 @@ export const MainMenuSettings = () => {
 			<Menu>
 				<Switch
 					value={language}
-					list={[Languages.Russian, Languages.English]}
+					list={LANGUAGES}
 					label='Язык'
 					onSwitch={onLanguageSwitch}/>
 				<Switch
 					value={soundVolume*10 + '%'}
-					list={volumes}
+					list={VOLUMES}
 					defaultValue={soundVolume}
 					label='Громкость звуков'
 					onSwitch={onSoundVolumeSwitch}
 					looped={false}/>
 				<Switch
 					value={musicVolume*10 + '%'}
-					list={volumes}
+					list={VOLUMES}
 					defaultValue={musicVolume}
 					label='Громкость музыки'
 					onSwitch={onMusicVolumeSwitch}

@@ -23,9 +23,10 @@ export const ForumBox = () => {
 	));
 
 	function createTopic() {
+		const newTopicContent = newTopic.value.trim();
 
-		if (newTopic.value.trim() !== '') {
-			dispatch(forumActions.addForum(newTopic.value.trim()));
+		if (newTopicContent) {
+			dispatch(forumActions.addForum(newTopicContent));
 		}
 
 		newTopic.reset();
