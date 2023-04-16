@@ -1,11 +1,17 @@
+@use 'client/src/components/Button/button';
+@use 'client/src/pages/Game/PageGame/pageGame.module';
+@import 'client/src/styles/mixins';
+
+
 .winnerIs {
+	@include textIllumination;
+
 	width: fit-content;
 	margin: 3% auto 2%;
 	text-align: center;
 	font-size: 35px;
 	color: #00dbde;
 	font-weight: 600;
-	text-shadow: -6px 0 17px var(--textWinnerShadow), 0 1px 17px var(--textWinnerShadow), 1px 0 17px var(--textWinnerShadow), 0 -1px 17px var(--textWinnerShadow);
 }
 
 tr {

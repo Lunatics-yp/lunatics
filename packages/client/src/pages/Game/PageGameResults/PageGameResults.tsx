@@ -4,17 +4,24 @@ import {Background} from 'client/src/components/Background';
 import {Header} from 'client/src/components/Header';
 import {Button} from 'client/src/components/Button';
 import {Footer} from 'client/src/components/Footer';
-import './styles.scss';
+import styles from './pageGameResults.module.scss';
 
 export const PageGameResults = () => {
 	const navigate = useNavigate();
-
 	//данные из стора
 	const players  = {
 		player1: 'Jack',
 		player2: 'Jon',
 	};
-	const gameTime = '00:05:30';
+	//время игры в секундах
+	const gameTime = 302;
+
+	const gameTimeString = () => {
+		const hours = (Math.floor(gameTime / 3600)).toString().padStart(2, '0');
+		const minutes = (Math.floor(gameTime / 60)).toString().padStart(2, '0');
+		const seconds = (gameTime % 60).toString().padStart(2, '0');
+		return `${hours}:${minutes}:${seconds}`;
+	};
 	const playersStatistic = {
 		player1: {
 			destroyedModules: 7,
@@ -35,8 +42,8 @@ export const PageGameResults = () => {
 	return (
 		<>
 			<Header>Результаты игры</Header>
-			<div className='winnerIs'>{result.win}</div>
-			<div className='tableWrapper'>
+			<div className={styles.winnerIs}>{result.win}</div>
+			<div className={styles.tableWrapper}>
 				<table>
 					<thead>
 						<tr>
@@ -44,7 +51,7 @@ export const PageGameResults = () => {
 							<th>{players.player1}</th>
 							<th>{players.player2}</th>
 						</tr>
-						<tr className='underline'></tr>
+						<tr className={styles.underline}></tr>
 					</thead>
 					<tbody>
 						<tr>
@@ -66,18 +73,18 @@ export const PageGameResults = () => {
 				</table>
 			</div>
 			<Button
-				className='buttonResultsGame button'
+				className={`${styles.buttonResultsGame} ${styles.button}`}
 				text='Играть заново'
 				onClick={() => navigate(PATHS.placement)}
 			/>
 			<Button
-				className='buttonResultsGame button'
+				className={`${styles.buttonResultsGame} ${styles.button}`}
 				text='В главное меню'
 				onClick={() => navigate(PATHS.mainMenu)}
 			/>
-			<Footer className='footerPlacement'>
+			<Footer className={styles.footerPlacement}>
 				<p>
-					Длительность игры:  {gameTime}
+					Длительность игры: {gameTimeString()}
 				</p>
 			</Footer>
 			<Background/>
