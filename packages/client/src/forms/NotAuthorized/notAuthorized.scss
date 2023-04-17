@@ -1,0 +1,14 @@
+.formNotAuth {
+	max-width: 400px;
+	margin: 0 auto;
+	padding-top: 1px;
+	text-align: center;
+
+	&__title {
+		color: var(--colorWhite);
+	}
+
+	.button {
+		max-width: 300px;
+	}
+}
