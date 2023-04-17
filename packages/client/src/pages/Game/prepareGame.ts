@@ -252,6 +252,7 @@ export class PrepareGame {
 		this.cellArray.forEach((row) => {
 			row.forEach((cell) => {
 				const fillColor = myColors[cell.status];
+				fillColor;
 				this.canvasContainer.update({
 					x: cell.x,
 					y: cell.y,
