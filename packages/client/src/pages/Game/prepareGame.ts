@@ -2,8 +2,8 @@
 import {CanvasContainer} from './canvasContainer';
 import {
 	CELL_SIZE, shipDatas, EMPTY_COLOR, MISSED_COLOR, OCCUPIED_COLOR,
-	BURNING_COLOR, DESTROYED_COLOR, PREPARATION_SCREEN_START_FIELD_COORD_X,
-	PREPARATION_SCREEN_START_FIELD_COORD_Y, BATTLEFIELD_WIDTH, BATTLEFIELD_HEIGHT,
+	BURNING_COLOR, DESTROYED_COLOR,
+	BATTLEFIELD_WIDTH, BATTLEFIELD_HEIGHT,
 	BORDER_COLOR_SHIP, UNKNOWN_COLOR,
 } from './constants';
 
@@ -66,24 +66,6 @@ export class PrepareGame {
 		this.addEvent('mouseup', this.dropShip.bind(this));
 	}
 
-	// проверка, является ли корабль частью сетки
-	// если да, то функция вернет ту ячейку, на которую попадает
-	// край корабля - CELL_SIZE примерное значение, в будущем изменю
-	// (после того как продумаем где будет по итогу расположена сетка и корабли, 
-	// в будущем подпралю через константы)
-	getShipStartingCell(ship: Ship) {
-		return this.cellArray
-			.flat()
-			.find(
-				cell =>
-					ship &&
-					ship.position.x - cell.x < CELL_SIZE &&
-					ship.position.x - cell.x >= -CELL_SIZE &&
-					ship.position.y - cell.y < CELL_SIZE &&
-					ship.position.y - cell.y >= -CELL_SIZE,
-			);
-	}
-
 	//обработчик событий (клик, перемещение мышки, отпуск кнопки мышки)
 	addEvent(eventName: string, callback: (event: Event) => void) {
 		if (!this.handlers[eventName]) {
@@ -122,6 +104,7 @@ export class PrepareGame {
 		if (event.type !== 'mousedown') {
 			return;
 		}
+
 		const {offsetX, offsetY} = event as MouseEvent;
 		this.startDraggedCoord = {
 			x: offsetX,
@@ -129,8 +112,8 @@ export class PrepareGame {
 		};
 
 		// перебираем массив всех кораблей
-		const ship = this.ships.find(shipItem =>
-			isOverElement(
+		const ship = this.ships.find(ship => {
+			return isOverElement(
 				{
 					x: offsetX,
 					y: offsetY,
@@ -138,19 +121,17 @@ export class PrepareGame {
 					height: 0,
 				},
 				{
-					// eslint-disable-next-line max-len
-					x: shipItem.startPosition.x,
-					y: shipItem.startPosition.y,
-					width: shipItem.size * CELL_SIZE,
+					x: ship.position.x,
+					y: ship.position.y,
+					width: ship.size * CELL_SIZE,
 					height: CELL_SIZE,
 				},
-			),
-		);
+			);
+		});
 
 		// перемещаемый корабль
 		if (ship) {
 			this.draggedShip = ship;
-			console.log('here is this.draggedShip ', this.draggedShip);
 		}
 	}
 
@@ -170,8 +151,8 @@ export class PrepareGame {
 
 		//обновление позиции
 		const newPosition = {
-			x: offsetX - (this.draggedShip.size * CELL_SIZE) / 2,
-			y: offsetY - (CELL_SIZE / 2),
+			x: offsetX,
+			y: offsetY,
 		};
 
 		this.startDraggedCoord = {
@@ -191,72 +172,84 @@ export class PrepareGame {
 			return;
 		}
 
+		const firstCells = this.cellArray[0][0];
+
 		//проверка:поставлен ли корабль на сетку 
 		if (
-			!isOverElement(
+			isOverElement(
 				// объект относящийся к кораблю
 				{
-					x: this.draggedShip.position?.x,
-					y: this.draggedShip.position?.y,
+					x: this.draggedShip.position.x,
+					y: this.draggedShip.position.y,
 					width: this.draggedShip.size * CELL_SIZE,
 					height: CELL_SIZE,
 				},
 				// объект относящийся к полю
 				{
-					x: PREPARATION_SCREEN_START_FIELD_COORD_X - CELL_SIZE / 2,
-					y: PREPARATION_SCREEN_START_FIELD_COORD_Y - CELL_SIZE / 2,
-					width: PREPARATION_SCREEN_START_FIELD_COORD_X + BATTLEFIELD_WIDTH + CELL_SIZE / 2,
-					height: PREPARATION_SCREEN_START_FIELD_COORD_Y + BATTLEFIELD_HEIGHT + CELL_SIZE / 2,
+					x: firstCells.x,
+					y: firstCells.y,
+					width: BATTLEFIELD_WIDTH,
+					height: BATTLEFIELD_HEIGHT,
 				},
 			)
 		) {
-
-			//если корабль не в поле перемещяем на startPosition
-			this.draggedShip.position = this.draggedShip.startPosition;
-		} else {
-
 			// расположение корабля в поле и сбрасываем borderColor
 			// после сбрасываем перемещаемый корабль (draggedShip)
-			const shipCells = this.getShipStartingCell(this.draggedShip);
-			const index = this.cellArray
-				.flat()
-				.findIndex((cell: MoonGroundCell) => cell.x === shipCells?.x && cell.y === shipCells?.y);
-			this.draggedShip.cells = this.cellArray
-				.flat()
-				.slice(index, index + this.draggedShip.size)
-				.map(it => ({x: it.x, y: it.y, shot: false}));
+			const newPosition = {
+				x: 10 * Math.round(this.draggedShip.position.x / 10),
+				y: 10 * Math.round(this.draggedShip.position.y / 10),
+			};
+			this.draggedShip.position.x = newPosition.x;
+			this.draggedShip.position.y = newPosition.y;
+			const flatCells = this.cellArray.flat();
+			const cellIndex = flatCells
+				.findIndex((cell: MoonGroundCell) =>
+					cell.x === newPosition.x && cell.y === newPosition.y);
+
+			if (cellIndex < 0) {
+				this.draggedShip.position = this.draggedShip.startPosition;
+			} else {
+				this.draggedShip.cells = flatCells
+					.slice(cellIndex, cellIndex + this.draggedShip.size)
+					.map((cell: MoonGroundCell) => ({x: cell.x, y: cell.y, shot: false}));
+			}
+
+		} else {
+			//если корабль не в поле перемещяем на startPosition
+			this.draggedShip.position = this.draggedShip.startPosition;
 		}
 		this.draggedShip.borderColor = BORDER_COLOR_SHIP;
 		this.update();
 		setTimeout(() => {
 			this.draggedShip = null;
+			console.log(this.ships);
 		}, 1);
 	}
 
 	prepareBoard() {
 		// создаем двумерный массив 10 на 10 для отрисовки поля
-		const cellArray: MoonGroundCell[][] = Array.from({length: 10}, () =>
+		this.cellArray = Array.from({length: 10}, () =>
 			Array.from({length: 10}, () => ({
 				x: 0,
 				y: 0,
-				status: MoonGroundCellStatus.UNKNOWN,
+				status: MoonGroundCellStatus.BURNING,
 			})),
 		);
 
 		// заполняем массив ячеек
-		for (let row = 0; row < cellArray.length; row++) {
-			for (let col = 0; col < cellArray[row].length; col++) {
-				cellArray[row][col] = {
+		for (let row = 0; row < this.cellArray.length; row++) {
+			for (let col = 0; col < this.cellArray[row].length; col++) {
+				this.cellArray[row][col] = {
 					x: col * CELL_SIZE,
 					y: row * CELL_SIZE,
-					status: MoonGroundCellStatus.UNKNOWN,
+					status: MoonGroundCellStatus.BURNING,
 				};
 			}
 		}
 
 		// отрисовываем ячейки на холсте
 		// в зависимости от статуса меняется цвет
-		cellArray.forEach((row) => {
+		this.cellArray.forEach((row) => {
 			row.forEach((cell) => {
 				const fillColor = myColors[cell.status];
 				this.canvasContainer.update({
@@ -265,7 +258,6 @@ export class PrepareGame {
 					width: CELL_SIZE,
 					height: CELL_SIZE,
 					borderColor: '#cccc',
-					fillColor: fillColor,
 				});
 			});
 		});
@@ -273,10 +265,10 @@ export class PrepareGame {
 
 	//отрисовка кораблей
 	prepareShips() {
-		this.ships.forEach(({size, color, borderColor, startPosition, position}) => {
+		this.ships.forEach(({size, color, borderColor, position}) => {
 			this.canvasContainer.update({
-				x: position.x || startPosition.x,
-				y: position.y || startPosition.y,
+				x: position.x,
+				y: position.y,
 				width: size * CELL_SIZE,
 				height: CELL_SIZE,
 				fillColor: color,

@@ -26,8 +26,8 @@ const shipDatas = [
 			y: 190 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
 		},
 		position: {
-			x: 0,
-			y: 0,
+			x: 65 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+			y: 190 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
 		},
 		cells: [],
 		color: BACKGROUND_COLOR_SHIP,
@@ -41,8 +41,8 @@ const shipDatas = [
 			y: 135 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
 		},
 		position: {
-			x: 0,
-			y: 0,
+			x: 15 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+			y: 135 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
 		},
 		cells: [],
 		color: BACKGROUND_COLOR_SHIP,
@@ -56,8 +56,8 @@ const shipDatas = [
 			y: 135 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
 		},
 		position: {
-			x: 0,
-			y: 0,
+			x: 155 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+			y: 135 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
 		},
 		cells: [],
 		color: BACKGROUND_COLOR_SHIP,
