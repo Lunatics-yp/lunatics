@@ -136,4 +136,5 @@ export const router = createBrowserRouter([
 		path: PATHS.gameMechanicsDemonstration,
 		element: <PageGameMechanicsDemonstration/>,
 	},
+
 ]);
