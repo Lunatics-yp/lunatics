@@ -1,8 +1,9 @@
-import {useState} from 'react';
+import {useRef, useState} from 'react';
 import {useAppDispatch, useAppSelector} from 'client/src/hooks/redux';
 import {forumActions, forumSelectors} from 'client/src/stores/reducers/forum/forumSlice';
 import {Avatar} from 'client/src/components/Avatar';
 import {Button} from 'client/src/components/Button';
+import {toggleFullscreen} from 'client/src/utils/toggleFullScreen';
 import {useInput} from 'client/src/hooks/useInput';
 import {ForumTopicHeader} from './ForumTopicHeader/ForumTopicHeader';
 import {Message} from './Message';
@@ -15,6 +16,11 @@ export const ForumTopic = () => {
 	const newMessage = useInput('');
 	const dispatch = useAppDispatch();
 	const messages = useAppSelector(forumSelectors.messages);
+	const fullScreenBtnRef = useRef(null);
+
+	function fullScreenHandler() {
+		toggleFullscreen(fullScreenBtnRef);
+	}
 
 	function onCancelHandler() {
 		setIsFocusing(false);
@@ -26,14 +32,11 @@ export const ForumTopic = () => {
 	}
 
 	function onSubmitHandler() {
-		const messageContent = newMessage.value.trim();
-
-		if (messageContent) {
+		if (newMessage.value.trim()) {
 			dispatch(forumActions.addMessage(
-				messageContent,
+				newMessage.value.trim(),
 			));
 		}
-
 		newMessage.nulling();
 	}
 
@@ -46,8 +49,13 @@ export const ForumTopic = () => {
 
 	return (
 		<main className={styles.wrapper}>
-			<div className={styles.container}>
-				<ForumTopicHeader/>
+			<div className={styles.container}
+				ref={fullScreenBtnRef}
+			>
+				<ForumTopicHeader
+					fullScreenBtnRef={fullScreenBtnRef}
+					fullScreenHandler={fullScreenHandler}
+				/>
 				<div className={styles.container__messages}>
 					{MessageElements}
 				</div>
