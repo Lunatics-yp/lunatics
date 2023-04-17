@@ -1,5 +1,11 @@
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import {useAuth} from 'client/src/hooks/useAuth';
+import {useAppDispatch} from 'client/src/hooks/redux';
+import {
+	changeUserAvatar,
+	changeUserData,
+} from 'client/src/stores/reducers/auth/authThunks';
 import {Formik, Form, FormikHelpers} from 'formik';
 import {Alert} from 'client/src/components/Alert';
 import {Avatar} from 'client/src/components/Avatar';
@@ -9,17 +15,20 @@ import {isErrorAPI} from 'client/src/api/request/utilits';
 import {emailError, loginError} from 'client/src/errors/errors';
 import {REG_EMAIL, REG_LOGIN} from 'client/src/regExp';
 import {PATHS} from 'client/src/routers/name';
-import {userAPI} from 'client/src/api/user';
-import {authAPI} from 'client/src/api/auth';
 
 interface IFormValues {
-	avatar: string | null;
+	avatar?: string | null;
 	login: string;
 	email: string;
 }
 
+// 1 Мбайт
+const MAX_SIZE = 1048576;
+
 export const ProfileForm = () => {
 	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
+	const user = useAuth();
 
 	const [formAlert, setFormAlert] = useState('');
 
@@ -28,51 +37,64 @@ export const ProfileForm = () => {
 	};
 
 	const handleAvatarChange = async (file: File) => {
-		const formData = new FormData();
-		formData.append('avatar', file);
-		const data = await userAPI.changeAvatar(formData);
+		try {
+			const formData = new FormData();
+			formData.append('avatar', file);
 
-		if (isErrorAPI(data)) {
-			setFormAlert(data.reason);
-			return;
+			if (file.size >= MAX_SIZE) {
+				setFormAlert('Слишком большой размер загружаемого файла');
+				return;
+			}
+
+			const data = await dispatch(changeUserAvatar(formData)).unwrap();
+
+			if (isErrorAPI(data)) {
+				setFormAlert(data.reason);
+				return;
+			}
+
+			setFormAlert('');
+			navigate(PATHS.mainMenu);
+		} catch (rejectedValue) {
+			console.error(rejectedValue);
 		}
-
-		setFormAlert('');
-		navigate(PATHS.mainMenu);
 	};
 
 	const handleSubmit = async (
 		values: IFormValues,
 		{setSubmitting}: FormikHelpers<IFormValues>,
 	) => {
-		// Получаем актуальные данные о пользователе
-		// @todo условно актуальные данные будут хранится в store
-		const userData = await authAPI.getUser();
+		try {
+			if (!user) {
+				setFormAlert('Вы не авторизованы.');
+				return;
+			}
 
-		if (isErrorAPI(userData)) {
-			setFormAlert(userData.reason);
-			return;
+			const data = await dispatch(
+				changeUserData({
+					login: values.login,
+					email: values.email,
+					// дополняем необходимыми для API полями (из userData), которых нет в форме
+					first_name: user.firstName,
+					second_name: user.secondName,
+					phone: user.phone,
+					display_name: user.displayName,
+				}),
+			);
+
+			setSubmitting(false);
+
+			if (isErrorAPI(data)) {
+				setFormAlert(data.reason);
+				return;
+			}
+
+			setFormAlert('');
+			navigate(PATHS.mainMenu);
+
+		} catch (rejectedValue) {
+			console.error(rejectedValue);
 		}
-
-		const data = await userAPI.changeUser({
-			login: values.login,
-			email: values.email,
-			// дополняем необходимыми для API полями (из userData), которых нет в форме
-			first_name: userData.first_name,
-			second_name: userData.second_name,
-			phone: userData.phone,
-			display_name: userData.display_name || '',
-		});
-
-		setSubmitting(false);
-
-		if (isErrorAPI(data)) {
-			setFormAlert(data.reason);
-			return;
-		}
-
-		setFormAlert('');
-		navigate(PATHS.mainMenu);
 	};
 
 	const handleValidate = (values: IFormValues) => {
@@ -87,10 +109,9 @@ export const ProfileForm = () => {
 	};
 
 	const initialValues: IFormValues = {
-		// @todo нужно передавать реальные данные пользователя из store
-		avatar: null,
-		login: '',
-		email: '',
+		avatar: user?.avatar ?? null,
+		login: user?.login ?? '',
+		email: user?.email ?? '',
 	};
 
 	return (

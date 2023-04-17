@@ -2,7 +2,7 @@ import {useRef, useEffect} from 'react';
 import {CanvasContainer} from './canvasContainer';
 import {PrepareGame} from './prepareGame';
 
-export const GamePage = () => {
+export const GameCanvasPage = () => {
 	const canvasRef = useRef(null);
 
 	useEffect(() => {

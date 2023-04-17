@@ -28,11 +28,6 @@ export const MainMenuPlayAgainstAI = () => {
 		setMode(i);
 	};
 
-	// Временный каллбек для нерабочих кнопок
-	const callbackNull = () => {
-		console.log('Клик по кнопке');
-	};
-
 	return (
 		<>
 			<Header>Играть против ИИ</Header>
@@ -49,7 +44,7 @@ export const MainMenuPlayAgainstAI = () => {
 					onSwitch={onModeSwitch}/>
 				<Button
 					text='Начать игру'
-					onClick={callbackNull}/>
+					onClick={() => navigate(PATHS.placement)}/>
 				<Button
 					text='Назад'
 					onClick={() => {

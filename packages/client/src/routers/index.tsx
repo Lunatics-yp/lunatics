@@ -13,12 +13,17 @@ import {PageRegister} from 'client/src/pages/Register';
 import {Forum} from 'client/src/pages/Forum';
 import {ForumTopic} from 'client/src/pages/Forum/ForumTopic';
 import {ForumBox} from 'client/src/pages/Forum/compontents/ForumBox';
-import {GamePage} from 'client/src/pages/Game';
 import {PageAuth} from 'client/src/pages/Auth';
 import {PageProfile} from 'client/src/pages/Profile';
 import {PageProfileChangePassword} from 'client/src/pages/ProfileChangePassword';
 import {ForumDiscussion} from 'client/src/pages/Forum/ForumDiscussion';
+import {GameCanvasPage} from 'client/src/pages/GameCanvas';
+import {PageSetShips} from 'client/src/pages/Game/PageSetShips/PageSetShips';
+import {PageGame} from 'client/src/pages/Game/PageGame/PageGame';
+import {PageGameResults} from 'client/src/pages/Game/PageGameResults/PageGameResults';
 import {PageGameMechanicsDemonstration} from 'client/src/pages/GameMechanicsDemonstration';
+import {AuthRoute} from './Routes/AuthRoute';
+import {GuestRoute} from './Routes/GuestRoute';
 
 export const router = createBrowserRouter([
 	{
@@ -50,16 +55,20 @@ export const router = createBrowserRouter([
 		element: <TestPage/>,
 	},
 	{
-		path: PATHS.game,
-		element: <GamePage/>,
-	},
-	{
 		path: PATHS.profile,
-		element: <PageProfile/>,
+		element: (
+			<AuthRoute>
+				<PageProfile/>
+			</AuthRoute>
+		),
 	},
 	{
 		path: PATHS.profileChangePassword,
-		element: <PageProfileChangePassword/>,
+		element: (
+			<AuthRoute>
+				<PageProfileChangePassword/>
+			</AuthRoute>
+		),
 	},
 	{
 		path: PATHS.mainMenu,
@@ -93,11 +102,35 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: PATHS.register,
-		element: <PageRegister/>,
+		element: (
+			<GuestRoute>
+				<PageRegister/>
+			</GuestRoute>
+		),
 	},
 	{
 		path: PATHS.auth,
-		element: <PageAuth/>,
+		element: (
+			<GuestRoute>
+				<PageAuth/>
+			</GuestRoute>
+		),
+	},
+	{
+		path: PATHS.placement,
+		element: <PageSetShips/>,
+	},
+	{
+		path: PATHS.game,
+		element: <PageGame/>,
+	},
+	{
+		path: PATHS.gameCanvas,
+		element: <GameCanvasPage/>,
+	},
+	{
+		path: PATHS.gameResults,
+		element: <PageGameResults/>,
 	},
 	{
 		path: PATHS.gameMechanicsDemonstration,

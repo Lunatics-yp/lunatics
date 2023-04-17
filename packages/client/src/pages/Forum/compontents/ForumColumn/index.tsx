@@ -4,24 +4,24 @@ import {TForumColumnProps} from './typing';
 import styles from './ForumColumn.module.scss';
 
 export const ForumColumn: FC<TForumColumnProps> = (props) => {
-	const {forum, topics = 0, answers = 0, id = 0} = props;
+	const {title, discussionsCount = 0, answersCount = 0, id} = props;
 
 	return (
 		<>
-			<NavLink to={forum} className={styles.link}>
+			<NavLink to={title} className={styles.link}>
 				<div
 					onClick={() => {
 						console.log(`clicked: ${id}`);
 					}}
 					className={styles.forum}>
-					<p>{forum}</p>
+					<p>{title}</p>
 				</div>
 			</NavLink>
 			<div className={styles.item}>
-				<p>{topics}</p>
+				<p>{discussionsCount}</p>
 			</div>
 			<div className={styles.item}>
-				<p>{answers}</p>
+				<p>{answersCount}</p>
 			</div>
 		</>
 	);
