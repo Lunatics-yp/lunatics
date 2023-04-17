@@ -39,7 +39,7 @@ export const ForumTopic = () => {
 				messageContent,
 			));
 		}
-	
+
 		newMessage.nulling();
 	}
 
