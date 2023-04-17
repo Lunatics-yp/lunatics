@@ -20,6 +20,7 @@ import {ForumDiscussion} from 'client/src/pages/Forum/ForumDiscussion';
 import {PageSetShips} from 'client/src/pages/Game/PageSetShips/PageSetShips';
 import {PageGame} from 'client/src/pages/Game/PageGame/PageGame';
 import {PageGameResults} from 'client/src/pages/Game/PageGameResults/PageGameResults';
+import {PageGameMechanicsDemonstration} from 'client/src/pages/GameMechanicsDemonstration';
 
 export const router = createBrowserRouter([
 	{
@@ -107,6 +108,10 @@ export const router = createBrowserRouter([
 	{
 		path: PATHS.gameResults,
 		element: <PageGameResults/>,
+  },
+  {
+		path: PATHS.gameMechanicsDemonstration,
+		element: <PageGameMechanicsDemonstration/>,
 	},
 
 ]);

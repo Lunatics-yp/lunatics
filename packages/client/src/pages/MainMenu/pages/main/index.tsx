@@ -1,16 +1,16 @@
-// Импорт других компонентов
+import {useNavigate} from 'react-router-dom';
+import {useAppDispatch} from 'client/src/hooks/redux';
+import {logout} from 'client/src/stores/reducers/auth/authThunks';
+import {PATHS} from 'client/src/routers/name';
 import {Header} from 'client/src/components/Header';
 import {Menu} from 'client/src/components/Menu';
 import {Footer} from 'client/src/components/Footer';
 import {Button} from 'client/src/components/Button';
-import {PATHS} from 'client/src/routers/name';
-// Импорт реката
-import {useNavigate} from 'react-router-dom';
-import {authAPI} from 'client/src/api/auth';
 
 // Компонент меню Главное меню
 export const MainMenuMain = () => {
 	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
 
 	// Временный каллбек для нерабочих кнопок
 	const callbackNull = () => {
@@ -18,7 +18,7 @@ export const MainMenuMain = () => {
 	};
 
 	const handleLogout = async () => {
-		await authAPI.logout();
+		dispatch(logout());
 		navigate(PATHS.home);
 	};
 
