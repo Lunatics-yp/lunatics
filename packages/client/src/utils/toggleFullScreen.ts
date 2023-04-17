@@ -22,4 +22,6 @@ export function toggleFullscreen(ref: RefObject<HTMLElement>, keyFIsExit?: boole
 		}
 		return document.fullscreenElement !== null;
 	}
+	
+	return;
 }
