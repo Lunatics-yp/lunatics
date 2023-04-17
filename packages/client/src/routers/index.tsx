@@ -108,4 +108,5 @@ export const router = createBrowserRouter([
 		path: PATHS.gameResults,
 		element: <PageGameResults/>,
 	},
+
 ]);
