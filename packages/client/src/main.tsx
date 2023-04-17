@@ -11,10 +11,12 @@ import 'client/src/styles/app.scss';
 const store = setupStore();
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+
 	<React.StrictMode>
 		<Provider store={store}>
 			<RouterProvider router={router}/>
 			<Background/>
 		</Provider>
 	</React.StrictMode>,
+
 );

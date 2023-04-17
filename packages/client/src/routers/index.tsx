@@ -17,6 +17,9 @@ import {PageAuth} from 'client/src/pages/Auth';
 import {PageProfile} from 'client/src/pages/Profile';
 import {PageProfileChangePassword} from 'client/src/pages/ProfileChangePassword';
 import {ForumDiscussion} from 'client/src/pages/Forum/ForumDiscussion';
+import {PageSetShips} from 'client/src/pages/Game/PageSetShips/PageSetShips';
+import {PageGame} from 'client/src/pages/Game/PageGame/PageGame';
+import {PageGameResults} from 'client/src/pages/Game/PageGameResults/PageGameResults';
 import {PageGameMechanicsDemonstration} from 'client/src/pages/GameMechanicsDemonstration';
 
 export const router = createBrowserRouter([
@@ -95,7 +98,20 @@ export const router = createBrowserRouter([
 		element: <PageAuth/>,
 	},
 	{
+		path: PATHS.placement,
+		element: <PageSetShips/>,
+	},
+	{
+		path: PATHS.game,
+		element: <PageGame/>,
+	},
+	{
+		path: PATHS.gameResults,
+		element: <PageGameResults/>,
+	},
+	{
 		path: PATHS.gameMechanicsDemonstration,
 		element: <PageGameMechanicsDemonstration/>,
 	},
+
 ]);
