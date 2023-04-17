@@ -32,11 +32,14 @@ export const ForumTopic = () => {
 	}
 
 	function onSubmitHandler() {
-		if (newMessage.value.trim()) {
+		const messageContent = newMessage.value.trim();
+
+		if (messageContent) {
 			dispatch(forumActions.addMessage(
-				newMessage.value.trim(),
+				messageContent,
 			));
 		}
+	
 		newMessage.nulling();
 	}
 
