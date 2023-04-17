@@ -98,6 +98,7 @@ export class PrepareGame {
 			callbacks.forEach(callback => this.removeEvent(eventName, callback));
 		});
 	}
+
 	// вызывается при клике на корабль
 	// проверяем, попадает ли он под положение мышки или нет (startPosition)
 	takeShip(event: Event) {
@@ -177,6 +178,7 @@ export class PrepareGame {
 		//проверка:поставлен ли корабль на сетку 
 		if (
 			isOverElement(
+
 				// объект относящийся к кораблю
 				{
 					x: this.draggedShip.position.x,
@@ -184,6 +186,7 @@ export class PrepareGame {
 					width: this.draggedShip.size * CELL_SIZE,
 					height: CELL_SIZE,
 				},
+
 				// объект относящийся к полю
 				{
 					x: firstCells.x,
@@ -193,6 +196,7 @@ export class PrepareGame {
 				},
 			)
 		) {
+
 			// расположение корабля в поле и сбрасываем borderColor
 			// после сбрасываем перемещаемый корабль (draggedShip)
 			const newPosition = {
@@ -215,6 +219,7 @@ export class PrepareGame {
 			}
 
 		} else {
+
 			//если корабль не в поле перемещяем на startPosition
 			this.draggedShip.position = this.draggedShip.startPosition;
 		}
@@ -227,12 +232,14 @@ export class PrepareGame {
 	}
 
 	prepareBoard() {
+
 		// создаем двумерный массив 10 на 10 для отрисовки поля
+		// первоначально все поля со статусом UNKNOWN
 		this.cellArray = Array.from({length: 10}, () =>
 			Array.from({length: 10}, () => ({
 				x: 0,
 				y: 0,
-				status: MoonGroundCellStatus.BURNING,
+				status: MoonGroundCellStatus.UNKNOWN,
 			})),
 		);
 
@@ -242,7 +249,7 @@ export class PrepareGame {
 				this.cellArray[row][col] = {
 					x: col * CELL_SIZE,
 					y: row * CELL_SIZE,
-					status: MoonGroundCellStatus.BURNING,
+					status: MoonGroundCellStatus.UNKNOWN,
 				};
 			}
 		}

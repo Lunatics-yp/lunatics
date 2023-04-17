@@ -17,6 +17,8 @@ const MISSED_COLOR = '#8c19d4';
 const BURNING_COLOR = '#b31569';
 const DESTROYED_COLOR = '#e33232';
 
+//координаты кораблей будут другими в финальной версии
+//сейчас просто отображаю их под сеткой с полем игры
 const shipDatas = [
 	{
 		id: 1,
@@ -58,6 +60,115 @@ const shipDatas = [
 		position: {
 			x: 155 + PREPARATION_SCREEN_START_FIELD_COORD_X,
 			y: 135 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+		},
+		cells: [],
+		color: BACKGROUND_COLOR_SHIP,
+		borderColor: BORDER_COLOR_SHIP,
+	},
+	{
+		id: 4,
+		size: 2,
+		startPosition: {
+			x: PREPARATION_SCREEN_START_FIELD_COORD_X,
+			y: 80 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+		},
+		position: {
+			x: PREPARATION_SCREEN_START_FIELD_COORD_X,
+			y: 80 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+		},
+		cells: [],
+		color: BACKGROUND_COLOR_SHIP,
+		borderColor: BORDER_COLOR_SHIP,
+	},
+	{
+		id: 5,
+		size: 2,
+		startPosition: {
+			x: 105 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+			y: 80 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+		},
+		position: {
+			x: 105 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+			y: 80 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+		},
+		cells: [],
+		color: BACKGROUND_COLOR_SHIP,
+		borderColor: BORDER_COLOR_SHIP,
+
+	},
+	{
+		id: 6,
+		size: 2,
+		startPosition: {
+			x: 210 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+			y: 80 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+		},
+		position: {
+			x: 210 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+			y: 80 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+		},
+		cells: [],
+		color: BACKGROUND_COLOR_SHIP,
+		borderColor: BORDER_COLOR_SHIP,
+	},
+	{
+		id: 8,
+		size: 1,
+		startPosition: {
+			x: 25 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+			y: 25 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+		},
+		position: {
+			x: 25 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+			y: 25 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+		},
+		cells: [],
+		color: BACKGROUND_COLOR_SHIP,
+		borderColor: BORDER_COLOR_SHIP,
+
+	},
+	{
+		id: 9,
+		size: 1,
+		startPosition: {
+			x: 85 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+			y: 25 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+		},
+		position: {
+			x: 85 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+			y: 25 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+		},
+		cells: [],
+		color: BACKGROUND_COLOR_SHIP,
+		borderColor: BORDER_COLOR_SHIP,
+
+	},
+	{
+		id: 10,
+		size: 1,
+		startPosition: {
+			x: 145 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+			y: 25 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+		},
+		position: {
+			x: 145 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+			y: 25 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+		},
+		cells: [],
+		color: BACKGROUND_COLOR_SHIP,
+		borderColor: BORDER_COLOR_SHIP,
+
+	},
+	{
+		id: 7,
+		size: 1,
+		startPosition: {
+			x: 205 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+			y: 25 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
+		},
+		position: {
+			x: 205 + PREPARATION_SCREEN_START_FIELD_COORD_X,
+			y: 25 + PREPARATION_SCREEN_START_FIELD_COORD_Y,
 		},
 		cells: [],
 		color: BACKGROUND_COLOR_SHIP,

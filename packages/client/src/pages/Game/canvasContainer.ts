@@ -22,7 +22,10 @@ export class CanvasContainer {
 		this.element.width = CANVAS_WIDTH;
 		this.element.height = CANVAS_HEIGHT;
 	}
+
 	// рисование одного блока(квадратика)
+	// все рисование в одном методе чтобы не дублировать код 
+	// т.к корабли являются теми же квадратами при отрисовки
 	rect({
 		x, y, width, height, fillColor, borderColor,
 	}: TRect) {
