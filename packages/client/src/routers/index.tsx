@@ -17,6 +17,7 @@ import {PageAuth} from 'client/src/pages/Auth';
 import {PageProfile} from 'client/src/pages/Profile';
 import {PageProfileChangePassword} from 'client/src/pages/ProfileChangePassword';
 import {ForumDiscussion} from 'client/src/pages/Forum/ForumDiscussion';
+import {GameCanvasPage} from 'client/src/pages/GameCanvas';
 import {PageSetShips} from 'client/src/pages/Game/PageSetShips/PageSetShips';
 import {PageGame} from 'client/src/pages/Game/PageGame/PageGame';
 import {PageGameResults} from 'client/src/pages/Game/PageGameResults/PageGameResults';
@@ -122,6 +123,10 @@ export const router = createBrowserRouter([
 	{
 		path: PATHS.game,
 		element: <PageGame/>,
+	},
+	{
+		path: PATHS.gameCanvas,
+		element: <GameCanvasPage/>,
 	},
 	{
 		path: PATHS.gameResults,
