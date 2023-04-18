@@ -15,7 +15,7 @@
 			"DOM",
 			"DOM.Iterable",
 			"ESNext",
-			"webworker"
+			"WebWorker"
 		],
 		"allowJs": false,
 		"skipLibCheck": true,
