@@ -2,7 +2,7 @@ export {}; // Обходим ошибку TS (--isolatedModules)
 
 declare const self: ServiceWorkerGlobalScope;
 
-const DEBUG = true;
+const DEBUG = false;
 
 // ID кеша
 const CACHE_NAME = 'lun-cache-1';
@@ -55,10 +55,16 @@ self.addEventListener('fetch', async (event: FetchEvent) => {
 	const {request} = event;
 
 	if (DEBUG) {
-		console.log('[sw] fetch', request.destination, event);
+		console.debug('[sw] fetch', request.destination, event);
 	}
 
+	// Кешируем только выбранные типы данных
 	if (!CACHE_CONTENT_TYPES.includes(request.destination)) {
+		return;
+	}
+
+	// Не кешируем расширения Chrome
+	if (request.url.startsWith('chrome-extension://')) {
 		return;
 	}
 
@@ -86,14 +92,14 @@ self.addEventListener('fetch', async (event: FetchEvent) => {
 					// Если есть кеш, возвращаем его
 					if (cachedResponse) {
 						if (DEBUG) {
-							console.log('[sw] получаем данные из кеша', request.url);
+							console.debug('[sw] получаем данные из кеша', request.url);
 						}
 						return cachedResponse;
 					}
 
 					// Если кеша нет, возвращаем ответ из сети
 					if (DEBUG) {
-						console.log('[sw] получаем данные из сети', request.url);
+						console.debug('[sw] получаем данные из сети', request.url);
 					}
 					return fetchedResponse;
 				});

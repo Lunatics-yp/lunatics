@@ -8,7 +8,7 @@ const getResponseData = (response: AxiosResponse) => {
 	try {
 		const {data} = response ?? {};
 		if (typeof data === 'undefined') {
-			return {reason: 'Нет данных от API-сервиса'};
+			return {reason: 'Ошибка получения данных от API-сервиса'};
 		}
 		if (typeof data === 'object') {
 			return data;

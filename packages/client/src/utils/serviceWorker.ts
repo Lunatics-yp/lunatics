@@ -26,12 +26,12 @@ export const registerServiceWorker = (debug = true) => {
 		.register(SW_SCRIPT_URL)
 		.then(registration => {
 			if (debug) {
-				console.debug('SW: зарегистрирован', registration.scope);
+				console.debug('[sw] зарегистрирован', registration.scope);
 			}
 		})
 		.catch(error => {
 			if (debug) {
-				console.error('SW: ошибка регистрации', error);
+				console.error('[sw] ошибка регистрации', error);
 			}
 		});
 };
@@ -52,12 +52,12 @@ export function unregisterServiceWorker(debug = true) {
 							Promise.reject();
 						}
 						if (debug) {
-							console.debug('SW: отрегистрирован', registration);
+							console.debug('[sw] снята регистрация', registration);
 						}
 					})
 					.catch(error => {
 						if (debug) {
-							console.error('SW: ошибка отрегистрации', registration, error);
+							console.error('[sw] ошибка снятия регистрации', registration, error);
 						}
 					});
 			}
