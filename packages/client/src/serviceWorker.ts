@@ -2,7 +2,10 @@ export {}; // Обходим ошибку TS (--isolatedModules)
 
 declare const self: ServiceWorkerGlobalScope;
 
-const DEBUG = false;
+// Получаем конфиг из get-параметров
+const config = Object.fromEntries(new URLSearchParams(location.search));
+
+const DEBUG = Boolean(Number(config.debug)) || false;
 
 // ID кеша
 const CACHE_NAME = 'lun-cache-1';
@@ -17,6 +20,7 @@ const FALLBACK = `
 	<div style='padding-top: 2rem; text-align: center;'>
 		<h1>Lunatics не в сети</h1>
 		<p>Кажется злые марсиане снова захватили Луну&hellip;</p>
+		<button onclick='location.href="/"'>Вернуться на базу</button>
 	</div>
 `;
 
