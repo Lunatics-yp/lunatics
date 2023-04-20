@@ -42,13 +42,13 @@ export function useFullscreen() {
 
 			function onKeyHandler(event: KeyboardEvent) {
 
-				if (currentRef) {
+				if (currentRef && event.code === KEY_F) {
 
-					if (event.code == KEY_F && document.fullscreenElement) {
+					if (document.fullscreenElement) {
+
 						document.exitFullscreen();
-					}
 
-					if (!document.fullscreenElement && event.code === KEY_F) {
+					} else {
 						currentRef.requestFullscreen();
 					}
 				}

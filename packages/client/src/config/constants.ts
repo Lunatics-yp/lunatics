@@ -6,4 +6,5 @@ export const LANGUAGES = [
 	Languages.Russian, Languages.English,
 ];
 
+// Кнопка переключения полноэкранного режима
 export const KEY_F = 'KeyF';
