@@ -17,9 +17,7 @@ export const ForumTopic = () => {
 	const dispatch = useAppDispatch();
 	const messages = useAppSelector(forumSelectors.messages);
 	const fullScreenBtnRef = useRef(null);
-	const {toggleFullscreen, onKeyFForFullscreen} = useFullscreen();
-
-	onKeyFForFullscreen(fullScreenBtnRef);
+	const {toggleFullscreen} = useFullscreen();
 
 	function fullScreenHandler() {
 		toggleFullscreen(fullScreenBtnRef);
