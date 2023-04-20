@@ -5,3 +5,5 @@ export const VOLUMES = (new Array(11)).fill(0).map((_value, index) => `${index}`
 export const LANGUAGES = [
 	Languages.Russian, Languages.English,
 ];
+
+export const KEY_F = 'KeyF';

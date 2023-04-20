@@ -38,7 +38,11 @@
 		padding: 0 20px;
 	}
 
-	&:fullscreen &__messages{
+	&:fullscreen {
+		border-radius: 0;
+	}
+
+	&:fullscreen &__messages {
 		max-height: 69%;
 		height: 69%;
 	}

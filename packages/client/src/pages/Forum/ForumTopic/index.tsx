@@ -3,7 +3,7 @@ import {useAppDispatch, useAppSelector} from 'client/src/hooks/redux';
 import {forumActions, forumSelectors} from 'client/src/stores/reducers/forum/forumSlice';
 import {Avatar} from 'client/src/components/Avatar';
 import {Button} from 'client/src/components/Button';
-import {toggleFullscreen} from 'client/src/utils/toggleFullScreen';
+import {useFullscreen} from 'client/src/hooks/useFullscreen';
 import {useInput} from 'client/src/hooks/useInput';
 import {ForumTopicHeader} from './ForumTopicHeader/ForumTopicHeader';
 import {Message} from './Message';
@@ -17,6 +17,9 @@ export const ForumTopic = () => {
 	const dispatch = useAppDispatch();
 	const messages = useAppSelector(forumSelectors.messages);
 	const fullScreenBtnRef = useRef(null);
+	const {toggleFullscreen, onKeyFForFullscreen} = useFullscreen();
+
+	onKeyFForFullscreen(fullScreenBtnRef);
 
 	function fullScreenHandler() {
 		toggleFullscreen(fullScreenBtnRef);

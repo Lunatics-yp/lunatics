@@ -29,7 +29,6 @@ export const ForumTopicHeader:FC<TForumTopicHeaderProps> = (props) => {
 						text='Редактировать тему'
 					/>
 					<FullScreen
-						title='Полноэкранный режим'
 						onClick={fullScreenHandler}
 					/>
 				</div>
