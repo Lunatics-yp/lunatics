@@ -1,7 +1,6 @@
-import {KeyboardEvent, useRef, useState} from 'react';
+import {KeyboardEvent, useEffect, useRef, useState} from 'react';
 import {useAppDispatch, useAppSelector} from 'client/src/hooks/redux';
 import {forumActions, forumSelectors} from 'client/src/stores/reducers/forum/forumSlice';
-import {useScroll} from 'client/src/hooks/useScroll';
 import {Avatar} from 'client/src/components/Avatar';
 import {Button} from 'client/src/components/Button';
 import {useInput} from 'client/src/hooks/useInput';
@@ -16,6 +15,7 @@ export const ForumTopic = () => {
 	const newMessage = useInput('');
 	const dispatch = useAppDispatch();
 	const messages = useAppSelector(forumSelectors.messages);
+	const messagesEndRef = useRef<null | HTMLDivElement>(null);
 
 	function onCancelHandler() {
 		setIsFocusing(false);
@@ -37,10 +37,19 @@ export const ForumTopic = () => {
 		newMessage.nulling();
 	}
 
+	// мгновенная прокрутка, выполняемая при монтировании компонента
+	useEffect(() => {
+		messagesEndRef.current?.scrollIntoView({
+			behavior: 'smooth',
+		});
+	}, [messages]);
+
 	// плавная прокрутка, выполняемая при изменении массива сообщений
-	const messagesEndRef = useRef(null);
-	const {scrollIntoView} = useScroll(messagesEndRef, messages);
-	scrollIntoView();
+	useEffect(() => {
+		messagesEndRef.current?.scrollIntoView({
+			behavior: 'auto',
+		});
+	}, []);
 
 	// отправка сообщений на Enter
 	function onPressEnter(event: KeyboardEvent) {
