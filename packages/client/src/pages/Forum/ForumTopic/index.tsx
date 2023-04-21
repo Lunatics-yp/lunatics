@@ -1,4 +1,4 @@
-import {useRef, useState} from 'react';
+import {KeyboardEvent, useRef, useState} from 'react';
 import {useAppDispatch, useAppSelector} from 'client/src/hooks/redux';
 import {forumActions, forumSelectors} from 'client/src/stores/reducers/forum/forumSlice';
 import {useScroll} from 'client/src/hooks/useScroll';
@@ -26,9 +26,8 @@ export const ForumTopic = () => {
 		setIsFocusing(true);
 	}
 
+	const messageContent = newMessage.value.trim();
 	function onSubmitHandler() {
-		const messageContent = newMessage.value.trim();
-
 		if (messageContent) {
 			dispatch(forumActions.addMessage(
 				messageContent,
@@ -42,6 +41,14 @@ export const ForumTopic = () => {
 	const messagesEndRef = useRef(null);
 	const {scrollIntoView} = useScroll(messagesEndRef, messages);
 	scrollIntoView();
+
+	// отправка сообщений на Enter
+	function onPressEnter(event: KeyboardEvent) {
+		if (event.key === 'Enter' && messageContent) {
+			event.preventDefault();
+			onSubmitHandler();
+		}
+	}
 
 	const MessageElements = messages.map((message) => (
 		<Message
@@ -70,6 +77,7 @@ export const ForumTopic = () => {
 							<textarea
 								onFocus={onFocusHandler}
 								onChange={newMessage.onChange}
+								onKeyDown={onPressEnter}
 								value={newMessage.value}
 								className={styles.field}
 								placeholder='Написать комментарий...'
