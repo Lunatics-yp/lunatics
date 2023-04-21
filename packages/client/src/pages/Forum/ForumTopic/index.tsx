@@ -1,6 +1,7 @@
-import {useState} from 'react';
+import {useRef, useState} from 'react';
 import {useAppDispatch, useAppSelector} from 'client/src/hooks/redux';
 import {forumActions, forumSelectors} from 'client/src/stores/reducers/forum/forumSlice';
+import {useScroll} from 'client/src/hooks/useScroll';
 import {Avatar} from 'client/src/components/Avatar';
 import {Button} from 'client/src/components/Button';
 import {useInput} from 'client/src/hooks/useInput';
@@ -37,10 +38,16 @@ export const ForumTopic = () => {
 		newMessage.nulling();
 	}
 
+	// плавная прокрутка, выполняемая при изменении массива сообщений
+	const messagesEndRef = useRef(null);
+	const {scrollIntoView} = useScroll(messagesEndRef, messages);
+	scrollIntoView();
+
 	const MessageElements = messages.map((message) => (
 		<Message
 			key={message.id}
 			message={message}
+			ref={messagesEndRef}
 		/>
 	));
 
