@@ -2,7 +2,7 @@ import {GameMechanic} from './gameMechanic';
 import {SpaceModule} from './spaceModule';
 import {SpaceGround} from './spaceGround';
 import {
-	TCellStatus,
+	CellStatus,
 	TShapesList,
 	TCoordinates,
 } from './typing';
@@ -57,7 +57,7 @@ export class Placement extends GameMechanic {
 			for (const mapCoordinate of mapCoordinates) {
 				this.ground.setCellStatus(
 					{x: mapCoordinate.x, y: mapCoordinate.y},
-					TCellStatus.OCCUPIED);
+					CellStatus.OCCUPIED);
 			}
 			spaceModule.mapPosition = mapCoordinates;
 		}
@@ -101,8 +101,8 @@ export class Placement extends GameMechanic {
 				// Подцикл - попытка разместить текущий лунный модуль на карте
 				do {
 					thisSubCycle++;
-					const randomX = Math.floor(Math.random() * (mapWidth + 1));
-					const randomY = Math.floor(Math.random() * (mapHeight + 1));
+					const randomX = Math.floor(Math.random() * mapWidth);
+					const randomY = Math.floor(Math.random() * mapHeight);
 					const randomRotate90 = Math.random() >= 0.5;
 					// Пытаемся разместить модуль по текущим координатам
 					// Возвращает 'boolean' успеха

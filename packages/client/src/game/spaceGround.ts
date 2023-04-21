@@ -1,5 +1,5 @@
 import {
-	TCellStatus,
+	CellStatus,
 	TCoordinates,
 	TCell,
 	TSpaceGroundProps,
@@ -11,7 +11,7 @@ import {
 // На самом деле status перезаписывается полученным из пропсов,
 // но если initStatus не указан, то остаётся этот
 const emptyCell: TCell = {
-	status: TCellStatus.EMPTY,
+	status: CellStatus.EMPTY,
 };
 
 // Класс игрового поля
@@ -22,7 +22,7 @@ export class SpaceGround {
 	constructor(data: TSpaceGroundProps) {
 		// Статус для первоначального заполнения клеток.
 		// Используется для заполнения клеток вражеского поля статусом Unknown, а своего Empty
-		const {initStatus = TCellStatus.EMPTY} = data;
+		const {initStatus = CellStatus.EMPTY} = data;
 		// Сначала создаём пустой двумерный массив
 		this._map = new Array(data.height).fill(undefined)
 			.map(() => new Array(data.width).fill(undefined));
@@ -36,8 +36,8 @@ export class SpaceGround {
 
 	// Карта игрового поля
 	get map(): TMap & {size: TSize} {
-		const height = this._map.length - 1;
-		const width = this._map[0].length - 1;
+		const height = this._map.length;
+		const width = this._map[0].length;
 		return Object.assign(this._map, {size: {height, width}});
 	}
 
@@ -55,8 +55,8 @@ export class SpaceGround {
 		const {width: mapWidth, height: mapHeight} = this.map.size;
 		return (coordinates.x >= 0
 			&& coordinates.y >= 0
-			&& coordinates.y <= mapHeight
-			&& coordinates.x <= mapWidth);
+			&& coordinates.y < mapHeight
+			&& coordinates.x < mapWidth);
 	};
 
 	// Проверка, можно ли по выбранным координатам установить ячейку лунного модуля
@@ -86,7 +86,7 @@ export class SpaceGround {
 		// Тогда часть "окружающих" клеток окажется вне поля, это не является отказом
 		for (const oneCoordinate of allCoordinates) {
 			if (this.isPositionInsideMap(oneCoordinate)
-				&& this.map[oneCoordinate.y][oneCoordinate.x].status !== TCellStatus.EMPTY
+				&& this.map[oneCoordinate.y][oneCoordinate.x].status !== CellStatus.EMPTY
 			) {
 				result = false;
 			}
@@ -96,15 +96,55 @@ export class SpaceGround {
 	};
 
 	// Установить статус клетки игрового поля
-	setCellStatus = (coordinates: TCoordinates, status: TCellStatus): void => {
+	setCellStatus = (coordinates: TCoordinates, status: CellStatus): void => {
 		// Внутри карты X и Y меняются местами для двумерного массива
 		this.map[coordinates.y][coordinates.x].status = status;
 	};
 
 	// Получить статус клетки игрового поля
-	getCellStatus = (coordinates: TCoordinates): TCellStatus => {
+	getCellStatus = (coordinates: TCoordinates): CellStatus => {
 		// Внутри карты X и Y меняются местами для двумерного массива
 		return this.map[coordinates.y][coordinates.x].status;
+	};
+
+	isAnyCellForShooting = (): boolean => {
+		const alreadyFiredStatusList = [
+			CellStatus.MISSED,
+			CellStatus.BURNING,
+			CellStatus.DESTROYED,
+		];
+		const {width, height} = this.map.size;
+		for (let x = 0; x < width; x++) {
+			for (let y = 0; y < height; y++) {
+				const cellStatus = this.getCellStatus({x, y});
+				if (!alreadyFiredStatusList.includes(cellStatus)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	};
+
+	isAnyCellBurning = (): {
+		isBurning: boolean;
+		coordinates: TCoordinates[];
+	} => {
+		const {width, height} = this.map.size;
+		const coordinates: TCoordinates[] = [];
+		let isBurning = false;
+		for (let x = 0; x < width; x++) {
+			for (let y = 0; y < height; y++) {
+				const cellStatus = this.getCellStatus({x, y});
+				if (cellStatus === CellStatus.BURNING) {
+					isBurning=true;
+					coordinates.push({x,y});
+				}
+			}
+		}
+		return {
+			isBurning,
+			coordinates,
+		};
 	};
 
 	// Узнать, можно ли по выбранной координате стрелять
@@ -115,9 +155,9 @@ export class SpaceGround {
 			return false;
 		} else {
 			const cellStatus = this.getCellStatus(coordinates);
-			return (cellStatus !== TCellStatus.BURNING
-				&& cellStatus !== TCellStatus.DESTROYED
-				&& cellStatus !== TCellStatus.MISSED);
+			return (cellStatus !== CellStatus.BURNING
+				&& cellStatus !== CellStatus.DESTROYED
+				&& cellStatus !== CellStatus.MISSED);
 		}
 	};
 }
