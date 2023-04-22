@@ -1,7 +1,7 @@
 import {GameMechanic} from './gameMechanic';
 import {SpaceModule} from './spaceModule';
 import {SpaceGround} from './spaceGround';
-import {TCellStatus, TCoordinates, TShootRespond} from './typing';
+import {CellStatus, TCoordinates, TShootRespond} from './typing';
 
 // Класс стрельбы по игровому полю
 export class Shooting extends GameMechanic {
@@ -35,7 +35,7 @@ export class Shooting extends GameMechanic {
 			if (hitRespond.destroyed && hitRespond.spaceModule) {
 				return destroy(hitRespond.spaceModule);
 			} else {
-				this.ground.setCellStatus(coordinates, TCellStatus.BURNING);
+				this.ground.setCellStatus(coordinates, CellStatus.BURNING);
 				return {
 					hadShoot: true,
 					hit: true,
@@ -48,7 +48,7 @@ export class Shooting extends GameMechanic {
 		const destroy = (spaceModule: SpaceModule) => {
 			const moduleCoordinates = spaceModule.mapPosition;
 			for (const mapCoordinates of moduleCoordinates) {
-				this.ground.setCellStatus(mapCoordinates, TCellStatus.DESTROYED);
+				this.ground.setCellStatus(mapCoordinates, CellStatus.DESTROYED);
 			}
 			return {
 				hadShoot: true,
@@ -59,7 +59,7 @@ export class Shooting extends GameMechanic {
 
 		// Метод промаха
 		const miss = () => {
-			this.ground.setCellStatus(coordinates, TCellStatus.MISSED);
+			this.ground.setCellStatus(coordinates, CellStatus.MISSED);
 			return {
 				hadShoot: true,
 				hit: false,
@@ -72,9 +72,9 @@ export class Shooting extends GameMechanic {
 			// Если да, то узнаём статус клетки и выполняем ранение (hit) или промах (miss)
 			const prevStatus = this.ground.getCellStatus(coordinates);
 			switch (prevStatus) {
-				case TCellStatus.OCCUPIED:
+				case CellStatus.OCCUPIED:
 					return hit();
-				case TCellStatus.EMPTY:
+				case CellStatus.EMPTY:
 					return miss();
 			}
 		}
