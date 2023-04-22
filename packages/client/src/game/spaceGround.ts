@@ -145,11 +145,10 @@ export class SpaceGround {
 	isCanShootHere = (coordinates: TCoordinates, checkCoordinateIsInsideMap = true): boolean => {
 		if (checkCoordinateIsInsideMap && !this.isPositionInsideMap(coordinates)) {
 			return false;
-		} else {
-			const cellStatus = this.getCellStatus(coordinates);
-			return (cellStatus !== CellStatus.BURNING
-				&& cellStatus !== CellStatus.DESTROYED
-				&& cellStatus !== CellStatus.MISSED);
 		}
+		const cellStatus = this.getCellStatus(coordinates);
+		return (cellStatus !== CellStatus.BURNING
+			&& cellStatus !== CellStatus.DESTROYED
+			&& cellStatus !== CellStatus.MISSED);
 	};
 }

@@ -1,3 +1,4 @@
+import {getRandomArbitrary, getRandomBoolean} from 'client/src/utils';
 import {GameMechanic} from './gameMechanic';
 import {SpaceModule} from './spaceModule';
 import {SpaceGround} from './spaceGround';
@@ -100,9 +101,9 @@ export class Placement extends GameMechanic {
 				// Подцикл - попытка разместить текущий лунный модуль на карте
 				do {
 					thisSubCycle++;
-					const randomX = Math.floor(Math.random() * mapWidth);
-					const randomY = Math.floor(Math.random() * mapHeight);
-					const randomRotate90 = Math.random() >= 0.5;
+					const randomX = getRandomArbitrary(0, mapWidth);
+					const randomY = getRandomArbitrary(0, mapHeight);
+					const randomRotate90 = getRandomBoolean();
 					// Пытаемся разместить модуль по текущим координатам
 					// Возвращает 'boolean' успеха
 					isLocated = this.locateModuleToGround(
