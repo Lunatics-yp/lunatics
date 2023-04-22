@@ -1,16 +1,15 @@
 import {RefObject, useEffect, useState} from 'react';
 import {KEY_F} from 'client/src/config/constants';
 
-export function useFullscreen(ref: RefObject<HTMLElement>, isKeyFFullscreenMode?: boolean) {
+export function useFullscreen(ref?: RefObject<HTMLElement>, isKeyFFullscreenMode?: boolean) {
 
 	const [isFullscreen, setIsFullscreen] = useState(false);
+	const currentRef = ref ? ref.current : null;
 
 	useEffect(() => {
 		function onFullscreenChange() {
 			setIsFullscreen(Boolean(document.fullscreenElement));
 		}
-
-		const currentRef = ref?.current;
 
 		function onKeyHandler(event: KeyboardEvent) {
 
@@ -45,8 +44,6 @@ export function useFullscreen(ref: RefObject<HTMLElement>, isKeyFFullscreenMode?
 	 * Переключение полноэкранного режима через обработчик
 	 */
 	function toggleFullscreen() {
-
-		const currentRef = ref.current;
 
 		if (currentRef) {
 			if (isFullscreen) {
