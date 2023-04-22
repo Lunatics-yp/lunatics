@@ -92,8 +92,17 @@ const MoonGroundDisplay: FC<TSpaceGroundDisplayProps> = (props) => {
 };
 
 function rerenderMapFunction(){
-	const [value, setValue] = useState(0);
-	return () => setValue(value => value + 1);
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const [value, setValue] = useState(0); // integer state
+	// Eslint ругается, что value нигде не используется, ts-ignore не помогает
+	// Пришлось такой костыль писать.
+	// eslint-disable-next-line no-constant-condition
+	if(value && false){
+		console.log(value);
+	}
+	return () => setValue(value => value + 1); // update state to force render
+	// A function that increment 👆🏻 the previous state like here
+	// is better than directly setting `setValue(value + 1)`
 }
 
 export const PageGameMechanicsDemonstration = () => {
