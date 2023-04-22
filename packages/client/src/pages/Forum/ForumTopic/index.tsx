@@ -17,10 +17,10 @@ export const ForumTopic = () => {
 	const dispatch = useAppDispatch();
 	const messages = useAppSelector(forumSelectors.messages);
 	const fullScreenBtnRef = useRef(null);
-	const {toggleFullscreen} = useFullscreen();
+	const {toggleFullscreen} = useFullscreen(fullScreenBtnRef);
 
 	function fullScreenHandler() {
-		toggleFullscreen(fullScreenBtnRef);
+		toggleFullscreen();
 	}
 
 	function onCancelHandler() {
