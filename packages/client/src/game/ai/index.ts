@@ -3,19 +3,19 @@ import {Shooting} from '../shooting';
 import {TCoordinates, TShootRespond} from '../typing';
 
 export class AI {
-	private readonly _emenyShooting: Shooting;
+	private readonly _enemyShooting: Shooting;
 
 	constructor(enemyShooting: Shooting) {
-		this._emenyShooting = enemyShooting;
+		this._enemyShooting = enemyShooting;
 	}
 
 	// Метод выстрела ИИ по карте игрока
 	shoot = (): TShootRespond => {
 		// Массив всех доступных клеток для стрельбы и массив текущих горящих клеток
-		const {targets, burnings} = this._emenyShooting.ground.getAllCellForShootingAndBurning();
+		const {targets, burnings} = this._enemyShooting.ground.getAllCellForShootingAndBurning();
 
 		// Проверяем, есть ли вообще клетки для стрельбы
-		if(!targets.length){
+		if (!targets.length) {
 			throw new Error('Нет клеток, доступных для стрельбы');
 		}
 
@@ -24,11 +24,11 @@ export class AI {
 		if (burnings.length) {
 			const targetCoordinatesList: TCoordinates[] = [];
 			// Собираем массив клеток вокруг горящих. Есть две возможные ситуации
-			if(burnings.length===1){
+			if (burnings.length === 1) {
 				// 1. Если горящая клетка только одна, то собираем список клеток вокруг неё.
 				// Берём клетки левее, правее, ниже и выше горящей
-				const burningCoordinates=burnings[0];
-				for (let a = -1; a <= 1; a+=2) {
+				const burningCoordinates = burnings[0];
+				for (let a = -1; a <= 1; a += 2) {
 					targetCoordinatesList.push({
 						x: burningCoordinates.x,
 						y: burningCoordinates.y + a,
@@ -38,18 +38,18 @@ export class AI {
 						y: burningCoordinates.y,
 					});
 				}
-			}else{
+			} else {
 				// 2. Если горящих клеток несколько, то вычисляем направление,
 				// как они расположены: горизонтально или вертикально
-				const isVertical = burnings[0].x===burnings[1].x;
-				for(const burningCoordinates of burnings){
-					for (let a = -1; a <= 1; a+=2) {
-						if(isVertical){
+				const isVertical = burnings[0].x === burnings[1].x;
+				for (const burningCoordinates of burnings) {
+					for (let a = -1; a <= 1; a += 2) {
+						if (isVertical) {
 							targetCoordinatesList.push({
 								x: burningCoordinates.x,
 								y: burningCoordinates.y + a,
 							});
-						}else{
+						} else {
 							targetCoordinatesList.push({
 								x: burningCoordinates.x + a,
 								y: burningCoordinates.y,
@@ -63,10 +63,10 @@ export class AI {
 			// Проходимся по массиву и находим клетку, по которой можно выстрелить.
 			// Делать это нужно, потому что в массиве есть как уже горящая клетка,
 			// Так и могут быть промахи от предыдущих выстрелов
-			for(const coordinates of targetCoordinatesList){
-				if(this._emenyShooting.ground.isCanShootHere(coordinates)){
+			for (const coordinates of targetCoordinatesList) {
+				if (this._enemyShooting.ground.isCanShootHere(coordinates)) {
 					// Стреляем и возвращаем результат
-					return this._emenyShooting.shoot(coordinates);
+					return this._enemyShooting.shoot(coordinates);
 				}
 			}
 			throw new Error('Ошибка попытки стрельбы вокруг горящей клетки');
@@ -74,7 +74,7 @@ export class AI {
 
 		// Если горящих нет, то делаем выстрел по случайной клетке из списка целей
 		const randomIndex = Math.floor(Math.random() * targets.length);
-		const coordinates=targets[randomIndex];
-		return this._emenyShooting.shoot(coordinates);
+		const coordinates = targets[randomIndex];
+		return this._enemyShooting.shoot(coordinates);
 	};
 }

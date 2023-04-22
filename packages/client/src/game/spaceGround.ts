@@ -118,12 +118,12 @@ export class SpaceGround {
 		const targets: TCoordinates[] = [];
 		for (let x = 0; x < width; x++) {
 			for (let y = 0; y < height; y++) {
-				const coordinates = {x,y};
-				if(this.isCanShootHere(coordinates, false)){
+				const coordinates = {x, y};
+				if (this.isCanShootHere(coordinates, false)) {
 					targets.push(coordinates);
-				}else{
+				} else {
 					const cellStatus = this.getCellStatus(coordinates);
-					if(cellStatus===CellStatus.BURNING){
+					if (cellStatus === CellStatus.BURNING) {
 						burnings.push(coordinates);
 					}
 				}
@@ -142,7 +142,7 @@ export class SpaceGround {
 	 * @param {TCoordinates} coordinates - Координаты клетки
 	 * @param {boolean} [checkCoordinateIsInsideMap=true] - Проверять, что клетка внутри карты
 	 */
-	isCanShootHere = (coordinates: TCoordinates, checkCoordinateIsInsideMap=true): boolean => {
+	isCanShootHere = (coordinates: TCoordinates, checkCoordinateIsInsideMap = true): boolean => {
 		if (checkCoordinateIsInsideMap && !this.isPositionInsideMap(coordinates)) {
 			return false;
 		} else {

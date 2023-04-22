@@ -91,13 +91,13 @@ const MoonGroundDisplay: FC<TSpaceGroundDisplayProps> = (props) => {
 	);
 };
 
-function rerenderMapFunction(){
+function rerenderMapFunction() {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [value, setValue] = useState(0); // integer state
 	// Eslint ругается, что value нигде не используется, ts-ignore не помогает
 	// Пришлось такой костыль писать.
 	// eslint-disable-next-line no-constant-condition
-	if(value && false){
+	if (value && false) {
 		console.log(value);
 	}
 	return () => setValue(value => value + 1); // update state to force render
@@ -138,12 +138,6 @@ export const PageGameMechanicsDemonstration = () => {
 		playerPlacement.modules,
 	));
 
-	// Метод для принудительного ререндера игрового поля на странице
-	// const rerenderMap = () => {
-	// 	console.log('rerenderMap', rerender);
-	// 	setRerender(rerender+1);
-	// };
-
 	// Метод для очистки игрового поля
 	const clearHandle = () => {
 		playerPlacement.clear();
@@ -179,10 +173,6 @@ export const PageGameMechanicsDemonstration = () => {
 		console.log(shotInfo);
 		rerenderMap();
 	};
-
-	/// -------
-	/// -------
-	/// -------
 
 	const [ai] = useState(new AI(playerShooting));
 
