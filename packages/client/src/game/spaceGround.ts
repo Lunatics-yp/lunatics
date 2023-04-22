@@ -107,51 +107,43 @@ export class SpaceGround {
 		return this.map[coordinates.y][coordinates.x].status;
 	};
 
-	isAnyCellForShooting = (): boolean => {
-		const alreadyFiredStatusList = [
-			CellStatus.MISSED,
-			CellStatus.BURNING,
-			CellStatus.DESTROYED,
-		];
-		const {width, height} = this.map.size;
-		for (let x = 0; x < width; x++) {
-			for (let y = 0; y < height; y++) {
-				const cellStatus = this.getCellStatus({x, y});
-				if (!alreadyFiredStatusList.includes(cellStatus)) {
-					return true;
-				}
-			}
-		}
-		return false;
-	};
-
-	isAnyCellBurning = (): {
-		isBurning: boolean;
-		coordinates: TCoordinates[];
+	// Получить список клеток, доступных для стрельбы,
+	// а так же список горящих клеток
+	getAllCellForShootingAndBurning = (): {
+		burnings: TCoordinates[];
+		targets: TCoordinates[];
 	} => {
 		const {width, height} = this.map.size;
-		const coordinates: TCoordinates[] = [];
-		let isBurning = false;
+		const burnings: TCoordinates[] = [];
+		const targets: TCoordinates[] = [];
 		for (let x = 0; x < width; x++) {
 			for (let y = 0; y < height; y++) {
-				const cellStatus = this.getCellStatus({x, y});
-				if (cellStatus === CellStatus.BURNING) {
-					isBurning=true;
-					coordinates.push({x,y});
+				const coordinates = {x,y};
+				if(this.isCanShootHere(coordinates, false)){
+					targets.push(coordinates);
+				}else{
+					const cellStatus = this.getCellStatus(coordinates);
+					if(cellStatus===CellStatus.BURNING){
+						burnings.push(coordinates);
+					}
 				}
 			}
 		}
 		return {
-			isBurning,
-			coordinates,
+			burnings,
+			targets,
 		};
 	};
 
-	// Узнать, можно ли по выбранной координате стрелять
-	// Нельзя стрелять, если координата вне границ игрового поля,
-	// или если по координате уже был произведён выстрел
-	isCanShootHere = (coordinates: TCoordinates): boolean => {
-		if (!this.isPositionInsideMap(coordinates)) {
+	/**
+	 * Узнать, можно ли по выбранной координате стрелять
+	 * Нельзя стрелять, если координата вне границ игрового поля,
+	 * или если по координате уже был произведён выстрел
+	 * @param {TCoordinates} coordinates - Координаты клетки
+	 * @param {boolean} [checkCoordinateIsInsideMap=true] - Проверять, что клетка внутри карты
+	 */
+	isCanShootHere = (coordinates: TCoordinates, checkCoordinateIsInsideMap=true): boolean => {
+		if (checkCoordinateIsInsideMap && !this.isPositionInsideMap(coordinates)) {
 			return false;
 		} else {
 			const cellStatus = this.getCellStatus(coordinates);

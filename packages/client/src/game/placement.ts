@@ -70,7 +70,6 @@ export class Placement extends GameMechanic {
 		for (const module of this.modules) {
 			module.unsetLocatedToMap();
 		}
-		console.log('Игровое поле очищено');
 	};
 
 	// Метод рандомной расстановки всех лунных моделей

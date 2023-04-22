@@ -45,22 +45,22 @@ const lunarModulesTypesToBePlacement: TShapesList = [
 	{
 		name: 'Четверной',
 		shape: shape4,
-		count: 0,
+		count: 1,
 	},
 	{
 		name: 'Тройной',
 		shape: shape3,
-		count: 10,
+		count: 2,
 	},
 	{
 		name: 'Двойной',
 		shape: shape2,
-		count: 0,
+		count: 3,
 	},
 	{
 		name: 'Одиночный',
 		shape: shape1,
-		count: 0,
+		count: 4,
 	},
 ];
 
@@ -92,17 +92,8 @@ const MoonGroundDisplay: FC<TSpaceGroundDisplayProps> = (props) => {
 };
 
 function rerenderMapFunction(){
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const [value, setValue] = useState(0); // integer state
-	// Eslint ругается, что value нигде не используется, ts-ignore не помогает
-	// Пришлось такой костыль писать.
-	// eslint-disable-next-line no-constant-condition
-	if(value && false){
-		console.log(value);
-	}
-	return () => setValue(value => value + 1); // update state to force render
-	// A function that increment 👆🏻 the previous state like here
-	// is better than directly setting `setValue(value + 1)`
+	const [value, setValue] = useState(0);
+	return () => setValue(value => value + 1);
 }
 
 export const PageGameMechanicsDemonstration = () => {
@@ -191,12 +182,6 @@ export const PageGameMechanicsDemonstration = () => {
 		rerenderMap();
 	};
 
-	const aiShootIntervalHandle = () => {
-		setInterval(() => {
-			aiShootHandle();
-		},500);
-	};
-
 	return (
 		<>
 			<div className={styles.pageGameMechanicsDemonstration}>
@@ -232,10 +217,6 @@ export const PageGameMechanicsDemonstration = () => {
 						<Button
 							text='Выстрел AI'
 							onClick={aiShootHandle}
-						/>
-						<Button
-							text='setInterval выстрелов AI'
-							onClick={aiShootIntervalHandle}
 						/>
 					</div>
 				</div>
