@@ -1,5 +1,5 @@
-const CANVAS_WIDTH = 1200;
-const CANVAS_HEIGHT = 1000;
+const CANVAS_WIDTH = 350;
+const CANVAS_HEIGHT = 800;
 const CELL_SIZE = 30;
 const RADIUS = 10;
 const BATTLEFIELD_WIDTH = CELL_SIZE * 10;
@@ -16,6 +16,8 @@ const OCCUPIED_COLOR = '#1938d4';
 const MISSED_COLOR = '#8c19d4';
 const BURNING_COLOR = '#b31569';
 const DESTROYED_COLOR = '#e33232';
+const CELL_GAP = 5;
+const direction = 'row';
 
 //координаты кораблей будут другими в финальной версии
 //сейчас просто отображаю их под сеткой с полем игры
@@ -176,11 +178,28 @@ const shipDatas = [
 	},
 ];
 
+enum MoonGroundCellStatus {
+	UNKNOWN = 'UNKNOWN',
+	EMPTY = 'EMPTY',
+	OCCUPIED = 'OCCUPIED',
+	MISSED = 'MISSED',
+	BURNING = 'BURNING',
+	DESTROYED = 'DESTROYED',
+}
+
+const enum Drawing {
+	Cell,
+	Clear,
+	Marker,
+	Ship,
+}
+
 export {
 	CANVAS_WIDTH,
 	CANVAS_HEIGHT,
 	CELL_SIZE,
 	shipDatas,
+	CELL_GAP,
 	BATTLEFIELD_WIDTH,
 	BATTLEFIELD_HEIGHT,
 	EMPTY_COLOR,
@@ -193,4 +212,7 @@ export {
 	PREPARATION_SCREEN_START_FIELD_COORD_Y,
 	BORDER_COLOR_SHIP,
 	UNKNOWN_COLOR,
+	direction,
+	MoonGroundCellStatus,
+	Drawing,
 };

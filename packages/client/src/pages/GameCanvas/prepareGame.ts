@@ -3,27 +3,12 @@ import {CanvasContainer} from './canvasContainer';
 import {
 	CELL_SIZE, shipDatas, EMPTY_COLOR, MISSED_COLOR, OCCUPIED_COLOR,
 	BURNING_COLOR, DESTROYED_COLOR,
-	BATTLEFIELD_WIDTH, BATTLEFIELD_HEIGHT,
-	BORDER_COLOR_SHIP, UNKNOWN_COLOR,
+	BATTLEFIELD_WIDTH, BATTLEFIELD_HEIGHT, CELL_GAP,
+	BORDER_COLOR_SHIP, UNKNOWN_COLOR, MoonGroundCellStatus,
 } from './constants';
 
-import {Ship, Coord} from './typing';
-import {isOverElement} from './utils';
-
-enum MoonGroundCellStatus {
-	UNKNOWN = 'UNKNOWN',
-	EMPTY = 'EMPTY',
-	OCCUPIED = 'OCCUPIED',
-	MISSED = 'MISSED',
-	BURNING = 'BURNING',
-	DESTROYED = 'DESTROYED',
-}
-
-interface MoonGroundCell {
-	x: number;
-	y: number;
-	status: MoonGroundCellStatus;
-}
+import {Ship, Coord, MoonGroundCell} from './typing';
+import {isOverElement, getRandomInRange, isSomeShipOccupiedCell} from './utils';
 
 const myColors = {
 	[MoonGroundCellStatus.UNKNOWN]: UNKNOWN_COLOR,
@@ -40,12 +25,15 @@ export class PrepareGame {
 	handlers: Record<string, Array<(event: Event) => void>>;
 	startDraggedCoord: Coord;
 	draggedShip: null | Ship;
+	mouseCoord: Coord;
 
 	cellArray: MoonGroundCell[][];
+	isComputer: boolean;
 
-	constructor(canvasContainer: CanvasContainer) {
+	constructor(canvasContainer: CanvasContainer, isComputer: boolean) {
 		this.canvasContainer = canvasContainer;
 		this.ships = shipDatas.map(ship => ship);
+		this.isComputer = isComputer;
 
 		this.handlers = {};
 
@@ -54,6 +42,10 @@ export class PrepareGame {
 			y: 0,
 		};
 
+		this.mouseCoord = {
+			x: 0,
+			y: 0,
+		};
 		//пустой двухмерный массив ячеек MoonGroundCell
 		//заполняется при вызове метода prepareBoard()
 		this.cellArray = [[]];
@@ -61,9 +53,12 @@ export class PrepareGame {
 		this.draggedShip = null;
 
 		//добавление обработчиков событий mousedown, mousemove, mouseup
-		this.addEvent('mousedown', this.takeShip.bind(this));
-		this.addEvent('mousemove', this.moveShip.bind(this));
-		this.addEvent('mouseup', this.dropShip.bind(this));
+		if (!isComputer) {
+			this.addEvent('mousedown', this.takeShip.bind(this));
+			this.addEvent('mousemove', this.moveShip.bind(this));
+			this.addEvent('mouseup', this.dropShip.bind(this));
+			this.addEvent('keydown', this.rotateShip.bind(this));
+		}
 	}
 
 	//обработчик событий (клик, перемещение мышки, отпуск кнопки мышки)
@@ -97,6 +92,28 @@ export class PrepareGame {
 		Object.entries(this.handlers).forEach(([eventName, callbacks]) => {
 			callbacks.forEach(callback => this.removeEvent(eventName, callback));
 		});
+	}
+
+	getWidthShip(ship: Ship) {
+
+		ship.direction === 'row' ? ship.size * CELL_SIZE + (ship.size - 1) * CELL_GAP : CELL_SIZE;
+	}
+
+	getHeightShip(ship: Ship) {
+
+		ship.direction === 'row'
+			? CELL_SIZE
+			: ship.size * CELL_SIZE + (ship.size - 1) * CELL_GAP;
+	}
+
+	removeDraggedShip() {
+		if (this.draggedShip) {
+			this.draggedShip = null;
+		}
+		this.startDraggedCoord = {
+			x: 0,
+			y: 0,
+		};
 	}
 
 	// вызывается при клике на корабль
@@ -136,6 +153,35 @@ export class PrepareGame {
 		}
 	}
 
+	rotateShip(event: Event) {
+		//console.log("поворот поворот поворот поворот поворот поворот  ")
+		if (event.type !== 'keydown') {
+			return;
+		}
+		const {code} = event as KeyboardEvent;
+		if (code !== 'Space') {
+			return;
+		}
+
+		// if (code == 'Space') {
+		// 	console.log("поворот")
+		// }
+		if (!this.draggedShip) {
+			return;
+		}
+
+		// const newShipCoord = {
+		// 	x: this.mouseCoord.x + (this.draggedShip.position.y - this.mouseCoord.y),
+		// 	y: this.mouseCoord.y + (this.draggedShip.position.x - this.mouseCoord.x),
+		// };
+
+		// this.draggedShip.position = newShipCoord;
+
+		this.draggedShip.direction = this.draggedShip.direction === 'column' ? 'row' : 'column';
+
+		this.update();
+	}
+
 	moveShip(event: Event) {
 		if (event.type !== 'mousemove') {
 			return;
@@ -149,7 +195,8 @@ export class PrepareGame {
 		this.draggedShip.borderColor = 'red';
 
 		const {offsetX, offsetY} = event as MouseEvent;
-
+		this.mouseCoord.x = offsetX;
+		this.mouseCoord.y = offsetY;
 		//обновление позиции
 		const newPosition = {
 			x: offsetX,
@@ -169,6 +216,7 @@ export class PrepareGame {
 	}
 
 	dropShip() {
+		console.log(this.draggedShip);
 		if (!this.draggedShip) {
 			return;
 		}
@@ -203,19 +251,28 @@ export class PrepareGame {
 				x: 10 * Math.round(this.draggedShip.position.x / 10),
 				y: 10 * Math.round(this.draggedShip.position.y / 10),
 			};
+			const _isSomeShipOccupiedCell = isSomeShipOccupiedCell(this.ships, {
+				x: newPosition.x,
+				y: newPosition.y,
+				status: MoonGroundCellStatus.UNKNOWN,
+			});
+
 			this.draggedShip.position.x = newPosition.x;
 			this.draggedShip.position.y = newPosition.y;
 			const flatCells = this.cellArray.flat();
+
 			const cellIndex = flatCells
 				.findIndex((cell: MoonGroundCell) =>
 					cell.x === newPosition.x && cell.y === newPosition.y);
 
-			if (cellIndex < 0) {
+			if (cellIndex < 0 || _isSomeShipOccupiedCell) {
 				this.draggedShip.position = this.draggedShip.startPosition;
 			} else {
 				this.draggedShip.cells = flatCells
 					.slice(cellIndex, cellIndex + this.draggedShip.size)
 					.map((cell: MoonGroundCell) => ({x: cell.x, y: cell.y, shot: false}));
+
+				// change this.cellArray cells status
 			}
 
 		} else {
@@ -224,10 +281,11 @@ export class PrepareGame {
 			this.draggedShip.position = this.draggedShip.startPosition;
 		}
 		this.draggedShip.borderColor = BORDER_COLOR_SHIP;
+		this.draggedShip = null;
+		console.log(this.ships);
 		this.update();
 		setTimeout(() => {
-			this.draggedShip = null;
-			console.log(this.ships);
+			console.log(this.cellArray);
 		}, 1);
 	}
 
@@ -266,6 +324,7 @@ export class PrepareGame {
 					width: CELL_SIZE,
 					height: CELL_SIZE,
 					borderColor: '#cccc',
+					direction: '',
 				});
 			});
 		});
@@ -273,7 +332,7 @@ export class PrepareGame {
 
 	//отрисовка кораблей
 	prepareShips() {
-		this.ships.forEach(({size, color, borderColor, position}) => {
+		this.ships.forEach(({size, color, borderColor, position, direction}) => {
 			this.canvasContainer.update({
 				x: position.x,
 				y: position.y,
@@ -281,8 +340,44 @@ export class PrepareGame {
 				height: CELL_SIZE,
 				fillColor: color,
 				borderColor: borderColor,
+				direction: direction,
+
 			});
 		});
+	}
+
+	randomSetPosition() {
+		// if (this.isComputer) {
+		// 	console.log(this.ships)
+		// }
+		// const flatCells = this.cellArray.flat();
+		// const getRandomCol = (ship: Ship, ships: Ship) => {
+		// 	const randowRowIndex = getRandomInRange(0, this.cellArray.length - 1)
+		// 	const randowRow = this.cellArray[randowRowIndex]
+		// 	const randomColIndex = getRandomInRange(0, this.cellArray.length - ship.size)
+		// 	const randomCol = randowRow[randomColIndex]
+		// 	console.log(ships, randomCol);
+		// 	if (isSomeShipOccupiedCell(ships, randomCol)) {
+		// 		return getRandomCol(ship, ships);
+		// 	}
+
+		// 	return randomCol;
+		// };
+		// this.ships.forEach((ship) => {
+		// 	const randomCol = getRandomCol(ship, this.ships);
+		// 	ship.position.x = randomCol.x
+		// 	ship.position.y = randomCol.y
+		// 	const cellIndex = flatCells
+		// 		.findIndex((cell: MoonGroundCell) =>
+		// 			cell.x === ship.position.x && cell.y === ship.position.y);
+
+		// 	ship.cells = flatCells
+		// 		.slice(cellIndex, cellIndex + ship.size)
+		// 		.map((cell: MoonGroundCell) => ({ x: cell.x, y: cell.y, shot: false }));
+		// });
+		// // console.log(this.ships);
+
+		// this.update()
 	}
 
 	update() {

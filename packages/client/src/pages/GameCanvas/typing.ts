@@ -1,3 +1,5 @@
+import {MoonGroundCellStatus, Drawing} from './constants';
+
 export type Coord = {
 	x: number;
 	y: number;
@@ -10,6 +12,7 @@ export type TRect = {
 	height: number;
 	fillColor?: string;
 	borderColor?: string;
+	direction: string;
 };
 
 export type Ship = {
@@ -20,7 +23,10 @@ export type Ship = {
 	color?: string | undefined;
 	borderColor?: string | undefined;
 	killed?: boolean;
+	direction: string;
 	cells: Array<Coord>;
+	type: Drawing.Cell;
+
 };
 
 export type Element = {
@@ -28,4 +34,10 @@ export type Element = {
 	y: number;
 	width: number;
 	height: number;
+};
+
+export type MoonGroundCell = {
+	x: number;
+	y: number;
+	status: MoonGroundCellStatus;
 };
