@@ -7,10 +7,14 @@ import {CellStatus, TCoordinates, TShape, TShapesList} from 'client/src/game/typ
 
 describe('SpaceGround Class', () => {
 	const size = 5;
-	const ground = new SpaceGround({
-		width: size,
-		height: size,
-		initStatus: CellStatus.UNKNOWN,
+	let ground: SpaceGround;
+
+	beforeEach(() => {
+		ground = new SpaceGround({
+			width: size,
+			height: size,
+			initStatus: CellStatus.UNKNOWN,
+		});
 	});
 
 	test('Проверяем размер карты', () => {
@@ -44,13 +48,17 @@ describe('SpaceGround Class', () => {
 });
 
 describe('SpaceModule Class', () => {
+	let module: SpaceModule;
 	const name = 'Г-образный';
 	const shape: TShape = [
 		{x: 0, y: 0},
 		{x: 0, y: 1},
 		{x: 1, y: 1},
 	];
-	const module = new SpaceModule({name, shape});
+
+	beforeEach(() => {
+		module = new SpaceModule({name, shape});
+	});
 
 	test('Проверяем данные только что созданного модуля', () => {
 		const info = module.info;
@@ -60,15 +68,14 @@ describe('SpaceModule Class', () => {
 		expect(module.shape).toEqual(shape);
 	});
 
-	test('Проверяем запись и чтение координаты модуля', () => {
+	test('Проверяем запись и чтение и сброс координаты модуля', () => {
+		// Запись и чтение позиции
 		const position = {x: 99, y: 99};
 		const positionArray = Array.from({length: 3}, () => position);
 		module.mapPosition = positionArray;
 		expect(module.mapPosition).toEqual(positionArray);
 		expect(module.info.isLocated).toBe(true);
-	});
-
-	test('Проверяем сброс координат модуля', () => {
+		// Сброс позиции
 		module.unsetLocatedToMap();
 		expect(module.info.isLocated).toBe(false);
 		expect(module.mapPosition).toEqual([]);
@@ -77,11 +84,6 @@ describe('SpaceModule Class', () => {
 
 describe('Placement Class', () => {
 	const size = 5;
-	const ground = new SpaceGround({
-		width: size,
-		height: size,
-		initStatus: CellStatus.EMPTY,
-	});
 	const modulesNum = 2;
 	const shape: TShape = [
 		{x: 0, y: 0},
@@ -95,10 +97,20 @@ describe('Placement Class', () => {
 			count: modulesNum,
 		},
 	];
-	const placement = new Placement(
-		ground,
-		shapesList,
-	);
+	let ground: SpaceGround;
+	let placement: Placement;
+
+	beforeEach(() => {
+		ground = new SpaceGround({
+			width: size,
+			height: size,
+			initStatus: CellStatus.EMPTY,
+		});
+		placement = new Placement(
+			ground,
+			shapesList,
+		);
+	});
 
 	test('Проверяем верно ли созданы лунные модули', () => {
 		const modules = placement.modules;
@@ -107,7 +119,6 @@ describe('Placement Class', () => {
 	});
 
 	test('Проверяем размещение модуля на карте', () => {
-		ground.clear();
 		const module = placement.modules[0];
 		placement.locateModuleToGround(module, {x: 1, y: 1});
 		const positionArray: TCoordinates[] = [
@@ -126,8 +137,9 @@ describe('Placement Class', () => {
 	});
 
 	test('Проверяем сброс расстановки', () => {
-		placement.clear();
 		const module = placement.modules[0];
+		placement.locateModuleToGround(module, {x: 1, y: 1});
+		placement.clear();
 		expect(module.info.isLocated).toBe(false);
 		expect(module.mapPosition).toEqual([]);
 		expect(ground.getCellStatus({x: 1, y: 1})).toBe(CellStatus.EMPTY);
@@ -136,7 +148,6 @@ describe('Placement Class', () => {
 	});
 
 	test('Проверяем размещение за пределами карты', () => {
-		ground.clear();
 		const module = placement.modules[0];
 		const result1 = placement.locateModuleToGround(module, {x: -1, y: 0});
 		const result2 = placement.locateModuleToGround(module, {x: 0, y: -1});
@@ -151,14 +162,14 @@ describe('Placement Class', () => {
 	});
 
 	test('Проверяем размещение второго модуля', () => {
-		ground.clear();
 		const moduleA = placement.modules[0];
 		const moduleB = placement.modules[1];
-		placement.locateModuleToGround(moduleA, {x: 0, y: 0});
+		const result0 = placement.locateModuleToGround(moduleA, {x: 0, y: 0});
 		const result1 = placement.locateModuleToGround(moduleB, {x: 0, y: 0});
 		const result2 = placement.locateModuleToGround(moduleB, {x: 1, y: 0});
 		const result3 = placement.locateModuleToGround(moduleB, {x: 2, y: 0});
 		const result4 = placement.locateModuleToGround(moduleB, {x: 3, y: 0});
+		expect(result0).toBe(true);
 		expect(result1).toBe(false);
 		expect(result2).toBe(false);
 		expect(result3).toBe(false);
@@ -166,7 +177,6 @@ describe('Placement Class', () => {
 	});
 
 	test('Проверяем рандомную расстановку', () => {
-		ground.clear();
 		placement.randomLocateAllModulesToGround();
 		expect(placement.modules[0].info.isLocated).toBe(true);
 		expect(placement.modules[1].info.isLocated).toBe(true);
@@ -176,11 +186,6 @@ describe('Placement Class', () => {
 
 describe('Shooting Class', () => {
 	const size = 5;
-	const ground = new SpaceGround({
-		width: size,
-		height: size,
-		initStatus: CellStatus.EMPTY,
-	});
 	const shape: TShape = [
 		{x: 0, y: 0},
 		{x: 0, y: 1},
@@ -193,24 +198,34 @@ describe('Shooting Class', () => {
 			count: 1,
 		},
 	];
-	const placement = new Placement(
-		ground,
-		shapesList,
-	);
-	const shooting = new Shooting(
-		ground,
-		placement.modules,
-	);
-	const module = placement.modules[0];
+	let ground: SpaceGround;
+	let placement: Placement;
+	let shooting: Shooting;
+	let module: SpaceModule;
 
-	test('Проверяем стрельбу по пустому полю', () => {
-		const result = shooting.shoot({x: 1, y: 1});
-		expect(result.hadShoot).toBe(true);
+	beforeEach(() => {
+		ground = new SpaceGround({
+			width: size,
+			height: size,
+			initStatus: CellStatus.EMPTY,
+		});
+		placement = new Placement(
+			ground,
+			shapesList,
+		);
+		shooting = new Shooting(
+			ground,
+			placement.modules,
+		);
+		module = placement.modules[0];
 	});
 
-	test('Проверяем стрельбу по уже отстрелянной клетке', () => {
-		const result = shooting.shoot({x: 1, y: 1});
-		expect(result.hadShoot).toBe(false);
+	test('Проверяем стрельбу по пустому полю и по уже отстрелянной клетке', () => {
+		const coordinates = {x: 1, y: 1};
+		const result1 = shooting.shoot(coordinates);
+		const result2 = shooting.shoot(coordinates);
+		expect(result1.hadShoot).toBe(true);
+		expect(result2.hadShoot).toBe(false);
 	});
 
 	test('Проверяем стрельбу по ячейке за пределами карты', () => {
@@ -221,9 +236,9 @@ describe('Shooting Class', () => {
 	});
 
 	test('Проверяем урон по модулю', () => {
-		placement.clear();
-		placement.locateModuleToGround(module, {x: 1, y: 1});
-		const result = shooting.shoot({x: 1, y: 1});
+		const coordinates = {x: 1, y: 1};
+		placement.locateModuleToGround(module, coordinates);
+		const result = shooting.shoot(coordinates);
 		expect(result.hadShoot).toBe(true);
 		expect(result.hit).toBe(true);
 		expect(result.destroyed).toBe(false);
@@ -231,16 +246,20 @@ describe('Shooting Class', () => {
 	});
 
 	test('Проверяем промах', () => {
+		placement.locateModuleToGround(module, {x: 1, y: 1});
 		const result = shooting.shoot({x: 0, y: 0});
 		expect(result.hadShoot).toBe(true);
 		expect(result.hit).toBe(false);
 	});
 
 	test('Проверяем уничтожение модуля', () => {
-		const result1 = shooting.shoot({x: 1, y: 2});
-		const result2 = shooting.shoot({x: 2, y: 2});
+		placement.locateModuleToGround(module, {x: 1, y: 1});
+		const result1 = shooting.shoot({x: 1, y: 1});
+		const result2 = shooting.shoot({x: 1, y: 2});
+		const result3 = shooting.shoot({x: 2, y: 2});
 		expect(result1.destroyed).toBe(false);
-		expect(result2.destroyed).toBe(true);
+		expect(result2.destroyed).toBe(false);
+		expect(result3.destroyed).toBe(true);
 		expect(module.info.isAlive).toBe(false);
 	});
 });
