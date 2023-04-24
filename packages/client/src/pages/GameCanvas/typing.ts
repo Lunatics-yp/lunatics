@@ -26,7 +26,6 @@ export type Ship = {
 	direction: string;
 	cells: Array<Coord>;
 	type: Drawing.Cell;
-
 };
 
 export type Element = {

@@ -32,7 +32,7 @@ export class PrepareGame {
 
 	constructor(canvasContainer: CanvasContainer, isComputer: boolean) {
 		this.canvasContainer = canvasContainer;
-		this.ships = shipDatas.map(ship => ship);
+		this.ships = shipDatas.map(ship => JSON.parse(JSON.stringify(ship)));
 		this.isComputer = isComputer;
 
 		this.handlers = {};
@@ -52,12 +52,17 @@ export class PrepareGame {
 
 		this.draggedShip = null;
 
+		this.prepareBoard();
+
 		//добавление обработчиков событий mousedown, mousemove, mouseup
 		if (!isComputer) {
 			this.addEvent('mousedown', this.takeShip.bind(this));
 			this.addEvent('mousemove', this.moveShip.bind(this));
 			this.addEvent('mouseup', this.dropShip.bind(this));
 			this.addEvent('keydown', this.rotateShip.bind(this));
+			this.prepareShips();
+		} else {
+			this.randomSetPosition();
 		}
 	}
 
@@ -154,7 +159,6 @@ export class PrepareGame {
 	}
 
 	rotateShip(event: Event) {
-		//console.log("поворот поворот поворот поворот поворот поворот  ")
 		if (event.type !== 'keydown') {
 			return;
 		}
@@ -162,20 +166,9 @@ export class PrepareGame {
 		if (code !== 'Space') {
 			return;
 		}
-
-		// if (code == 'Space') {
-		// 	console.log("поворот")
-		// }
 		if (!this.draggedShip) {
 			return;
 		}
-
-		// const newShipCoord = {
-		// 	x: this.mouseCoord.x + (this.draggedShip.position.y - this.mouseCoord.y),
-		// 	y: this.mouseCoord.y + (this.draggedShip.position.x - this.mouseCoord.x),
-		// };
-
-		// this.draggedShip.position = newShipCoord;
 
 		this.draggedShip.direction = this.draggedShip.direction === 'column' ? 'row' : 'column';
 
@@ -251,11 +244,31 @@ export class PrepareGame {
 				x: 10 * Math.round(this.draggedShip.position.x / 10),
 				y: 10 * Math.round(this.draggedShip.position.y / 10),
 			};
-			const _isSomeShipOccupiedCell = isSomeShipOccupiedCell(this.ships, {
+
+			let _isSomeShipOccupiedCell = false;
+
+			new Array(this.draggedShip.size).fill(1).reduce((prev, next, index) => {
+				if (!_isSomeShipOccupiedCell) {
+					_isSomeShipOccupiedCell = isSomeShipOccupiedCell(this.ships, prev);
+				}
+
+				return {
+					...prev,
+					x: prev.x + ((index + 1) * CELL_SIZE),
+					y: prev.y,
+					status: MoonGroundCellStatus.UNKNOWN,
+				};
+			}, {
 				x: newPosition.x,
 				y: newPosition.y,
 				status: MoonGroundCellStatus.UNKNOWN,
 			});
+
+			// const _isSomeShipOccupiedCell = isSomeShipOccupiedCell(this.ships, {
+			// 	x: newPosition.x,
+			// 	y: newPosition.y,
+			// 	status: MoonGroundCellStatus.UNKNOWN,
+			// });
 
 			this.draggedShip.position.x = newPosition.x;
 			this.draggedShip.position.y = newPosition.y;
@@ -321,8 +334,8 @@ export class PrepareGame {
 				this.canvasContainer.update({
 					x: cell.x,
 					y: cell.y,
-					width: CELL_SIZE,
-					height: CELL_SIZE,
+					width: 1,
+					height: 1,
 					borderColor: '#cccc',
 					direction: '',
 				});
@@ -347,37 +360,34 @@ export class PrepareGame {
 	}
 
 	randomSetPosition() {
-		// if (this.isComputer) {
-		// 	console.log(this.ships)
-		// }
-		// const flatCells = this.cellArray.flat();
-		// const getRandomCol = (ship: Ship, ships: Ship) => {
-		// 	const randowRowIndex = getRandomInRange(0, this.cellArray.length - 1)
-		// 	const randowRow = this.cellArray[randowRowIndex]
-		// 	const randomColIndex = getRandomInRange(0, this.cellArray.length - ship.size)
-		// 	const randomCol = randowRow[randomColIndex]
-		// 	console.log(ships, randomCol);
-		// 	if (isSomeShipOccupiedCell(ships, randomCol)) {
-		// 		return getRandomCol(ship, ships);
-		// 	}
+		const flatCells = this.cellArray.flat();
+		const getRandomCol: (ship: Ship, ships: Ship[]) => Coord = (ship: Ship, ships: Ship[]) => {
+			const randowRowIndex = getRandomInRange(0, this.cellArray.length - 1);
+			const randowRow = this.cellArray[randowRowIndex];
+			const randomColIndex = getRandomInRange(0, this.cellArray.length - ship.size);
+			const randomCol = randowRow[randomColIndex];
+			console.log(ships, randomCol);
+			if (isSomeShipOccupiedCell(ships, randomCol)) {
+				return getRandomCol(ship, ships);
+			}
 
-		// 	return randomCol;
-		// };
-		// this.ships.forEach((ship) => {
-		// 	const randomCol = getRandomCol(ship, this.ships);
-		// 	ship.position.x = randomCol.x
-		// 	ship.position.y = randomCol.y
-		// 	const cellIndex = flatCells
-		// 		.findIndex((cell: MoonGroundCell) =>
-		// 			cell.x === ship.position.x && cell.y === ship.position.y);
+			return randomCol;
+		};
+		this.ships.forEach((ship) => {
+			const randomCol = getRandomCol(ship, this.ships);
+			ship.position.x = randomCol.x;
+			ship.position.y = randomCol.y;
+			const cellIndex = flatCells
+				.findIndex((cell: MoonGroundCell) =>
+					cell.x === ship.position.x && cell.y === ship.position.y);
 
-		// 	ship.cells = flatCells
-		// 		.slice(cellIndex, cellIndex + ship.size)
-		// 		.map((cell: MoonGroundCell) => ({ x: cell.x, y: cell.y, shot: false }));
-		// });
-		// // console.log(this.ships);
+			ship.cells = flatCells
+				.slice(cellIndex, cellIndex + ship.size)
+				.map((cell: MoonGroundCell) => ({x: cell.x, y: cell.y, shot: false}));
+		});
+		console.log(this.ships);
 
-		// this.update()
+		this.update();
 	}
 
 	update() {

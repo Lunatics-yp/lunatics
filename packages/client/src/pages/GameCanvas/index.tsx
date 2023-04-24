@@ -10,35 +10,28 @@ export const GameCanvasPage = () => {
 	const canvasRef = useRef(null);
 	const canvasRef2 = useRef(null);
 	const gameRef = useRef({
-		prepareGame: null,
+		player1: null,
 	});
 
 	const onClick = () => {
 		console.log('test', gameRef.current);
-		gameRef.current.prepareGame.randomSetPosition();
+		gameRef.current.player1.randomSetPosition();
 	};
 
 	useEffect(() => {
 		if (!canvasRef.current) return;
 
 		const canvasContainer = new CanvasContainer(canvasRef.current);
-		const prepareGame = new PrepareGame(canvasContainer);
-		prepareGame.prepareBoard();
-		prepareGame.prepareShips();
+		const player1 = new PrepareGame(canvasContainer);
 
-		gameRef.current.prepareGame = prepareGame;
+		gameRef.current.player1 = player1;
 
-		// const canvasContainer2 = new CanvasContainer(canvasRef2.current);
-		// const prepareGame2 = new PrepareGame(canvasContainer2);
-		// prepareGame2.prepareBoard();
-
-		// setTimeout(() => {
-		// 	prepareGame.randomSetPosition();
-		// }, 1000);
+		const canvasContainer2 = new CanvasContainer(canvasRef2.current);
+		const player2 = new PrepareGame(canvasContainer2, true);
 
 		return () => {
-			if (prepareGame) {
-				prepareGame.removeAllEvents();
+			if (player1) {
+				player1.removeAllEvents();
 			}
 		};
 	}, []);
@@ -47,7 +40,7 @@ export const GameCanvasPage = () => {
 		<div>
 			<div className='canvas_container'>
 				<canvas ref={canvasRef}/>
-				{/* <canvas ref={canvasRef2} /> */}
+				<canvas ref={canvasRef2}/>
 			</div>
 			<Button
 				text='Рандомная расстановка кораблей'
