@@ -1,5 +1,6 @@
 import {KeyboardEvent, useEffect, useRef, useState} from 'react';
 import {useAppDispatch, useAppSelector} from 'client/src/hooks/redux';
+import {KEY_ENTER} from 'client/src/config/constants';
 import {forumActions, forumSelectors} from 'client/src/stores/reducers/forum/forumSlice';
 import {Avatar} from 'client/src/components/Avatar';
 import {Button} from 'client/src/components/Button';
@@ -53,7 +54,7 @@ export const ForumTopic = () => {
 
 	// отправка сообщений на Enter
 	function onPressEnter(event: KeyboardEvent) {
-		if (event.key === 'Enter' && messageContent) {
+		if (event.key === KEY_ENTER && messageContent) {
 			event.preventDefault();
 			onSubmitHandler();
 		}
