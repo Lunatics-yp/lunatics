@@ -247,7 +247,7 @@ export class PrepareGame {
 
 			let _isSomeShipOccupiedCell = false;
 
-			new Array(this.draggedShip.size).fill(1).reduce((prev, next, index) => {
+			new Array(this.draggedShip.size).fill(1).reduce((prev, index) => {
 				if (!_isSomeShipOccupiedCell) {
 					_isSomeShipOccupiedCell = isSomeShipOccupiedCell(this.ships, prev);
 				}
@@ -334,8 +334,8 @@ export class PrepareGame {
 				this.canvasContainer.update({
 					x: cell.x,
 					y: cell.y,
-					width: 1,
-					height: 1,
+					width: CELL_SIZE,
+					height: CELL_SIZE,
 					borderColor: '#cccc',
 					direction: '',
 				});
