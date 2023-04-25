@@ -24,7 +24,7 @@ export class Shooting extends GameMechanic {
 	 */
 	shoot = (coordinates: TCoordinates): TShootRespond => {
 		// Метод нанесения урона по лунному модулю
-		const hit = () => {
+		const hit = (): TShootRespond => {
 			const module = SpaceModule.findSpaceModule(this.modules, coordinates);
 			if (!module) {
 				throw new Error('Не найден SpaceModule по заданным координатам!');
@@ -39,13 +39,14 @@ export class Shooting extends GameMechanic {
 				return {
 					hadShoot: true,
 					hit: true,
+					destroyed: false,
 				};
 			}
 		};
 
 		// Метод уничтожения лунного модуля
 		// Вызывается, если лунный модуль вернул destroyed: true
-		const destroy = (spaceModule: SpaceModule) => {
+		const destroy = (spaceModule: SpaceModule): TShootRespond => {
 			const moduleCoordinates = spaceModule.mapPosition;
 			for (const mapCoordinates of moduleCoordinates) {
 				this.ground.setCellStatus(mapCoordinates, CellStatus.DESTROYED);
@@ -53,12 +54,12 @@ export class Shooting extends GameMechanic {
 			return {
 				hadShoot: true,
 				hit: true,
-				destroy: true,
+				destroyed: true,
 			};
 		};
 
 		// Метод промаха
-		const miss = () => {
+		const miss = (): TShootRespond => {
 			this.ground.setCellStatus(coordinates, CellStatus.MISSED);
 			return {
 				hadShoot: true,
