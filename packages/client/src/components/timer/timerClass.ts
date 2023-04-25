@@ -25,7 +25,7 @@ export class MyTimer {
 
 	get time(): string {
 		const hours = (Math.floor(this._seconds / 3600)).toString().padStart(2, '0');
-		const minutes = (Math.floor(this._seconds / 60)).toString().padStart(2, '0');
+		const minutes = (Math.floor(this._seconds / 60) % 60).toString().padStart(2, '0');
 		const seconds = (this._seconds % 60).toString().padStart(2, '0');
 		return `${hours}:${minutes}:${seconds}`;
 	}

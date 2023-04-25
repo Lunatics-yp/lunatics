@@ -1,5 +1,5 @@
 import {FC, useEffect, useState} from 'react';
-import {MyTimer} from 'client/src/components/timer/timerClass';
+import {MyTimer} from './timerClass';
 
 type TProps = {
 	isGameOver: boolean;
@@ -35,6 +35,6 @@ export const Timer: FC<TProps> = (props) => {
 	}, [props.isGameOver]);
 
 	return (
-		<p>{time}</p>
+		<p data-testid='time'>{time}</p>
 	);
 };
