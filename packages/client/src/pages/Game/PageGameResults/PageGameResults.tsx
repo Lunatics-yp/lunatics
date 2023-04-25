@@ -1,9 +1,15 @@
 import {useNavigate} from 'react-router-dom';
+import {useState} from 'react';
 import {PATHS} from 'client/src/routers/name';
 import {Background} from 'client/src/components/Background';
 import {Header} from 'client/src/components/Header';
 import {Button} from 'client/src/components/Button';
 import {Footer} from 'client/src/components/Footer';
+import {Modal} from 'client/src/components/Modal/modal';
+import {ModalRepeatGame}
+	from 'client/src/pages/Game/Modals/components/modalRepeatGame/modalRepeatGame';
+import {ModalRepeatGameButtons}
+	from 'client/src/pages/Game/Modals/components/modalRepeatGame/modalRepeatGameButtons';
 import styles from './pageGameResults.module.scss';
 
 export const PageGameResults = () => {
@@ -38,6 +44,7 @@ export const PageGameResults = () => {
 		win: 'Победа!',
 		lose: 'Поражение :(',
 	};
+	const [isRepeatGame, setIsRepeatGame] = useState(false);
 
 	return (
 		<>
@@ -82,6 +89,17 @@ export const PageGameResults = () => {
 				text='В главное меню'
 				onClick={() => navigate(PATHS.mainMenu)}
 			/>
+			<Button
+				className={`${styles.buttonResultsGame} ${styles.button}`}
+				text='Реванш'
+				onClick={() => setIsRepeatGame(true)}
+			/>
+			{ isRepeatGame  &&
+				<Modal>
+					<ModalRepeatGame player={players.player1}></ModalRepeatGame>
+					<ModalRepeatGameButtons/>
+				</Modal>
+			}
 			<Footer className={styles.footerPlacement}>
 				<p>
 					Длительность игры: {gameTimeString()}
