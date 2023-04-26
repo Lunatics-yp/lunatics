@@ -2,12 +2,13 @@
 import {CanvasContainer} from './canvasContainer';
 import {
 	CELL_SIZE, shipDatas, EMPTY_COLOR, MISSED_COLOR, OCCUPIED_COLOR,
-	BURNING_COLOR, DESTROYED_COLOR,
+	BURNING_COLOR, DESTROYED_COLOR, column, row,
 	BATTLEFIELD_WIDTH, BATTLEFIELD_HEIGHT, CELL_GAP,
-	BORDER_COLOR_SHIP, UNKNOWN_COLOR, MoonGroundCellStatus,
+	BORDER_COLOR_SHIP, UNKNOWN_COLOR, MoonGroundCellStatus, turnButton,
+
 } from './constants';
 
-import {Ship, Coord, MoonGroundCell} from './typing';
+import {TShip, TCoordiante, MoonGroundCell} from './typing';
 import {isOverElement, getRandomInRange, isSomeShipOccupiedCell} from './utils';
 
 const myColors = {
@@ -21,14 +22,16 @@ const myColors = {
 
 export class PrepareGame {
 	canvasContainer: CanvasContainer;
-	ships: Ship[];
+	ships: TShip[];
+	// eslint-disable-next-line no-unused-vars
 	handlers: Record<string, Array<(event: Event) => void>>;
-	startDraggedCoord: Coord;
-	draggedShip: null | Ship;
-	mouseCoord: Coord;
+	startDraggedCoord: TCoordiante;
+	draggedShip: null | TShip;
+	mouseCoord: TCoordiante;
 
 	cellArray: MoonGroundCell[][];
 	isComputer: boolean;
+	lastDraggedShip: string | undefined;
 
 	constructor(canvasContainer: CanvasContainer, isComputer: boolean) {
 		this.canvasContainer = canvasContainer;
@@ -67,6 +70,7 @@ export class PrepareGame {
 	}
 
 	//обработчик событий (клик, перемещение мышки, отпуск кнопки мышки)
+	// eslint-disable-next-line no-unused-vars
 	addEvent(eventName: string, callback: (event: Event) => void) {
 		if (!this.handlers[eventName]) {
 			this.handlers[eventName] = [callback];
@@ -82,6 +86,7 @@ export class PrepareGame {
 	}
 
 	//метод для удаления счетчиков событий
+	// eslint-disable-next-line no-unused-vars
 	removeEvent(eventName: string, callback: (event: Event) => void) {
 		if (!this.handlers[eventName]) {
 			return;
@@ -99,12 +104,12 @@ export class PrepareGame {
 		});
 	}
 
-	getWidthShip(ship: Ship) {
+	getWidthShip(ship: TShip) {
 
 		ship.direction === 'row' ? ship.size * CELL_SIZE + (ship.size - 1) * CELL_GAP : CELL_SIZE;
 	}
 
-	getHeightShip(ship: Ship) {
+	getHeightShip(ship: TShip) {
 
 		ship.direction === 'row'
 			? CELL_SIZE
@@ -163,15 +168,15 @@ export class PrepareGame {
 			return;
 		}
 		const {code} = event as KeyboardEvent;
-		if (code !== 'Space') {
+		if (code !== turnButton) {
 			return;
 		}
 		if (!this.draggedShip) {
 			return;
 		}
 
-		this.draggedShip.direction = this.draggedShip.direction === 'column' ? 'row' : 'column';
-
+		this.draggedShip.direction = this.draggedShip.direction === column ? row : column;
+		this.lastDraggedShip = this.draggedShip.direction === column ? row : column;
 		this.update();
 	}
 
@@ -209,7 +214,6 @@ export class PrepareGame {
 	}
 
 	dropShip() {
-		console.log(this.draggedShip);
 		if (!this.draggedShip) {
 			return;
 		}
@@ -295,7 +299,6 @@ export class PrepareGame {
 		}
 		this.draggedShip.borderColor = BORDER_COLOR_SHIP;
 		this.draggedShip = null;
-		console.log(this.ships);
 		this.update();
 		setTimeout(() => {
 			console.log(this.cellArray);
@@ -361,12 +364,12 @@ export class PrepareGame {
 
 	randomSetPosition() {
 		const flatCells = this.cellArray.flat();
-		const getRandomCol: (ship: Ship, ships: Ship[]) => Coord = (ship: Ship, ships: Ship[]) => {
+		// eslint-disable-next-line no-unused-vars
+		const getRandomCol: (ship: TShip, ships: TShip[]) => TCoordiante = (ship: TShip, ships: TShip[]) => {
 			const randowRowIndex = getRandomInRange(0, this.cellArray.length - 1);
 			const randowRow = this.cellArray[randowRowIndex];
 			const randomColIndex = getRandomInRange(0, this.cellArray.length - ship.size);
 			const randomCol = randowRow[randomColIndex];
-			console.log(ships, randomCol);
 			if (isSomeShipOccupiedCell(ships, randomCol)) {
 				return getRandomCol(ship, ships);
 			}

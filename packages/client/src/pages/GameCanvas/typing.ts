@@ -1,6 +1,6 @@
 import {MoonGroundCellStatus, Drawing} from './constants';
 
-export type Coord = {
+export type TCoordiante = {
 	x: number;
 	y: number;
 };
@@ -15,16 +15,16 @@ export type TRect = {
 	direction: string;
 };
 
-export type Ship = {
+export type TShip = {
 	id: number;
 	size: number;
-	startPosition: Coord;
-	position: Coord;
+	startPosition: TCoordiante;
+	position: TCoordiante;
 	color?: string | undefined;
 	borderColor?: string | undefined;
 	killed?: boolean;
 	direction: string;
-	cells: Array<Coord>;
+	cells: Array<TCoordiante>;
 	type: Drawing.Cell;
 };
 

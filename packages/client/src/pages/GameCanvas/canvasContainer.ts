@@ -1,5 +1,5 @@
 import {
-	CANVAS_WIDTH, CANVAS_HEIGHT,
+	CANVAS_WIDTH, CANVAS_HEIGHT, row,
 } from './constants';
 import {TRect} from './typing';
 
@@ -31,7 +31,7 @@ export class CanvasContainer {
 	}: TRect) {
 		this.context.beginPath();
 		this.context.moveTo(x, y);
-		if (direction === 'row' || !direction) {
+		if (direction === row || !direction) {
 
 			this.context.lineTo(x + width, y);
 			this.context.lineTo(x + width, y + height);

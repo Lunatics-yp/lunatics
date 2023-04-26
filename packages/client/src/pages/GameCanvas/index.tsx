@@ -1,9 +1,8 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {useRef, useEffect} from 'react';
 import {CanvasContainer} from './canvasContainer';
 import {PrepareGame} from './prepareGame';
 import {Button} from 'client/src/components/Button';
-
-import './GameCanvas.scss';
 
 export const GameCanvasPage = () => {
 
@@ -11,8 +10,10 @@ export const GameCanvasPage = () => {
 	const canvasRef2 = useRef<HTMLCanvasElement>(null!);
 	const gameRef = useRef<{
 		player1: PrepareGame | null;
+		player2: PrepareGame | null;
 	}>({
 		player1: null,
+		player2: null,
 	});
 
 	const onClick = () => {
@@ -32,7 +33,8 @@ export const GameCanvasPage = () => {
 
 		const canvasContainer2 = new CanvasContainer(canvasRef2.current);
 		const player2 = new PrepareGame(canvasContainer2, true);
-		player2;
+
+		gameRef.current.player2 = player2;
 
 		return () => {
 			if (player1) {

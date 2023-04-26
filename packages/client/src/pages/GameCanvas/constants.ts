@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const CANVAS_WIDTH = 350;
 const CANVAS_HEIGHT = 800;
 const CELL_SIZE = 30;
@@ -18,6 +19,9 @@ const BURNING_COLOR = '#b31569';
 const DESTROYED_COLOR = '#e33232';
 const CELL_GAP = 5;
 const direction = 'row';
+const turnButton = 'KeyF';
+const column = 'column';
+const row = 'row';
 
 //координаты кораблей будут другими в финальной версии
 //сейчас просто отображаю их под сеткой с полем игры
@@ -213,6 +217,9 @@ export {
 	BORDER_COLOR_SHIP,
 	UNKNOWN_COLOR,
 	direction,
+	turnButton,
+	column,
+	row,
 	MoonGroundCellStatus,
 	Drawing,
 };
