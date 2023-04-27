@@ -1,5 +1,3 @@
-import {Drawing} from './constants';
-
 export type TCoordiante = {
 	x: number;
 	y: number;
