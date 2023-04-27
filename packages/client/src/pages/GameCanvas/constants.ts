@@ -182,21 +182,14 @@ const shipDatas = [
 	},
 ];
 
-enum MoonGroundCellStatus {
-	UNKNOWN = 'UNKNOWN',
-	EMPTY = 'EMPTY',
-	OCCUPIED = 'OCCUPIED',
-	MISSED = 'MISSED',
-	BURNING = 'BURNING',
-	DESTROYED = 'DESTROYED',
-}
-
-const enum Drawing {
-	Cell,
-	Clear,
-	Marker,
-	Ship,
-}
+const MoonGroundCellStatus = {
+	UNKNOWN: 'UNKNOWN',
+	EMPTY: 'EMPTY',
+	OCCUPIED: 'OCCUPIED',
+	MISSED: 'MISSED',
+	BURNING: 'BURNING',
+	DESTROYED: 'DESTROYED',
+};
 
 export {
 	CANVAS_WIDTH,
@@ -221,5 +214,4 @@ export {
 	column,
 	row,
 	MoonGroundCellStatus,
-	Drawing,
 };

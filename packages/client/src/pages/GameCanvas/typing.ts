@@ -1,4 +1,4 @@
-import {MoonGroundCellStatus, Drawing} from './constants';
+import {Drawing} from './constants';
 
 export type TCoordiante = {
 	x: number;
@@ -25,7 +25,7 @@ export type TShip = {
 	killed?: boolean;
 	direction: string;
 	cells: Array<TCoordiante>;
-	type: Drawing.Cell;
+	type: string;
 };
 
 export type Element = {
@@ -38,5 +38,5 @@ export type Element = {
 export type MoonGroundCell = {
 	x: number;
 	y: number;
-	status: MoonGroundCellStatus;
+	status: string;
 };
