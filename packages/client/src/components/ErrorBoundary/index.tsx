@@ -6,7 +6,7 @@ export const ErrorBoundary = () => {
 	const error = useRouteError();
 	return (
 		<main className={styles.wrapper}>
-			<h1>&#128165; Ваш лунный модуль вышел из строя.</h1>
+			<h1>&#128165; R2D2 уже чинит этот блок.</h1>
 			<details className={styles.description}>
 				<br/>
 				<ErrorBody
