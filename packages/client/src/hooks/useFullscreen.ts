@@ -1,6 +1,30 @@
 import {RefObject, useEffect, useState} from 'react';
 import {KEY_F} from 'client/src/config/constants';
 
+function requestFullScreen(element: HTMLElement) {
+	if(element.requestFullscreen) {
+		element.requestFullscreen();
+	} else if(element.webkitRequestFullscreen) {
+		element.webkitRequestFullscreen();
+	} else if(element.mozRequestFullscreen) {
+		element.mozRequestFullscreen();
+	} else if (element.msRequestFullscreen) {
+		element.msRequestFullscreen();
+	}
+}
+
+function exitFullScreen() {
+	if(document.exitFullscreen) {
+		document.exitFullscreen();
+	} else if(document.webkitExitFullscreen) {
+		document.webkitExitFullscreen();
+	} else if(document.mozCancelFullScreen) {
+		document.mozCancelFullScreen();
+	} else if (document.msExitFullscreen) {
+		document.msExitFullscreen();
+	}
+}
+
 export function useFullscreen(ref?: RefObject<HTMLElement>, isKeyFFullscreenMode?: boolean) {
 
 	const [isFullscreen, setIsFullscreen] = useState(false);
@@ -17,10 +41,10 @@ export function useFullscreen(ref?: RefObject<HTMLElement>, isKeyFFullscreenMode
 
 				if (document.fullscreenElement) {
 
-					document.exitFullscreen();
+					exitFullScreen();
 
 				} else {
-					currentRef.requestFullscreen();
+					requestFullScreen(currentRef);
 				}
 			}
 		}
@@ -48,9 +72,9 @@ export function useFullscreen(ref?: RefObject<HTMLElement>, isKeyFFullscreenMode
 
 		if (currentRef) {
 			if (isFullscreen) {
-				document.exitFullscreen();
+				exitFullScreen();
 			} else {
-				currentRef.requestFullscreen();
+				requestFullScreen(currentRef);
 			}
 		}
 	}
