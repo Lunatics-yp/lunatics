@@ -1,5 +1,5 @@
 import {
-	CANVAS_WIDTH, CANVAS_HEIGHT,
+	CANVAS_WIDTH, CANVAS_HEIGHT, row,
 } from './constants';
 import {TRect} from './typing';
 
@@ -27,18 +27,34 @@ export class CanvasContainer {
 	// все рисование в одном методе чтобы не дублировать код 
 	// т.к корабли являются теми же квадратами при отрисовки
 	rect({
-		x, y, width, height, fillColor, borderColor,
+		x, y, width, height, fillColor, borderColor, direction,
 	}: TRect) {
 		this.context.beginPath();
 		this.context.moveTo(x, y);
-		this.context.lineTo(x + width, y);
-		this.context.lineTo(x + width, y + height);
-		this.context.lineTo(x, y + height);
+		if (direction === row || !direction) {
+
+			this.context.lineTo(x + width, y);
+			this.context.lineTo(x + width, y + height);
+			this.context.lineTo(x, y + height);
+			this.context.lineTo(x, y);
+		}
+		else {
+			this.context.lineTo(x, y + width);
+			this.context.lineTo(x + height, y + width);
+			this.context.lineTo(x + height, y);
+			this.context.lineTo(x, y);
+			// this.context.lineTo(x, y + width); // вниз
+			// this.context.lineTo(x + height, y + width);
+			// this.context.lineTo(x + height, y - width);
+			// this.context.lineTo(x, y);
+
+		}
 
 		if (borderColor) {
 			this.context.strokeStyle = borderColor;
 			this.context.stroke();
 		}
+
 		//для кораблей дополнительные стили
 		if (fillColor) {
 			this.context.fillStyle = fillColor;
