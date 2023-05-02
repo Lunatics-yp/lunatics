@@ -103,3 +103,7 @@
 	}
 
 }
+
+@mixin textIllumination {
+	text-shadow: -6px 0 17px var(--textWinnerShadow), 0 1px 17px var(--textWinnerShadow), 1px 0 17px var(--textWinnerShadow), 0 -1px 17px var(--textWinnerShadow);
+}

@@ -9,7 +9,7 @@ export type TUser = {
 	login: string;
 	firstName: string;
 	secondName: string;
-	displayName: string | null;
+	displayName: string;
 	avatar: string | null;
 	phone: string;
 	email: string;

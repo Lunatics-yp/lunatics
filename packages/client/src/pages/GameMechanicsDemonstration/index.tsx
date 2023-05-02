@@ -1,4 +1,5 @@
 // Импорт react
+import {AI} from 'client/src/game/ai';
 import {ChangeEventHandler, FC, useState} from 'react';
 // Импорт компонентов
 import {Button} from 'client/src/components/Button';
@@ -10,7 +11,7 @@ import {Shooting} from 'client/src/game/shooting';
 import {SpaceGround} from 'client/src/game/spaceGround';
 import {Placement} from 'client/src/game/placement';
 import {
-	TCellStatus,
+	CellStatus,
 	TSpaceGroundDisplayProps,
 	TShapesList,
 } from 'client/src/game/typing';
@@ -20,19 +21,19 @@ import styles from './styles.module.scss';
 
 // ВРЕМЕННЫЙ метод для отображения текущего состояния карты на странице
 // В дальнейшем будет заменён на canvas
-const convertMapStatusToSymbol = (status: TCellStatus) => {
+const convertMapStatusToSymbol = (status: CellStatus) => {
 	switch (status) {
-		case TCellStatus.UNKNOWN:
+		case CellStatus.UNKNOWN:
 			return '[?]';
-		case TCellStatus.EMPTY:
+		case CellStatus.EMPTY:
 			return '[ ]';
-		case TCellStatus.OCCUPIED:
+		case CellStatus.OCCUPIED:
 			return '[▒]';
-		case TCellStatus.MISSED:
+		case CellStatus.MISSED:
 			return '[·]';
-		case TCellStatus.BURNING:
+		case CellStatus.BURNING:
 			return '[v]';
-		case TCellStatus.DESTROYED:
+		case CellStatus.DESTROYED:
 			return '[Χ]';
 		default:
 			return ' E ';
@@ -78,10 +79,10 @@ const MoonGroundDisplay: FC<TSpaceGroundDisplayProps> = (props) => {
 	}
 
 	mapDisplayView += '\n';
-	mapDisplayView += `${convertMapStatusToSymbol(TCellStatus.OCCUPIED)}Лунный модуль, `;
-	mapDisplayView += `${convertMapStatusToSymbol(TCellStatus.BURNING)}Ранен, `;
-	mapDisplayView += `${convertMapStatusToSymbol(TCellStatus.DESTROYED)}Уничтожен, `;
-	mapDisplayView += `${convertMapStatusToSymbol(TCellStatus.MISSED)}Промах\n\n`;
+	mapDisplayView += `${convertMapStatusToSymbol(CellStatus.OCCUPIED)}Лунный модуль, `;
+	mapDisplayView += `${convertMapStatusToSymbol(CellStatus.BURNING)}Ранен, `;
+	mapDisplayView += `${convertMapStatusToSymbol(CellStatus.DESTROYED)}Уничтожен, `;
+	mapDisplayView += `${convertMapStatusToSymbol(CellStatus.MISSED)}Промах\n\n`;
 
 	return (
 		<div>
@@ -90,10 +91,29 @@ const MoonGroundDisplay: FC<TSpaceGroundDisplayProps> = (props) => {
 	);
 };
 
+function rerenderMapFunction() {
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const [value, setValue] = useState(0); // integer state
+	// Eslint ругается, что value нигде не используется, ts-ignore не помогает
+	// Пришлось такой костыль писать.
+	// eslint-disable-next-line no-constant-condition
+	if (value && false) {
+		console.log(value);
+	}
+	return () => setValue(value => value + 1); // update state to force render
+	// A function that increment 👆🏻 the previous state like here
+	// is better than directly setting `setValue(value + 1)`
+}
+
 export const PageGameMechanicsDemonstration = () => {
 	// стейт для ререндера странички
 	// В режиме работы с canvas вместо него будет requestAnimationFrame
-	const [rerender, setRerender] = useState(false);
+	// const [rerender, setRerender] = useState(0);
+	// useEffect(() => {
+	// 	console.log('useEffect', rerender);
+	// });
+
+	const rerenderMap = rerenderMapFunction();
 
 	// Стейт для выбранных координат выстрела
 	// В режиме работы с canvas координаты будут приходить от класса курсора мышки
@@ -117,11 +137,6 @@ export const PageGameMechanicsDemonstration = () => {
 		playerMoonGround,
 		playerPlacement.modules,
 	));
-
-	// Метод для принудительного ререндера игрового поля на странице
-	const rerenderMap = () => {
-		setRerender(!rerender);
-	};
 
 	// Метод для очистки игрового поля
 	const clearHandle = () => {
@@ -159,13 +174,20 @@ export const PageGameMechanicsDemonstration = () => {
 		rerenderMap();
 	};
 
+	const [ai] = useState(new AI(playerShooting));
+
+	const aiShootHandle = () => {
+		ai.shoot();
+		rerenderMap();
+	};
+
 	return (
 		<>
 			<div className={styles.pageGameMechanicsDemonstration}>
 				<Header>Демонстрация игровых механик</Header>
 				<div className={styles.content}>
 					pageGameMechanicsDemonstration
-					<MoonGroundDisplay map={playerMoonGround.map} rerender={rerender}/>
+					<MoonGroundDisplay map={playerMoonGround.map} rerender={rerenderMap}/>
 					<div className={styles.menu}>
 						<Button
 							text='Очистить игровое поле'
@@ -188,8 +210,12 @@ export const PageGameMechanicsDemonstration = () => {
 							/>
 						</div>
 						<Button
-							text='Выстрелить'
+							text='Выстрелить самому'
 							onClick={shotHandle}
+						/>
+						<Button
+							text='Выстрел AI'
+							onClick={aiShootHandle}
 						/>
 					</div>
 				</div>

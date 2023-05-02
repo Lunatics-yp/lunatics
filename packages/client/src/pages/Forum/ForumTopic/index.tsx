@@ -1,5 +1,6 @@
-import {useRef, useState} from 'react';
+import {KeyboardEvent, useEffect, useRef, useState} from 'react';
 import {useAppDispatch, useAppSelector} from 'client/src/hooks/redux';
+import {KEY_ENTER} from 'client/src/config/constants';
 import {forumActions, forumSelectors} from 'client/src/stores/reducers/forum/forumSlice';
 import {Avatar} from 'client/src/components/Avatar';
 import {Button} from 'client/src/components/Button';
@@ -16,12 +17,7 @@ export const ForumTopic = () => {
 	const newMessage = useInput('');
 	const dispatch = useAppDispatch();
 	const messages = useAppSelector(forumSelectors.messages);
-	const fullScreenBtnRef = useRef(null);
-	const {toggleFullscreen} = useFullscreen(fullScreenBtnRef);
-
-	function fullScreenHandler() {
-		toggleFullscreen();
-	}
+	const messagesEndRef = useRef<null | HTMLDivElement>(null);
 
 	function onCancelHandler() {
 		setIsFocusing(false);
@@ -32,9 +28,8 @@ export const ForumTopic = () => {
 		setIsFocusing(true);
 	}
 
+	const messageContent = newMessage.value.trim();
 	function onSubmitHandler() {
-		const messageContent = newMessage.value.trim();
-
 		if (messageContent) {
 			dispatch(forumActions.addMessage(
 				messageContent,
@@ -44,10 +39,33 @@ export const ForumTopic = () => {
 		newMessage.nulling();
 	}
 
+	// мгновенная прокрутка, выполняемая при монтировании компонента
+	useEffect(() => {
+		messagesEndRef.current?.scrollIntoView({
+			behavior: 'smooth',
+		});
+	}, [messages]);
+
+	// плавная прокрутка, выполняемая при изменении массива сообщений
+	useEffect(() => {
+		messagesEndRef.current?.scrollIntoView({
+			behavior: 'auto',
+		});
+	}, []);
+
+	// отправка сообщений на Enter и перенос строки на Shift + Enter
+	function onPressEnter(event: KeyboardEvent) {
+		if (event.key === KEY_ENTER && !event.shiftKey && messageContent) {
+			event.preventDefault();
+			onSubmitHandler();
+		}
+	}
+
 	const MessageElements = messages.map((message) => (
 		<Message
 			key={message.id}
 			message={message}
+			ref={messagesEndRef}
 		/>
 	));
 
@@ -75,6 +93,7 @@ export const ForumTopic = () => {
 							<textarea
 								onFocus={onFocusHandler}
 								onChange={newMessage.onChange}
+								onKeyDown={onPressEnter}
 								value={newMessage.value}
 								className={styles.field}
 								placeholder='Написать комментарий...'

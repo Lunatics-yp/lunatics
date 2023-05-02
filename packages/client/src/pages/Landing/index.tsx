@@ -1,6 +1,7 @@
 // Импорт react
 import {useNavigate} from 'react-router-dom';
 import {useRef} from 'react';
+import {useAuth} from 'client/src/hooks/useAuth';
 // Импорт компонентов
 import {PATHS} from 'client/src/routers/name';
 import {Button} from 'client/src/components/Button';
@@ -15,12 +16,13 @@ import {gameDescription, gameRules} from './texts';
 
 export const PageLanding = () => {
 	const navigate = useNavigate();
+	const user = useAuth();
 
 	// Элемент для блока с правилами
 	const rulesElementRef = useRef<HTMLDivElement>(null);
 
-	const goToAuth = () => {
-		navigate(PATHS.auth);
+	const goToPlay = () => {
+		navigate(user ? PATHS.mainMenu : PATHS.auth);
 	};
 
 	const goToForum = () => {
@@ -57,7 +59,7 @@ export const PageLanding = () => {
 					<div className={styles.logoText} style={pageStyles.logoText}/>
 				</div>
 				<div className={styles.buttons}>
-					<Button text='Играть' onClick={goToAuth}/>
+					<Button text='Играть' onClick={goToPlay}/>
 					<Button text='Форум' onClick={goToForum}/>
 					<Button text='Правила' onClick={goToRules}/>
 					<Button
