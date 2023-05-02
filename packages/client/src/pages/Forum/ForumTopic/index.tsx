@@ -2,7 +2,6 @@ import {KeyboardEvent, useEffect, useRef, useState} from 'react';
 import {useAppDispatch, useAppSelector} from 'client/src/hooks/redux';
 import {KEY_ENTER} from 'client/src/config/constants';
 import {forumActions, forumSelectors} from 'client/src/stores/reducers/forum/forumSlice';
-import {useKeyPress} from 'client/src/hooks/useKeyPress';
 import {Avatar} from 'client/src/components/Avatar';
 import {Button} from 'client/src/components/Button';
 import {useInput} from 'client/src/hooks/useInput';
@@ -18,7 +17,6 @@ export const ForumTopic = () => {
 	const dispatch = useAppDispatch();
 	const messages = useAppSelector(forumSelectors.messages);
 	const messagesEndRef = useRef<null | HTMLDivElement>(null);
-	const isShiftPressed: boolean = useKeyPress('Shift');
 
 	function onCancelHandler() {
 		setIsFocusing(false);
@@ -56,7 +54,7 @@ export const ForumTopic = () => {
 
 	// отправка сообщений на Enter и перенос строки на Shift + Enter
 	function onPressEnter(event: KeyboardEvent) {
-		if (event.key === KEY_ENTER && !isShiftPressed && messageContent) {
+		if (event.key === KEY_ENTER && !event.shiftKey && messageContent) {
 			event.preventDefault();
 			onSubmitHandler();
 		}
