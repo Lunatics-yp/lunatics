@@ -2,11 +2,11 @@ import {RefObject, useEffect, useState} from 'react';
 import {KEY_F} from 'client/src/config/constants';
 
 function requestFullScreen(element: HTMLElement) {
-	if(element.requestFullscreen) {
+	if (element.requestFullscreen) {
 		element.requestFullscreen();
-	} else if(element.webkitRequestFullscreen) {
+	} else if (element.webkitRequestFullscreen) {
 		element.webkitRequestFullscreen();
-	} else if(element.mozRequestFullscreen) {
+	} else if (element.mozRequestFullscreen) {
 		element.mozRequestFullscreen();
 	} else if (element.msRequestFullscreen) {
 		element.msRequestFullscreen();
@@ -14,11 +14,11 @@ function requestFullScreen(element: HTMLElement) {
 }
 
 function exitFullScreen() {
-	if(document.exitFullscreen) {
+	if (document.exitFullscreen) {
 		document.exitFullscreen();
-	} else if(document.webkitExitFullscreen) {
+	} else if (document.webkitExitFullscreen) {
 		document.webkitExitFullscreen();
-	} else if(document.mozCancelFullScreen) {
+	} else if (document.mozCancelFullScreen) {
 		document.mozCancelFullScreen();
 	} else if (document.msExitFullscreen) {
 		document.msExitFullscreen();
@@ -26,7 +26,6 @@ function exitFullScreen() {
 }
 
 export function useFullscreen(ref?: RefObject<HTMLElement>, isKeyFFullscreenMode?: boolean) {
-
 	const [isFullscreen, setIsFullscreen] = useState(false);
 
 	useEffect(() => {
@@ -35,14 +34,11 @@ export function useFullscreen(ref?: RefObject<HTMLElement>, isKeyFFullscreenMode
 		}
 
 		function onKeyHandler(event: KeyboardEvent) {
-			const currentRef =  ref?.current ?? null;
+			const currentRef = ref?.current ?? null;
 
 			if (currentRef && event.code === KEY_F) {
-
 				if (document.fullscreenElement) {
-
 					exitFullScreen();
-
 				} else {
 					requestFullScreen(currentRef);
 				}
@@ -50,8 +46,8 @@ export function useFullscreen(ref?: RefObject<HTMLElement>, isKeyFFullscreenMode
 		}
 
 		/**
-	 	* Добавление входа/выхода в полноэкранный режим по клавише F
-	 	*/
+		 * Добавление входа/выхода в полноэкранный режим по клавише F
+		 */
 		if (isKeyFFullscreenMode) {
 			document.addEventListener('keydown', onKeyHandler);
 		}
