@@ -18,6 +18,12 @@ export const ForumTopic = () => {
 	const dispatch = useAppDispatch();
 	const messages = useAppSelector(forumSelectors.messages);
 	const messagesEndRef = useRef<null | HTMLDivElement>(null);
+	const fullScreenBtnRef = useRef(null);
+	const {toggleFullscreen} = useFullscreen(fullScreenBtnRef);
+
+	function fullScreenHandler() {
+		toggleFullscreen();
+	}
 
 	function onCancelHandler() {
 		setIsFocusing(false);
