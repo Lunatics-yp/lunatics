@@ -4,6 +4,7 @@ import {KEY_ENTER} from 'client/src/config/constants';
 import {forumActions, forumSelectors} from 'client/src/stores/reducers/forum/forumSlice';
 import {Avatar} from 'client/src/components/Avatar';
 import {Button} from 'client/src/components/Button';
+import {useFullscreen} from 'client/src/hooks/useFullscreen';
 import {useInput} from 'client/src/hooks/useInput';
 import {ForumTopicHeader} from './ForumTopicHeader/ForumTopicHeader';
 import {Message} from './Message';
@@ -17,6 +18,12 @@ export const ForumTopic = () => {
 	const dispatch = useAppDispatch();
 	const messages = useAppSelector(forumSelectors.messages);
 	const messagesEndRef = useRef<null | HTMLDivElement>(null);
+	const fullScreenBtnRef = useRef(null);
+	const {toggleFullscreen} = useFullscreen(fullScreenBtnRef);
+
+	function fullScreenHandler() {
+		toggleFullscreen();
+	}
 
 	function onCancelHandler() {
 		setIsFocusing(false);
@@ -70,8 +77,13 @@ export const ForumTopic = () => {
 
 	return (
 		<main className={styles.wrapper}>
-			<div className={styles.container}>
-				<ForumTopicHeader/>
+			<div className={styles.container}
+				ref={fullScreenBtnRef}
+			>
+				<ForumTopicHeader
+					fullScreenBtnRef={fullScreenBtnRef}
+					fullScreenHandler={fullScreenHandler}
+				/>
 				<div className={styles.container__messages}>
 					{MessageElements}
 				</div>
