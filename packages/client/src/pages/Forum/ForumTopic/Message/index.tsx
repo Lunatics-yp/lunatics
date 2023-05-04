@@ -1,34 +1,36 @@
-import {FC} from 'react';
+import {forwardRef} from 'react';
 import {Avatar} from 'client/src/components/Avatar';
 import {Like} from 'client/src/components/images/Like';
 import styles from './Message.module.scss';
 import {TMessageProps} from './typing';
 
-export const Message: FC<TMessageProps> = ({message}) => {
-	const {isOwner, text} = message;
-	return (
-		<div className={styles.wrapper}>
-			{!isOwner && <Avatar size='medium'/>}
-			<div className={`${styles.message} ${styles.message_text}
-				${isOwner && styles.message_me}`}
-			>
-				<div className={styles.message__info}>
-					<span className={styles.message__author}>
-						{isOwner ? 'Вы' : 'Trevor'}
-					</span>
-					<span className={styles.message__date}>23 мар 2023 в 21:31</span>
-				</div>
-				<p>{text}</p>
-				<div className={`${styles.message__reaction}`}>
-					<Like/>
-					{/* Чтобы сделать цвет красным
-					нужно добавить класс ${styles.reaction__count_like}*/}
-					<span
-						className={`${styles.reaction__count}`}>
-						1
-					</span>
+export const Message =  forwardRef<HTMLDivElement, TMessageProps>(
+	function  Message (props, ref) {
+		const {message} = props;
+		const {isOwner, text} = message;
+		return (
+			<div className={styles.wrapper} ref={ref}>
+				{!isOwner && <Avatar size='medium'/>}
+				<div className={`${styles.message} ${styles.message_text}
+					${isOwner && styles.message_me}`}
+				>
+					<div className={styles.message__info}>
+						<span className={styles.message__author}>
+							{isOwner ? 'Вы' : 'Trevor'}
+						</span>
+						<span className={styles.message__date}>23 мар 2023 в 21:31</span>
+					</div>
+					<p>{text}</p>
+					<div className={`${styles.message__reaction}`}>
+						<Like/>
+						{/* Чтобы сделать цвет красным
+						нужно добавить класс ${styles.reaction__count_like}*/}
+						<span
+							className={`${styles.reaction__count}`}>
+							1
+						</span>
+					</div>
 				</div>
 			</div>
-		</div>
-	);
-};
+		);
+	});

@@ -2,7 +2,7 @@ import {SpaceModule} from './spaceModule';
 
 // Статус клетки
 /* eslint-disable no-unused-vars */
-export enum TCellStatus {
+export enum CellStatus {
 	UNKNOWN = 'UNKNOWN',
 	EMPTY = 'EMPTY',
 	OCCUPIED = 'OCCUPIED',
@@ -10,11 +10,12 @@ export enum TCellStatus {
 	BURNING = 'BURNING',
 	DESTROYED = 'DESTROYED',
 }
+
 /* eslint-enable no-unused-vars */
 
 // Тип для клетки игрового поля
 export type TCell = {
-	status: TCellStatus;
+	status: CellStatus;
 };
 
 // Тип для игрового поля
@@ -40,7 +41,7 @@ export type TSize = {
 
 // Тип данных для конструктора класса SpaceGround
 export type TSpaceGroundProps = {
-	initStatus?: TCellStatus; // Статус для первоначального заполнения клеток
+	initStatus?: CellStatus; // Статус для первоначального заполнения клеток
 } & TSize;
 
 // Тип формы лунного модуля
@@ -75,5 +76,5 @@ export type TShootRespond = {
 // ВРЕМЕННЫЙ тип для отображения карты на экране
 export type TSpaceGroundDisplayProps = {
 	map: TMap;
-	rerender: boolean;
+	rerender: unknown;
 };

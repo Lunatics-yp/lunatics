@@ -1,0 +1,23 @@
+@import 'client/src/styles/app';
+
+.error {
+	@include flexCenter;
+
+	flex-direction: column;
+	background-color: var(--colorBlueSky);
+	color: var(--colorBlueDark);
+	width: 500px;
+	height: 100%;
+	padding: 10px;
+	margin: 0;
+	border-radius: 30px;
+
+	&__title {
+		color: var(--colorBackground);
+	}
+
+	&__description {
+		font-size: 16px;
+		word-break: break-all;
+	}
+}

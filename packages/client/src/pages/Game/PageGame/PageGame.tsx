@@ -9,8 +9,9 @@ import {Footer} from 'client/src/components/Footer';
 import {Avatar} from 'client/src/components/Avatar';
 import {ModalGameActions} from 'client/src/pages/Game/Modals/modalGameActions';
 import {Modal} from 'client/src/components/Modal/modal';
-import {ModalGameover} from 'client/src/pages/Game/Modals/components/modalGameover';
-import {ModalGameoverButtons} from 'client/src/pages/Game/Modals/components/modalGameoverButtons';
+import {ModalGameover} from 'client/src/pages/Game/Modals/components/modalGameover/modalGameover';
+import {ModalGameoverButtons}
+	from 'client/src/pages/Game/Modals/components/modalGameover/modalGameoverButtons';
 import {useFadeModal} from 'client/src/hooks/useFadeModal';
 import {Timer} from 'client/src/components/timer/timer';
 import styles from './pageGame.module.scss';

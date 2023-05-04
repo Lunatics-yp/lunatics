@@ -32,9 +32,19 @@
 	border-radius: 1rem;
 
 	&__messages {
+		height: auto;
 		max-height: 356px;
 		overflow-y: scroll;
 		padding: 0 20px;
+	}
+
+	&:fullscreen {
+		border-radius: 0;
+	}
+
+	&:fullscreen &__messages {
+		max-height: 69%;
+		height: 69%;
 	}
 }
 

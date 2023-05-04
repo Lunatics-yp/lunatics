@@ -1,0 +1,48 @@
+@import 'client/src/styles/app';
+
+.fullScreen {
+	width: 32px;
+	height: 32px;
+	padding: 0;
+	border: none;
+	outline: var(--colorGrey) solid 1px;
+	background-color: transparent;
+	margin-right: 5px;
+	transition: all var(--animationTimeSmall);
+
+	&:hover {
+		cursor: pointer;
+		opacity: 0.7;
+
+	}
+
+	&:hover .iconOpen {
+		stroke: var(--colorBlueSky);
+		transform: scale(1.1);
+	}
+
+	&:hover .iconClose {
+		stroke: var(--colorBlueSky);
+		transform: scale(0.9);
+	}
+
+	&:active .iconOpen {
+		transform: scale(1.2);
+	}
+
+	&:active .iconClose {
+		transform: scale(0.8);
+	}
+
+	&__icon {
+		width: 30px;
+		height: 30px;
+		stroke: var(--colorPurple);
+		transform: scale(1);
+		transition: all var(--animationTimeSmall);
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+}

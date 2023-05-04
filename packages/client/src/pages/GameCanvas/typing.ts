@@ -1,4 +1,4 @@
-export type Coord = {
+export type TCoordiante = {
 	x: number;
 	y: number;
 };
@@ -10,17 +10,20 @@ export type TRect = {
 	height: number;
 	fillColor?: string;
 	borderColor?: string;
+	direction: string;
 };
 
-export type Ship = {
+export type TShip = {
 	id: number;
 	size: number;
-	startPosition: Coord;
-	position: Coord;
+	startPosition: TCoordiante;
+	position: TCoordiante;
 	color?: string | undefined;
 	borderColor?: string | undefined;
 	killed?: boolean;
-	cells: Array<Coord>;
+	direction: string;
+	cells: Array<TCoordiante>;
+	type: string;
 };
 
 export type Element = {
@@ -28,4 +31,10 @@ export type Element = {
 	y: number;
 	width: number;
 	height: number;
+};
+
+export type MoonGroundCell = {
+	x: number;
+	y: number;
+	status: string;
 };
