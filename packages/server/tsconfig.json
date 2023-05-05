@@ -1,12 +1,5 @@
 {
 	"compilerOptions": {
-		// Правила от djpont
-		"allowSyntheticDefaultImports": true,
-		"allowJs": true,
-		"strictNullChecks": true,
-		"isolatedModules": true,
-		"suppressImplicitAnyIndexErrors": true,
-		// Правила, которые были изначально
 		"composite": true,
 		"target": "es2019",
 		"module": "commonjs",
@@ -26,6 +19,7 @@
 		"forceConsistentCasingInFileNames": true,
 		"importsNotUsedAsValues": "error",
 		"lib": [
+			"DOM",
 			"es2019",
 			"esnext.asynciterable"
 		],
