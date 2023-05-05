@@ -4,8 +4,14 @@ import ReactDOM from 'react-dom/client';
 import 'client/src/styles/root.scss';
 import 'client/src/styles/app.scss';
 
-ReactDOM.hydrateRoot(
-	document.getElementById('root') as HTMLElement,
+// ReactDOM.hydrateRoot(
+// 	document.getElementById('root') as HTMLElement,
+// 	<React.StrictMode>
+// 		<App/>
+// 	</React.StrictMode>,
+// );
+
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>
 		<App/>
 	</React.StrictMode>,
