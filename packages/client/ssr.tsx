@@ -1,8 +1,12 @@
-// import {App} from 'client/src/App';
+import {App} from 'client/src/App';
 import {renderToString} from 'react-dom/server';
 
-export function render() {
+import {StaticRouter} from 'react-router-dom/server';
+
+export function render(url: string) {
 	return renderToString(
-		<div>SSR</div>,
+		<StaticRouter location={url}>
+			<App/>
+		</StaticRouter>,
 	);
 }
