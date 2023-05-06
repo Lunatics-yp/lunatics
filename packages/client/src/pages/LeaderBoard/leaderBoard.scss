@@ -1,0 +1,46 @@
+. leaderboard__container {
+  background: var(--colorBlueSky);
+  border-radius: 5px;
+  padding: 10px;
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+.leaderboard__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.leaderboard__list {
+  background-color: #eee;
+}
+
+.leaderboard__list:hover {
+  background-color: #ccc;
+}
+
+.leaderboard__list-el {
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+  min-width: 195px;
+}
+
+.leaderboard__list-bottomEl {
+  text-align: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.leaderboard__list-bottomEl:nth-child(odd) {
+  background-color: #fff;
+}
+
+.leaderboard__list-bottomEl:nth-child(even) {
+  background-color: #eee;
+}
+
+.leaderboard__list-bottomEl:hover {
+  background-color: #ccc;
+}

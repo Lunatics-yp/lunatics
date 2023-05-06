@@ -41,3 +41,19 @@ export type TChangeUserRequestData = {
 	phone: string;
 	display_name: string;
 };
+
+export type TLeaderboard = {
+	ratingFieldName: string;
+	cursor: number;
+	limit: number;
+};
+
+type TAddLeaderboardData = {
+	some: string;
+	value: number;
+};
+
+export type TAddLeaderboard = {
+	ratingFieldName: string;
+	data: TAddLeaderboardData;
+};

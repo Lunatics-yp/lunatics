@@ -18,4 +18,5 @@ export const PATHS = {
 	gameResults: '/gameResults',
 	profileChangePassword: '/profileChangePassword',
 	gameMechanicsDemonstration: '/gameMechanicsDemonstration',
+	leaderboard: '/leaderboard',
 };
