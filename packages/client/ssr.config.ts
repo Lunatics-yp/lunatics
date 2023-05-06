@@ -7,7 +7,7 @@ export default defineConfig({
 	plugins: [react()],
 	build: {
 		lib: {
-			entry: path.resolve(__dirname, 'ssr.tsx'),
+			entry: path.resolve(__dirname, 'ssr/ssr.tsx'),
 			name: 'Client',
 			formats: ['cjs'],
 		},
