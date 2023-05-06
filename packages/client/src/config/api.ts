@@ -7,4 +7,4 @@ export const API_CONFIG = {
 export const OAUTH_BASE_URL = 'https://oauth.yandex.ru/authorize';
 export const OAUTH_REDIRECT_URI = process.env.NODE_ENV !== 'production' ?
 	window.location.origin :
-	'https://lunatics-git-dev-lunatics-yp.vercel.app/';
+	'https://lunatics-git-dev-lunatics-yp.vercel.app';
