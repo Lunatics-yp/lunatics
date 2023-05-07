@@ -7,7 +7,10 @@ type TProps = {
 
 export const Timer: FC<TProps> = (props) => {
 
+	const {isGameOver} = props;
+
 	const [timer, setTimer] = useState<MyTimer>();
+
 	const timerCallback = (timeString: string) => {
 		setTime(timeString);
 	};
@@ -15,24 +18,24 @@ export const Timer: FC<TProps> = (props) => {
 	const [time, setTime] = useState('');
 
 	const stop = () => {
-		if(timer){
+		if (timer) {
 			timer.stop();
 		}
 	};
 
 	const start = () => {
-		if(!timer){
+		if (!timer) {
 			setTimer(new MyTimer(timerCallback));
-		}else{
+		} else {
 			timer.start(timerCallback);
 		}
 	};
 
 	useEffect(() => {
-		props.isGameOver
+		isGameOver
 			? stop()
 			: start();
-	}, [props.isGameOver]);
+	}, [isGameOver]);
 
 	return (
 		<p data-testid='time'>{time}</p>

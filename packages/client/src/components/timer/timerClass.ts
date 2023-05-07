@@ -13,6 +13,7 @@ export class MyTimer {
 		if (this._timerId) {
 			this.stop();
 		}
+		callback(this.time);
 		this._timerId = setInterval(() => {
 			this._seconds += 1;
 			callback(this.time);
