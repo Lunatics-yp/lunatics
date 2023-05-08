@@ -1,3 +1,5 @@
+@import "client/src/styles/app";
+
 .leaderboard {
   &__container {
     background: var(--colorBlueSky);
@@ -13,39 +15,32 @@
   }
 
   &__list {
-    background-color: #eee;
-  }
-
-  &__list:hover {
+    background-color: var(--colorGray);
     background-color: #ccc;
   }
+}
 
-  &__list-el {
-    text-align: center;
-    padding: 10px;
-    font-weight: bold;
-    border-bottom: 1px solid #ccc;
-    min-width: 195px;
+&__list-el {
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  border-bottom: 1px solid var(--colorGray2);
+  min-width: 195px;
+}
+
+&__list-bottomEl {
+  text-align: center;
+  padding: 10px;
+  border-bottom: 1px solid var(--colorGray2);
+  &:nth-child(odd) {
+    background-color: var(--colorWhite);
   }
-
-  &__list-bottomEl {
-    text-align: center;
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
+  &:nth-child(even) {
+    background-color: var(--colorGray);
   }
-
-  &__list-bottomEl:nth-child(odd) {
-    background-color: #fff;
+  &:hover {
+    background-color: var(--colorGray2);
   }
-
-  &__list-bottomEl:nth-child(even) {
-    background-color: #eee;
-  }
-
-  &__list-bottomEl:hover {
-    background-color: #ccc;
-  }
-
   &__loading {
     display: flex;
     justify-content: center;
