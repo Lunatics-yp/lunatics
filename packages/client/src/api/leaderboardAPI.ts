@@ -1,17 +1,19 @@
 import {api} from './request';
 import {
-	TLeaderboard, TAddLeaderboard,
+	TLeaderboard, TAddLeaderboard, TLeaderboardResponse,
 } from './typing';
+import {TEAM_NAME} from './constants';
 
 export const leaderboardAPI = {
-	getAllLiders: (data: TLeaderboard) => (
-		api.post<any>('leaderboard/all', data)
+
+	getAllLeader: (data: TLeaderboard) => (
+		api.post<Array<TLeaderboardResponse>>('leaderboard/all', data)
 	),
 	addUserToLeaderboard: (data: TAddLeaderboard) => (
-		api.post<any>('leaderboard', data)
+		api.post('leaderboard', data)
 	),
 
-	getAllLidersByTeam: (data: TLeaderboard, teamName: string) => (
-		api.post<any>(`leaderboard/${teamName}`, data)
+	getAllLeaderByTeam: (data: TLeaderboard, teamName: string = TEAM_NAME) => (
+		api.post<Array<TLeaderboardResponse>>(`leaderboard/${teamName}`, data)
 	),
 };

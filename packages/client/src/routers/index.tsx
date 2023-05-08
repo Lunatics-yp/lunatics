@@ -22,7 +22,7 @@ import {PageSetShips} from 'client/src/pages/Game/PageSetShips/PageSetShips';
 import {PageGame} from 'client/src/pages/Game/PageGame/PageGame';
 import {PageGameResults} from 'client/src/pages/Game/PageGameResults/PageGameResults';
 import {PageGameMechanicsDemonstration} from 'client/src/pages/GameMechanicsDemonstration';
-import {LeaderboardPage} from '../pages/LeaderBoard/leaderBoard';
+import {LeaderboardPage} from '../pages/LeaderBoard';
 import {AuthRoute} from './Routes/AuthRoute';
 import {GuestRoute} from './Routes/GuestRoute';
 import {ErrorBoundary} from 'client/src/components/ErrorBoundary';

@@ -1,15 +1,17 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 // import {TEAM_NAME} from 'client/src/hooks/useLeaderBoard';
 import {leaderboardAPI} from 'client/src/api/leaderboardAPI';
+import {RATING_FIELD_NAME, LEADER_LIMIT_USERS} from 'client/src/api/constants';
 
-export const getAllLiders = createAsyncThunk(
-	'leaderboard/getAllLiders',
-	async (_, thunkAPI) => {
+export const getAllLeader = createAsyncThunk(
+	'leaderboard/getAllLeader',
+	async (page: number, thunkAPI) => {
+		console.log('here is getAllLeader ', page);
 		try {
-			return await leaderboardAPI.getAllLiders({
-				ratingFieldName: 'score',
-				cursor: 0,
-				limit: 15,
+			return await leaderboardAPI.getAllLeader({
+				ratingFieldName: RATING_FIELD_NAME,
+				cursor: page * LEADER_LIMIT_USERS,
+				limit: LEADER_LIMIT_USERS,
 			});
 		} catch (e) {
 			return thunkAPI.rejectWithValue(e);
@@ -17,4 +19,4 @@ export const getAllLiders = createAsyncThunk(
 	},
 );
 
-export const leaderBoardThunks = {getAllLiders};
+export const leaderBoardThunks = {getAllLeader};

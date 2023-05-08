@@ -1,5 +1,4 @@
 import {TErrorAPI, TUserDTO} from './typingAPI';
-
 export type TNullObject = Record<string, never>;
 
 /* Login */
@@ -49,11 +48,16 @@ export type TLeaderboard = {
 };
 
 type TAddLeaderboardData = {
-	some: string;
-	value: number;
+	id: number;
+	name: string;
 };
 
 export type TAddLeaderboard = {
 	ratingFieldName: string;
+	data: TAddLeaderboardData;
+	teamName: string;
+};
+
+export type TLeaderboardResponse = {
 	data: TAddLeaderboardData;
 };
