@@ -40,23 +40,26 @@ export async function startServer(isDev: boolean, port: number) {
 			let render: TSsrRenderProps;
 
 			if (!isDev && distPath) {
-				template = fs.readFileSync(
-					path.resolve(distPath, 'index.html'),
-					'utf-8',
-				);
+				template = fs.readFileSync(path.resolve(distPath, 'index.html'), 'utf-8');
 				render = (await import(ssrProdPath)).render;
 			} else {
-				template = fs.readFileSync(
-					path.resolve(ssrDevPath, 'index.html'),
-					'utf-8',
-				);
+				template = fs.readFileSync(path.resolve(ssrDevPath, 'index.html'), 'utf-8');
 				template = await vite.transformIndexHtml(url, template);
 				render = (await vite.ssrLoadModule(path.resolve(ssrDevPath, 'ssr/ssr.tsx'))).render;
 			}
 
-			const data = ['da ta for redux'];
-			const appHtml = render(url, data);
-			const html = template.replace('<!--ssr-outlet-->', appHtml);
+			const [initialState, appHtml] = render(url);
+
+			const stateMarkup =
+				// eslint-disable-next-line max-len
+				`<script>window.__PRELOADED_STATE__ = ${JSON.stringify(initialState).replace(
+					/</g,
+					'\\u003c',
+				)}</script>`;
+
+			const html = template
+				.replace('<!--ssr-outlet-->', appHtml)
+				.replace('<!--preloadedState-->', stateMarkup);
 			res.status(200).set({'Content-Type': 'text/html'}).end(html);
 		} catch (e) {
 			if (isDev) {
