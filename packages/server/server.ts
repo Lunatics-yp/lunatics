@@ -23,7 +23,7 @@ export async function startServer(isDev: boolean, port: number) {
 			appType: 'custom',
 		});
 		app.use(vite.middlewares);
-	}else{
+	} else {
 		distPath = path.dirname(require.resolve('client/dist/index.html'));
 		app.use('/assets', express.static(path.resolve(distPath, 'assets')));
 	}
@@ -54,7 +54,7 @@ export async function startServer(isDev: boolean, port: number) {
 				render = (await vite.ssrLoadModule(path.resolve(ssrDevPath, 'ssr/ssr.tsx'))).render;
 			}
 
-			const data = ['data for redux'];
+			const data = ['da ta for redux'];
 			const appHtml = render(url, data);
 			const html = template.replace('<!--ssr-outlet-->', appHtml);
 			res.status(200).set({'Content-Type': 'text/html'}).end(html);

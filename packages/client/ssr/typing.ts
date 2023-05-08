@@ -1,4 +1,4 @@
 export type TSsrRenderProps = (
 	url: string,
-	data: unknown
+	data: unknown,
 ) => string;
