@@ -14,9 +14,10 @@ const rootReducer = combineReducers({
 });
 
 export const setupStore = () => {
-	const preloadedState = typeof window !== 'undefined' ? window.__PRELOADED_STATE__ : undefined;
+	let preloadedState;
 
 	if (typeof window !== 'undefined') {
+		preloadedState = window.__PRELOADED_STATE__;
 		delete window?.__PRELOADED_STATE__;
 	}
 

@@ -48,7 +48,7 @@ export async function startServer(isDev: boolean, port: number) {
 				render = (await vite.ssrLoadModule(path.resolve(ssrDevPath, 'ssr/ssr.tsx'))).render;
 			}
 
-			const [initialState, appHtml] = render(url);
+			const {initialState, appHtml} = render(url);
 
 			const stateMarkup =
 				// eslint-disable-next-line max-len

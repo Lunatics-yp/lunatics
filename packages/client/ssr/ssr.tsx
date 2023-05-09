@@ -8,10 +8,10 @@ import {TSsrRenderProps} from './typing';
 export const render: TSsrRenderProps = (url: string) => {
 	const store = setupStore();
 	const initialState = store.getState();
-	const renderResult = renderToString(
+	const appHtml = renderToString(
 		<Provider store={store}>
 			<App/>
 		</Provider>,
 	);
-	return [initialState, renderResult];
+	return {initialState, appHtml};
 };
