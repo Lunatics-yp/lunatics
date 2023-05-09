@@ -24,7 +24,7 @@ export const LeaderboardPage = () => {
 	const backLeaders = () => {
 		setPage(__prevPage => --__prevPage);
 	};
-	if (isLoading) return <div className="leaderboard__loading">Loading ...</div>;
+	if (isLoading) return <div className='leaderboard__loading'>Loading ...</div>;
 
 	return (
 		<div className='leaderboard'>
