@@ -1,53 +1,54 @@
-@import "client/src/styles/app";
-
 .leaderboard {
-  &__container {
-    background: var(--colorBlueSky);
-    border-radius: 5px;
-    padding: 10px;
-    margin: 0 auto;
-    max-width: 800px;
-  }
+	&__container {
+		background: var(--colorBlueSky);
+		border-radius: 5px;
+		max-width: 800px;
+		padding: 10px;
+		margin: 0 auto;
+	}
 
-  &__table {
-    width: 100%;
-    border-collapse: collapse;
-  }
+	&__table {
+		width: 100%;
+		border-collapse: collapse;
+	}
 
-  &__list {
-    background-color: var(--colorGray);
-    background-color: #ccc;
-  }
-}
+	&__list {
+		background-color: var(--colorGray);
+	}
 
-&__list-el {
-  text-align: center;
-  padding: 10px;
-  font-weight: bold;
-  border-bottom: 1px solid var(--colorGray2);
-  min-width: 195px;
-}
+	&__list-el {
+		text-align: center;
+		padding: 10px;
+		font-weight: bold;
+		border-bottom: 1px solid var(--colorGray2);
+		min-width: 195px;
+	}
 
-&__list-bottomEl {
-  text-align: center;
-  padding: 10px;
-  border-bottom: 1px solid var(--colorGray2);
-  &:nth-child(odd) {
-    background-color: var(--colorWhite);
-  }
-  &:nth-child(even) {
-    background-color: var(--colorGray);
-  }
-  &:hover {
-    background-color: var(--colorGray2);
-  }
-  &__loading {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 700;
-    font-size: 36px;
-    line-height: 40px;
-    padding-top: 500px;
-  }
+	&__list-bottomEl {
+		text-align: center;
+		padding: 10px;
+		border-bottom: 1px solid var(--colorGray2);
+
+		&:nth-child(odd) {
+			background-color: var(--colorWhite);
+		}
+
+		&:nth-child(even) {
+			background-color: var(--colorGray);
+		}
+
+		&:hover {
+			background-color: var(--colorGray2);
+		}
+	}
+
+	&__loading {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-weight: 700;
+		font-size: 36px;
+		line-height: 40px;
+		padding-top: 500px;
+	}
 }
