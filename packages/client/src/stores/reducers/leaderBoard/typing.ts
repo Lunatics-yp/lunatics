@@ -5,7 +5,9 @@ export type TLeaderBoardState = {
 };
 
 export type TLeader = {
-	[x: string]: string | number | undefined;
+	// замена на number | string | undefined не помогло)
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	[x: string]: any;
 	id: number;
 	score: number;
 	playerId?: number;

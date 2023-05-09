@@ -13,7 +13,6 @@ export const useLeaderBoard = () => {
 	const [page, setPage] = useState(0);
 
 	useEffect(() => {
-		console.log('user', user);
 
 		if (!user) return;
 

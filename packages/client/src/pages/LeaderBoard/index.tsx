@@ -7,7 +7,6 @@ import {Header} from 'client/src/components/Header';
 import {useLeaderBoard} from 'client/src/hooks/useLeaderBoard';
 import {LEADER_LIMIT_USERS} from 'client/src/api/constants';
 import {RATING_FIELD_NAME} from 'client/src/api/constants';
-// import {TEAM_NAME} from 'client/src/hooks/useLeaderBoard';
 import './leaderBoard.scss';
 
 export const LeaderboardPage = () => {
