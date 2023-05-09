@@ -11,7 +11,7 @@ import {RATING_FIELD_NAME} from 'client/src/api/constants';
 import './leaderBoard.scss';
 
 export const LeaderboardPage = () => {
-	const {leaderBoardState: {isLoading, liders = []}, setPage, page} = useLeaderBoard();
+	const {leaderBoardState: {isLoading, leaders = []}, setPage, page} = useLeaderBoard();
 	const navigate = useNavigate();
 	const goToMainMenu = () => {
 		navigate(PATHS.mainMenu);
@@ -45,10 +45,10 @@ export const LeaderboardPage = () => {
 					</tr>
 
 					<tbody className='leaderboard__list-bottom'>
-						{liders
+						{leaders
 							.filter(it => !!it.data.name)
-							.map((lider, index) => {
-								const {data = {}} = lider || {};
+							.map((leader, index) => {
+								const {data = {}} = leader || {};
 								const {id, name} = data;
 								return (
 									<tr key={id} className='leaderboard__list'>
@@ -76,7 +76,7 @@ export const LeaderboardPage = () => {
 						onClick={backLeaders}
 					/>
 				)}
-				{liders.length > 0 && liders.length % LEADER_LIMIT_USERS === 0 && (
+				{leaders.length > 0 && leaders.length % LEADER_LIMIT_USERS === 0 && (
 					<Button
 						text='Далее'
 						className='buttonBack'

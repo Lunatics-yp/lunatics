@@ -1,12 +1,11 @@
 export type TLeaderBoardState = {
-	liders: TLider[];
+	leaders: TLeader[];
 	error: string;
 	isLoading: boolean;
 };
 
-export type TLider = {
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	[x: string]: any;
+export type TLeader = {
+	[x: string]: string | number | undefined;
 	id: number;
 	score: number;
 	playerId?: number;

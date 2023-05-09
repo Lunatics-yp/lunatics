@@ -7,7 +7,7 @@ import {TLeaderBoardState} from './typing';
 const initialState: TLeaderBoardState = {
 	isLoading: false,
 	error: '',
-	liders: [],
+	leaders: [],
 };
 
 export const leaderBoardSlice = createSlice({
@@ -20,7 +20,7 @@ export const leaderBoardSlice = createSlice({
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			.addCase(leaderBoardThunks.getAllLeader.fulfilled, (state, action: PayloadAction<any>) => { // не смог уйти от any)
 				state.isLoading = false;
-				state.liders = action.payload;
+				state.leaders = action.payload;
 			})
 			.addCase(leaderBoardThunks.getAllLeader.pending, (state) => {
 				state.isLoading = true;
