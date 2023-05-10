@@ -79,6 +79,10 @@ export const AuthForm = () => {
 		password: '',
 	};
 
+	const onLoginWithYandex = () => {
+		oAuthAPI.loginWithOAuth();
+	};
+
 	return (
 		<Formik
 			initialValues={initialValues}
@@ -107,9 +111,7 @@ export const AuthForm = () => {
 						<Button
 							text='Войти с Яндекс ID'
 							logo={<YandexLogo/>}
-							onClick={()=> {
-								oAuthAPI.loginWithOAuth();
-							}}
+							onClick={onLoginWithYandex}
 						/>
 						<Button
 							text='Нет аккаунта?'
