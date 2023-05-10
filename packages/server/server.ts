@@ -48,14 +48,17 @@ export async function startServer(isDev: boolean, port: number) {
 				render = (await vite.ssrLoadModule(path.resolve(ssrDevPath, 'ssr/ssr.tsx'))).render;
 			}
 
-			const {initialState, appHtml} = render(url);
+			const setupStore = (
+				await vite.ssrLoadModule(path.resolve(ssrDevPath, 'src/stores/store.ts'))
+			).setupStore;
 
-			const stateMarkup =
-				// eslint-disable-next-line max-len
-				`<script>window.__PRELOADED_STATE__ = ${JSON.stringify(initialState).replace(
-					/</g,
-					'\\u003c',
-				)}</script>`;
+			const store = setupStore();
+			const initialState = store.getState();
+
+			const appHtml = render(url, store);
+
+			const stringifyState = JSON.stringify(initialState).replace(/</g, '\\u003c');
+			const stateMarkup = `<script>window.__PRELOADED_STATE__ = ${stringifyState}</script>`;
 
 			const html = template
 				.replace('<!--ssr-outlet-->', appHtml)
