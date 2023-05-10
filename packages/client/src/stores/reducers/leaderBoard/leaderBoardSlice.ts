@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 import {RootState} from 'client/src/stores/store';
 import {leaderBoardThunks} from './leaderBoardThunks';
 import {TLeaderBoardState} from './typing';
@@ -17,7 +17,7 @@ export const leaderBoardSlice = createSlice({
 	reducers: {},
 	extraReducers: (builder) => {
 		builder
-			.addCase(leaderBoardThunks.getAllLeader.fulfilled, (state, action: PayloadAction<any>) => {
+			.addCase(leaderBoardThunks.getAllLeader.fulfilled, (state, action) => {
 				state.isLoading = false;
 				if (isErrorAPI(action.payload)) {
 					state.error = action.payload.reason;
