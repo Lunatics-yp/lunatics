@@ -12,11 +12,11 @@
 		border-collapse: collapse;
 	}
 
-	&__list {
+	&__list-row {
 		background-color: var(--colorGray);
 	}
 
-	&__list-el {
+	&__list-header-cell {
 		text-align: center;
 		padding: 10px;
 		font-weight: bold;
@@ -24,7 +24,7 @@
 		min-width: 195px;
 	}
 
-	&__list-bottomEl {
+	&__list-cell {
 		text-align: center;
 		padding: 10px;
 		border-bottom: 1px solid var(--colorGray2);

@@ -6,7 +6,6 @@ import {RATING_FIELD_NAME, LEADER_LIMIT_USERS} from 'client/src/api/constants';
 export const getAllLeader = createAsyncThunk(
 	'leaderboard/getAllLeader',
 	async (page: number, thunkAPI) => {
-		console.log('here is getAllLeader ', page);
 		try {
 			return await leaderboardAPI.getAllLeader({
 				ratingFieldName: RATING_FIELD_NAME,

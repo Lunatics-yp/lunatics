@@ -3,9 +3,10 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from 'client/src/stores/store';
 import {leaderBoardThunks} from './leaderBoardThunks';
 import {TLeaderBoardState} from './typing';
+import {isErrorAPI} from 'client/src/api/request/utilits';
 
 const initialState: TLeaderBoardState = {
-	isLoading: false,
+	isLoading: true,
 	error: '',
 	leaders: [],
 };
@@ -16,10 +17,12 @@ export const leaderBoardSlice = createSlice({
 	reducers: {},
 	extraReducers: (builder) => {
 		builder
-			// getAllLeader
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			.addCase(leaderBoardThunks.getAllLeader.fulfilled, (state, action: PayloadAction<any>) => { // не смог уйти от any)
+			.addCase(leaderBoardThunks.getAllLeader.fulfilled, (state, action: PayloadAction<any>) => {
 				state.isLoading = false;
+				if (isErrorAPI(action.payload)) {
+					state.error = action.payload.reason;
+					return;
+				}
 				state.leaders = action.payload;
 			})
 			.addCase(leaderBoardThunks.getAllLeader.pending, (state) => {

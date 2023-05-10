@@ -1,16 +1,15 @@
 /* eslint-disable max-len */
 import {useNavigate} from 'react-router-dom';
 import {PATHS} from 'client/src/routers/name';
-import {Avatar} from 'client/src/components/Avatar';
 import {Button} from 'client/src/components/Button';
 import {Header} from 'client/src/components/Header';
 import {useLeaderBoard} from 'client/src/hooks/useLeaderBoard';
 import {LEADER_LIMIT_USERS} from 'client/src/api/constants';
-import {RATING_FIELD_NAME} from 'client/src/api/constants';
+import {LeadersElement} from './LeadersElement';
 import './leaderBoard.scss';
 
 export const LeaderboardPage = () => {
-	const {leaderBoardState: {isLoading, leaders = []}, setPage, page} = useLeaderBoard();
+	const {leaderBoardState: {isLoading, leaders = [], error}, setPage, page} = useLeaderBoard();
 	const navigate = useNavigate();
 	const goToMainMenu = () => {
 		navigate(PATHS.mainMenu);
@@ -24,7 +23,7 @@ export const LeaderboardPage = () => {
 		setPage(__prevPage => --__prevPage);
 	};
 	if (isLoading) return <div className='leaderboard__loading'>Loading ...</div>;
-
+	if (error) return <div className='leaderboard__loading'> Возникла ошибка</div>;
 	return (
 		<div className='leaderboard'>
 			<Header>Лидерборд</Header>
@@ -36,36 +35,15 @@ export const LeaderboardPage = () => {
 			<div className='leaderboard__container'>
 				<div className='leaderboard__table'>
 
-					<tr className='leaderboard__list'>
-						<th className='leaderboard__list-el'>Номер</th>
-						<th className='leaderboard__list-el'>Никнейм</th>
-						<th className='leaderboard__list-el'>Бои</th>
-						<th className='leaderboard__list-el'>Победы</th>
+					<tr className='lleaderboard__list-row'>
+						<th className='leaderboard__list-header-cell'>Номер</th>
+						<th className='leaderboard__list-header-cell'>Никнейм</th>
+						<th className='leaderboard__list-header-cell'>Бои</th>
+						<th className='leaderboard__list-header-cell'>Победы</th>
 					</tr>
 
 					<tbody className='leaderboard__list-bottom'>
-						{leaders
-							.filter(it => !!it.data.name)
-							.map((leader, index) => {
-								const {data = {}} = leader || {};
-								const {id, name} = data;
-								return (
-									<tr key={id} className='leaderboard__list'>
-										<td className='leaderboard__list-bottomEl'>{index + 1}</td>
-										<td className='leaderboard__list-bottomEl'>
-											<div className='player-info'>
-												<Avatar
-													size='small'
-												/>
-												<span>{name}</span>
-											</div>
-										</td>
-										<td className='leaderboard__list-bottomEl'>{data[RATING_FIELD_NAME] || 0}</td>
-										<td className='leaderboard__list-bottomEl'>{data[RATING_FIELD_NAME] || 0}</td>
-									</tr>
-								);
-							},
-							)}
+						{leaders.map((leader, index) => <LeadersElement key={leader.data.id} leader={leader} index={index}/>)}
 					</tbody>
 				</div>
 				{page > 0 && (

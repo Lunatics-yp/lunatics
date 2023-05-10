@@ -47,17 +47,18 @@ export type TLeaderboard = {
 	limit: number;
 };
 
-type TAddLeaderboardData = {
+export type TLeaderboardData = {
+	data: any;
 	id: number;
 	name: string;
 };
 
 export type TAddLeaderboard = {
 	ratingFieldName: string;
-	data: TAddLeaderboardData;
+	data: TLeaderboardData;
 	teamName: string;
 };
 
 export type TLeaderboardResponse = {
-	data: TAddLeaderboardData;
+	data: TLeaderboardData;
 };
