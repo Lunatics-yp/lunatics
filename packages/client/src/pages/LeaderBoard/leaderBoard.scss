@@ -20,14 +20,14 @@
 		text-align: center;
 		padding: 10px;
 		font-weight: bold;
-		border-bottom: 1px solid var(--colorGray2);
+		border-bottom: 1px solid var(--colorGray);
 		min-width: 195px;
 	}
 
 	&__list-cell {
 		text-align: center;
 		padding: 10px;
-		border-bottom: 1px solid var(--colorGray2);
+		border-bottom: 1px solid var(--colorGray);
 
 		&:nth-child(odd) {
 			background-color: var(--colorWhite);
@@ -38,7 +38,7 @@
 		}
 
 		&:hover {
-			background-color: var(--colorGray2);
+			background-color: var(--colorGray);
 		}
 	}
 
