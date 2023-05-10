@@ -36,6 +36,10 @@ export const AuthForm = () => {
 		navigate(PATHS.register);
 	};
 
+	const onLoginWithYandex = () => {
+		oAuthAPI.loginWithOAuth();
+	};
+
 	const handleSubmit = async (
 		values: IFormValues,
 		{setSubmitting}: FormikHelpers<IFormValues>,
@@ -77,10 +81,6 @@ export const AuthForm = () => {
 	const initialValues: IFormValues = {
 		login: '',
 		password: '',
-	};
-
-	const onLoginWithYandex = () => {
-		oAuthAPI.loginWithOAuth();
 	};
 
 	return (
