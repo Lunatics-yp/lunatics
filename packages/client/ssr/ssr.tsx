@@ -1,5 +1,6 @@
 import {App} from 'client/src/App';
 import {renderToString} from 'react-dom/server';
+
 import {Provider} from 'react-redux';
 
 import {TSsrRenderProps} from './typing';
