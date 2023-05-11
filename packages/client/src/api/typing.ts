@@ -48,9 +48,9 @@ export type TLeaderboard = {
 };
 
 export type TLeaderboardData = {
-	data: any;
 	id: number;
 	name: string;
+	data: string | number;
 };
 
 export type TAddLeaderboard = {

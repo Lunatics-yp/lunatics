@@ -43,7 +43,7 @@ export const LeaderboardPage = () => {
 					</tr>
 
 					<tbody className='leaderboard__list-bottom'>
-						{leaders.map((leader, index) => <LeadersElement key={leader.data.id} leader={leader} index={index}/>)}
+						{leaders.map((leader, index) => <LeadersElement key={leader.data} leader={leader} index={index}/>)}
 					</tbody>
 				</div>
 				{page > 0 && (
