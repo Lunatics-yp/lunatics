@@ -46,20 +46,20 @@ export const LeaderboardPage = () => {
 						{leaders.map((leader, index) => <LeadersElement key={leader.data} leader={leader} index={index}/>)}
 					</tbody>
 				</div>
-				{page > 0 && (
-					<Button
-						text='Назад'
-						className='buttonBack'
-						onClick={backLeaders}
-					/>
-				)}
-				{leaders.length > 0 && leaders.length % LEADER_LIMIT_USERS === 0 && (
-					<Button
-						text='Далее'
-						className='buttonBack'
-						onClick={nextLeaders}
-					/>
-				)}
+				<div className='leaderboard__btns'>
+					{page > 0 && (
+						<Button
+							text='Назад'
+							onClick={backLeaders}
+						/>
+					)}
+					{leaders.length > 0 && leaders.length % LEADER_LIMIT_USERS === 0 && (
+						<Button
+							text='Далее'
+							onClick={nextLeaders}
+						/>
+					)}
+				</div>
 			</div>
 		</div>
 	);

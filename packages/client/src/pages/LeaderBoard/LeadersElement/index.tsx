@@ -4,7 +4,7 @@ import {TLeaderboardData} from 'client/src/api/typing';
 
 export const LeadersElement = ({leader, index}: {leader: TLeaderboardData; index: number}) => {
 	const {data = {}} = leader || {};
-	const {name} = data;
+	const {name}: {name?: string} = data;
 	return (
 		<tr className='leaderboard__list'>
 			<td className='leaderboard__list-cell'>{index + 1}</td>
