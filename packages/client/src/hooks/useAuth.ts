@@ -1,5 +1,5 @@
 import {useEffect, useRef} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useSearchParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from './redux';
 import {authSelectors} from 'client/src/stores/reducers/auth/authSlice';
 import {fetchUser} from 'client/src/stores/reducers/auth/authThunks';
@@ -10,17 +10,18 @@ export const useAuth = () => {
 	const dispatch = useAppDispatch();
 	const {user} = useAppSelector(authSelectors.user);
 	const inited = useRef(false);
-	const search = new URLSearchParams(window.location.search);
-	const code = search.get('code');
 	const navigate = useNavigate();
+	const [search] = useSearchParams();
+	const code = search.get('code');
 
 	useEffect(() => {
-		if (!inited.current && !user) {
+		if (!inited.current && !user && !code) {
 			dispatch(fetchUser());
 			inited.current = true;
 		}
 
-		if (code && !user) {
+		if (code && !user && !inited.current) {
+			inited.current = true;
 			oAuthAPI.oAuth({code: code})
 				.then(() => {
 					navigate(PATHS.mainMenu);
