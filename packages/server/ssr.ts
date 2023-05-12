@@ -24,6 +24,17 @@ export async function ssrContent(vite: ViteDevServer, url: string, isDev: boolea
 		render = (await import(ssrProdPath)).render;
 	}
 
-	const appHtml = render(url);
-	return template.replace('<!--ssr-outlet-->', appHtml);
+	const setupStore = (await vite.ssrLoadModule(path.resolve(ssrDevPath, 'src/stores/store.ts')))
+		.setupStore;
+
+	const store = setupStore();
+	const initialState = store.getState();
+
+	const stringifyState = JSON.stringify(initialState).replace(/</g, '\\u003c');
+	const stateMarkup = `<script>window.__PRELOADED_STATE__ = ${stringifyState}</script>`;
+
+	const appHtml = render(url, store);
+	return template
+		.replace('<!--ssr-outlet-->', appHtml)
+		.replace('<!--preloadedState-->', stateMarkup);
 }
