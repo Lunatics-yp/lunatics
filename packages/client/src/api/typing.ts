@@ -41,3 +41,21 @@ export type TChangeUserRequestData = {
 	phone: string;
 	display_name: string;
 };
+
+/* OAuth */
+
+export type TOAuthYandexResponseData = undefined | TErrorAPI;
+
+export type TOAuthYandexRequestData = {
+	code: string;
+};
+
+export type TServiceIdResponseData = TServiceId | TErrorAPI;
+
+export type TServiceIdRequestData = TRedirectUri;
+
+export type TRedirectUri = string;
+
+export type TServiceId = {
+	service_id: string;
+};
