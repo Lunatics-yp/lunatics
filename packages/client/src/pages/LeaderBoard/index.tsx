@@ -43,7 +43,7 @@ export const LeaderboardPage = () => {
 						</tr>
 					</thead>
 					<tbody className='leaderboard__list-bottom'>
-						{leaders.map((leader: any, index) => {
+						{leaders.map((leader, index) => {
 							const {data} = leader;
 							const {id} = data;
 							return (<LeadersElement key={id} leader={leader} index={index}/>);
