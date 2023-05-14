@@ -1,7 +1,7 @@
-import {TLeaderboardData} from 'client/src/api/typing';
+import {TLeaderboardResponse} from 'client/src/api/typing';
 
 export type TLeaderBoardState = {
-	leaders: TLeaderboardData[];
+	leaders: TLeaderboardResponse[];
 	error: string;
 	isLoading: boolean;
 };
