@@ -1,7 +1,3 @@
-/**
- * Суффикс DTO определяет объекты со стороны API
- */
-
 export type TErrorAPI = {
   reason: string;
 };

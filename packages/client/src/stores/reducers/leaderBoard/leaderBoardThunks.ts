@@ -1,6 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-// import {TEAM_NAME} from 'client/src/hooks/useLeaderBoard';
-import {leaderboardAPI} from 'client/src/api/leaderboardAPI';
+import {leaderboardAPI} from 'client/src/api/leaderboard';
 import {RATING_FIELD_NAME, LEADER_LIMIT_USERS} from 'client/src/api/constants';
 
 export const getAllLeader = createAsyncThunk(

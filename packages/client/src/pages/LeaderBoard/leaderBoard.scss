@@ -5,15 +5,21 @@
 		max-width: 800px;
 		padding: 10px;
 		margin: 0 auto;
+		clip-path: polygon(0 0, 100% 0, 100% calc(100% - 35px), calc(100% - 35px) 100%, 0% 100%);
 	}
 
 	&__table {
 		width: 100%;
 		border-collapse: collapse;
+		clip-path: polygon(0 0, 100% 0, 100% 100%, 15px 100%, 0% calc(100% - 15px));
 	}
 
 	&__list-row {
 		background-color: var(--colorGray);
+		height: 1px;
+		background-color: var(--colorBlack);
+		margin-top: 10px;
+		margin-bottom: 10px;
 	}
 
 	&__list-header-cell {
@@ -22,6 +28,8 @@
 		font-weight: bold;
 		border-bottom: 1px solid var(--colorGray);
 		min-width: 195px;
+		color: var(--colorBlueLight);
+		background-color: var(--colorBlueDark);
 	}
 
 	&__list-cell {
@@ -30,15 +38,17 @@
 		border-bottom: 1px solid var(--colorGray);
 
 		&:nth-child(odd) {
-			background-color: var(--colorWhite);
+			background: var(--colorBlueTeal);
+			color: var(--colorWhite);
 		}
 
 		&:nth-child(even) {
-			background-color: var(--colorGray);
+			background: var(--colorBlueSky);
 		}
 
 		&:hover {
-			background-color: var(--colorGray);
+			background: var(--colorBlueSky);
+			color: var(--colorBlack);
 		}
 	}
 
@@ -51,4 +61,14 @@
 		line-height: 40px;
 		padding-top: 500px;
 	}
+
+	&__btns {
+		max-width: 195px;
+	}
+}
+
+.player-info {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }

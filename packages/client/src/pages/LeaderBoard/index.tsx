@@ -33,19 +33,23 @@ export const LeaderboardPage = () => {
 				onClick={goToMainMenu}
 			/>
 			<div className='leaderboard__container'>
-				<div className='leaderboard__table'>
-
-					<tr className='lleaderboard__list-row'>
-						<th className='leaderboard__list-header-cell'>Номер</th>
-						<th className='leaderboard__list-header-cell'>Никнейм</th>
-						<th className='leaderboard__list-header-cell'>Бои</th>
-						<th className='leaderboard__list-header-cell'>Победы</th>
-					</tr>
-
+				<table className='leaderboard__table'>
+					<thead>
+						<tr className='leaderboard__list-row'>
+							<th className='leaderboard__list-header-cell'>Номер</th>
+							<th className='leaderboard__list-header-cell'>Никнейм</th>
+							<th className='leaderboard__list-header-cell'>Бои</th>
+							<th className='leaderboard__list-header-cell'>Победы</th>
+						</tr>
+					</thead>
 					<tbody className='leaderboard__list-bottom'>
-						{leaders.map((leader, index) => <LeadersElement key={leader.data} leader={leader} index={index}/>)}
+						{leaders.map((leader: any, index) => {
+							const {data} = leader;
+							const {id} = data;
+							return (<LeadersElement key={id} leader={leader} index={index}/>);
+						})}
 					</tbody>
-				</div>
+				</table>
 				<div className='leaderboard__btns'>
 					{page > 0 && (
 						<Button
