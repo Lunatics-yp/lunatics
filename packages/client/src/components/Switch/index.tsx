@@ -1,5 +1,5 @@
-import {Label} from 'client/src/components/Label';
 import {FC, useState} from 'react';
+import {Label} from 'client/src/components/Label';
 import {TSwitch} from './typing';
 import './switch.scss';
 
@@ -15,24 +15,23 @@ export const Switch: FC<TSwitch> = (props) => {
 	} = props;
 
 	let newDefaultValue = null;
-	if(!defaultValue && value && typeof value === 'string' && list.indexOf(value) !== -1){
+	if (!defaultValue && value && typeof value === 'string' && list.indexOf(value) !== -1) {
 		newDefaultValue = list.indexOf(value);
 	}
 
-	const [selectedValue, setSelectedValue] = useState( newDefaultValue ?? defaultValue);
+	const [selectedIndex, setSelectedIndex] = useState( newDefaultValue ?? defaultValue);
 
-	const onSwitchHandler = (x: number) => {
-
+	const onSwitchHandler = (delta: number) => {
 		return () => {
-			const maxValue = list.length - 1;
-			let newValue = selectedValue + x;
-			if (newValue > maxValue) {
-				newValue = looped ? 0 : maxValue;
-			} else if (newValue < 0) {
-				newValue = looped ? maxValue : 0;
+			const maxIndex = list.length - 1;
+			let newIndex = selectedIndex + delta;
+			if (newIndex > maxIndex) {
+				newIndex = looped ? 0 : maxIndex;
+			} else if (newIndex < 0) {
+				newIndex = looped ? maxIndex : 0;
 			}
-			setSelectedValue(newValue);
-			onSwitch(newValue);
+			setSelectedIndex(newIndex);
+			onSwitch(newIndex);
 		};
 	};
 
@@ -40,9 +39,17 @@ export const Switch: FC<TSwitch> = (props) => {
 		<div className='formGroup'>
 			<Label label={label}/>
 			<div className='switch'>
-				<div className='leftButton' onClick={onSwitchHandler(-1)}></div>
-				<div className='selectedText'>{value ?? list[selectedValue]}</div>
-				<div className='rightButton' onClick={onSwitchHandler(1)}></div>
+				<div className='leftButton'
+					data-testid='switch-down'
+					onClick={onSwitchHandler(-1)}
+				></div>
+				<div className='selectedText' data-testid='switch-value'>
+					{value ?? list[selectedIndex]}
+				</div>
+				<div className='rightButton'
+					data-testid='switch-up'
+					onClick={onSwitchHandler(1)}
+				></div>
 			</div>
 		</div>
 	);

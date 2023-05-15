@@ -61,3 +61,19 @@ export type TAddLeaderboard = {
 export type TLeaderboardResponse = {
 	data: TLeaderboardData;
 };
+
+export type TOAuthYandexResponseData = undefined | TErrorAPI;
+
+export type TOAuthYandexRequestData = {
+	code: string;
+};
+
+export type TServiceIdResponseData = TServiceId | TErrorAPI;
+
+export type TServiceIdRequestData = TRedirectUri;
+
+export type TRedirectUri = string;
+
+export type TServiceId = {
+	service_id: string;
+};

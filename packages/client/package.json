@@ -4,8 +4,9 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
-		"build": "tsc && vite build",
-		"preview": "vite preview",
+		"build": "tsc && yarn build:ssr && vite build --config vite.config.ts",
+		"build:ssr": "tsc && vite build --config ssr.config.ts",
+		"preview": "vite preview --config vite.config.ts",
 		"lint": "eslint .",
 		"stylelint": "stylelint **/*.scss",
 		"format": "prettier --write .",
