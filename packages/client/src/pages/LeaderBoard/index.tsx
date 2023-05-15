@@ -6,7 +6,7 @@ import {Header} from 'client/src/components/Header';
 import {useLeaderBoard} from 'client/src/hooks/useLeaderBoard';
 import {LEADER_LIMIT_USERS} from 'client/src/api/constants';
 import {LeadersElement} from './LeadersElement';
-import './leaderBoard.scss';
+import './leaderboard.scss';
 
 export const LeaderboardPage = () => {
 	const {leaderBoardState: {isLoading, leaders = [], error}, setPage, page} = useLeaderBoard();

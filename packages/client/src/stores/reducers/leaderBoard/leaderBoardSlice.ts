@@ -2,7 +2,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from 'client/src/stores/store';
-import {leaderBoardThunks} from './leaderBoardThunks';
+import {leaderBoardThunks} from './leaderboardThunks';
 import {TLeaderBoardState} from './typing';
 import {isErrorAPI} from 'client/src/api/request/utilits';
 

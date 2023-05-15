@@ -3,8 +3,8 @@
 // import { useAuth } from 'client/src/hooks/useAuth';
 import {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from './redux';
-import {leaderBoardSelectors} from 'client/src/stores/reducers/leaderBoard/leaderBoardSlice';
-import {getAllLeader} from 'client/src/stores/reducers/leaderBoard/leaderBoardThunks';
+import {leaderBoardSelectors} from 'client/src/stores/reducers/leaderboard/leaderboardSlice';
+import {getAllLeader} from 'client/src/stores/reducers/leaderboard/leaderboardThunks';
 
 export const useLeaderBoard = () => {
 	const dispatch = useAppDispatch();
