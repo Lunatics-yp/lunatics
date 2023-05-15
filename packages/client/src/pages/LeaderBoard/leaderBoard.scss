@@ -15,7 +15,6 @@
 	}
 
 	&__list-row {
-		background-color: var(--colorGray);
 		height: 1px;
 		background-color: var(--colorBlack);
 		margin-top: 10px;
@@ -65,10 +64,10 @@
 	&__btns {
 		max-width: 195px;
 	}
-}
 
-.player-info {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	&__list-avatar {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 }

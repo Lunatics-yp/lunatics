@@ -12,7 +12,7 @@ export const LeadersElement = (
 		<tr className='leaderboard__list'>
 			<td className='leaderboard__list-cell'>{index + 1}</td>
 			<td className='leaderboard__list-cell'>
-				<div className='player-info'>
+				<div className='leaderboard__list-avatar'>
 					<Avatar size='small'/>
 					<span>{name}</span>
 				</div>
