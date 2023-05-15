@@ -1,5 +1,4 @@
 import {TErrorAPI, TUserDTO} from './typingAPI';
-
 export type TNullObject = Record<string, never>;
 
 /* Login */
@@ -42,7 +41,26 @@ export type TChangeUserRequestData = {
 	display_name: string;
 };
 
-/* OAuth */
+export type TLeaderboard = {
+	ratingFieldName: string;
+	cursor: number;
+	limit: number;
+};
+
+export type TLeaderboardData = {
+	id?: number;
+	name: string;
+};
+
+export type TAddLeaderboard = {
+	ratingFieldName: string;
+	data: TLeaderboardData;
+	teamName: string;
+};
+
+export type TLeaderboardResponse = {
+	data: TLeaderboardData;
+};
 
 export type TOAuthYandexResponseData = undefined | TErrorAPI;
 

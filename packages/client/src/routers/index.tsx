@@ -22,6 +22,7 @@ import {PageSetShips} from 'client/src/pages/Game/PageSetShips/PageSetShips';
 import {PageGame} from 'client/src/pages/Game/PageGame/PageGame';
 import {PageGameResults} from 'client/src/pages/Game/PageGameResults/PageGameResults';
 import {PageGameMechanicsDemonstration} from 'client/src/pages/GameMechanicsDemonstration';
+import {LeaderboardPage} from '../pages/Leaderboard';
 import {AuthRoute} from './Routes/AuthRoute';
 import {GuestRoute} from './Routes/GuestRoute';
 import {ErrorBoundary} from 'client/src/components/ErrorBoundary';
@@ -139,6 +140,10 @@ export const router = createBrowserRouter([
 			{
 				path: PATHS.gameMechanicsDemonstration,
 				element: <PageGameMechanicsDemonstration/>,
+			},
+			{
+				path: PATHS.leaderboard,
+				element: <LeaderboardPage/>,
 			},
 		],
 	},
