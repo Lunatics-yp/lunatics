@@ -9,6 +9,8 @@ import {Alert} from 'client/src/components/Alert';
 import {PATHS} from 'client/src/routers/name';
 import {requiredError} from 'client/src/errors/errors';
 import {isErrorAPI} from 'client/src/api/request/utilits';
+import {oAuthAPI} from 'client/src/api/oAuth';
+import {YandexLogo} from 'client/src/components/images/YandexLogo';
 
 interface IFormValues {
 	login: string;
@@ -32,6 +34,10 @@ export const AuthForm = () => {
 
 	const goToRegister = () => {
 		navigate(PATHS.register);
+	};
+
+	const onLoginWithYandex = () => {
+		oAuthAPI.loginWithOAuth();
 	};
 
 	const handleSubmit = async (
@@ -100,6 +106,12 @@ export const AuthForm = () => {
 							text='Авторизоваться'
 							type='submit'
 							disabled={isSubmitting}
+						/>
+
+						<Button
+							text='Войти с Яндекс ID'
+							logo={<YandexLogo/>}
+							onClick={onLoginWithYandex}
 						/>
 						<Button
 							text='Нет аккаунта?'
