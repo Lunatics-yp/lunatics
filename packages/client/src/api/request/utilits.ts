@@ -7,3 +7,7 @@ export const isErrorAPI = (data: unknown): data is TErrorAPI => {
 export function isUserData (arg: object): arg is TUserDTO {
 	return typeof arg === 'object' && (arg as TUserDTO).login !== undefined;
 }
+
+export function getLocationOrigin(): string {
+	return location && location.origin;
+}
