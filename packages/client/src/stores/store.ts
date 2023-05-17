@@ -2,7 +2,7 @@ import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import authReducer from './reducers/auth/authSlice';
 import userSettingsReducer from './reducers/userSettings/userSettingsSlice';
 import forumReducer from './reducers/forum/forumSlice';
-import leaderBoardReducer from './reducers/leaderboard/leaderboardSlice';
+import leaderboardReducer from './reducers/leaderboard/leaderboardSlice';
 
 /**
  * Автоматически комбинирует slice reducers,
@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
 	authReducer,
 	userSettingsReducer,
 	forumReducer,
-	leaderBoardReducer,
+	leaderboardReducer,
 });
 
 export const setupStore = () => {

@@ -17,4 +17,4 @@ export const getAllLeader = createAsyncThunk(
 	},
 );
 
-export const leaderBoardThunks = {getAllLeader};
+export const leaderboardThunks = {getAllLeader};
