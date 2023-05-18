@@ -22,10 +22,11 @@ import styles from './pageGame.module.scss';
 
 export const PageGame: FC = () => {
 	const navigate = useNavigate();
+	const {soundsList} = SoundsList();
 	const {playSound, createSound, soundToggle, isOn, playGameOver} = SoundManager();
 
 	useEffect(() => {
-		for (const audio in SoundsList) createSound(audio);
+		for (const audio in soundsList) createSound(audio);
 	}, []);
 
 	//данные из стора

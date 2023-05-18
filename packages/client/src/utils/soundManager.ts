@@ -2,17 +2,18 @@ import {useState} from 'react';
 import {SoundsList} from 'client/src/components/Sound/sounds';
 
 export const SoundManager = () => {
+	const {soundsList} = SoundsList();
 	const [audioList, setAudioList] = useState<Record<string, Record<string, HTMLAudioElement>>>(
 		{},
 	);
 	const [isOn, setIsOn] = useState<boolean>(false);
 	const [isMuted, setIsMuted] = useState<boolean>(true);
 	const createSound = (name: string) => {
-		const src = SoundsList[name].src;
+		const src = soundsList[name].src;
 		const audio = new Audio(src);
 		audio.muted = isMuted;
-		audio.volume = SoundsList[name].volume;
-		audio.loop = SoundsList[name].loop;
+		audio.volume = soundsList[name].volume;
+		audio.loop = soundsList[name].loop;
 
 		audio.addEventListener('loadeddata', () => {
 			const list = audioList;

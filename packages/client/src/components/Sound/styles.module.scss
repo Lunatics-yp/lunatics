@@ -1,5 +1,11 @@
 .img {
+	position: absolute;
+	right: 0;
 	height: 30px;
 	width: 30px;
 	margin-right: 40px;
+
+	&:hover {
+		cursor: pointer;
+	}
 }

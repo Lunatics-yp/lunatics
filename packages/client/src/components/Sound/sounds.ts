@@ -1,25 +1,32 @@
+import {useAppSelector} from 'client/src/hooks/redux';
+
 import background from 'client/src/assets/sounds/gameBackground.mp3';
 import explosion from 'client/src/assets/sounds/explosion.mp3';
 import gameOver from 'client/src/assets/sounds/game-over.mp3';
-import {setupStore} from 'client/src/stores/store';
+import {userSettingsSelectors} from 'client/src/stores/reducers/userSettings/userSettingsSlice';
 
-const store = setupStore().getState();
-const musicVolume = (store.userSettingsReducer.settings.musicVolume) / 10;
-const soundsVolume = (store.userSettingsReducer.settings.soundVolume) / 10;
-export const SoundsList = {
-	background: {
-		src: background,
-		volume: musicVolume,
-		loop: true,
-	},
-	explosion: {
-		src: explosion,
-		volume: soundsVolume,
-		loop: false,
-	},
-	gameOver: {
-		src: gameOver,
-		volume: soundsVolume,
-		loop: false,
-	},
+export const SoundsList = () => {
+	const {musicVolume, soundVolume} = useAppSelector(userSettingsSelectors.settings);
+
+	const soundsList = {
+		background: {
+			src: background,
+			volume: musicVolume / 10,
+			loop: true,
+		},
+		explosion: {
+			src: explosion,
+			volume: soundVolume / 10,
+			loop: false,
+		},
+		gameOver: {
+			src: gameOver,
+			volume: soundVolume / 10,
+			loop: false,
+		},
+	};
+
+	return {
+		soundsList,
+	};
 };
