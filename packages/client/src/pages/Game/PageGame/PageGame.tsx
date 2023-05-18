@@ -10,8 +10,8 @@ import {Avatar} from 'client/src/components/Avatar';
 import {ModalGameActions} from 'client/src/pages/Game/Modals/modalGameActions';
 import {Modal} from 'client/src/components/Modal/modal';
 import {ModalGameover} from 'client/src/pages/Game/Modals/components/modalGameover/modalGameover';
-import {ModalGameoverButtons} from
-	'client/src/pages/Game/Modals/components/modalGameover/modalGameoverButtons';
+import {ModalGameoverButtons}
+	from 'client/src/pages/Game/Modals/components/modalGameover/modalGameoverButtons';
 import {useFadeModal} from 'client/src/hooks/useFadeModal';
 import {Timer} from 'client/src/components/timer/timer';
 import {SoundsList} from 'client/src/components/Sound/sounds';
@@ -88,7 +88,7 @@ export const PageGame: FC = () => {
 			<div className={styles.gamePageContainer}>
 				<div className={styles.firstPlayer}>
 					<div className={classNamePlayer1}>
-						<Avatar size="small"/>
+						<Avatar size='small'/>
 						<div>{players.player1}</div>
 					</div>
 					<Canvas/>
@@ -99,7 +99,7 @@ export const PageGame: FC = () => {
 				</div>
 				<div>
 					<div className={classNamePlayer2}>
-						<Avatar size="small"/>
+						<Avatar size='small'/>
 						<div>{players.player2}</div>
 					</div>
 					<Canvas/>
@@ -115,7 +115,7 @@ export const PageGame: FC = () => {
 			</div>
 			<Button
 				className={`${styles.buttonExitGame} ${styles.button}`}
-				text="Покинуть игру"
+				text='Покинуть игру'
 				onClick={() => navigate(PATHS.mainMenu)}
 			/>
 			<Footer className={styles.footerPlacement}>
