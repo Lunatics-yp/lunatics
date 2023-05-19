@@ -1,6 +1,10 @@
 import {useState} from 'react';
 import {SoundsList} from 'client/src/components/Sound/sounds';
-
+export enum soundNames {
+	background ='background',
+	gameOver = 'gameOver',
+	explosion = 'explosion',
+}
 export const SoundManager = () => {
 	const {soundsList} = SoundsList();
 	const [audioList, setAudioList] = useState<Record<string, Record<string, HTMLAudioElement>>>(
@@ -8,6 +12,7 @@ export const SoundManager = () => {
 	);
 	const [isOn, setIsOn] = useState<boolean>(false);
 	const [isMuted, setIsMuted] = useState<boolean>(true);
+
 	const createSound = (name: string) => {
 		const src = soundsList[name].src;
 		const audio = new Audio(src);
@@ -20,7 +25,9 @@ export const SoundManager = () => {
 			list[name] = {};
 			list[name].audio = audio;
 			setAudioList(list);
+			// audioList = list;
 		});
+
 	};
 	const play = (name: string) => {
 		if (!Object.keys(audioList).length || !audioList[name]) {
@@ -55,6 +62,15 @@ export const SoundManager = () => {
 			audioList[audio].audio.muted = mute;
 		}
 	};
+
+	const stopMusic = () => {
+		for (const audio in audioList) {
+			audioList[audio].audio.pause();
+			audioList[audio].audio.currentTime = 0;
+		}
+		setIsOn(false);
+		setAudioList({});
+	};
 	const playGameOver = () => {
 		for (const audio in audioList) {
 			if (isOn) {
@@ -63,13 +79,12 @@ export const SoundManager = () => {
 				setIsOn(false);
 			}
 		}
-
-		play('gameOver');
+		play(soundNames.gameOver);
 	};
 
 	return {
 		createSound,
-		play,
+		stopMusic,
 		soundToggle,
 		playSound,
 		playGameOver,

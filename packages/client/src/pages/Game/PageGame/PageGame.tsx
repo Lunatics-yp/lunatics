@@ -16,17 +16,20 @@ import {useFadeModal} from 'client/src/hooks/useFadeModal';
 import {Timer} from 'client/src/components/timer/timer';
 import {SoundsList} from 'client/src/components/Sound/sounds';
 import {Sound} from 'client/src/components/Sound';
-import {SoundManager} from 'client/src/utils/soundManager';
+import {SoundManager, soundNames} from 'client/src/utils/soundManager';
 
 import styles from './pageGame.module.scss';
 
 export const PageGame: FC = () => {
 	const navigate = useNavigate();
 	const {soundsList} = SoundsList();
-	const {playSound, createSound, soundToggle, isOn, playGameOver} = SoundManager();
+	const {playSound, createSound, soundToggle, isOn, playGameOver, stopMusic} = SoundManager();
 
 	useEffect(() => {
 		for (const audio in soundsList) createSound(audio);
+		return () => {
+			stopMusic();
+		};
 	}, []);
 
 	//данные из стора
@@ -73,7 +76,7 @@ export const PageGame: FC = () => {
 	}
 
 	if (actionName === gameActionsName.hitShip || actionName === gameActionsName.destroy) {
-		playSound('explosion');
+		playSound(soundNames.explosion);
 		setActionName(gameActionsName.whoseTurn);
 	}
 	if (isWinner) {
@@ -84,7 +87,7 @@ export const PageGame: FC = () => {
 		<div>
 			<Header>
 				Игра
-				<Sound play={() => soundToggle('background')} isOn={isOn}/>
+				<Sound play={() => soundToggle(soundNames.background)} isOn={isOn}/>
 			</Header>
 			<div className={styles.gamePageContainer}>
 				<div className={styles.firstPlayer}>
@@ -117,7 +120,10 @@ export const PageGame: FC = () => {
 			<Button
 				className={`${styles.buttonExitGame} ${styles.button}`}
 				text='Покинуть игру'
-				onClick={() => navigate(PATHS.mainMenu)}
+				onClick={() => {
+					navigate(PATHS.mainMenu);
+					stopMusic();
+				}}
 			/>
 			<Footer className={styles.footerPlacement}>
 				<Timer isGameOver={isWinner}/>
