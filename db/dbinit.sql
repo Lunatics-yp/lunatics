@@ -1,20 +1,26 @@
+CREATE TABLE "Users" (
+  "id" SERIAL PRIMARY KEY,
+  "login" VARCHAR(255),
+  "nickname" VARCHAR(255),
+  "avatar" VARCHAR(255)
+);
+
 CREATE TABLE "Forums" (
   "id" SERIAL PRIMARY KEY,
   "name" VARCHAR(255) NOT NULL
+  "user_id" INT NOT NULL,
+  "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY ("user_id") REFERENCES "Users" ("id")
 );
 
 CREATE TABLE "Topics" (
   "id" SERIAL PRIMARY KEY,
   "name" VARCHAR(255) NOT NULL,
   "forum_id" INT NOT NULL,
-  FOREIGN KEY ("forum_id") REFERENCES "Forums" ("id")
-);
-
-CREATE TABLE "Users" (
-  "id" SERIAL PRIMARY KEY,
-  "login" VARCHAR(255),
-  "nickname" VARCHAR(255),
-  "avatar" VARCHAR(255)
+  "user_id" INT NOT NULL,
+  "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY ("forum_id") REFERENCES "Forums" ("id"),
+  FOREIGN KEY ("user_id") REFERENCES "Users" ("id")
 );
 
 CREATE TABLE "Messages" (
@@ -23,6 +29,7 @@ CREATE TABLE "Messages" (
   "text" TEXT NOT NULL,
   "topic_id" INT,
   "parent_message_id" INT,
+  "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY ("topic_id") REFERENCES "Topics" ("id"),
   FOREIGN KEY ("user_id") REFERENCES "Users" ("id"),
   FOREIGN KEY ("parent_message_id") REFERENCES "Messages" ("id")
