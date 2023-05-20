@@ -1,14 +1,13 @@
 {
 	"Servers": {
-	  "1": {
-		"Name": "Lunatics Postgres Server",
-		"Group": "Servers",
-		"Host": "postgres",
-		"Port": 5432,
-		"MaintenanceDB": "postgres",
-		"Username": "postgres",
-		"Password": "hD7hK6sB2zP0n7q1",
-		"SSLMode": "prefer"
-	  }
+		"1": {
+			"Name": "Lunatics Postgres Server",
+			"Group": "Servers",
+			"Host": "postgres",
+			"Port": 5432,
+			"MaintenanceDB": "postgres",
+			"Username": "postgres",
+			"SSLMode": "prefer"
+		}
 	}
-  }
+}

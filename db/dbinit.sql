@@ -7,7 +7,7 @@ CREATE TABLE "Users" (
 
 CREATE TABLE "Forums" (
   "id" SERIAL PRIMARY KEY,
-  "name" VARCHAR(255) NOT NULL
+  "name" VARCHAR(255) NOT NULL,
   "user_id" INT NOT NULL,
   "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY ("user_id") REFERENCES "Users" ("id")
