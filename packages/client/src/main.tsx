@@ -9,6 +9,7 @@ import {BrowserRouter} from 'react-router-dom';
 hydrateRoot(
 	document.getElementById('root') as HTMLElement,
 	<StrictMode>
+
 		<BrowserRouter>
 			<App/>
 		</BrowserRouter>

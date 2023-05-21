@@ -6,7 +6,7 @@ const initialState: TUserSettingState = {
 	settings: {
 		language: Languages.Russian,
 		soundVolume: 10,
-		musicVolume: 10,
+		musicVolume: 2,
 	},
 	theme: Theme.Dark,
 };
