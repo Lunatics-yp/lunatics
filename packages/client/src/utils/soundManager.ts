@@ -25,7 +25,6 @@ export const SoundManager = () => {
 			list[name] = {};
 			list[name].audio = audio;
 			setAudioList(list);
-			// audioList = list;
 		});
 
 	};
