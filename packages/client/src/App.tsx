@@ -1,3 +1,4 @@
+import {Provider} from 'react-redux';
 import {Background} from 'client/src/components/Background';
 import {setupStore} from 'client/src/stores/store';
 import {registerServiceWorker} from 'client/src/utils/serviceWorker';

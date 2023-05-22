@@ -21,3 +21,7 @@ ij_any_keep_blank_lines_in_code = 1
 
 [*.json]
 indent_size = 2
+
+[*.{yaml,sql}]
+indent_style = space
+indent_size = 2
