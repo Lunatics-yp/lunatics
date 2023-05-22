@@ -1,6 +1,6 @@
 import {TLeaderboardResponse} from 'client/src/api/typing';
 
-export type TLeaderBoardState = {
+export type TLeaderboardState = {
 	leaders: TLeaderboardResponse[];
 	error: string;
 	isLoading: boolean;

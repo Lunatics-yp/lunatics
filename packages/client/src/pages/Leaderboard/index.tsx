@@ -1,15 +1,14 @@
-/* eslint-disable max-len */
 import {useNavigate} from 'react-router-dom';
 import {PATHS} from 'client/src/routers/name';
 import {Button} from 'client/src/components/Button';
 import {Header} from 'client/src/components/Header';
-import {useLeaderBoard} from 'client/src/hooks/useLeaderBoard';
+import {useLeaderboard} from 'client/src/hooks/useLeaderboard';
 import {LEADER_LIMIT_USERS} from 'client/src/api/constants';
 import {LeadersElement} from './LeadersElement';
 import './leaderboard.scss';
 
 export const LeaderboardPage = () => {
-	const {leaderBoardState: {isLoading, leaders = [], error}, setPage, page} = useLeaderBoard();
+	const {leaderboardState: {isLoading, leaders = [], error}, setPage, page} = useLeaderboard();
 	const navigate = useNavigate();
 	const goToMainMenu = () => {
 		navigate(PATHS.mainMenu);

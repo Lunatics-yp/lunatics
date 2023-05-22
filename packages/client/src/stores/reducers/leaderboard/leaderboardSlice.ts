@@ -1,24 +1,24 @@
-/* eslint-disable max-len */
 import {createSlice} from '@reduxjs/toolkit';
 import {PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from 'client/src/stores/store';
-import {leaderBoardThunks} from './leaderboardThunks';
-import {TLeaderBoardState} from './typing';
+import {leaderboardThunks} from './leaderboardThunks';
+import {TLeaderboardState} from './typing';
 import {isErrorAPI} from 'client/src/api/request/utilits';
 
-const initialState: TLeaderBoardState = {
+const initialState: TLeaderboardState = {
 	isLoading: true,
 	error: '',
 	leaders: [],
 };
 
-export const leaderBoardSlice = createSlice({
-	name: 'leaderBoard',
+export const leaderboardSlice = createSlice({
+	name: 'leaderboard',
 	initialState,
 	reducers: {},
 	extraReducers: (builder) => {
 		builder
-			.addCase(leaderBoardThunks.getAllLeader.fulfilled, (state, action: PayloadAction<any>) => {
+			/* eslint-disable-next-line max-len */
+			.addCase(leaderboardThunks.getAllLeader.fulfilled, (state, action: PayloadAction<any>) => {
 				state.isLoading = false;
 				if (isErrorAPI(action.payload)) {
 					state.error = action.payload.reason;
@@ -26,19 +26,19 @@ export const leaderBoardSlice = createSlice({
 				}
 				state.leaders = action.payload;
 			})
-			.addCase(leaderBoardThunks.getAllLeader.pending, (state) => {
+			.addCase(leaderboardThunks.getAllLeader.pending, (state) => {
 				state.isLoading = true;
 				state.error = '';
 			})
-			.addCase(leaderBoardThunks.getAllLeader.rejected, (state, action) => {
+			.addCase(leaderboardThunks.getAllLeader.rejected, (state, action) => {
 				state.isLoading = false;
 				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
 			});
 	},
 });
 
-export const leaderBoardSelectors = {
-	leaderBoardState: (state: RootState) => state.leaderBoardReducer,
+export const leaderboardSelectors = {
+	leaderboardState: (state: RootState) => state.leaderboardReducer,
 };
 
-export default leaderBoardSlice.reducer;
+export default leaderboardSlice.reducer;
