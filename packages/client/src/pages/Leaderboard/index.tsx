@@ -45,23 +45,27 @@ export const LeaderboardPage = () => {
 						{leaders.map((leader, index) => {
 							const {data} = leader;
 							const {id} = data;
-							return (<LeadersElement key={id} leader={leader} index={index}/>);
+							const key = `${index}-${id}`;
+							return <LeadersElement key={key} leader={leader} index={index}/>;
 						})}
 					</tbody>
+
 				</table>
 				<div className='leaderboard__btns'>
-					{page > 0 && (
-						<Button
-							text='Назад'
-							onClick={backLeaders}
-						/>
-					)}
-					{leaders.length > 0 && leaders.length % LEADER_LIMIT_USERS === 0 && (
-						<Button
-							text='Далее'
-							onClick={nextLeaders}
-						/>
-					)}
+
+					<Button
+						text='⤎'
+						onClick={backLeaders}
+						className='buttonPoginations'
+						disabled={page === 0}
+					/>
+
+					<Button
+						text='⤏'
+						onClick={nextLeaders}
+						className='buttonPoginations'
+						disabled={leaders.length === 0 || leaders.length % LEADER_LIMIT_USERS !== 0}
+					/>
 				</div>
 			</div>
 		</div>
