@@ -2,10 +2,12 @@ import {DataType, Model} from 'sequelize-typescript';
 import type {ModelAttributes} from 'sequelize/types';
 import {sequelize} from 'server/api/sequelize';
 
-// Модель User
+// Модель таблицы Users
 type TUser = {
 	id: number;
 	login: string;
+	nickname: string;
+	avatar: string;
 };
 
 const userOptions = {
@@ -23,6 +25,12 @@ const userModel: ModelAttributes<Model, TUser> = {
 	login: {
 		type: DataType.STRING,
 		allowNull: false,
+	},
+	nickname: {
+		type: DataType.STRING,
+	},
+	avatar: {
+		type: DataType.STRING,
 	},
 };
 
