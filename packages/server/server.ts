@@ -36,10 +36,10 @@ export async function startServer(isDev: boolean, port: number) {
 			const authUserData = await yandexCheckAuthorization(req);
 			if (!authUserData.isAuth) {
 				res.sendStatus(403);
-			} else {
-				app.use(express.json());
-				forumApi(req, res);
+				return;
 			}
+			app.use(express.json());
+			await forumApi(req, res);
 		} catch (e) {
 			console.log(e);
 			res.sendStatus(500);
