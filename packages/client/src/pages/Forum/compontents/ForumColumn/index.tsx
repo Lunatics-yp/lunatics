@@ -16,12 +16,14 @@ export const ForumColumn: FC<TForumColumnProps> = (props) => {
 					className={styles.forum}>
 					<p>{title}</p>
 				</div>
+				{/* //	<button>Удалить</button> */}
 			</NavLink>
 			<div className={styles.item}>
 				<p>{discussionsCount}</p>
 			</div>
 			<div className={styles.item}>
 				<p>{answersCount}</p>
+
 			</div>
 		</>
 	);

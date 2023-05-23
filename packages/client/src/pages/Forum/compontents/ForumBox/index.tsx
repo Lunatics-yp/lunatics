@@ -10,8 +10,9 @@ export const ForumBox = () => {
 
 	const newTopic = useInput('');
 	const forums = useAppSelector(forumSelectors.forums);
+	const isLoading = useAppSelector(forumSelectors.isLoading);
 	const dispatch = useAppDispatch();
-
+	const error = useAppSelector(forumSelectors.error);
 	const ForumColumnElements = forums.map((forum) => (
 		<ForumColumn
 			key={forum.id}
@@ -31,6 +32,19 @@ export const ForumBox = () => {
 
 		newTopic.reset();
 	}
+
+	const renderForums = () => {
+		if (isLoading) return <div>Loading ...</div>;
+		if (error) return <div>Произошла ошибка {error}</div>;
+		if (forums.length == 0) return <div>Нет форумов</div>;
+
+		return (
+			<>
+				{ForumColumnElements}
+			</>
+		);
+
+	};
 
 	return (
 		<div className={styles.wrapper}>
@@ -52,7 +66,7 @@ export const ForumBox = () => {
 						onClick={createTopic}
 					/>
 				</div>
-				{ForumColumnElements}
+				{renderForums()}
 			</div>
 		</div>
 	);

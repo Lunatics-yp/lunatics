@@ -2,6 +2,8 @@ export type TForumState = {
 	forums: TForum[];
 	messages: TMessage[];
 	discussions: TDiscussion[];
+	error: string;
+	isLoading: boolean;
 };
 
 export type TForum = {
@@ -22,4 +24,6 @@ export type TMessage = {
 	id: number;
 	isOwner: boolean;
 	text: string;
+	subtext?: string;
+	parentid?: number;
 };
