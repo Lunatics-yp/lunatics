@@ -1,4 +1,4 @@
-import {yandexProxy, yandexCheckAuthorization} from 'server/api/auth';
+import {yandexProxyAll, yandexProxyUserInfoOnly, yandexCheckAuthorization} from 'server/api/auth';
 import type {ViteDevServer} from 'vite';
 import {createServer as createViteServer} from 'vite';
 import cors from 'cors';
@@ -29,7 +29,8 @@ export async function startServer(isDev: boolean, port: number) {
 		app.use('/assets', express.static(path.resolve(distPath, 'assets')));
 	}
 
-	app.use('/api/v2', yandexProxy());
+	app.use('/api/v2/auth/user', yandexProxyUserInfoOnly());
+	app.use('/api/v2', yandexProxyAll());
 
 	app.use('/api/forum', async (req, res) => {
 		try {

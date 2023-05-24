@@ -1,7 +1,8 @@
-import {yandexProxy} from './authorization';
+import {yandexProxyAll, yandexProxyUserInfoOnly} from './authorization';
 import {yandexCheckAuthorization} from './checking';
 
 export {
-	yandexProxy,
+	yandexProxyAll,
+	yandexProxyUserInfoOnly,
 	yandexCheckAuthorization,
 };
