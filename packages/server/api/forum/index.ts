@@ -9,10 +9,9 @@ export const forumApi = async (req: Request, res: Response): Promise<void> => {
 	const isValid = isValidPostData(postData);
 	// const isValid = true;
 	if (isValid) {
+		// тут код апи
 		await dbConnect();
-		// тело апи будет тут, ниже пример с поиском юзеров
-		const users = await Users.findAll();
-		res.json(users);
+		res.json([]);
 	}else{
 		res.status(400).json({error: 'Неправильный запрос'});
 	}
