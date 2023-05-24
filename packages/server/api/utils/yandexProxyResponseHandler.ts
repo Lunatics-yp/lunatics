@@ -21,7 +21,7 @@ const yandexProxyResponseHandler = (
 			try {
 				const data = JSON.parse(responseBody);
 				// Добавляем/обновляем юзера в БД
-				await userAPI.upsert(data);
+				await userAPI.createOrUpadate(data);
 				// И грузим его тему
 				// ...
 				const currentTheme = 100;
