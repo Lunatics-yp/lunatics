@@ -102,7 +102,7 @@ export type DellForum = {
 	};
 };
 
-export type AllForum = {
+export type AllForums = {
 	action: string;
 	// data: {
 
