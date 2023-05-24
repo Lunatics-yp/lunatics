@@ -3,12 +3,12 @@ export type TErrorAPI = {
 };
 
 export type TUserDTO = {
-  id: number;
-  login: string;
-  first_name: string;
-  second_name: string;
-  display_name: string | null;
-  avatar: string | null;
-  phone: string;
-  email: string;
+  user_id: number;
+  // login: string;
+  // first_name: string;
+  // second_name: string;
+  // display_name: string | null;
+  // avatar: string | null;
+  // phone: string;
+  // email: string;
 };
