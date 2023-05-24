@@ -13,7 +13,6 @@ const sequelizeOptions: SequelizeOptions = {
 	password: process.env.POSTGRES_PASSWORD,
 	database: process.env.POSTGRES_DB,
 	dialect: 'postgres',
-	logging: true, // Вести лог запросов к БД в консоль
 };
 
 const sequelize = new Sequelize(sequelizeOptions);

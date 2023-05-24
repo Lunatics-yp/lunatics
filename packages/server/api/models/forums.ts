@@ -1,14 +1,14 @@
 import {DataType, Model} from 'sequelize-typescript';
 import type {ModelAttributes} from 'sequelize/types';
 import {sequelize} from 'server/api/sequelize';
-import {User} from './';
+import {Users} from './';
 
 // Модель таблицы Forums
 type TForum = {
 	id: number;
 	name: string;
 	user_id: number;
-	created_at?: Date;
+	created_at: Date;
 };
 
 const forumOptions = {
@@ -31,18 +31,19 @@ const forumModel: ModelAttributes<Model, TForum> = {
 		type: DataType.INTEGER,
 		allowNull: false,
 		references: {
-			model: User,
+			model: Users,
 			key: 'id',
 		},
 	},
 	created_at: {
 		type: DataType.DATE,
+		allowNull: false,
 		defaultValue: DataType.NOW,
 	},
 };
 
-const Forum = sequelize.define('Forum', forumModel, forumOptions);
+const Forums = sequelize.define('Forums', forumModel, forumOptions);
 
-Forum.belongsTo(User, {foreignKey: 'user_id'});
+Forums.belongsTo(Users, {foreignKey: 'user_id'});
 
-export {Forum};
+export {Forums};

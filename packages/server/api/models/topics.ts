@@ -1,7 +1,7 @@
 import {DataType, Model} from 'sequelize-typescript';
 import type {ModelAttributes} from 'sequelize/types';
 import {sequelize} from 'server/api/sequelize';
-import {User, Forum} from './';
+import {Users, Forums} from './';
 
 // Модель таблицы Topics
 type TTopic = {
@@ -9,7 +9,7 @@ type TTopic = {
 	name: string;
 	forum_id: number;
 	user_id: number;
-	created_at?: Date;
+	created_at: Date;
 };
 
 const topicOptions = {
@@ -32,7 +32,7 @@ const topicModel: ModelAttributes<Model, TTopic> = {
 		type: DataType.INTEGER,
 		allowNull: false,
 		references: {
-			model: Forum,
+			model: Forums,
 			key: 'id',
 		},
 	},
@@ -40,19 +40,20 @@ const topicModel: ModelAttributes<Model, TTopic> = {
 		type: DataType.INTEGER,
 		allowNull: false,
 		references: {
-			model: User,
+			model: Users,
 			key: 'id',
 		},
 	},
 	created_at: {
 		type: DataType.DATE,
+		allowNull: false,
 		defaultValue: DataType.NOW,
 	},
 };
 
-const Topic = sequelize.define('Topic', topicModel, topicOptions);
+const Topics = sequelize.define('Topics', topicModel, topicOptions);
 
-Topic.belongsTo(Forum, {foreignKey: 'forum_id'});
-Topic.belongsTo(User, {foreignKey: 'user_id'});
+Topics.belongsTo(Forums, {foreignKey: 'forum_id'});
+Topics.belongsTo(Users, {foreignKey: 'user_id'});
 
-export {Topic};
+export {Topics};

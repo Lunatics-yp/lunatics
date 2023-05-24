@@ -1,9 +1,11 @@
-import {User} from './user';
-import {Forum} from './forum';
-import {Topic} from './topic';
+import {Users} from './users';
+import {Forums} from './forums';
+import {Topics} from './topics';
+import {Messages} from './messages';
 
 export {
-	User,
-	Forum,
-	Topic,
+	Users,
+	Forums,
+	Topics,
+	Messages,
 };

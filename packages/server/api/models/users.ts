@@ -34,6 +34,6 @@ const userModel: ModelAttributes<Model, TUser> = {
 	},
 };
 
-const User = sequelize.define('User', userModel, userOptions);
+const Users = sequelize.define('Users', userModel, userOptions);
 
-export {User};
+export {Users};
