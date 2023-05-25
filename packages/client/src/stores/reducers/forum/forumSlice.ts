@@ -78,71 +78,70 @@ export const forumSlice = createSlice({
 		},
 	},
 
+	extraReducers: (builder) => {
+		builder
+			// .addCase(forumThunks.fetchForums.pending, (state) => {
+			// 	state.isLoading = true;
+			// 	state.error = '';
+			// })
+			// .addCase(forumThunks.fetchForums.fulfilled, (state, action) => {
+			// 	state.isLoading = false;
+			// 	state.forums = action.payload;
+			// })
+			// .addCase(forumThunks.fetchForums.rejected, (state, action) => {
+			// 	state.isLoading = false;
+			// 	state.error = action.error.message ?? 'Возникла неизвестная ошибка';
+			// })
+			// .addCase(forumThunks.fetchMessages.pending, (state) => {
+			// 	state.isLoading = true;
+			// 	state.error = '';
+			// })
+			// .addCase(forumThunks.fetchMessages.fulfilled, (state, action) => {
+			// 	state.isLoading = false;
+			// 	state.messages = action.payload;
+			// })
+			// .addCase(forumThunks.fetchMessages.rejected, (state, action) => {
+			// 	state.isLoading = false;
+			// 	state.error = action.error.message ?? 'Возникла неизвестная ошибка';
+			// })
+			.addCase(forumThunks.createForum.pending, (state) => {
+				state.isLoading = true;
+				state.error = '';
+			})
+			// .addCase(forumThunks.createForum.fulfilled, (state, action) => {
+			// 	state.isLoading = false;
+			// 	state.forums.push(action.payload);
+			// })
+			.addCase(forumThunks.createForum.rejected, (state, action) => {
+				state.isLoading = false;
+				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
+			})
+			.addCase(forumThunks.createTopic.pending, (state) => {
+				state.isLoading = true;
+				state.error = '';
+			})
+			// .addCase(forumThunks.createTopic.fulfilled, (state, action) => {
+			// 	state.isLoading = false;
+			// 	state.topic.push(action.payload);
+			// })
+			.addCase(forumThunks.createTopic.rejected, (state, action) => {
+				state.isLoading = false;
+				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
+			})
+			.addCase(forumThunks.createMessage.pending, (state) => {
+				state.isLoading = true;
+				state.error = '';
+			})
+			// .addCase(forumThunks.createMessage.fulfilled, (state, action) => {
+			// 	state.isLoading = false;
+			// 	state.messages.push(action.payload);
+			// })
+			.addCase(forumThunks.createMessage.rejected, (state, action) => {
+				state.isLoading = false;
+				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
+			});
+	},
 });
-
-// extraReducers: (builder) => {
-// 	builder
-// 		.addCase(forumThunks.fetchForums.pending, (state) => {
-// 			state.isLoading = true;
-// 			state.error = '';
-// 		})
-// 		.addCase(forumThunks.fetchForums.fulfilled, (state, action) => {
-// 			state.isLoading = false;
-// 			state.forums = action.payload;
-// 		})
-// 		.addCase(forumThunks.fetchForums.rejected, (state, action) => {
-// 			state.isLoading = false;
-// 			state.error = action.error.message ?? 'Возникла неизвестная ошибка';
-// 		})
-// 		.addCase(forumThunks.fetchMessages.pending, (state) => {
-// 			state.isLoading = true;
-// 			state.error = '';
-// 		})
-// 		.addCase(forumThunks.fetchMessages.fulfilled, (state, action) => {
-// 			state.isLoading = false;
-// 			state.messages = action.payload;
-// 		})
-// 		.addCase(forumThunks.fetchMessages.rejected, (state, action) => {
-// 			state.isLoading = false;
-// 			state.error = action.error.message ?? 'Возникла неизвестная ошибка';
-// 		})
-// 		.addCase(forumThunks.createForum.pending, (state) => {
-// 			state.isLoading = true;
-// 			state.error = '';
-// 		})
-// 		.addCase(forumThunks.createForum.fulfilled, (state, action) => {
-// 			state.isLoading = false;
-// 			state.forums.push(action.payload);
-// 		})
-// 		.addCase(forumThunks.createForum.rejected, (state, action) => {
-// 			state.isLoading = false;
-// 			state.error = action.error.message ?? 'Возникла неизвестная ошибка';
-// 		})
-// 		.addCase(forumThunks.createTopic.pending, (state) => {
-// 			state.isLoading = true;
-// 			state.error = '';
-// 		})
-// 		.addCase(forumThunks.createTopic.fulfilled, (state, action) => {
-// 			state.isLoading = false;
-// 			state.topic.push(action.payload);
-// 		})
-// 		.addCase(forumThunks.createTopic.rejected, (state, action) => {
-// 			state.isLoading = false;
-// 			state.error = action.error.message ?? 'Возникла неизвестная ошибка';
-// 		})
-// 		.addCase(forumThunks.createMessage.pending, (state) => {
-// 			state.isLoading = true;
-// 			state.error = '';
-// 		})
-// 		.addCase(forumThunks.createMessage.fulfilled, (state, action) => {
-// 			state.isLoading = false;
-// 			state.messages.push(action.payload);
-// 		})
-// 		.addCase(forumThunks.createMessage.rejected, (state, action) => {
-// 			state.isLoading = false;
-// 			state.error = action.error.message ?? 'Возникла неизвестная ошибка';
-// 		});
-// },
 
 export const forumSelectors = {
 	forums: (state: RootState) => state.forumReducer.forums,
