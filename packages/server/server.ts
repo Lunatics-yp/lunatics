@@ -40,7 +40,7 @@ export async function startServer(isDev: boolean, port: number) {
 		try {
 			const authUserData = await yandexCheckAuthorization(req);
 			if (!authUserData.isAuth || !authUserData.user) {
-				res.sendStatus(403);
+				res.sendStatus(401);
 				return;
 			}
 			app.use(express.json());
