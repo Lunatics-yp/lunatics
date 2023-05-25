@@ -1,7 +1,7 @@
 CREATE TABLE "Users" (
   "id" INT NOT NULL PRIMARY KEY,
   "login" VARCHAR(255) NOT NULL,
-  "nickname" VARCHAR(255),
+  "display_name" VARCHAR(255),
   "avatar" VARCHAR(255)
 );
 

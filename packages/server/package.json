@@ -23,7 +23,7 @@
     "prettier": "2.7.1",
     "reflect-metadata": "0.1.13",
     "sequelize": "6.31.1",
-    "sequelize-typescript": "^2.1.5"
+    "sequelize-typescript": "2.1.5"
   },
   "devDependencies": {
     "@types/cors": "2.8.12",
