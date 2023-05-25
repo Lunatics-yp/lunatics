@@ -6,6 +6,7 @@ import {MessageReaction} from '../MessageReaction';
 import {ReactionsList} from '../ReactionsList';
 import styles from './Message.module.scss';
 import {TMessageProps} from './typing';
+import {reactionsAPI} from 'client/src/api/reactions';
 
 const dataMock = [
 	{type: REACTIONS.PUKE, count:2, isReacted:true},
@@ -43,8 +44,11 @@ export const Message =  forwardRef<HTMLDivElement, TMessageProps>(
 		}
 
 		function onReact(type: REACTIONS) {
+			reactionsAPI.setReaction({});
 			setIsReactionListActive(null);
-
+			
+			console.log('2');
+			
 			if (!reactions.find(item => item.type === type)) {
 				reactions.push({type: type, count:1, isReacted:true});
 			}
