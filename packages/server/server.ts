@@ -3,6 +3,7 @@ import {
 	yandexProxyUserInfoOnly,
 	yandexCheckAuthorization,
 } from 'server/authMiddleware';
+import {xssMiddleware} from 'server/xssMiddleware';
 import type {ViteDevServer} from 'vite';
 import {createServer as createViteServer} from 'vite';
 import cors from 'cors';
@@ -36,6 +37,8 @@ export async function startServer(isDev: boolean, port: number) {
 	app.use('/api/v2/auth/user', yandexProxyUserInfoOnly());
 	app.use('/api/v2', yandexProxyAll());
 
+	// Применяем middleware к приложению Express
+	app.use('/api/forum', xssMiddleware);
 	app.use('/api/forum', async (req, res) => {
 		try {
 			const authUserData = await yandexCheckAuthorization(req);
