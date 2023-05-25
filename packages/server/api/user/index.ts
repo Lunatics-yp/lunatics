@@ -3,7 +3,7 @@ import type {TUser} from 'server/api/models';
 import {dbConnect} from 'server/api/sequelize';
 
 export const userAPI = {
-	createOrUpadate: async (data: TUser) => {
+	createOrUpdate: async (data: TUser) => {
 		const {
 			id,
 			login,
