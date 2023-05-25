@@ -57,3 +57,15 @@
 		background: var(--colorGray);
 	}
 }
+
+.buttonPage {
+	min-width: 30px;
+	background: none;
+	border: none;
+	padding: 0;
+	margin: 0;
+	color: #000;
+	font-size: 16px;
+	display: inline-block;
+	text-decoration: none;
+}
