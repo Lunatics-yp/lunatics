@@ -13,4 +13,4 @@ export const OAUTH_YANDEX = 'oauth/yandex';
 
 export const OAUTH_YANDEX_SERVICE_ID = 'oauth/yandex/service-id';
 
-export const baseUrl = 'какойто/путь';
+export const OAUTH_FORUM_URL = '/полный/путь';

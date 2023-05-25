@@ -1,21 +1,21 @@
-// import {createAsyncThunk} from '@reduxjs/toolkit';
-// import {forumdAPI} from 'client/src/api/forum';
-// import {
-// 	ForumForm,
-// } from 'client/src/api/typing';
+import {createAsyncThunk} from '@reduxjs/toolkit';
+import {forumdAPI} from 'client/src/api/forum';
+import {
+	createForumRequest,
+} from 'client/src/api/typingForum';
 
-// //Для взаимодействия с асинхронными actions используем createAsyncThunk.
-// export const getForumById = createAsyncThunk(
-// 	'forum/getForumById',
-// 	async (data: ForumForm, thunkAPI) => {
-// 		try {
-// 			return await forumdAPI.getForumById(data);
-// 		}
-// 		catch (e) {
-// 			return thunkAPI.rejectWithValue(e);
-// 		}
-// 	},
-// );
+//Для взаимодействия с асинхронными actions используем createAsyncThunk.
+export const getForumById = createAsyncThunk(
+	'forum/getForumById',
+	async (data: createForumRequest, thunkAPI) => {
+		try {
+			return await forumdAPI.createForum(data);
+		}
+		catch (e) {
+			return thunkAPI.rejectWithValue(e);
+		}
+	},
+);
 
 // export const createForum = createAsyncThunk(
 // 	'forum/createForum',
