@@ -1,7 +1,7 @@
 import {DataType, Model} from 'sequelize-typescript';
 import type {ModelAttributes} from 'sequelize/types';
 import {sequelize} from 'server/api/sequelize';
-import {Users, Messages, Reactions} from './';
+import {Users, Messages} from './';
 
 // Модель таблицы MessagesReactions
 export type TMessageReaction = {
@@ -37,11 +37,6 @@ const messageReactionModel: ModelAttributes<Model, TMessageReaction> = {
 	reaction_id: {
 		type: DataType.INTEGER,
 		allowNull: false,
-		references: {
-			model: Reactions,
-			key: 'id',
-		},
-		onDelete: 'CASCADE',
 	},
 };
 

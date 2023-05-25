@@ -35,21 +35,13 @@ CREATE TABLE "Messages" (
   FOREIGN KEY ("parent_message_id") REFERENCES "Messages" ("id") ON DELETE CASCADE
 );
 
-CREATE TABLE "Reactions" (
-  "id" SERIAL PRIMARY KEY,
-  "name" VARCHAR(255) NOT NULL,
-  "image" VARCHAR(255) NOT NULL,
-  UNIQUE ("name")
-);
-
 CREATE TABLE "MessagesReactions" (
   "message_id" INT NOT NULL,
   "user_id" INT NOT NULL,
   "reaction_id" INT NOT NULL,
   PRIMARY KEY ("message_id", "user_id"),
   FOREIGN KEY ("message_id") REFERENCES "Messages" ("id") ON DELETE CASCADE,
-  FOREIGN KEY ("user_id") REFERENCES "Users" ("id") ON DELETE CASCADE,
-  FOREIGN KEY ("reaction_id") REFERENCES "Reactions" ("id") ON DELETE CASCADE
+  FOREIGN KEY ("user_id") REFERENCES "Users" ("id") ON DELETE CASCADE
 );
 
 CREATE TABLE "Themes" (
@@ -73,9 +65,7 @@ CREATE INDEX idx_users_id ON "Users" ("id");
 CREATE INDEX idx_messages_id ON "Messages" ("id");
 CREATE INDEX idx_messages_topic ON "Messages" ("topic_id");
 CREATE INDEX idx_messages_parent ON "Messages" ("parent_message_id");
-CREATE INDEX idx_reactions_id ON "Reactions" ("id");
 CREATE INDEX idx_messagesreactions_message ON "MessagesReactions" ("message_id");
-CREATE INDEX idx_messagesreactions_reaction ON "MessagesReactions" ("reaction_id");
 CREATE INDEX idx_themes_id ON "Themes" ("id");
 CREATE INDEX idx_usersthemes_user ON "UsersThemes" ("user_id");
 
