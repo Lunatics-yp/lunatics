@@ -1,7 +1,8 @@
 import type {Request, Response} from 'express';
-import {yandexAuthUri} from 'server/authMiddleware/constants';
 import type {IncomingMessage} from 'http';
 import {userAPI} from 'server/api/user';
+import {yandexAuthUri} from 'server/authMiddleware/constants';
+import type {TUserData} from 'server/authMiddleware/typing';
 
 const yandexProxyResponseHandler = (
 	proxyRes: IncomingMessage,
@@ -19,9 +20,14 @@ const yandexProxyResponseHandler = (
 		// Затем обрабатываем полученный ответ
 		proxyRes.on('end', async () => {
 			try {
-				const data = JSON.parse(responseBody);
+				const data = JSON.parse(responseBody) as TUserData;
 				// Добавляем/обновляем юзера в БД
-				await userAPI.createOrUpadate(data);
+				await userAPI.createOrUpadate({
+					id: data.id,
+					login: data.login,
+					display_name: data.login,
+					avatar: data.avatar,
+				});
 				// И грузим его тему
 				// ...
 				const currentTheme = 100;

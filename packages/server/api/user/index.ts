@@ -13,7 +13,7 @@ export const userAPI = {
 		await Users.upsert({
 			id: id,
 			login: login,
-			nickname: login,
+			display_name: login,
 			avatar: avatar,
 		});
 	},
