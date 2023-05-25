@@ -21,17 +21,21 @@ const yandexProxyResponseHandler = (
 		proxyRes.on('end', async () => {
 			try {
 				const data = JSON.parse(responseBody) as TUserData;
-				// Добавляем/обновляем юзера в БД
-				await userAPI.createOrUpadate({
-					id: data.id,
-					login: data.login,
-					display_name: data.login,
-					avatar: data.avatar,
-				});
-				// И грузим его тему
-				// ...
-				const currentTheme = 100;
-				data.theme = currentTheme;
+				// Если ответ успешный и нет ошибки
+				if (res.statusCode === 200 && !('reason' in data)) {
+					// Добавляем/обновляем юзера в БД
+					await userAPI.createOrUpdate({
+						id: data.id,
+						login: data.login,
+						display_name: data.login,
+						avatar: data.avatar,
+					});
+					// И грузим его тему
+					// ...
+					const currentTheme = 100;
+					data.theme = currentTheme;
+				}
+				// Собаем data обратно в строку и отправляем ответ клиенту
 				const modifiedResponse = JSON.stringify(data);
 				res.setHeader('Content-Type', 'application/json;charset=utf-8');
 				res.end(modifiedResponse);

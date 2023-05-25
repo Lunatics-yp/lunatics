@@ -1,6 +1,6 @@
 import {
 	yandexProxyAll,
-	yandexProxyUserInfoOnly,
+	yandexProxyUserWithResponseHandler,
 	yandexCheckAuthorization,
 } from 'server/authMiddleware';
 import type {ViteDevServer} from 'vite';
@@ -33,7 +33,7 @@ export async function startServer(isDev: boolean, port: number) {
 		app.use('/assets', express.static(path.resolve(distPath, 'assets')));
 	}
 
-	app.use('/api/v2/auth/user', yandexProxyUserInfoOnly());
+	app.use('/api/v2/auth/user', yandexProxyUserWithResponseHandler());
 	app.use('/api/v2', yandexProxyAll());
 
 	app.use('/api/forum', async (req, res) => {

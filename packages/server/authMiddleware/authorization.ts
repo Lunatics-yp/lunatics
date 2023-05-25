@@ -18,8 +18,8 @@ export const yandexProxyAll = (): RequestHandler => {
 	});
 };
 
-// Прокси для запросов к Яндекс Свагер Апи
-export const yandexProxyUserInfoOnly = (): RequestHandler => {
+// Прокси для запросов к Яндекс Свагер Апи с обработкой ответа (для auth/user)
+export const yandexProxyUserWithResponseHandler = (): RequestHandler => {
 	return createProxyMiddleware({
 		changeOrigin: true,
 		cookieDomainRewrite: {
