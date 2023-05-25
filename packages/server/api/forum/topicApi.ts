@@ -1,6 +1,7 @@
-import {Topics} from 'server/api/models';
+import {Topics, Messages, Users} from 'server/api/models';
 import type {TTopic} from 'server/api/models';
 import type {TApiResponseData} from 'server/api/typing';
+import {sequelize} from 'server/api/sequelize';
 
 // Апи Топика
 export const topicApi = {
@@ -54,6 +55,41 @@ export const topicApi = {
 			};
 		} catch (e) {
 			return {reason: 'Ошибка удаления строки в методе delete topic'};
+		}
+	},
+	list: async (data: TTopic): Promise<TApiResponseData> => {
+		const {forum_id} = data;
+		if(!forum_id){
+			return {reason: 'Неправильные параметры для метода list topic'};
+		}
+		try {
+			const topics = await Topics.findAll({
+				where: {forum_id},
+				include: [
+					{
+						model: Users,
+						as: 'user',
+					},
+					{
+						model: Messages,
+						as: 'last_message',
+						include: [
+							{
+								model: Users,
+								as: 'user',
+							},
+						],
+						order: [['id', 'DESC']],
+						limit: 1,
+					},
+				],
+				order: [[sequelize.col('last_message.id'), 'DESC']],
+			});
+			return {
+				data: topics,
+			};
+		} catch (e) {
+			return {reason: 'Ошибка при получении списка топиков в методе list topic'};
 		}
 	},
 };

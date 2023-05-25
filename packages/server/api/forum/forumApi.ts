@@ -55,4 +55,16 @@ export const forumApi = {
 			return {reason: 'Ошибка удаления строки в методе delete forum'};
 		}
 	},
+	list: async (): Promise<TApiResponseData> => {
+		try {
+			const forums = await Forums.findAll({
+				order: [['id', 'DESC']],
+			});
+			return {
+				data: forums,
+			};
+		} catch (e) {
+			return {reason: 'Ошибка при получении списка форумов в методе list forum'};
+		}
+	},
 };
