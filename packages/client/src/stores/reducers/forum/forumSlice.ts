@@ -2,6 +2,7 @@ import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {RootState} from 'client/src/stores/store';
 import {getNextId} from 'client/src/utils/getters';
 import {TForumState} from './typing';
+import {forumThunks} from './forumThunks';
 
 const initialState: TForumState = {
 	messages: [
@@ -56,15 +57,14 @@ export const forumSlice = createSlice({
 			});
 		},
 
-		addTopic(state, {payload}: PayloadAction<string>) {
-			state.forums.push({
-				id: getNextId(state.forums),
-				discussionsCount: 0,
-				answersCount: 0,
-				title: payload,
+		addTopic: (state, action: PayloadAction<string>) => {
+			state.discussions.push({
+				id: getNextId(state.discussions),
+				title: action.payload,
+				lastAuthorName: '',
+				date: '',
 			});
 		},
-
 		// Сообщения
 		addMessage(state, {payload}: PayloadAction<string>) {
 			state.messages.push({id: getNextId(state.messages), isOwner: true, text: payload});
@@ -79,6 +79,83 @@ export const forumSlice = createSlice({
 	},
 
 });
+
+// extraReducers: (builder) => {
+// 	builder
+// 		.addCase(forumThunks.fetchForums.pending, (state) => {
+// 			state.isLoading = true;
+// 			state.error = '';
+// 		})
+// 		.addCase(forumThunks.fetchForums.fulfilled, (state, action) => {
+// 			state.isLoading = false;
+// 			state.forums = action.payload;
+// 		})
+// 		.addCase(forumThunks.fetchForums.rejected, (state, action) => {
+// 			state.isLoading = false;
+// 			state.error = action.error.message ?? 'Возникла неизвестная ошибка';
+// 		})
+// 		.addCase(forumThunks.fetchDiscussions.pending, (state) => {
+// 			state.isLoading = true;
+// 			state.error = '';
+// 		})
+// 		.addCase(forumThunks.fetchDiscussions.fulfilled, (state, action) => {
+// 			state.isLoading = false;
+// 			state.discussions = action.payload;
+// 		})
+// 		.addCase(forumThunks.fetchDiscussions.rejected, (state, action) => {
+// 			state.isLoading = false;
+// 			state.error = action.error.message ?? 'Возникла неизвестная ошибка';
+// 		})
+// 		.addCase(forumThunks.fetchMessages.pending, (state) => {
+// 			state.isLoading = true;
+// 			state.error = '';
+// 		})
+// 		.addCase(forumThunks.fetchMessages.fulfilled, (state, action) => {
+// 			state.isLoading = false;
+// 			state.messages = action.payload;
+// 		})
+// 		.addCase(forumThunks.fetchMessages.rejected, (state, action) => {
+// 			state.isLoading = false;
+// 			state.error = action.error.message ?? 'Возникла неизвестная ошибка';
+// 		})
+// 		.addCase(forumThunks.createForum.pending, (state) => {
+// 			state.isLoading = true;
+// 			state.error = '';
+// 		})
+// 		.addCase(forumThunks.createForum.fulfilled, (state, action) => {
+// 			state.isLoading = false;
+// 			state.forums.push(action.payload);
+// 		})
+// 		.addCase(forumThunks.createForum.rejected, (state, action) => {
+// 			state.isLoading = false;
+// 			state.error = action.error.message ?? 'Возникла неизвестная ошибка';
+// 		})
+// 		.addCase(forumThunks.createDiscussion.pending, (state) => {
+// 			state.isLoading = true;
+// 			state.error = '';
+// 		})
+// 		.addCase(forumThunks.createDiscussion.fulfilled, (state, action) => {
+// 			state.isLoading = false;
+// 			state.discussions.push(action.payload);
+// 		})
+// 		.addCase(forumThunks.createDiscussion.rejected, (state, action) => {
+// 			state.isLoading = false;
+// 			state.error = action.error.message ?? 'Возникла неизвестная ошибка';
+// 		})
+// 		.addCase(forumThunks.createMessage.pending, (state) => {
+// 			state.isLoading = true;
+// 			state.error = '';
+// 		})
+// 		.addCase(forumThunks.createMessage.fulfilled, (state, action) => {
+// 			state.isLoading = false;
+// 			state.messages.push(action.payload);
+// 		})
+// 		.addCase(forumThunks.createMessage.rejected, (state, action) => {
+// 			state.isLoading = false;
+// 			state.error = action.error.message ?? 'Возникла неизвестная ошибка';
+// 		});
+// },
+
 export const forumSelectors = {
 	forums: (state: RootState) => state.forumReducer.forums,
 	discussions: (state: RootState) => state.forumReducer.discussions,

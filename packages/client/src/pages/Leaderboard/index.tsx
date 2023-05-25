@@ -56,7 +56,7 @@ export const LeaderboardPage = () => {
 					<Button
 						text='⤎'
 						onClick={backLeaders}
-						className='buttonPoginations'
+						className='buttonPage '
 						disabled={page === 0}
 					/>
 

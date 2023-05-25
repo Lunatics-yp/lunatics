@@ -91,10 +91,11 @@ export const ForumTopic = () => {
 			message={message}
 			ref={messagesEndRef}
 			messages={allMessages}
-		//setSelectedParent={setSelectedParent}
+			setSelectedParent={setSelectedParent}
 		/>
 	));
 
+	console.log(selectedParent);
 	return (
 		<main className={styles.wrapper}>
 			<div className={styles.container} ref={fullScreenBtnRef}>
@@ -115,7 +116,11 @@ export const ForumTopic = () => {
 								onKeyDown={onPressEnter}
 								value={newMessage.value}
 								className={styles.field}
-								placeholder='Написать комментарий...'
+								placeholder={
+									selectedParent !== null
+										? 'Ответить на комментарий...'
+										: 'Написать комментарий...'
+								}
 							/>
 						</div>
 					</div>

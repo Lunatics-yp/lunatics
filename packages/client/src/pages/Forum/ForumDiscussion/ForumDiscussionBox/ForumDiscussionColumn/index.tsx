@@ -6,6 +6,7 @@ import styles from './ForumDiscussionColumn.module.scss';
 
 export const ForumDiscussionColumn: FC<TForumDiscussionColumnProps> = (props) => {
 	const {title, lastAuthorName, date} = props;
+
 	return (
 		<div className={styles.element}>
 			<Link to={`${title}`}>

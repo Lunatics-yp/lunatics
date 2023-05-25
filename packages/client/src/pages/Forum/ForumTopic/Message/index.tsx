@@ -14,7 +14,7 @@ export const Message = forwardRef<HTMLDivElement, TMessageProps>(
 		const childrenMassage = messages.filter((el) => el.parentid === id);
 
 		const newSubmassage = () => {
-			// 	setSelectedParent(id);
+			setSelectedParent(id);
 		};
 
 		return (

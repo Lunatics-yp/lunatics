@@ -61,4 +61,4 @@ export const createMessage = createAsyncThunk(
 	},
 );
 
-export const authThunks = {getForumById, createForum, getTopicById, createTopic, createMessage};
+export const forumThunks = {getForumById, createForum, getTopicById, createTopic, createMessage};

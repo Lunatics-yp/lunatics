@@ -64,19 +64,20 @@ export const ForumDiscussionBox = () => {
 							onChange={newTopic.onChange}
 							value={newTopic.value}
 							type='text'
-							placeholder='Новая тема'
+							placeholder='Новый топик'
 							className={styles.input}
 							maxLength={50}
 						/>
 						<Button
-							text='Создать тему'
+							text='Создать топик'
 							onClick={createTopic}
 						/>
 					</div>
 				</header>
 				<div className={styles.container__elements}>
-					{topicElements}
+					{topicElements.length > 0 && topicElements}
 				</div>
+
 			</div>
 			{/* {renderTopic()} */}
 		</main>

@@ -1,7 +1,7 @@
 export type TMessageProps = {
 	message: TMessage;
 	messages: TMessage[];
-	setSelectedParent?: (id: number | null) => void;
+	setSelectedParent?: any;
 
 };
 

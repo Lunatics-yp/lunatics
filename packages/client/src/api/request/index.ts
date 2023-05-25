@@ -17,4 +17,6 @@ const api = axios.create({
 
 interceptors(api);
 
-export {api};
+const api1 = {...api, baseURL: ''};
+
+export {api, api1};

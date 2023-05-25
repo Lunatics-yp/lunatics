@@ -1,4 +1,4 @@
-import {api1} from './baseService';
+import {api1} from './request';
 import {
 	ForumForm, AllForums, AllTopics, AllMessages, NewTopic, NewMessage, NewForum,
 } from './typing';

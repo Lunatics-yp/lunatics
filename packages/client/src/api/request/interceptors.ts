@@ -32,3 +32,7 @@ const checkResponseError = ({response}: {response: AxiosResponse}) => getRespons
 export const interceptors = (api: AxiosInstance) => {
 	api.interceptors.response.use(checkResponse, checkResponseError);
 };
+
+// export const interceptors1 = (api1: AxiosInstance) => {
+// 	api1.interceptors.response.use(checkResponse, checkResponseError);
+// };
