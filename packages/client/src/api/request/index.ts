@@ -22,13 +22,11 @@ const api = axios.create({
 
 interceptors(api);
 
-// interceptors(api1);
-
-const api1 = axios.create({
+const apiForum = axios.create({
 	baseURL: '',
 	...options,
 });
 
-interceptors(api1);
+interceptors(apiForum);
 
-export {api, api1};
+export {api, apiForum};

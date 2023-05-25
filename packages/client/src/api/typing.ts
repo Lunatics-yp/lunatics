@@ -81,107 +81,114 @@ export type TServiceId = {
 /* Forum */
 //Схема тела запроса
 
-export type ForumForm = {
-	action: string;
-	sid: string;
-	user_id: string;
-	//data: {... };
-};
+// export type ForumForm = {
+// 	action: string;
+// 	sid: string;
+// 	user_id: string;
+// 	//data: {... };
+// };
 
-export type NewForum = {
-	action: string;
-	data: {
-		name: string;
-	};
-};
+// export type NewForum = {
+// 	action: string;
+// 	data: {
+// 		name: string;
+// 	};
+// };
 
-export type DellForum = {
-	action: string;
-	data: {
-		id: number;
-	};
-};
+// export type DellForum = {
+// 	action: string;
+// 	data: {
+// 		id: number;
+// 	};
+// };
 
-export type AllForums = {
-	action: string;
-	// data: {
+// export type AllForums = {
+// 	action: string;
+// 	// data: {
 
-	// };
-};
-// ответ
-// export type AllForum = {
-// 	id: number;
-// 	name: string;
-// 	user_id: number;
-// 	created_at: number;
-// }
+// 	// };
+// };
+// // ответ
+// // export type AllForum = {
+// // 	id: number;
+// // 	name: string;
+// // 	user_id: number;
+// // 	created_at: number;
+// // }
 
-export type NewTopic = {
-	action: string;
-	data: {
-		id: number;
-		name: string;
-	};
-};
+// export type NewTopic = {
+// 	action: string;
+// 	data: {
+// 		id: number;
+// 		name: string;
+// 	};
+// };
 
-export type DellTopic = {
-	action: string;
-	data: {
-		id: number;
-	};
-};
-
-// ответ
 // export type DellTopic = {
-// 	id: number;
-// 	forum_id: number;
-// 	name: string;
+// 	action: string;
+// 	data: {
+// 		id: number;
+// 	};
+// };
+
+// // ответ
+// // export type DellTopic = {
+// // 	id: number;
+// // 	forum_id: number;
+// // 	name: string;
+// // }
+// export type getAllTopicsRequest = {
+
 // }
 
-export type AllTopics = {
-	action: string;
-	data: {
-		forum_id: number;
-	};
-};
-
-// ответ
 // export type AllTopics = {
-// 	id: number;
-// forum_id: number;
-// 	name: string;
-// 	user_id: number;
-// 	created_at: number;
-// }
+// 	action: string;
+// 	data: {
+// 		forum_id: number;
+// 	};
+// };
 
-export type NewMessage = {
-	action: string;
-	data: {
-		topic_id: number;
-		parent_message_id: number;
-		text: string;
-	};
-};
-
-export type DellMessage = {
-	action: string;
-	data: {
-		id: number;
-	};
-};
-
-export type AllMessages = {
-	action: string;
-	data: {
-		forum_id: number;
-	};
-};
-
-// ответ
-// export type AllMessages = {
+// // ответ
+// // export type AllTopics = {
 // // 	id: number;
 // // forum_id: number;
 // // 	name: string;
 // // 	user_id: number;
 // // 	created_at: number;
+// // }
+
+// export type NewMessage = {
+// 	action: string;
+// 	data: {
+// 		topic_id: number;
+// 		parent_message_id: number;
+// 		text: string;
+// 	};
+// };
+
+// export type DellMessage = {
+// 	action: string;
+// 	data: {
+// 		id: number;
+// 	};
+// };
+
+// export type AllMessages = {
+// 	action: string;
+// 	data: {
+// 		forum_id: number;
+// 	};
+// };
+
+// // ответ
+// // export type AllMessages = {
+// // // 	id: number;
+// // // forum_id: number;
+// // // 	name: string;
+// // // 	user_id: number;
+// // // 	created_at: number;
+// // }
+
+// export type getAllTopicsRequest = {
+// 	action
 // }
