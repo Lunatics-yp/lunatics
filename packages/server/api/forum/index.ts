@@ -1,10 +1,14 @@
 import type {Request, Response} from 'express';
+import type {TUserData} from 'server/authMiddleware/typing';
 import {dbConnect} from 'server/api/sequelize';
-import {Users} from 'server/api/models';
-import {isValidPostData} from 'server/api/postDataValidator';
+import {isValidPostData} from 'server/api/utils/postDataValidator';
 
 // Апи Форума
-export const forumApi = async (req: Request, res: Response): Promise<void> => {
+export const forumApiHandler = async (
+	req: Request,
+	res: Response,
+	userData: TUserData,
+): Promise<void> => {
 	const postData = req.body;
 	const isValid = isValidPostData(postData);
 	// const isValid = true;

@@ -1,8 +1,7 @@
 import {createProxyMiddleware} from 'http-proxy-middleware';
 import type {RequestHandler} from 'http-proxy-middleware';
-import {yandexEndpoint} from './constants';
-import {filterCookies} from './filterCookies';
-import {yandexProxyResponseHandler} from 'server/api/utils';
+import {yandexEndpoint} from 'server/authMiddleware/constants';
+import {filterCookies, yandexProxyResponseHandler} from 'server/authMiddleware/utils';
 
 // Прокси для запросов к Яндекс Свагер Апи
 export const yandexProxyAll = (): RequestHandler => {

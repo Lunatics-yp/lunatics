@@ -1,5 +1,5 @@
 import type {Request, Response} from 'express';
-import {yandexAuthUri} from 'server/api/auth/constants';
+import {yandexAuthUri} from 'server/authMiddleware/constants';
 import type {IncomingMessage} from 'http';
 import {userAPI} from 'server/api/user';
 

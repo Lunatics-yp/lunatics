@@ -1,11 +1,15 @@
-import {yandexProxyAll, yandexProxyUserInfoOnly, yandexCheckAuthorization} from 'server/api/auth';
+import {
+	yandexProxyAll,
+	yandexProxyUserInfoOnly,
+	yandexCheckAuthorization,
+} from 'server/authMiddleware';
 import type {ViteDevServer} from 'vite';
 import {createServer as createViteServer} from 'vite';
 import cors from 'cors';
 import express from 'express';
 import path from 'path';
 
-import {forumApi} from 'server/api/forum';
+import {forumApiHandler} from 'server/api/forum';
 
 import {getSsrPath, ssrContent} from './ssr';
 
@@ -35,15 +39,16 @@ export async function startServer(isDev: boolean, port: number) {
 	app.use('/api/forum', async (req, res) => {
 		try {
 			const authUserData = await yandexCheckAuthorization(req);
-			if (!authUserData.isAuth) {
+			if (!authUserData.isAuth || !authUserData.user) {
 				res.sendStatus(403);
 				return;
 			}
 			app.use(express.json());
-			await forumApi(req, res);
+			await forumApiHandler(req, res, authUserData.user);
 		} catch (e) {
-			console.log(e);
-			res.sendStatus(500);
+			if (!res.headersSent) {
+				res.sendStatus(500);
+			}
 		}
 	});
 
