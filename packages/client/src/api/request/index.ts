@@ -6,19 +6,29 @@ import {interceptors} from './interceptors';
  * Экземпляр AXIOS для взаимодействия c API Яндекс.Практикума
  * @see: https://ya-praktikum.tech/api/v2/swagger/
  */
-const api = axios.create({
-	baseURL: API_CONFIG.endpoint,
+
+const options = {
 	timeout: 5000,
 	withCredentials: true,
 	headers: {
 		'Content-Type': 'application/json',
 	},
+};
+
+const api = axios.create({
+	baseURL: API_CONFIG.endpoint,
+	...options,
 });
 
 interceptors(api);
 
 // interceptors(api1);
 
-const api1 = {...api, baseURL: ''};
+const api1 = axios.create({
+	baseURL: '',
+	...options,
+});
+
+interceptors(api1);
 
 export {api, api1};
