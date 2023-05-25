@@ -1,7 +1,10 @@
+const getLocationHost = () => {
+	return typeof location !== 'undefined' ? `${location.protocol}//${location.host}` : '';
+};
+
 export const API_CONFIG = {
-	endpoint: 'https://ya-praktikum.tech/api/v2',
-	resources: 'https://ya-praktikum.tech/api/v2/resources',
-	websocket: 'wss://ya-praktikum.tech/ws/chats',
+	endpoint: `${getLocationHost()}/api/v2`,
+	resources: `${getLocationHost()}/api/v2/resources`,
 };
 
 export const OAUTH_BASE_URL = 'https://oauth.yandex.ru/authorize';
