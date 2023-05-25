@@ -1,8 +1,8 @@
 import type {Request, Response} from 'express';
-import type {TUserData} from 'server/api/auth/typing';
+import type {TUser} from 'server/api/models';
 import type {TApiFunction} from 'server/api/forum/typing';
 import {dbConnect} from 'server/api/sequelize';
-import {isValidPostData} from 'server/api/postDataValidator';
+import {isValidPostData} from 'server/api/utils/postDataValidator';
 import type {TApiResponseData} from 'server/api/typing';
 import {forumApi} from './forumApi';
 import {topicApi} from './topicApi';
@@ -13,7 +13,7 @@ import {messageReactionApi} from './messageReactionApi';
 export const forumApiHandler = async (
 	req: Request,
 	res: Response,
-	userData: TUserData,
+	userData: TUser,
 ): Promise<void> => {
 	const postData = req.body;
 	const userId = userData.id;
