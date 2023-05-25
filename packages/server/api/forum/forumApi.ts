@@ -6,7 +6,7 @@ import type {TApiResponseData} from 'server/api/typing';
 export const forumApi = {
 	create: async (data: TForum): Promise<TApiResponseData> => {
 		const {name, user_id} = data;
-		if(!name){
+		if (!name) {
 			return {reason: 'Неправильные параметры для метода create forum'};
 		}
 		try {
@@ -21,9 +21,9 @@ export const forumApi = {
 			return {reason: 'Ошибка при создании строки в методе create forum'};
 		}
 	},
-	rename: async (data: TForum): Promise<TApiResponseData> => {
+	edit: async (data: TForum): Promise<TApiResponseData> => {
 		const {id, name, user_id} = data;
-		if(!id || !name){
+		if (!id || !name) {
 			return {reason: 'Неправильные параметры для метода rename forum'};
 		}
 		try {
@@ -41,7 +41,7 @@ export const forumApi = {
 	},
 	delete: async (data: TForum): Promise<TApiResponseData> => {
 		const {id, user_id} = data;
-		if(!id){
+		if (!id) {
 			return {reason: 'Неправильные параметры для метода delete forum'};
 		}
 		try {

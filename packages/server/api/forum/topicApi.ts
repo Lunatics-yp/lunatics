@@ -7,7 +7,7 @@ import {sequelize} from 'server/api/sequelize';
 export const topicApi = {
 	create: async (data: TTopic): Promise<TApiResponseData> => {
 		const {name, forum_id, user_id} = data;
-		if(!name || !forum_id){
+		if (!name || !forum_id) {
 			return {reason: 'Неправильные параметры для метода create topic'};
 		}
 		try {
@@ -23,9 +23,9 @@ export const topicApi = {
 			return {reason: 'Ошибка при создании строки в методе create topic'};
 		}
 	},
-	rename: async (data: TTopic): Promise<TApiResponseData> => {
+	edit: async (data: TTopic): Promise<TApiResponseData> => {
 		const {id, name, user_id} = data;
-		if(!id || !name){
+		if (!id || !name) {
 			return {reason: 'Неправильные параметры для метода rename topic'};
 		}
 		try {
@@ -43,7 +43,7 @@ export const topicApi = {
 	},
 	delete: async (data: TTopic): Promise<TApiResponseData> => {
 		const {id, user_id} = data;
-		if(!id){
+		if (!id) {
 			return {reason: 'Неправильные параметры для метода delete topic'};
 		}
 		try {
@@ -59,7 +59,7 @@ export const topicApi = {
 	},
 	list: async (data: TTopic): Promise<TApiResponseData> => {
 		const {forum_id} = data;
-		if(!forum_id){
+		if (!forum_id) {
 			return {reason: 'Неправильные параметры для метода list topic'};
 		}
 		try {
