@@ -34,6 +34,7 @@ const forumModel: ModelAttributes<Model, TForum> = {
 			model: Users,
 			key: 'id',
 		},
+		onDelete: 'CASCADE',
 	},
 	created_at: {
 		type: DataType.DATE,

@@ -10,7 +10,7 @@ CREATE TABLE "Forums" (
   "name" VARCHAR(255) NOT NULL,
   "user_id" INT NOT NULL,
   "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY ("user_id") REFERENCES "Users" ("id")
+  FOREIGN KEY ("user_id") REFERENCES "Users" ("id") ON DELETE CASCADE
 );
 
 CREATE TABLE "Topics" (
@@ -19,8 +19,8 @@ CREATE TABLE "Topics" (
   "forum_id" INT NOT NULL,
   "user_id" INT NOT NULL,
   "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY ("forum_id") REFERENCES "Forums" ("id"),
-  FOREIGN KEY ("user_id") REFERENCES "Users" ("id")
+  FOREIGN KEY ("forum_id") REFERENCES "Forums" ("id") ON DELETE CASCADE,
+  FOREIGN KEY ("user_id") REFERENCES "Users" ("id") ON DELETE CASCADE
 );
 
 CREATE TABLE "Messages" (
@@ -30,9 +30,9 @@ CREATE TABLE "Messages" (
   "topic_id" INT NOT NULL,
   "parent_message_id" INT,
   "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY ("topic_id") REFERENCES "Topics" ("id"),
-  FOREIGN KEY ("user_id") REFERENCES "Users" ("id"),
-  FOREIGN KEY ("parent_message_id") REFERENCES "Messages" ("id")
+  FOREIGN KEY ("topic_id") REFERENCES "Topics" ("id") ON DELETE CASCADE,
+  FOREIGN KEY ("user_id") REFERENCES "Users" ("id") ON DELETE CASCADE,
+  FOREIGN KEY ("parent_message_id") REFERENCES "Messages" ("id") ON DELETE CASCADE
 );
 
 CREATE TABLE "Reactions" (
@@ -47,9 +47,9 @@ CREATE TABLE "MessagesReactions" (
   "user_id" INT NOT NULL,
   "reaction_id" INT NOT NULL,
   PRIMARY KEY ("message_id", "user_id"),
-  FOREIGN KEY ("message_id") REFERENCES "Messages" ("id"),
-  FOREIGN KEY ("user_id") REFERENCES "Users" ("id"),
-  FOREIGN KEY ("reaction_id") REFERENCES "Reactions" ("id")
+  FOREIGN KEY ("message_id") REFERENCES "Messages" ("id") ON DELETE CASCADE,
+  FOREIGN KEY ("user_id") REFERENCES "Users" ("id") ON DELETE CASCADE,
+  FOREIGN KEY ("reaction_id") REFERENCES "Reactions" ("id") ON DELETE CASCADE
 );
 
 CREATE TABLE "Themes" (
@@ -62,8 +62,8 @@ CREATE TABLE "UsersThemes" (
   "user_id" INT NOT NULL,
   "theme_id" INT,
   PRIMARY KEY ("user_id"),
-  FOREIGN KEY ("user_id") REFERENCES "Users" ("id"),
-  FOREIGN KEY ("theme_id") REFERENCES "Themes" ("id")
+  FOREIGN KEY ("user_id") REFERENCES "Users" ("id") ON DELETE CASCADE,
+  FOREIGN KEY ("theme_id") REFERENCES "Themes" ("id") ON DELETE CASCADE
 );
 
 CREATE INDEX idx_forums_id ON "Forums" ("id");

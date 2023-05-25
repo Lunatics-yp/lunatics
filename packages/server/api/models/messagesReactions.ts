@@ -23,6 +23,7 @@ const messageReactionModel: ModelAttributes<Model, TMessageReaction> = {
 			model: Messages,
 			key: 'id',
 		},
+		onDelete: 'CASCADE',
 	},
 	user_id: {
 		type: DataType.INTEGER,
@@ -31,6 +32,7 @@ const messageReactionModel: ModelAttributes<Model, TMessageReaction> = {
 			model: Users,
 			key: 'id',
 		},
+		onDelete: 'CASCADE',
 	},
 	reaction_id: {
 		type: DataType.INTEGER,
@@ -39,6 +41,7 @@ const messageReactionModel: ModelAttributes<Model, TMessageReaction> = {
 			model: Reactions,
 			key: 'id',
 		},
+		onDelete: 'CASCADE',
 	},
 };
 

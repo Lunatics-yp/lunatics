@@ -32,6 +32,7 @@ const messageModel: ModelAttributes<Model, TMessage> = {
 			model: Users,
 			key: 'id',
 		},
+		onDelete: 'CASCADE',
 	},
 	text: {
 		type: DataType.TEXT,
@@ -44,6 +45,7 @@ const messageModel: ModelAttributes<Model, TMessage> = {
 			model: Topics,
 			key: 'id',
 		},
+		onDelete: 'CASCADE',
 	},
 	parent_message_id: {
 		type: DataType.INTEGER,
@@ -51,6 +53,7 @@ const messageModel: ModelAttributes<Model, TMessage> = {
 			model: 'Messages',
 			key: 'id',
 		},
+		onDelete: 'CASCADE',
 	},
 	created_at: {
 		type: DataType.DATE,
