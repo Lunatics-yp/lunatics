@@ -1,10 +1,19 @@
+import {
+	yandexProxyAll,
+	yandexProxyUserWithResponseHandler,
+	yandexCheckAuthorization,
+} from 'server/authMiddleware';
 import type {ViteDevServer} from 'vite';
 import {createServer as createViteServer} from 'vite';
 import cors from 'cors';
 import express from 'express';
 import path from 'path';
 
+import {forumApiHandler} from 'server/api/forum';
+
 import {getSsrPath, ssrContent} from './ssr';
+
+import cookieParser from 'cookie-parser';
 
 export async function startServer(isDev: boolean, port: number) {
 	const app = express();
@@ -24,11 +33,30 @@ export async function startServer(isDev: boolean, port: number) {
 		app.use('/assets', express.static(path.resolve(distPath, 'assets')));
 	}
 
-	app.get('/api', (_, res) => {
-		res.json('👋 Howdy from the server :)');
+	app.use('/api/v2/auth/user', yandexProxyUserWithResponseHandler());
+	app.use('/api/v2', yandexProxyAll());
+
+	app.use('/api/forum', async (req, res) => {
+		try {
+			const authUserData = await yandexCheckAuthorization(req);
+			if (!authUserData.isAuth || !authUserData.user) {
+				res.sendStatus(403);
+				return;
+			}
+			app.use(express.json());
+			await forumApiHandler(req, res, authUserData.user);
+		} catch (e) {
+			if (!res.headersSent) {
+				res.sendStatus(500);
+			}
+		}
 	});
 
-	app.use('*', async (req, res, next) => {
+	app.use('*', cookieParser() as any, async (req, res, next) => {
+		const requestType = req.method;
+		if (requestType !== 'GET') {
+			res.sendStatus(500);
+		}
 		try {
 			const url = req.originalUrl;
 			const html = await ssrContent(vite, url, isDev);
