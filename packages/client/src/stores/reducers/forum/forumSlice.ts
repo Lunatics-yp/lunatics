@@ -94,18 +94,6 @@ export const forumSlice = createSlice({
 // 			state.isLoading = false;
 // 			state.error = action.error.message ?? 'Возникла неизвестная ошибка';
 // 		})
-// 		.addCase(forumThunks.fetchDiscussions.pending, (state) => {
-// 			state.isLoading = true;
-// 			state.error = '';
-// 		})
-// 		.addCase(forumThunks.fetchDiscussions.fulfilled, (state, action) => {
-// 			state.isLoading = false;
-// 			state.discussions = action.payload;
-// 		})
-// 		.addCase(forumThunks.fetchDiscussions.rejected, (state, action) => {
-// 			state.isLoading = false;
-// 			state.error = action.error.message ?? 'Возникла неизвестная ошибка';
-// 		})
 // 		.addCase(forumThunks.fetchMessages.pending, (state) => {
 // 			state.isLoading = true;
 // 			state.error = '';
@@ -130,15 +118,15 @@ export const forumSlice = createSlice({
 // 			state.isLoading = false;
 // 			state.error = action.error.message ?? 'Возникла неизвестная ошибка';
 // 		})
-// 		.addCase(forumThunks.createDiscussion.pending, (state) => {
+// 		.addCase(forumThunks.createTopic.pending, (state) => {
 // 			state.isLoading = true;
 // 			state.error = '';
 // 		})
-// 		.addCase(forumThunks.createDiscussion.fulfilled, (state, action) => {
+// 		.addCase(forumThunks.createTopic.fulfilled, (state, action) => {
 // 			state.isLoading = false;
-// 			state.discussions.push(action.payload);
+// 			state.topic.push(action.payload);
 // 		})
-// 		.addCase(forumThunks.createDiscussion.rejected, (state, action) => {
+// 		.addCase(forumThunks.createTopic.rejected, (state, action) => {
 // 			state.isLoading = false;
 // 			state.error = action.error.message ?? 'Возникла неизвестная ошибка';
 // 		})

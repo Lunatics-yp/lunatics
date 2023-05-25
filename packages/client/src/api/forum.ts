@@ -2,50 +2,56 @@ import {api1} from './request';
 import {
 	ForumForm, AllForums, AllTopics, AllMessages, NewTopic, NewMessage, NewForum,
 } from './typing';
-
+import {Forum} from '../pages/Forum';
 export const forumdAPI = {
 
-	allForums: (data: ForumForm) => (
-		api1.post<Array<AllForums>>('/api/forum/forum...', data)
-	),
+	// _allForums: (data: ForumForm) => (
+	// 	api1.post<Array<AllForums>>('/api/forum/forum...', data)
+	// ),
+	// get allForums() {
+	// 	return this._allForums;
+	// },
+	// set allForums(value) {
+	// 	this._allForums = value;
+	// },
 
-	allForumTopics: (data: ForumForm) => (
-		api1.post<Array<AllTopics>>('/api/forum/topic...', data)
-	),
+	// allForumTopics: (data: ForumForm) => (
+	// 	api1.post<Array<AllTopics>>(Forum, data)
+	// ),
 
-	allMessages: (data: ForumForm) => (
-		api1.post<Array<AllMessages>>('/api/forum/message...', data)
-	),
-	//___________________________________________________________________
+	// allMessages: (data: ForumForm) => (
+	// 	api1.post<Array<AllMessages>>(Forum, data)
+	// ),
+	// //___________________________________________________________________
 
-	// getYandexServiceId(redirect_uri) => (
+	// // getYandexServiceId(redirect_uri) => (
 
-	// api1.get("/oauth/yandex/service-id",)),
+	// // api1.get("/oauth/yandex/service-id",)),
 
-	getForumById: (data: ForumForm) => (
-		api1.post<Array<AllForums>>('/api/forum//forum..', data)
-	),
+	// getForumById: (data: ForumForm) => (
+	// 	api1.post<Array<AllForums>>(Forum, data)
+	// ),
 
-	getTopicById: (data: ForumForm) => (
-		api1.post<Array<AllTopics>>('/api/forum//topic..', data)
-	),
+	// getTopicById: (data: ForumForm) => (
+	// 	api1.post<Array<AllTopics>>(Forum, data)
+	// ),
 
-	getMessageById: (data: ForumForm) => (
-		api1.post<Array<AllMessages>>('/api/forum//message..', data)
-	),
-	//  getTopicById: (data: ForumForm) => (
-	//    api1.get(`/topic/${body}`)),
-	createTopic: (data: ForumForm) => (
-		api1.post<Array<NewForum>>('/api/forum//topic', data)
-	),
+	// getMessageById: (data: ForumForm) => (
+	// 	api1.post<Array<AllMessages>>(Forum, data)
+	// ),
+	// //  getTopicById: (data: ForumForm) => (
+	// //    api1.get(`/topic/${body}`)),
+	// createTopic: (data: ForumForm) => (
+	// 	api1.post<Array<NewForum>>(Forum, data)
+	// ),
 
-	createForum: (data: ForumForm) => (
-		api1.post<Array<NewTopic>>('/api/forum//topic', data)
-	),
+	// createForum: (data: ForumForm) => (
+	// 	api1.post<Array<NewTopic>>(Forum, data)
+	// ),
 
-	createMessage: (data: ForumForm) => (
-		api1.post<Array<NewMessage>>('/api/forum//topic', data)
-	),
+	// createMessage: (data: ForumForm) => (
+	// 	api1.post<Array<NewMessage>>(Forum, data)
+	// ),
 
 	//  likeMessage(id: number, userId: string) {
 	//    api1.post(`/message/like/${id}`, { userId: userId });
