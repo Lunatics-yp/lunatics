@@ -1,3 +1,5 @@
+import {REACTIONS} from 'client/src/config/constants';
+
 export type TForumState = {
 	forums: TForum[];
 	messages: TMessage[];
@@ -22,4 +24,11 @@ export type TMessage = {
 	id: number;
 	isOwner: boolean;
 	text: string;
+	reactions: TReactions[];
+};
+
+export type TReactions = {
+	type: REACTIONS;
+	count: number;
+	isReacted: boolean;
 };

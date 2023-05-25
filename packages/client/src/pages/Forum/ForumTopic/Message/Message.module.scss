@@ -3,6 +3,30 @@
 .wrapper {
 	display: flex;
 	border-top: 1px solid var(--colorGreyLight);
+
+	&:first-child {
+		padding-top: 20px;
+	}
+}
+
+.reaction {
+	&__count {
+		cursor: pointer;
+
+		&_like {
+			color: var(--colorRadicalRed);
+		}
+	}
+
+	&__panel {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	&_btn {
+		right: -3px;
+		display: none;
+	}
 }
 
 .message {
@@ -16,6 +40,12 @@
 	word-break: break-word;
 	white-space: pre-wrap;
 	margin: 21px 10px;
+
+	&:hover .reaction {
+		&_btn{
+			display: block;
+		}
+	}
 
 	&_text {
 		background-color: var(--colorBlueLight);
@@ -40,8 +70,6 @@
 		font-weight: 600;
 		font-size: 10px;
 		line-height: 10px;
-		width: 33px;
-		height: 24px;
 		margin-right: 5px;
 
 		&:hover {
@@ -50,6 +78,7 @@
 	}
 
 	&__info {
+		position: relative;
 		display: flex;
 		gap: 10px;
 		font-size: 13px;
@@ -62,15 +91,5 @@
 
 	&__date {
 		color: var(--colorSlateGrey);
-	}
-}
-
-.reaction {
-	&__count {
-		cursor: pointer;
-
-		&_like {
-			color: var(--colorRadicalRed);
-		}
 	}
 }

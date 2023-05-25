@@ -6,9 +6,13 @@ import {TForumState} from './typing';
 const initialState: TForumState = {
 	messages: [
 		{id: 1, isOwner: true,
-			text: 'Хей! Привет, мы рады поприветствовать тебя на нашем форуме!!!'},
+			text: 'Хей! Привет, мы рады поприветствовать тебя на нашем форуме!!!',
+			reactions: [],
+		},
 		{id: 2, isOwner: false,
-			text: 'Как ты прошел этот непроходимый уровень?'},
+			text: 'Как ты прошел этот непроходимый уровень?',
+			reactions: [],
+		},
 	],
 	discussions: [
 		{id: 1, title: 'Sky Wars', lastAuthorName: 'Obi Wan Kenobi', date: 'the 22th of December'},
@@ -37,7 +41,12 @@ export const forumSlice = createSlice({
 		},
 		// Сообщения
 		addMessage(state, {payload}: PayloadAction<string>) {
-			state.messages.push({id: getNextId(state.messages), isOwner: true, text: payload});
+			state.messages.push({
+				id: getNextId(state.messages),
+				isOwner: true,
+				text: payload,
+				reactions: [],
+			});
 		},
 	},
 });

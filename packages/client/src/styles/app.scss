@@ -8,3 +8,13 @@ div.app {
 
 	position: relative;
 }
+
+.reactions {
+	transform: scale(0.7);
+	transition: all var(--animationTimeSmall);
+
+	&:hover {
+		transform: scale(1);
+		transition: all var(--animationTimeSmall) ease;
+	}
+}

@@ -4,4 +4,6 @@ export type TMessageProps = {
 		isOwner: boolean;
 		text: string;
 	};
+	isReactionListActive: number | null;
+	setIsReactionListActive: (isActive: number | null) => void;
 };

@@ -1,13 +1,55 @@
-import {forwardRef} from 'react';
+import {forwardRef, useState} from 'react';
 import {Avatar} from 'client/src/components/Avatar';
-import {Like} from 'client/src/components/images/Like';
+import {REACTIONS} from 'client/src/config/constants';
+import {Stars} from 'client/src/components/images/Stars';
+import {MessageReaction} from '../MessageReaction';
+import {ReactionsList} from '../ReactionsList';
 import styles from './Message.module.scss';
 import {TMessageProps} from './typing';
 
+const dataMock = [
+	{type: REACTIONS.PUKE, count:2, isReacted:true},
+	{type: REACTIONS.ANGRY, count:8, isReacted:false},
+];
+
 export const Message =  forwardRef<HTMLDivElement, TMessageProps>(
 	function  Message (props, ref) {
-		const {message} = props;
+		const {message, isReactionListActive, setIsReactionListActive} = props;
 		const {isOwner, text} = message;
+
+		// const [isReactionListActive, setIsReactionListActive] = useState(false);
+		const [reactions] = useState(dataMock);
+
+		const reactionsElements =  reactions.map((reaction)=> (
+			<MessageReaction
+				key={reaction.type}
+				count={reaction.count}
+				type={reaction.type}
+				isReacted={reaction.isReacted}
+				messageId={message.id}
+				onReactionMessage={onReactionMessage}
+			/>
+		));
+
+		function onReactionMessage(isReacted?: boolean) {
+			console.log('reacted', isReacted);
+
+		}
+
+		function toggleReactionWindow() {
+			isReactionListActive !== message.id ?
+				setIsReactionListActive(message.id) :
+				setIsReactionListActive(null);
+		}
+
+		function onReact(type: REACTIONS) {
+			setIsReactionListActive(null);
+
+			if (!reactions.find(item => item.type === type)) {
+				reactions.push({type: type, count:1, isReacted:true});
+			}
+		}
+
 		return (
 			<div className={styles.wrapper} ref={ref}>
 				{!isOwner && <Avatar size='medium'/>}
@@ -19,16 +61,19 @@ export const Message =  forwardRef<HTMLDivElement, TMessageProps>(
 							{isOwner ? 'Вы' : 'Trevor'}
 						</span>
 						<span className={styles.message__date}>23 мар 2023 в 21:31</span>
+						<span className={`${styles.message__reaction} ${styles.reaction_btn}`}
+							title='Поставить реакцию'
+							onClick={toggleReactionWindow}
+						>
+							<Stars/>
+						</span>
+						{isReactionListActive === message.id && (
+							<ReactionsList onReact={onReact}/>
+						)}
 					</div>
 					<p>{text}</p>
-					<div className={`${styles.message__reaction}`}>
-						<Like/>
-						{/* Чтобы сделать цвет красным
-						нужно добавить класс ${styles.reaction__count_like}*/}
-						<span
-							className={`${styles.reaction__count}`}>
-							1
-						</span>
+					<div className={styles.reaction__panel}>
+						{reactionsElements}
 					</div>
 				</div>
 			</div>
