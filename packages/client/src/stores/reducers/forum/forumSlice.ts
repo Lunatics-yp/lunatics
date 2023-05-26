@@ -126,6 +126,7 @@ export const forumSlice = createSlice({
 				state.isLoading = false;
 				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
 			});
+
 		//createTopic
 		// .addCase(forumThunks.createTopic.pending, (state) => {
 		// 	state.isLoading = true;
@@ -141,6 +142,22 @@ export const forumSlice = createSlice({
 		// 	state.isLoading = false;
 		// 	state.error = action.payload as string;
 		// });
+
+		// //getAllTopics
+		// .addCase(forumThunks.getAllTopics.pending, (state) => {
+		// 	state.isLoading = true;
+		// 	state.error = '';
+		// })
+		// .addCase(forumThunks.getAllTopics.fulfilled, (state,
+		// 	//		action
+		// ) => {
+		// 	state.isLoading = false;
+		// 	//	state.topics = action.payload;
+		// })
+		// .addCase(forumThunks.getAllTopics.rejected, (state, action) => {
+		// 	state.isLoading = false;
+		// 	state.error = action.error.message ?? 'Возникла неизвестная ошибка';
+		// })
 
 	},
 

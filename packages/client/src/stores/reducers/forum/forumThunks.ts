@@ -40,6 +40,18 @@ export const createTopic = createAsyncThunk(
 		}
 	},
 );
+
+export const getAllTopics = createAsyncThunk(
+	'forum/getAllForums',
+	async (data: createTopicRequest, thunkAPI) => {
+		try {
+			return await forumdAPI.getAllTopics(data);
+		}
+		catch (e) {
+			return thunkAPI.rejectWithValue(e);
+		}
+	},
+);
 // export const createForum = createAsyncThunk(
 // 	'forum/createForum',
 // 	async (data: ForumForm, thunkAPI) => {
@@ -84,4 +96,4 @@ export const createTopic = createAsyncThunk(
 // 	},
 // );
 
-export const forumThunks = {getAllForums, createForum, createTopic};
+export const forumThunks = {getAllForums, createForum, createTopic, getAllTopics};

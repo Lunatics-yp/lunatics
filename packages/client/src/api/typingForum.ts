@@ -55,3 +55,24 @@ export type CreateTopicResponseObj = {
   user_id: number;
   created_at: number;
 };
+
+export type TopicListRequest = {
+  action: string;
+  data: TopicListRequestObj;
+};
+
+export type TopicListRequestObj = {
+  forum_id: number;
+};
+
+export type TopicListResponse = {
+  data: Topics[];
+};
+
+export type Topics = {
+  id: number;
+  name: string;
+  forum_id: number;
+  user_id: number;
+  created_at: number;
+};
