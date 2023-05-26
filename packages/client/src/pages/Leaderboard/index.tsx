@@ -57,13 +57,16 @@ export const LeaderboardPage = () => {
 						text='⤎'
 						onClick={backLeaders}
 						className='buttonPage '
+						className='buttonPage'
 						disabled={page === 0}
 					/>
 
 					<Button
 						text='⤏'
 						onClick={nextLeaders}
-						className='buttonPoginations'
+
+						className='buttonPage'
+
 						disabled={leaders.length === 0 || leaders.length % LEADER_LIMIT_USERS !== 0}
 					/>
 				</div>
