@@ -1,24 +1,7 @@
 version: "3"
 services:
-  postgres:
-    container_name: postgres
-    # image: postgres:12
-    image: postgres:latest
-    ports:
-      - "5432:5432"
-    volumes:
-      - ./postgresdata:/var/lib/postgresql/data
-      - ./dbinit.sql:/docker-entrypoint-initdb.d/dbinit.sql
-    restart: always
-    env_file:
-      - ../.env
-    environment:
-      - PGDATA=/var/lib/postgresql/data/pgdata
-    networks:
-      - awesome
   pgadmin:
     container_name: pgadmin
-    # image: dpage/pgadmin4:4.18
     image: dpage/pgadmin4:latest
     restart: always
     env_file:
@@ -31,8 +14,6 @@ services:
     volumes:
       - pgadmin-data:/var/lib/pgadmin
       - ./servers.json:/pgadmin4/servers.json
-    depends_on:
-      - postgres
     networks:
       - awesome
 volumes:
