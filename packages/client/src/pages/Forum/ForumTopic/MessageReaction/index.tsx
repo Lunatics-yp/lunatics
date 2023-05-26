@@ -12,7 +12,7 @@ import styles from './messageReacton.module.scss';
 import {TMessageReactionProps} from './typing';
 
 export const MessageReaction: FC<TMessageReactionProps> = (props) => {
-	const {count, type, isReacted, onReactionMessage} = props;
+	const {count, type, isReacted,  onReactionMessage} = props;
 
 	function getReactionByType() {
 		switch (type) {
@@ -38,14 +38,15 @@ export const MessageReaction: FC<TMessageReactionProps> = (props) => {
 
 	return (
 		<div className={`${styles.reaction__box} ${isReacted && styles.reaction_me}`}
-			onClick={()=>{onReactionMessage(isReacted);}}
+			onClick={()=>{onReactionMessage(type, isReacted);}}
 		>
 			<div className={styles.reaction__icon}>
 				{icon}
 			</div>
 			<span
+				// будет использоваться activeReaction вместо isReacted
 				className={`${styles.reaction__count} ${isReacted && styles.reaction_me}`}>
-				{count}
+				{isReacted ? count + 1 : count}
 			</span>
 		</div>
 	);

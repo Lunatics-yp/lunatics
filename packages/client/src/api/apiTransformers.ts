@@ -1,6 +1,6 @@
 import {TUser} from 'client/src/stores/reducers/auth/typing';
-import {REACTIONS} from 'client/src/config/constants';
-import {TReactionsDTO, TUserDTO} from './typingAPI';
+import {TReactionDTO, TUserDTO} from './typingAPI';
+import {TReaction} from 'client/src/stores/reducers/forum/typing';
 
 export const transformUser = (data: TUserDTO): TUser => ({
 	id: data.id,
@@ -13,13 +13,7 @@ export const transformUser = (data: TUserDTO): TUser => ({
 	email: data.email,
 });
 
-type TReaction = {
-	messageId: number;
-	userId: number;
-	reactionId: REACTIONS;
-};
-
-export const transformReaction = (data: TReactionsDTO): TReaction => ({
+export const transformReaction = (data: TReactionDTO): TReaction => ({
 	messageId: data.data.message_id,
 	userId: data.data.user_id,
 	reactionId: data.data.reaction_id,

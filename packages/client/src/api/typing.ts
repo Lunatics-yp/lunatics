@@ -1,4 +1,4 @@
-import {TErrorAPI, TReactionsDTO, TUserDTO} from './typingAPI';
+import {TErrorAPI, TReactionDTO, TUserDTO} from './typingAPI';
 export type TNullObject = Record<string, never>;
 
 /* Login */
@@ -80,7 +80,7 @@ export type TServiceId = {
 
 /* Reactions */
 
-export type TSetReactionResponseData = TReactionsDTO | TErrorAPI;
+export type TSetReactionResponseData = TReactionDTO | TErrorAPI;
 
 export enum REACTIONS_ACTION {
 	SET = 'reaction.set',

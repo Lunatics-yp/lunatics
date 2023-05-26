@@ -1,6 +1,9 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
+import {transformReaction} from 'client/src/api/apiTransformers';
+import {isReactionData} from 'client/src/api/request/utilits';
 import {RootState} from 'client/src/stores/store';
 import {getNextId} from 'client/src/utils/getters';
+import {reactionThunks} from './reactionsThunks';
 import {TForumState} from './typing';
 
 const initialState: TForumState = {
@@ -8,10 +11,12 @@ const initialState: TForumState = {
 		{id: 1, isOwner: true,
 			text: 'Хей! Привет, мы рады поприветствовать тебя на нашем форуме!!!',
 			reactions: [],
+			activeReaction: null,
 		},
 		{id: 2, isOwner: false,
 			text: 'Как ты прошел этот непроходимый уровень?',
 			reactions: [],
+			activeReaction: null,
 		},
 	],
 	discussions: [
@@ -46,8 +51,36 @@ export const forumSlice = createSlice({
 				isOwner: true,
 				text: payload,
 				reactions: [],
+				activeReaction: null,
 			});
 		},
+	},
+	extraReducers: builder => {
+		builder
+			// Обновить / добавить реакцию
+			.addCase(reactionThunks.setReaction.fulfilled, (state, action) => {
+				if (isReactionData(action.payload)) {
+					const payloadTransform = transformReaction(action.payload);
+					const currentMessage = state.messages.find(
+						message => message.id === payloadTransform.messageId,
+					);
+					if (currentMessage) {
+						currentMessage.activeReaction = payloadTransform.reactionId;
+					}
+				}
+			})
+			// Удалить реакцию
+			.addCase(reactionThunks.deleteReaction.fulfilled, (state, action) => {
+				if (action.payload.deleted) {
+					const currentMessage = state.messages.find(
+						message => message.id === action.meta.arg.message_id,
+					);
+					if (currentMessage) {
+						currentMessage.activeReaction = null;
+					}
+				}
+			})
+		;
 	},
 });
 

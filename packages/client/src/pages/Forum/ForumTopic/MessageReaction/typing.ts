@@ -3,7 +3,7 @@ import {REACTIONS} from 'client/src/config/constants';
 export type TMessageReactionProps = {
 	count: number;
 	type: REACTIONS;
-	messageId: number;
+	activeReaction: REACTIONS | null;
 	isReacted: boolean;
-	onReactionMessage: (isReacted?: boolean) => void;
+	onReactionMessage: (type: REACTIONS, isReacted: boolean) => void;
 };

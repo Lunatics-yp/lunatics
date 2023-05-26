@@ -13,7 +13,7 @@ export type TUserDTO = {
   email: string;
 };
 
-export type TReactionsDTO = {
+export type TReactionDTO = {
 	data: {
 		message_id: number;
 		user_id: number;
