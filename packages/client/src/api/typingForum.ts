@@ -24,10 +24,10 @@ export type ForumListRequest = {
 };
 
 export type ForumListResponse = {
-  data: Forum[];
+  data: Forums[];
 };
 
-export type Forum = {
+export type Forums = {
   id: number;
   name: string;
   user_id: number;

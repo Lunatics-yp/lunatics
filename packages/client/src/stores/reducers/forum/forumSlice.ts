@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import {CreateForumResponseObj} from 'client/src/api/typingForum';
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {RootState} from 'client/src/stores/store';
@@ -50,14 +51,14 @@ export const forumSlice = createSlice({
 	initialState,
 	reducers: {
 		// Форум
-		addForum(state, {payload}: PayloadAction<string>) {
-			state.forums.push({
-				id: getNextId(state.forums),
-				discussionsCount: 0,
-				answersCount: 0,
-				title: payload,
-			});
-		},
+		// addForum(state, {payload}: PayloadAction<string>) {
+		// 	state.forums.push({
+		// 		id: getNextId(state.forums),
+		// 		discussionsCount: 0,
+		// 		answersCount: 0,
+		// 		title: payload,
+		// 	});
+		// },
 
 		addTopic: (state, action: PayloadAction<string>) => {
 			state.discussions.push({
@@ -101,7 +102,30 @@ export const forumSlice = createSlice({
 			.addCase(forumThunks.createForum.rejected, (state, action) => {
 				state.isLoading = false;
 				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
+			})
+			// getAllForums
+			.addCase(forumThunks.getAllForums.fulfilled, (state, action) => {
+				state.isLoading = false;
+				if (Array.isArray(action.payload)) {
+					action.payload.forEach((forum) => {
+						const existingForumIndex = state.forums.findIndex((f) => f.id === forum.id);
+						if (existingForumIndex === -1) {
+							state.forums.push({id: forum.id, title: forum.name, discussionsCount: 0, answersCount: 0});
+						} else {
+							state.forums[existingForumIndex].title = forum.name;
+						}
+					});
+				}
+			})
+			.addCase(forumThunks.getAllForums.pending, (state) => {
+				state.isLoading = true;
+				state.error = '';
+			})
+			.addCase(forumThunks.getAllForums.rejected, (state, action) => {
+				state.isLoading = false;
+				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
 			});
+
 	},
 
 });
