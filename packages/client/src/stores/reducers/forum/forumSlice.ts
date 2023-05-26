@@ -6,7 +6,7 @@ import {getNextId} from 'client/src/utils/getters';
 import {TForumState} from './typing';
 import {forumThunks} from './forumThunks';
 import {isUserData} from 'client/src/api/request/utilits';
-
+import {CreateTopicResponse, CreateMessageResponse} from 'client/src/api/typingForum';
 const initialState: TForumState = {
 	messages: [
 		{
@@ -125,43 +125,111 @@ export const forumSlice = createSlice({
 			.addCase(forumThunks.getAllForums.rejected, (state, action) => {
 				state.isLoading = false;
 				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
-			});
+			})
 
-		//createTopic
-		// .addCase(forumThunks.createTopic.pending, (state) => {
-		// 	state.isLoading = true;
-		// })
-		// .addCase(forumThunks.createTopic.fulfilled, (state,
-		// 	//action
-		// ) => {
+		// // createTopic
+		// builder.addCase(forumThunks.createTopic.fulfilled, (state, action) => {
 		// 	state.isLoading = false;
-		// 	state.error = '';
-		// 	//		state.topics.push(action.payload);
-		// })
-		// .addCase(forumThunks.createTopic.rejected, (state, action) => {
-		// 	state.isLoading = false;
-		// 	state.error = action.payload as string;
+		// 	if (isUserData(action.payload)) {
+		// 		const topicData = action.payload as unknown as CreateTopicResponse;
+		// 		state.topics.push({
+		// 			id: topicData.id,
+		// 			title: topicData.name,
+		// 			lastAuthorName: '',
+		// 			date: '',
+		// 		});
+		// 	}
 		// });
 
-		// //getAllTopics
+		// builder.addCase(forumThunks.createTopic.pending, (state) => {
+		// 	state.isLoading = true;
+		// 	state.error = '';
+		// });
+
+		// builder.addCase(forumThunks.createTopic.rejected, (state, action) => {
+		// 	state.isLoading = false;
+		// 	state.error = action.error.message ?? 'Возникла неизвестная ошибка';
+		// });
+
+		// // getAllTopics
+		// .addCase(forumThunks.getAllTopics.fulfilled, (state, action) => {
+		// 	state.isLoading = false;
+		// 	if (Array.isArray(action.payload)) {
+		// 		action.payload.forEach((topic) => {
+		// 			const existingTopicIndex = state.topics.findIndex((t) => t.id === topic.id);
+		// 			if (existingTopicIndex === -1) {
+		// 				state.topics.push({
+		// 					id: topic.id,
+		// 					title: topic.name,
+		// 					lastAuthorName: '',
+		// 					date: '',
+		// 				});
+		// 			} else {
+		// 				state.topics[existingTopicIndex].title = topic.name;
+		// 			}
+		// 		});
+		// 	}
+		// })
 		// .addCase(forumThunks.getAllTopics.pending, (state) => {
 		// 	state.isLoading = true;
 		// 	state.error = '';
 		// })
-		// .addCase(forumThunks.getAllTopics.fulfilled, (state,
-		// 	//		action
-		// ) => {
-		// 	state.isLoading = false;
-		// 	//	state.topics = action.payload;
-		// })
 		// .addCase(forumThunks.getAllTopics.rejected, (state, action) => {
 		// 	state.isLoading = false;
 		// 	state.error = action.error.message ?? 'Возникла неизвестная ошибка';
-		// })
+		// });
 
+			// createMessage
+			.addCase(forumThunks.createMessage.fulfilled, (state, action) => {
+				state.isLoading = false;
+				if (isUserData(action.payload)) {
+					const messageData = action.payload as unknown as CreateMessageResponse;
+					state.messages.push({
+						id: messageData.id,
+						isOwner: true,
+						text: messageData.text,
+					});
+				}
+			})
+			.addCase(forumThunks.createMessage.pending, (state) => {
+				state.isLoading = true;
+				state.error = '';
+			})
+			.addCase(forumThunks.createMessage.rejected, (state, action) => {
+				state.isLoading = false;
+				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
+			})
+
+			// getAllMessages
+			.addCase(forumThunks.getAllMessages.fulfilled, (state, action) => {
+				state.isLoading = false;
+				if (Array.isArray(action.payload)) {
+					action.payload.forEach((message) => {
+						const existingMessageIndex = state.messages.findIndex((m) => m.id === message.id);
+						if (existingMessageIndex === -1) {
+							state.messages.push({
+								id: message.id,
+								isOwner: message.isOwner,
+								text: message.text,
+								parentid: message.parentid,
+							});
+						} else {
+							state.messages[existingMessageIndex].text = message.text;
+						}
+					});
+				}
+			})
+			.addCase(forumThunks.getAllMessages.pending, (state) => {
+				state.isLoading = true;
+				state.error = '';
+			})
+			.addCase(forumThunks.getAllMessages.rejected, (state, action) => {
+				state.isLoading = false;
+				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
+			});
 	},
-
-});
+},
+);
 
 export const forumSelectors = {
 	forums: (state: RootState) => state.forumReducer.forums,

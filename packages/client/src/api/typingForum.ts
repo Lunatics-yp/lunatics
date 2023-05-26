@@ -76,3 +76,71 @@ export type Topics = {
   user_id: number;
   created_at: number;
 };
+
+export type createMessageRequest = {
+  action: string;
+  data: createMessageRequestData;
+};
+
+type createMessageRequestData = {
+  topic_id: number;
+  parent_message_id: number;
+  text: string;
+};
+
+export type CreateMessageResponse = {
+  data: CreateMessageResponseObj;
+};
+
+export type CreateMessageResponseObj = {
+  id: number;
+  user_id: number;
+  text: string;
+  topic_id: number;
+  parent_message_id: number;
+  created_at: number;
+};
+
+export type MessageListRequest = {
+  action: string;
+  data: MessageListRequestObj;
+};
+
+export type MessageListRequestObj = {
+  topic_id: number;
+  parent_message_id: number;
+};
+
+export type MessageListResponse = {
+  data: Messages[];
+};
+
+export type Messages = {
+  id: number;
+  user_id: number;
+  text: string;
+  topic_id: number;
+  parent_message_id: number;
+  created_at: number;
+  user: MessageUser;
+  reactions: ReactionsMassage[];
+  user_reaction: ReactionUser;
+};
+
+export type MessageUser = {
+  id: number;
+  login: string;
+  display_name: string;
+  avatar: string;
+};
+
+export type ReactionsMassage = {
+  reaction_id: number;
+  count: string;
+};
+
+export type ReactionUser = {
+  message_id: number;
+  user_id: number;
+  reaction_id: number;
+};

@@ -3,7 +3,8 @@ import {apiForum} from './request';
 import {
 	createForumRequest, CreateForumResponse, ForumListRequest,
 	ForumListResponse, createTopicRequest, CreateTopicResponse,
-	TopicListRequest, TopicListResponse,
+	TopicListRequest, TopicListResponse, createMessageRequest,
+	CreateMessageResponse, MessageListRequest, MessageListResponse,
 } from './typingForum';
 import {FORUM_URL} from './constants';
 
@@ -24,50 +25,13 @@ export const forumdAPI = {
 	getAllTopics: (data: TopicListRequest) => (
 		apiForum.post<TopicListResponse>(FORUM_URL, data)
 	),
-	// getAllForums: (data: type) => (
 
-	// )
+	createMessage: (data: createMessageRequest) => (
+		apiForum.post<CreateMessageResponse>(FORUM_URL, data)
+	),
 
-	// 	_allForums: (data: ForumForm) => (
-	// 		api1.post<Array<AllForums>>('/api/forum/forum...', data)
-	// 	),
-	// 	get allForums() {
-	// 		return this._allForums;
-	// 	},
-	// 	set allForums(value) {
-	// 		this._allForums = value;
-	// 	},
-
-	// 	getAllTopics: (data: getAllTopicsRequest) => (
-	// 		api1.post<Array<AllTopics>>(FORUM_URL, data)
-	// 	),
-
-	// 	getAllMessages: (data: ForumForm) => (
-	// 		api1.post<Array<AllMessages>>(FORUM_URL, data)
-	// 	),
-	// 	//___________________________________________________________________
-
-	// 	// getYandexServiceId(redirect_uri) => (
-	// 	// api1.get("/oauth/yandex/service-id",)),
-
-	// getForumById: (data: ForumForm) => (
-	// 	api1.post<Array<AllForums>>(FORUM_URL, data)
-	// ),
-
-	// 	getTopicById: (data: ForumForm) => (
-	// 		api1.post<Array<AllTopics>>(FORUM_URL, data)
-	// 	),
-
-	// 	getMessageById: (data: ForumForm) => (
-	// 		api1.post<Array<AllMessages>>(FORUM_URL, data)
-	// 	),
-
-	// 	createTopic: (data: ForumForm) => (
-	// 		api1.post<Array<NewForum>>(FORUM_URL, data)
-	// 	),
-
-	// 	createMessage: (data: ForumForm) => (
-	// 		api1.post<Array<NewMessage>>(FORUM_URL, data)
-	// 	),
+	getAllMessages: (data: MessageListRequest) => (
+		apiForum.post<MessageListResponse>(FORUM_URL, data)
+	),
 
 };
