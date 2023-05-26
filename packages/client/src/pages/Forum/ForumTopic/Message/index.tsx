@@ -23,11 +23,13 @@ export const Message =  forwardRef<HTMLDivElement, TMessageProps>(
 		const dispatch = useAppDispatch();
 
 		const [reactions] = useState(dataMock);
+		const countReactionOnMessage = message.reactions.length;
+		const [counter, setCounter] = useState(message.reactions.length);
 
 		const reactionsElements = reactions.map((reaction)=> (
 			<MessageReaction
 				key={reaction.type}
-				count={reaction.count}
+				count={counter}
 				type={reaction.type}
 				isReacted={reaction.isReacted}
 				activeReaction={message.activeReaction}
@@ -39,8 +41,10 @@ export const Message =  forwardRef<HTMLDivElement, TMessageProps>(
 			console.log('reacted', isReacted);
 			if (message.activeReaction) {
 				dispatch(deleteReaction({message_id: message.id}));
+				setCounter(countReactionOnMessage - 1);
 			} else {
 				dispatch(setReaction({message_id: message.id, reaction_id: type}));
+				setCounter(countReactionOnMessage + 1);
 			}
 		}
 
@@ -54,6 +58,7 @@ export const Message =  forwardRef<HTMLDivElement, TMessageProps>(
 			reactionsAPI.setReaction({message_id: 1, reaction_id: 1});
 			if (message.activeReaction !== type) {
 				dispatch(setReaction({message_id: message.id, reaction_id: type}));
+				setCounter(countReactionOnMessage + 1);
 			}
 			setIsReactionListActive(null);
 
