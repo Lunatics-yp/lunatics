@@ -44,11 +44,11 @@ export const Message =  forwardRef<HTMLDivElement, TMessageProps>(
 		}
 
 		function onReact(type: REACTIONS) {
-			reactionsAPI.setReaction({});
+			reactionsAPI.setReaction({message_id: 1, reaction_id: 1});
 			setIsReactionListActive(null);
-			
+
 			console.log('2');
-			
+
 			if (!reactions.find(item => item.type === type)) {
 				reactions.push({type: type, count:1, isReacted:true});
 			}
