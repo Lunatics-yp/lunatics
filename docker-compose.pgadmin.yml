@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  postgres:
+    extends:
+      file: docker-compose.yml
+      service: postgres
+    ports:
+      - "5433:5432"
+    networks:
+      - awesome
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    restart: always
+    environment:
+      - PGADMIN_LISTEN_PORT=80
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "8080:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+      - ./db/servers.json:/pgadmin4/servers.json
+    depends_on:
+      - postgres
+    networks:
+      - awesome
+
+volumes:
+  pg-data:
+  pgadmin-data:
+
+networks:
+  awesome:
+    driver: bridge
