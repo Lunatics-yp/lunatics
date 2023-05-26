@@ -34,18 +34,17 @@ export const ForumDiscussionBox = () => {
 		newTopic.reset();
 	}
 
-	// const renderTopic = () => {
-	// 	if (isLoading) return <div>Loading ...</div>
-	// 	if (error) return <div>Произошла ошибка {error}</div>
-	// 	if (discussions.length == 0) return <div>Нет форумов</div>
+	const renderTopic = () => {
+		if (isLoading) return <div>Loading ...</div>;
+		if (error) return <div>Произошла ошибка {error}</div>;
+		if (topics.length === 0) return <div>Нет форумов</div>;
 
-	// 	return (
-	// 		<>
-	// 			{topicElements}
-	// 		</>
-	// 	)
-
-	// }
+		return (
+			<>
+				{topicElements}
+			</>
+		);
+	};
 
 	return (
 		<main className={styles.wrapper}>
@@ -79,7 +78,7 @@ export const ForumDiscussionBox = () => {
 				</div>
 
 			</div>
-			{/* {renderTopic()} */}
+			{renderTopic()}
 		</main>
 	);
 };

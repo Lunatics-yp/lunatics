@@ -6,15 +6,11 @@ import {getNextId} from 'client/src/utils/getters';
 import {TForumState} from './typing';
 import {forumThunks} from './forumThunks';
 import {isUserData} from 'client/src/api/request/utilits';
-import {CreateTopicResponse, CreateMessageResponse} from 'client/src/api/typingForum';
+import {CreateMessageResponseObj, CreateTopicResponseObj} from 'client/src/api/typingForum';
 const initialState: TForumState = {
 	messages: [],
-	topics: [
-
-	],
-	forums: [
-
-	],
+	topics: [],
+	forums: [],
 	error: '',
 	isLoading: false,
 };
@@ -104,7 +100,7 @@ export const forumSlice = createSlice({
 		builder.addCase(forumThunks.createTopic.fulfilled, (state, action) => {
 			state.isLoading = false;
 			if (isUserData(action.payload)) {
-				const topicData = action.payload as unknown as CreateTopicResponse;
+				const topicData = action.payload as unknown as CreateTopicResponseObj;
 				state.topics.push({
 					id: topicData.id,
 					title: topicData.name,
@@ -156,7 +152,7 @@ export const forumSlice = createSlice({
 			.addCase(forumThunks.createMessage.fulfilled, (state, action) => {
 				state.isLoading = false;
 				if (isUserData(action.payload)) {
-					const messageData = action.payload as unknown as CreateMessageResponse;
+					const messageData = action.payload as unknown as CreateMessageResponseObj;
 					state.messages.push({
 						id: messageData.id,
 						isOwner: true,

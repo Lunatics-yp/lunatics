@@ -1,4 +1,4 @@
-import React, {KeyboardEvent, useEffect, useRef, useState} from 'react';
+import {KeyboardEvent, useEffect, useRef, useState} from 'react';
 import {useAppDispatch, useAppSelector} from 'client/src/hooks/redux';
 import {KEY_ENTER} from 'client/src/config/constants';
 import {forumActions, forumSelectors} from 'client/src/stores/reducers/forum/forumSlice';

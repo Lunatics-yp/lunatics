@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React, {forwardRef, useState} from 'react';
+import {forwardRef} from 'react';
 import {Avatar} from 'client/src/components/Avatar';
 import {Answer} from 'client/src/components/images/Answer';
 import {Like} from 'client/src/components/images/Like';

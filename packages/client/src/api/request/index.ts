@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {API_CONFIG} from 'client/src/config/api';
 import {interceptors} from './interceptors';
-import {OAUTH_FORUM_URL} from 'client/src/config/api';
+import {FORUM_URL} from 'client/src/config/api';
 
 /**
  * Экземпляр AXIOS для взаимодействия c API Яндекс.Практикума
@@ -24,7 +24,7 @@ const api = axios.create({
 interceptors(api);
 
 const apiForum = axios.create({
-	baseURL: OAUTH_FORUM_URL,
+	baseURL: FORUM_URL,
 	...options,
 });
 
