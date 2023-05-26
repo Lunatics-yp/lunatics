@@ -30,7 +30,7 @@ export const getAllForums = createAsyncThunk(
 );
 
 export const createTopic = createAsyncThunk(
-	'forum/getAllForums',
+	'forum/createTopic',
 	async (data: createTopicRequest, thunkAPI) => {
 		try {
 			return await forumdAPI.createTopic(data);
@@ -42,7 +42,7 @@ export const createTopic = createAsyncThunk(
 );
 
 export const getAllTopics = createAsyncThunk(
-	'forum/getAllForums',
+	'forum/getAllTopics',
 	async (data: createTopicRequest, thunkAPI) => {
 		try {
 			return await forumdAPI.getAllTopics(data);
@@ -54,7 +54,7 @@ export const getAllTopics = createAsyncThunk(
 );
 
 export const createMessage = createAsyncThunk(
-	'forum/getAllForums',
+	'forum/createMessage',
 	async (data: createMessageRequest, thunkAPI) => {
 		try {
 			return await forumdAPI.createMessage(data);
@@ -66,7 +66,7 @@ export const createMessage = createAsyncThunk(
 );
 
 export const getAllMessages = createAsyncThunk(
-	'forum/getAllForums',
+	'forum/getAllMessages',
 	async (data: createMessageRequest, thunkAPI) => {
 		try {
 			return await forumdAPI.getAllMessages(data);

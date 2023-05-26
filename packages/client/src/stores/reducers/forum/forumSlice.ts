@@ -8,39 +8,12 @@ import {forumThunks} from './forumThunks';
 import {isUserData} from 'client/src/api/request/utilits';
 import {CreateTopicResponse, CreateMessageResponse} from 'client/src/api/typingForum';
 const initialState: TForumState = {
-	messages: [
-		{
-			id: 1, isOwner: true,
-			text: 'Хей! Привет, мы рады поприветствовать тебя на нашем форуме!!!',
-			//	subtext: "Вот ответ",
-		},
-		{
-			id: 2, isOwner: false,
-			text: 'Как ты прошел этот непроходимый уровень?',
-			//  replay: 1,
-		},
-		{
-			id: 3, isOwner: false,
-			text: ' Ответ на соообщение вышеdcscdsscd',
-			parentid: 1,
-			//  replay: 1,
-		},
-		{
-			id: 4, isOwner: false,
-			text: 'новый ответ',
-			parentid: 1,
-			//  replay: 1,
-		},
-	],
+	messages: [],
 	topics: [
-		{id: 1, title: 'Sky Wars', lastAuthorName: 'Obi Wan Kenobi', date: 'the 22th of December'},
-		{id: 2, title: 'Благодарности', lastAuthorName: 'Евгений Малкин', date: 'вчера'},
-		{id: 3, title: 'Война и мир', lastAuthorName: 'Лев Толстой', date: '1867 год'},
-		{id: 4, title: 'Рецепт пиццы', lastAuthorName: 'Шеф', date: 'сегодня'},
+
 	],
 	forums: [
-		{id: 1, title: 'Название Форума 1', topicsCount: 1, answersCount: 2},
-		{id: 2, title: 'Название Форума 2', topicsCount: 58, answersCount: 77},
+
 	],
 	error: '',
 	isLoading: false,
@@ -53,7 +26,7 @@ export const forumSlice = createSlice({
 		//Форум
 		addForum(state, {payload}: PayloadAction<string>) {
 			state.forums.push({
-				id: getNextId(state.forums),
+				id: state.forums.length >= 1 ? getNextId(state.forums) : 1,
 				topicsCount: 0,
 				answersCount: 0,
 				title: payload,
@@ -62,7 +35,7 @@ export const forumSlice = createSlice({
 
 		addTopic: (state, action: PayloadAction<string>) => {
 			state.topics.push({
-				id: getNextId(state.topics),
+				id: state.topics.length >= 1 ? getNextId(state.topics) : 1,
 				title: action.payload,
 				lastAuthorName: '',
 				date: '',
@@ -70,7 +43,7 @@ export const forumSlice = createSlice({
 		},
 		// Сообщения
 		addMessage(state, {payload}: PayloadAction<string>) {
-			state.messages.push({id: getNextId(state.messages), isOwner: true, text: payload});
+			state.messages.push({id: state.messages.length >= 1 ? getNextId(state.messages) : 1, isOwner: true, text: payload});
 		},
 
 		//Ответ на сообщения
@@ -125,59 +98,59 @@ export const forumSlice = createSlice({
 			.addCase(forumThunks.getAllForums.rejected, (state, action) => {
 				state.isLoading = false;
 				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
+			});
+
+		// createTopic
+		builder.addCase(forumThunks.createTopic.fulfilled, (state, action) => {
+			state.isLoading = false;
+			if (isUserData(action.payload)) {
+				const topicData = action.payload as unknown as CreateTopicResponse;
+				state.topics.push({
+					id: topicData.id,
+					title: topicData.name,
+					lastAuthorName: '',
+					date: '',
+				});
+			}
+		});
+
+		builder.addCase(forumThunks.createTopic.pending, (state) => {
+			state.isLoading = true;
+			state.error = '';
+		});
+
+		builder.addCase(forumThunks.createTopic.rejected, (state, action) => {
+			state.isLoading = false;
+			state.error = action.error.message ?? 'Возникла неизвестная ошибка';
+		})
+
+			// getAllTopics
+			.addCase(forumThunks.getAllTopics.fulfilled, (state, action) => {
+				state.isLoading = false;
+				if (Array.isArray(action.payload)) {
+					action.payload.forEach((topic) => {
+						const existingTopicIndex = state.topics.findIndex((t) => t.id === topic.id);
+						if (existingTopicIndex === -1) {
+							state.topics.push({
+								id: topic.id,
+								title: topic.name,
+								lastAuthorName: '',
+								date: '',
+							});
+						} else {
+							state.topics[existingTopicIndex].title = topic.name;
+						}
+					});
+				}
 			})
-
-		// // createTopic
-		// builder.addCase(forumThunks.createTopic.fulfilled, (state, action) => {
-		// 	state.isLoading = false;
-		// 	if (isUserData(action.payload)) {
-		// 		const topicData = action.payload as unknown as CreateTopicResponse;
-		// 		state.topics.push({
-		// 			id: topicData.id,
-		// 			title: topicData.name,
-		// 			lastAuthorName: '',
-		// 			date: '',
-		// 		});
-		// 	}
-		// });
-
-		// builder.addCase(forumThunks.createTopic.pending, (state) => {
-		// 	state.isLoading = true;
-		// 	state.error = '';
-		// });
-
-		// builder.addCase(forumThunks.createTopic.rejected, (state, action) => {
-		// 	state.isLoading = false;
-		// 	state.error = action.error.message ?? 'Возникла неизвестная ошибка';
-		// });
-
-		// // getAllTopics
-		// .addCase(forumThunks.getAllTopics.fulfilled, (state, action) => {
-		// 	state.isLoading = false;
-		// 	if (Array.isArray(action.payload)) {
-		// 		action.payload.forEach((topic) => {
-		// 			const existingTopicIndex = state.topics.findIndex((t) => t.id === topic.id);
-		// 			if (existingTopicIndex === -1) {
-		// 				state.topics.push({
-		// 					id: topic.id,
-		// 					title: topic.name,
-		// 					lastAuthorName: '',
-		// 					date: '',
-		// 				});
-		// 			} else {
-		// 				state.topics[existingTopicIndex].title = topic.name;
-		// 			}
-		// 		});
-		// 	}
-		// })
-		// .addCase(forumThunks.getAllTopics.pending, (state) => {
-		// 	state.isLoading = true;
-		// 	state.error = '';
-		// })
-		// .addCase(forumThunks.getAllTopics.rejected, (state, action) => {
-		// 	state.isLoading = false;
-		// 	state.error = action.error.message ?? 'Возникла неизвестная ошибка';
-		// });
+			.addCase(forumThunks.getAllTopics.pending, (state) => {
+				state.isLoading = true;
+				state.error = '';
+			})
+			.addCase(forumThunks.getAllTopics.rejected, (state, action) => {
+				state.isLoading = false;
+				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
+			})
 
 			// createMessage
 			.addCase(forumThunks.createMessage.fulfilled, (state, action) => {
