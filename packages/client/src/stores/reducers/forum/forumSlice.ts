@@ -1,6 +1,6 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {transformReaction} from 'client/src/api/apiTransformers';
-import {isReactionData} from 'client/src/api/request/utilits';
+import {isErrorAPI, isReactionData} from 'client/src/api/request/utilits';
 import {RootState} from 'client/src/stores/store';
 import {getNextId} from 'client/src/utils/getters';
 import {reactionThunks} from './reactionsThunks';
@@ -71,7 +71,7 @@ export const forumSlice = createSlice({
 			})
 			// Удалить реакцию
 			.addCase(reactionThunks.deleteReaction.fulfilled, (state, action) => {
-				if (action.payload.deleted) {
+				if (!isErrorAPI(action.payload) && action.payload.deleted) {
 					const currentMessage = state.messages.find(
 						message => message.id === action.meta.arg.message_id,
 					);

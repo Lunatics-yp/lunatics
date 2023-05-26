@@ -92,7 +92,7 @@ export type  TSetReactionRequestData = {
 	reaction_id: number;
 };
 
-export type TDeleteReactionResponseData = {deleted: boolean};
+export type TDeleteReactionResponseData = {deleted: boolean} | TErrorAPI;
 
 export type TDeleteReactionRequestData = {
 	message_id: number;

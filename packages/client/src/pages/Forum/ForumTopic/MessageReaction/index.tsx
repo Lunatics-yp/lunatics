@@ -46,7 +46,7 @@ export const MessageReaction: FC<TMessageReactionProps> = (props) => {
 			<span
 				// будет использоваться activeReaction вместо isReacted
 				className={`${styles.reaction__count} ${isReacted && styles.reaction_me}`}>
-				{isReacted ? count + 1 : count}
+				{count}
 			</span>
 		</div>
 	);
