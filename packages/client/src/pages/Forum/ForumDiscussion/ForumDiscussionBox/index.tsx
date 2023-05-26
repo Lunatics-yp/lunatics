@@ -39,11 +39,6 @@ export const ForumDiscussionBox = () => {
 		if (error) return <div>Произошла ошибка {error}</div>;
 		if (topics.length === 0) return <div>Нет форумов</div>;
 
-		return (
-			<>
-				{topicElements}
-			</>
-		);
 	};
 
 	return (
