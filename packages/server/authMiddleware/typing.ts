@@ -7,7 +7,7 @@ export type TUserData = {
 	avatar: string;
 	email: string;
 	phone: string;
-	theme: number;
+	theme: string;
 };
 
 // Тип данных ответа от проверки авторизации
