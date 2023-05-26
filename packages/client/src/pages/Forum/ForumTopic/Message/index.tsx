@@ -1,6 +1,5 @@
 import {forwardRef, useState} from 'react';
 import {useAppDispatch} from 'client/src/hooks/redux';
-import {reactionsAPI} from 'client/src/api/reactions';
 import {deleteReaction, setReaction} from 'client/src/stores/reducers/forum/reactionsThunks';
 import {Avatar} from 'client/src/components/Avatar';
 import {REACTIONS} from 'client/src/config/constants';
@@ -26,7 +25,7 @@ export const Message =  forwardRef<HTMLDivElement, TMessageProps>(
 		const countReactionOnMessage = message.reactions.length;
 		const [counter, setCounter] = useState(message.reactions.length);
 
-		const reactionsElements = reactions.map((reaction)=> (
+		const reactionsElements = reactions.map((reaction) => (
 			<MessageReaction
 				key={reaction.type}
 				count={counter}
@@ -55,7 +54,6 @@ export const Message =  forwardRef<HTMLDivElement, TMessageProps>(
 		}
 
 		function onReactionFromWindow(type: REACTIONS) {
-			reactionsAPI.setReaction({message_id: 1, reaction_id: 1});
 			if (message.activeReaction !== type) {
 				dispatch(setReaction({message_id: message.id, reaction_id: type}));
 				setCounter(countReactionOnMessage + 1);
