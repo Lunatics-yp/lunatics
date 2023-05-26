@@ -33,3 +33,25 @@ export type Forums = {
   user_id: number;
   created_at: number;
 };
+
+export type createTopicRequest = {
+  action: string;
+  data: createTopicRequestData;
+};
+
+type createTopicRequestData = {
+  name: string;
+  forum_id: number;
+};
+
+export type CreateTopicResponse = {
+  data: CreateTopicResponseObj;
+};
+
+export type CreateTopicResponseObj = {
+  id: number;
+  name: string;
+  forum_id: number;
+  user_id: number;
+  created_at: number;
+};

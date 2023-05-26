@@ -4,7 +4,7 @@ import {TForumColumnProps} from './typing';
 import styles from './ForumColumn.module.scss';
 
 export const ForumColumn: FC<TForumColumnProps> = (props) => {
-	const {title, discussionsCount = 0, answersCount = 0, id} = props;
+	const {title, topicsCount = 0, answersCount = 0, id} = props;
 
 	return (
 		<>
@@ -19,7 +19,7 @@ export const ForumColumn: FC<TForumColumnProps> = (props) => {
 				{/* //	<button>Удалить</button> */}
 			</NavLink>
 			<div className={styles.item}>
-				<p>{discussionsCount}</p>
+				<p>{topicsCount}</p>
 			</div>
 			<div className={styles.item}>
 				<p>{answersCount}</p>

@@ -18,7 +18,7 @@ export const ForumBox = () => {
 			key={forum.id}
 			id={forum.id}
 			title={forum.title}
-			discussionsCount={forum.discussionsCount}
+			topicsCount={forum.topicsCount}
 			answersCount={forum.answersCount}
 		/>
 	));

@@ -1,6 +1,6 @@
 import {apiForum} from './request';
 /* eslint-disable-next-line max-len */
-import {createForumRequest, CreateForumResponse, ForumListRequest, ForumListResponse} from './typingForum';
+import {createForumRequest, CreateForumResponse, ForumListRequest, ForumListResponse, createTopicRequest, CreateTopicResponse} from './typingForum';
 import {FORUM_URL} from './constants';
 
 export const forumdAPI = {
@@ -11,6 +11,10 @@ export const forumdAPI = {
 
 	getAllForums: (data: ForumListRequest) => (
 		apiForum.post<ForumListResponse>(FORUM_URL, data)
+	),
+
+	createTopic: (data: createTopicRequest) => (
+		apiForum.post<CreateTopicResponse>(FORUM_URL, data)
 	),
 
 	// getAllForums: (data: type) => (

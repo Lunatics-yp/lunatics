@@ -1,7 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {forumdAPI} from 'client/src/api/forum';
 import {
-	createForumRequest, ForumListRequest,
+	createForumRequest, ForumListRequest, createTopicRequest,
 } from 'client/src/api/typingForum';
 
 //Для взаимодействия с асинхронными actions используем createAsyncThunk.
@@ -29,6 +29,17 @@ export const getAllForums = createAsyncThunk(
 	},
 );
 
+export const createTopic = createAsyncThunk(
+	'forum/getAllForums',
+	async (data: createTopicRequest, thunkAPI) => {
+		try {
+			return await forumdAPI.createTopic(data);
+		}
+		catch (e) {
+			return thunkAPI.rejectWithValue(e);
+		}
+	},
+);
 // export const createForum = createAsyncThunk(
 // 	'forum/createForum',
 // 	async (data: ForumForm, thunkAPI) => {
@@ -73,4 +84,4 @@ export const getAllForums = createAsyncThunk(
 // 	},
 // );
 
-export const forumThunks = {getAllForums, createForum};
+export const forumThunks = {getAllForums, createForum, createTopic};

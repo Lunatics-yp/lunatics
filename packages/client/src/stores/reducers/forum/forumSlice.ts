@@ -32,15 +32,15 @@ const initialState: TForumState = {
 			//  replay: 1,
 		},
 	],
-	discussions: [
+	topics: [
 		{id: 1, title: 'Sky Wars', lastAuthorName: 'Obi Wan Kenobi', date: 'the 22th of December'},
 		{id: 2, title: 'Благодарности', lastAuthorName: 'Евгений Малкин', date: 'вчера'},
 		{id: 3, title: 'Война и мир', lastAuthorName: 'Лев Толстой', date: '1867 год'},
 		{id: 4, title: 'Рецепт пиццы', lastAuthorName: 'Шеф', date: 'сегодня'},
 	],
 	forums: [
-		{id: 1, title: 'Название Форума 1', discussionsCount: 1, answersCount: 2},
-		{id: 2, title: 'Название Форума 2', discussionsCount: 58, answersCount: 77},
+		{id: 1, title: 'Название Форума 1', topicsCount: 1, answersCount: 2},
+		{id: 2, title: 'Название Форума 2', topicsCount: 58, answersCount: 77},
 	],
 	error: '',
 	isLoading: false,
@@ -50,19 +50,19 @@ export const forumSlice = createSlice({
 	name: 'forum',
 	initialState,
 	reducers: {
-		// Форум
-		// addForum(state, {payload}: PayloadAction<string>) {
-		// 	state.forums.push({
-		// 		id: getNextId(state.forums),
-		// 		discussionsCount: 0,
-		// 		answersCount: 0,
-		// 		title: payload,
-		// 	});
-		// },
+		//Форум
+		addForum(state, {payload}: PayloadAction<string>) {
+			state.forums.push({
+				id: getNextId(state.forums),
+				topicsCount: 0,
+				answersCount: 0,
+				title: payload,
+			});
+		},
 
 		addTopic: (state, action: PayloadAction<string>) => {
-			state.discussions.push({
-				id: getNextId(state.discussions),
+			state.topics.push({
+				id: getNextId(state.topics),
 				title: action.payload,
 				lastAuthorName: '',
 				date: '',
@@ -80,6 +80,7 @@ export const forumSlice = createSlice({
 			state.messages.push({id: messageId, isOwner: true, text: content, parentid});
 		},
 	},
+
 	extraReducers: (builder) => {
 		builder
 			//createForum
@@ -90,7 +91,7 @@ export const forumSlice = createSlice({
 					state.forums.push({
 						id: forumData.id,
 						title: forumData.name,
-						discussionsCount: 0,
+						topicsCount: 0,
 						answersCount: 0,
 					});
 				}
@@ -110,7 +111,7 @@ export const forumSlice = createSlice({
 					action.payload.forEach((forum) => {
 						const existingForumIndex = state.forums.findIndex((f) => f.id === forum.id);
 						if (existingForumIndex === -1) {
-							state.forums.push({id: forum.id, title: forum.name, discussionsCount: 0, answersCount: 0});
+							state.forums.push({id: forum.id, title: forum.name, topicsCount: 0, answersCount: 0});
 						} else {
 							state.forums[existingForumIndex].title = forum.name;
 						}
@@ -125,6 +126,21 @@ export const forumSlice = createSlice({
 				state.isLoading = false;
 				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
 			});
+		//createTopic
+		// .addCase(forumThunks.createTopic.pending, (state) => {
+		// 	state.isLoading = true;
+		// })
+		// .addCase(forumThunks.createTopic.fulfilled, (state,
+		// 	//action
+		// ) => {
+		// 	state.isLoading = false;
+		// 	state.error = '';
+		// 	//		state.topics.push(action.payload);
+		// })
+		// .addCase(forumThunks.createTopic.rejected, (state, action) => {
+		// 	state.isLoading = false;
+		// 	state.error = action.payload as string;
+		// });
 
 	},
 
@@ -132,7 +148,7 @@ export const forumSlice = createSlice({
 
 export const forumSelectors = {
 	forums: (state: RootState) => state.forumReducer.forums,
-	discussions: (state: RootState) => state.forumReducer.discussions,
+	topics: (state: RootState) => state.forumReducer.topics,
 	messages: (state: RootState) => state.forumReducer.messages,
 	isLoading: (state: RootState) => state.forumReducer.isLoading,
 	error: (state: RootState) => state.forumReducer.error,

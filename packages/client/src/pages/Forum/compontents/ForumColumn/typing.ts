@@ -1,6 +1,6 @@
 export type TForumColumnProps = {
 	id: number;
 	title: string;
-	discussionsCount: number;
+	topicsCount: number;
 	answersCount: number;
 };

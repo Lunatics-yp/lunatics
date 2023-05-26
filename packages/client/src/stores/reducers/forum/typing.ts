@@ -1,7 +1,7 @@
 export type TForumState = {
 	forums: TForum[];
 	messages: TMessage[];
-	discussions: TDiscussion[];
+	topics: TDiscussion[];
 	error: string;
 	isLoading: boolean;
 };
@@ -9,7 +9,7 @@ export type TForumState = {
 export type TForum = {
 	id: number;
 	title: string;
-	discussionsCount: number;
+	topicsCount: number;
 	answersCount: number;
 };
 

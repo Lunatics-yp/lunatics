@@ -10,17 +10,17 @@ import styles from './ForumDiscussionBox.module.scss';
 export const ForumDiscussionBox = () => {
 	const {disccussionTitle} = useParams();
 	const newTopic = useInput('');
-	const discussions = useAppSelector(forumSelectors.discussions);
+	const topics = useAppSelector(forumSelectors.topics);
 	const dispatch = useAppDispatch();
 	const isLoading = useAppSelector(forumSelectors.isLoading);
 	const error = useAppSelector(forumSelectors.error);
 
-	const topicElements = discussions.map((discussion) => (
+	const topicElements = topics.map((topics) => (
 		<ForumDiscussionColumn
-			key={discussion.id}
-			title={discussion.title}
-			lastAuthorName={discussion.lastAuthorName}
-			date={discussion.date}
+			key={topics.id}
+			title={topics.title}
+			lastAuthorName={topics.lastAuthorName}
+			date={topics.date}
 		/>
 	));
 
