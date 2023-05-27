@@ -3,6 +3,7 @@ import type {IncomingMessage} from 'http';
 import {userAPI} from 'server/api/user';
 import {yandexAuthUri} from 'server/authMiddleware/constants';
 import type {TUserData} from 'server/authMiddleware/typing';
+import {isValidUserData} from './userDataValidator';
 
 const yandexProxyResponseHandler = (
 	proxyRes: IncomingMessage,
@@ -22,7 +23,7 @@ const yandexProxyResponseHandler = (
 			try {
 				const data = JSON.parse(responseBody) as TUserData;
 				// Если ответ успешный и нет ошибки
-				if (res.statusCode === 200 && !('reason' in data)) {
+				if (res.statusCode === 200 && isValidUserData(data)) {
 					// Добавляем/обновляем юзера в БД
 					await userAPI.createOrUpdate({
 						id: data.id,

@@ -1,6 +1,5 @@
 import {Users} from 'server/api/models';
 import type {TUser} from 'server/api/models';
-import {dbConnect} from 'server/api/sequelize';
 
 export const userAPI = {
 	createOrUpdate: async (data: TUser) => {
@@ -9,7 +8,6 @@ export const userAPI = {
 			login,
 			avatar,
 		} = data;
-		await dbConnect();
 		await Users.upsert({
 			id: id,
 			login: login,

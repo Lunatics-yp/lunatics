@@ -3,6 +3,7 @@ import {
 	yandexProxyUserWithResponseHandler,
 	yandexCheckAuthorization,
 } from 'server/authMiddleware';
+import {xssMiddleware} from 'server/xssMiddleware';
 import type {ViteDevServer} from 'vite';
 import {createServer as createViteServer} from 'vite';
 import cors from 'cors';
@@ -10,6 +11,7 @@ import express from 'express';
 import path from 'path';
 
 import {forumApiHandler} from 'server/api/forum';
+import {dbConnect} from 'server/api/sequelize';
 
 import {getSsrPath, ssrContent} from './ssr';
 
@@ -20,6 +22,8 @@ export async function startServer(isDev: boolean, port: number) {
 	app.use(cors());
 
 	let vite: ViteDevServer;
+
+	await dbConnect();
 
 	if (isDev) {
 		vite = await createViteServer({
@@ -36,11 +40,13 @@ export async function startServer(isDev: boolean, port: number) {
 	app.use('/api/v2/auth/user', yandexProxyUserWithResponseHandler());
 	app.use('/api/v2', yandexProxyAll());
 
+	// Применяем middleware к приложению Express
+	app.use('/api/forum', xssMiddleware);
 	app.use('/api/forum', async (req, res) => {
 		try {
 			const authUserData = await yandexCheckAuthorization(req);
 			if (!authUserData.isAuth || !authUserData.user) {
-				res.sendStatus(403);
+				res.sendStatus(401);
 				return;
 			}
 			app.use(express.json());
