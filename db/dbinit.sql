@@ -59,6 +59,5 @@ CREATE INDEX idx_messages_id ON "Messages" ("id");
 CREATE INDEX idx_messages_topic ON "Messages" ("topic_id");
 CREATE INDEX idx_messages_parent ON "Messages" ("parent_message_id");
 CREATE INDEX idx_messagesreactions_message ON "MessagesReactions" ("message_id");
-CREATE INDEX idx_messagesreactions_reaction ON "MessagesReactions" ("reaction_id");
 CREATE INDEX idx_usertheme_user ON "UserTheme" ("user_id");
 
