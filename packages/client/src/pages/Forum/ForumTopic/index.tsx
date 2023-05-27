@@ -95,7 +95,6 @@ export const ForumTopic = () => {
 		/>
 	));
 
-	console.log(selectedParent);
 	return (
 		<main className={styles.wrapper}>
 			<div className={styles.container} ref={fullScreenBtnRef}>

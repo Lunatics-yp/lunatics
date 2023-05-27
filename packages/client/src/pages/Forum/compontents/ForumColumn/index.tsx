@@ -23,7 +23,6 @@ export const ForumColumn: FC<TForumColumnProps> = (props) => {
 			</div>
 			<div className={styles.item}>
 				<p>{answersCount}</p>
-
 			</div>
 		</>
 	);
