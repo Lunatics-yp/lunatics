@@ -4,7 +4,7 @@ import {Answer} from 'client/src/components/images/Answer';
 import {Like} from 'client/src/components/images/Like';
 import styles from './Message.module.scss';
 import {TMessageProps} from './typing';
-import {Submassage} from './Submassage';
+import {Submessage} from './Submessage';
 
 export const Message = forwardRef<HTMLDivElement, TMessageProps>(
 	function Message(props, ref) {
@@ -39,7 +39,7 @@ export const Message = forwardRef<HTMLDivElement, TMessageProps>(
 					</div>
 					<div className={styles.message__sub}>
 						{childrenMassage.map((submessage, index) => (
-							<Submassage key={index} message={submessage}/>
+							<Submessage key={index} message={submessage}/>
 						))}
 					</div>
 				</div>

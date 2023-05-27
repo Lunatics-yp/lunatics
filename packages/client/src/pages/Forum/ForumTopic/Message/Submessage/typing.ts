@@ -1,4 +1,4 @@
-export type TMessageProps = {
+export type TSubmessageProps = {
 	message: {
 		id: number;
 		isOwner: boolean;

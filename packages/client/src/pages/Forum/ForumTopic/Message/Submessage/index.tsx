@@ -1,9 +1,9 @@
 import {forwardRef} from 'react';
 import {Like} from 'client/src/components/images/Like';
 import styles from './Message.module.scss';
-import {TMessageProps} from './typing';
+import {TSubmessageProps} from './typing';
 
-export const Submassage = forwardRef<HTMLDivElement, TMessageProps>(
+export const Submessage = forwardRef<HTMLDivElement, TSubmessageProps>(
 	function Submessage({message}) {
 		const {isOwner, text} = message;
 

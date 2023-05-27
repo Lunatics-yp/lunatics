@@ -3,7 +3,6 @@ import {useAppDispatch, useAppSelector} from 'client/src/hooks/redux';
 import {KEY_ENTER} from 'client/src/config/constants';
 import {forumActions, forumSelectors} from 'client/src/stores/reducers/forum/forumSlice';
 import {Avatar} from 'client/src/components/Avatar';
-
 import {Button} from 'client/src/components/Button';
 import {useFullscreen} from 'client/src/hooks/useFullscreen';
 import {useInput} from 'client/src/hooks/useInput';
