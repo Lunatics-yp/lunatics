@@ -56,7 +56,7 @@ CREATE TABLE "UserTheme" (
   "user_id" INT NOT NULL,
   "theme_name" VARCHAR(255),
   PRIMARY KEY ("user_id"),
-  FOREIGN KEY ("user_id") REFERENCES "Users" ("id"),
+  FOREIGN KEY ("user_id") REFERENCES "Users" ("id") ON DELETE CASCADE,
 );
 
 CREATE INDEX idx_forums_id ON "Forums" ("id");
@@ -69,5 +69,5 @@ CREATE INDEX idx_messages_parent ON "Messages" ("parent_message_id");
 CREATE INDEX idx_reactions_id ON "Reactions" ("id");
 CREATE INDEX idx_messagesreactions_message ON "MessagesReactions" ("message_id");
 CREATE INDEX idx_messagesreactions_reaction ON "MessagesReactions" ("reaction_id");
-CREATE INDEX idx_usersthemes_user ON "UsersThemes" ("user_id");
+CREATE INDEX idx_usertheme_user ON "UserTheme" ("user_id");
 

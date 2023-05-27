@@ -2,6 +2,7 @@ import type {Request, Response} from 'express';
 import {dbConnect} from 'server/api/sequelize';
 import {isValidPostData} from 'server/api/utils/postDataValidator';
 import {themeApi} from 'server/api/theme/themeApi';
+import type {TApiFunction, TApiResponseData} from 'server/api/theme/typing';
 
 // Апи Тем
 export const themeApiHandler = async (
@@ -17,7 +18,7 @@ export const themeApiHandler = async (
 	await dbConnect();
 	const {action, data} = postData;
 
-	let apiResponse;
+	let apiResponse: TApiResponseData = {};
 
 	const actions = {
 		'theme.get': themeApi.get,
@@ -25,14 +26,13 @@ export const themeApiHandler = async (
 	};
 
 	if (action in actions) {
-		// @ts-ignore не нашлось вариантов
-		const apiFunction = actions[action];
+		const apiFunction = actions[action] as TApiFunction;
 		apiResponse = await apiFunction(data);
 	}
 
-	if (apiResponse) {
+	if (apiResponse.data) {
 		res.json({
-			theme: apiResponse,
+			data: apiResponse,
 		});
 		return;
 	}

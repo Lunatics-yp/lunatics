@@ -1,8 +1,13 @@
+import type {TApiData} from 'server/api/typing';
+
 export type TUserTheme = {
 	userId: number;
-	themeName: string;
+	themeName?: string;
 };
-export type T = string | {reason: string};
-export type TApiResponseData = Promise<T>;
 
-export type TApiFunction = (data: TUserTheme) => Promise<TApiResponseData>;
+export type TApiFunction = (data: TApiData) => Promise<TApiResponseData>;
+
+export type TApiResponseData = {
+	reason?: string;
+	data?: string;
+};

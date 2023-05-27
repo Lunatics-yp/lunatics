@@ -6,7 +6,7 @@ import {Users} from './users';
 // Модель таблицы UsersThemes
 type TUserTheme = {
 	user_id: number;
-	theme_name: number;
+	theme_name?: string;
 };
 
 const userThemeOptions = {

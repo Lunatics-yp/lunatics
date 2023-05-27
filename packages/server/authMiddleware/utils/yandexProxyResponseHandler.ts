@@ -32,7 +32,7 @@ const yandexProxyResponseHandler = (
 						avatar: data.avatar,
 					});
 					// И грузим его тему
-					data.theme = <string>await themeApi.get(data.id);
+					data.theme = await themeApi.get({userId: data.id});
 				}
 				// Собаем data обратно в строку и отправляем ответ клиенту
 				const modifiedResponse = JSON.stringify(data);
