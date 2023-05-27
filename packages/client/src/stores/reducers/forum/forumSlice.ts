@@ -57,7 +57,7 @@ export const forumSlice = createSlice({
 	},
 	extraReducers: builder => {
 		builder
-			// Обновить / добавить реакцию
+			// Добавить / обновить реакцию
 			.addCase(reactionThunks.setReaction.fulfilled, (state, action) => {
 				if (isReactionData(action.payload)) {
 					const payloadTransform = transformReaction(action.payload);
@@ -65,7 +65,44 @@ export const forumSlice = createSlice({
 						message => message.id === payloadTransform.messageId,
 					);
 					if (currentMessage) {
-						currentMessage.activeReaction = payloadTransform.reactionId;
+						const currentReaction = currentMessage.reactions.find(
+							reaction => reaction.reactionId === payloadTransform.reactionId,
+						);
+						// Добавить реакцию
+						if (!currentMessage.activeReaction) {
+							// Реакция с таким типом первая
+							if (!currentReaction) {
+								currentMessage.reactions.push({
+									reactionId: payloadTransform.reactionId,
+									count: 1,
+								});
+							} else {
+								currentMessage.reactions.push({
+									reactionId: payloadTransform.reactionId,
+									count: currentReaction.count + 1,
+								});
+							}
+							currentMessage.activeReaction = payloadTransform.reactionId;
+						} else {
+							// Обновить реакцию
+							const reactionsWithoutCurrent = currentMessage.reactions.filter(
+								reaction => reaction.reactionId !== payloadTransform.reactionId,
+							);
+							// Новая реакция с таким типом первая
+							if (!currentReaction) {
+								currentMessage.reactions.push({
+									reactionId: payloadTransform.reactionId,
+									count: 1,
+								});
+							} else {
+								currentMessage.reactions.push({
+									reactionId: payloadTransform.reactionId,
+									count: currentReaction.count + 1,
+								});
+							}
+							currentMessage.reactions = reactionsWithoutCurrent;
+							currentMessage.activeReaction = payloadTransform.reactionId;
+						}
 					}
 				}
 			})
@@ -76,6 +113,10 @@ export const forumSlice = createSlice({
 						message => message.id === action.meta.arg.message_id,
 					);
 					if (currentMessage) {
+						const reactionsWithoutCurrent = currentMessage.reactions.filter(
+							reaction => reaction.reactionId !== currentMessage.activeReaction,
+						);
+						currentMessage.reactions = reactionsWithoutCurrent;
 						currentMessage.activeReaction = null;
 					}
 				}

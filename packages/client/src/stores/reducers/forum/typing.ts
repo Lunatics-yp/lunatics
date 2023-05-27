@@ -24,8 +24,13 @@ export type TMessage = {
 	id: number;
 	isOwner: boolean;
 	text: string;
-	reactions: TReaction[];
+	reactions: TReactions[];
 	activeReaction: REACTIONS | null;
+};
+
+export type TReactions = {
+	reactionId: REACTIONS;
+	count: number;
 };
 
 export type TReaction = {
