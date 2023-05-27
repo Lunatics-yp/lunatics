@@ -11,6 +11,7 @@ import express from 'express';
 import path from 'path';
 
 import {forumApiHandler} from 'server/api/forum';
+import {dbConnect} from 'server/api/sequelize';
 
 import {getSsrPath, ssrContent} from './ssr';
 
@@ -21,6 +22,8 @@ export async function startServer(isDev: boolean, port: number) {
 	app.use(cors());
 
 	let vite: ViteDevServer;
+
+	await dbConnect();
 
 	if (isDev) {
 		vite = await createViteServer({
