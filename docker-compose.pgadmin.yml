@@ -28,7 +28,6 @@ services:
       - awesome
 
 volumes:
-  pg-data:
   pgadmin-data:
 
 networks:
