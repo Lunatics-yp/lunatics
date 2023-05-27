@@ -1,7 +1,6 @@
 import type {Request, Response} from 'express';
 import type {TUser} from 'server/api/models';
 import type {TApiFunction} from 'server/api/forum/typing';
-import {dbConnect} from 'server/api/sequelize';
 import {isValidPostData} from 'server/api/utils/postDataValidator';
 import type {TApiResponseData} from 'server/api/typing';
 import {forumApi} from './forumApi';
@@ -22,7 +21,7 @@ export const forumApiHandler = async (
 		res.status(400).json({reason: 'Неправильный запрос'});
 		return;
 	}
-	await dbConnect();
+
 	const {action, data} = postData;
 	let apiResponse: TApiResponseData = {};
 
