@@ -47,7 +47,7 @@ export const forumSlice = createSlice({
 		},
 
 		//Ответ на сообщения
-		addSubmessage(state, {payload}: PayloadAction<{parentd: number; content: string}>) {
+		addSubmessage(state, {payload}: PayloadAction<{parentid: number; content: string}>) {
 			const {parentid, content} = payload;
 			const messageId = getNextId(state.messages);
 			state.messages.push({id: messageId, isOwner: true, text: content, parentid});

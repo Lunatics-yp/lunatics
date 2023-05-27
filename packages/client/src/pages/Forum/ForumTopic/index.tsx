@@ -47,7 +47,7 @@ export const ForumTopic = () => {
 		newMessage.nulling();
 
 		if (selectedParent) {
-			dispatch(forumActions.addSubmassage(
+			dispatch(forumActions.addSubmessage(
 				{
 					parentid: selectedParent,
 					content: messageContent,

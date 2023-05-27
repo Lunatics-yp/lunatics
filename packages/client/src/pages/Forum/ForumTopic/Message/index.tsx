@@ -2,9 +2,9 @@ import {forwardRef} from 'react';
 import {Avatar} from 'client/src/components/Avatar';
 import {Answer} from 'client/src/components/images/Answer';
 import {Like} from 'client/src/components/images/Like';
-import styles from './Message.module.scss';
 import {TMessageProps} from './typing';
 import {Submessage} from './Submessage';
+import styles from './Message.module.scss';
 
 export const Message = forwardRef<HTMLDivElement, TMessageProps>(
 	function Message(props, ref) {

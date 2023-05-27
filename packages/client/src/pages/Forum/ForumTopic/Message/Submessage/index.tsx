@@ -1,6 +1,6 @@
 import {forwardRef} from 'react';
 import {Like} from 'client/src/components/images/Like';
-import styles from './Message.module.scss';
+import styles from './Submessage.module.scss';
 import {TSubmessageProps} from './typing';
 
 export const Submessage = forwardRef<HTMLDivElement, TSubmessageProps>(
