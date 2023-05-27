@@ -1,12 +1,13 @@
-/* eslint-disable max-len */
-import {CreateForumResponseObj} from 'client/src/api/typingForum';
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {RootState} from 'client/src/stores/store';
 import {getNextId} from 'client/src/utils/getters';
 import {TForumState} from './typing';
 import {forumThunks} from './forumThunks';
 import {isUserData} from 'client/src/api/request/utilits';
-import {CreateMessageResponseObj, CreateTopicResponseObj} from 'client/src/api/typingForum';
+import {
+	TCreateMessageResponseObj, TCreateTopicResponseObj,
+	TCreateForumResponseObj,
+} from 'client/src/api/typingForum';
 const initialState: TForumState = {
 	messages: [],
 	topics: [],
@@ -39,7 +40,10 @@ export const forumSlice = createSlice({
 		},
 		// Сообщения
 		addMessage(state, {payload}: PayloadAction<string>) {
-			state.messages.push({id: state.messages.length >= 1 ? getNextId(state.messages) : 1, isOwner: true, text: payload});
+			state.messages.push({
+				id: state.messages.length >= 1 ?
+					getNextId(state.messages) : 1, isOwner: true, text: payload,
+			});
 		},
 
 		//Ответ на сообщения
@@ -56,7 +60,7 @@ export const forumSlice = createSlice({
 			.addCase(forumThunks.createForum.fulfilled, (state, action) => {
 				state.isLoading = false;
 				if (isUserData(action.payload)) {
-					const forumData = action.payload as unknown as CreateForumResponseObj;
+					const forumData = action.payload as unknown as TCreateForumResponseObj;
 					state.forums.push({
 						id: forumData.id,
 						title: forumData.name,
@@ -80,7 +84,10 @@ export const forumSlice = createSlice({
 					action.payload.forEach((forum) => {
 						const existingForumIndex = state.forums.findIndex((f) => f.id === forum.id);
 						if (existingForumIndex === -1) {
-							state.forums.push({id: forum.id, title: forum.name, topicsCount: 0, answersCount: 0});
+							state.forums.push({
+								id: forum.id, title: forum.name,
+								topicsCount: 0, answersCount: 0,
+							});
 						} else {
 							state.forums[existingForumIndex].title = forum.name;
 						}
@@ -100,7 +107,7 @@ export const forumSlice = createSlice({
 		builder.addCase(forumThunks.createTopic.fulfilled, (state, action) => {
 			state.isLoading = false;
 			if (isUserData(action.payload)) {
-				const topicData = action.payload as unknown as CreateTopicResponseObj;
+				const topicData = action.payload as unknown as TCreateTopicResponseObj;
 				state.topics.push({
 					id: topicData.id,
 					title: topicData.name,
@@ -152,7 +159,7 @@ export const forumSlice = createSlice({
 			.addCase(forumThunks.createMessage.fulfilled, (state, action) => {
 				state.isLoading = false;
 				if (isUserData(action.payload)) {
-					const messageData = action.payload as unknown as CreateMessageResponseObj;
+					const messageData = action.payload as unknown as TCreateMessageResponseObj;
 					state.messages.push({
 						id: messageData.id,
 						isOwner: true,
@@ -174,7 +181,8 @@ export const forumSlice = createSlice({
 				state.isLoading = false;
 				if (Array.isArray(action.payload)) {
 					action.payload.forEach((message) => {
-						const existingMessageIndex = state.messages.findIndex((m) => m.id === message.id);
+						const existingMessageIndex = state.messages.findIndex(
+							(m) => m.id === message.id);
 						if (existingMessageIndex === -1) {
 							state.messages.push({
 								id: message.id,

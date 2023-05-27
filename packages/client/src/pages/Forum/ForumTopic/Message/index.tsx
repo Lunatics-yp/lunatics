@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import {forwardRef} from 'react';
 import {Avatar} from 'client/src/components/Avatar';
 import {Answer} from 'client/src/components/images/Answer';
@@ -21,8 +20,10 @@ export const Message = forwardRef<HTMLDivElement, TMessageProps>(
 			<div className={styles.wrapper} ref={ref}>
 				{!isOwner && <Avatar size='medium'/>}
 				<div
-					className={`${styles.message} ${styles.message_text} ${isOwner && styles.message_me
-					}`}
+					className={`${styles.message}
+					 ${styles.message_text} 
+					${isOwner && styles.message_me
+			}`}
 				>
 					<div className={styles.message__info}>
 						<span className={styles.message__author}>{isOwner ? 'Вы' : 'Trevor'}</span>

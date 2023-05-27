@@ -1,13 +1,14 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {forumdAPI} from 'client/src/api/forum';
 import {
-	createForumRequest, ForumListRequest, createTopicRequest, createMessageRequest,
+	TCreateForumRequest, TForumListRequest,
+	TCreateTopicRequest, TCreateMessageRequest,
 } from 'client/src/api/typingForum';
 
 //Для взаимодействия с асинхронными actions используем createAsyncThunk.
 export const createForum = createAsyncThunk(
 	'forum/createForum',
-	async (data: createForumRequest, thunkAPI) => {
+	async (data: TCreateForumRequest, thunkAPI) => {
 		try {
 			return await forumdAPI.createForum(data);
 		}
@@ -19,7 +20,7 @@ export const createForum = createAsyncThunk(
 
 export const getAllForums = createAsyncThunk(
 	'forum/getAllForums',
-	async (data: ForumListRequest, thunkAPI) => {
+	async (data: TForumListRequest, thunkAPI) => {
 		try {
 			return await forumdAPI.getAllForums(data);
 		}
@@ -31,7 +32,7 @@ export const getAllForums = createAsyncThunk(
 
 export const createTopic = createAsyncThunk(
 	'forum/createTopic',
-	async (data: createTopicRequest, thunkAPI) => {
+	async (data: TCreateTopicRequest, thunkAPI) => {
 		try {
 			return await forumdAPI.createTopic(data);
 		}
@@ -43,7 +44,7 @@ export const createTopic = createAsyncThunk(
 
 export const getAllTopics = createAsyncThunk(
 	'forum/getAllTopics',
-	async (data: createTopicRequest, thunkAPI) => {
+	async (data: TCreateTopicRequest, thunkAPI) => {
 		try {
 			return await forumdAPI.getAllTopics(data);
 		}
@@ -55,7 +56,7 @@ export const getAllTopics = createAsyncThunk(
 
 export const createMessage = createAsyncThunk(
 	'forum/createMessage',
-	async (data: createMessageRequest, thunkAPI) => {
+	async (data: TCreateMessageRequest, thunkAPI) => {
 		try {
 			return await forumdAPI.createMessage(data);
 		}
@@ -67,7 +68,7 @@ export const createMessage = createAsyncThunk(
 
 export const getAllMessages = createAsyncThunk(
 	'forum/getAllMessages',
-	async (data: createMessageRequest, thunkAPI) => {
+	async (data: TCreateMessageRequest, thunkAPI) => {
 		try {
 			return await forumdAPI.getAllMessages(data);
 		}
@@ -77,5 +78,7 @@ export const getAllMessages = createAsyncThunk(
 	},
 );
 
-// eslint-disable-next-line max-len
-export const forumThunks = {getAllForums, createForum, createTopic, getAllTopics, createMessage, getAllMessages};
+export const forumThunks = {
+	getAllForums, createForum, createTopic,
+	getAllTopics, createMessage, getAllMessages,
+};

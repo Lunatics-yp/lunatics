@@ -1,75 +1,54 @@
-export type createForumRequest = {
+export type TCreateForumRequest = {
   action: string;
-  data: createForumRequestData;
+  data: TCreateForumRequestData;
 };
 
-type createForumRequestData = {
+type TCreateForumRequestData = {
   name: string;
 };
 
-export type CreateForumResponse = {
-  data: CreateForumResponseObj;
+export type TCreateForumResponse = {
+  data: TCreateForumResponseObj;
 };
 
-export type CreateForumResponseObj = {
+export type TCreateForumResponseObj = {
   id: number;
   name: string;
   user_id: number;
   created_at: number;
 };
 
-export type ForumListRequest = {
+export type TForumListRequest = {
   action: string;
   data: object;
 };
 
-export type ForumListResponse = {
-  data: Forums[];
+export type TForumListResponse = {
+  data: TForums[];
 };
 
-export type Forums = {
+export type TForums = {
   id: number;
   name: string;
   user_id: number;
   created_at: number;
 };
 
-export type createTopicRequest = {
+export type TCreateTopicRequest = {
   action: string;
-  data: createTopicRequestData;
+  data: TCreateTopicRequestData;
 };
 
-type createTopicRequestData = {
+type TCreateTopicRequestData = {
   name: string;
   forum_id: number;
 };
 
-export type CreateTopicResponse = {
-  data: CreateTopicResponseObj;
+export type TCreateTopicResponse = {
+  data: TCreateTopicResponseObj;
 };
 
-export type CreateTopicResponseObj = {
-  id: number;
-  name: string;
-  forum_id: number;
-  user_id: number;
-  created_at: number;
-};
-
-export type TopicListRequest = {
-  action: string;
-  data: TopicListRequestObj;
-};
-
-export type TopicListRequestObj = {
-  forum_id: number;
-};
-
-export type TopicListResponse = {
-  data: Topics[];
-};
-
-export type Topics = {
+export type TCreateTopicResponseObj = {
   id: number;
   name: string;
   forum_id: number;
@@ -77,69 +56,90 @@ export type Topics = {
   created_at: number;
 };
 
-export type createMessageRequest = {
+export type TTopicListRequest = {
   action: string;
-  data: createMessageRequestData;
+  data: TTopicListRequestObj;
 };
 
-type createMessageRequestData = {
+export type TTopicListRequestObj = {
+  forum_id: number;
+};
+
+export type TTopicListResponse = {
+  data: TTopics[];
+};
+
+export type TTopics = {
+  id: number;
+  name: string;
+  forum_id: number;
+  user_id: number;
+  created_at: number;
+};
+
+export type TCreateMessageRequest = {
+  action: string;
+  data: TCreateMessageRequestData;
+};
+
+type TCreateMessageRequestData = {
   topic_id: number;
   parent_message_id: number;
   text: string;
 };
 
-export type CreateMessageResponse = {
-  data: CreateMessageResponseObj;
+export type TCreateMessageResponse = {
+  data: TCreateMessageResponseObj;
 };
 
-export type CreateMessageResponseObj = {
-  id: number;
-  user_id: number;
-  text: string;
-  topic_id: number;
-  parent_message_id: number;
-  created_at: number;
-};
-
-export type MessageListRequest = {
-  action: string;
-  data: MessageListRequestObj;
-};
-
-export type MessageListRequestObj = {
-  topic_id: number;
-  parent_message_id: number;
-};
-
-export type MessageListResponse = {
-  data: Messages[];
-};
-
-export type Messages = {
+export type TCreateMessageResponseObj = {
   id: number;
   user_id: number;
   text: string;
   topic_id: number;
   parent_message_id: number;
   created_at: number;
-  user: MessageUser;
-  reactions: ReactionsMassage[];
-  user_reaction: ReactionUser;
 };
 
-export type MessageUser = {
+export type TMessageListRequest = {
+  action: string;
+  data: TMessageListRequestObj;
+};
+
+export type TMessageListRequestObj = {
+  topic_id: number;
+  parent_message_id: number;
+};
+
+export type TMessageListResponse = {
+  data: TMessages[];
+};
+
+export type TMessages = {
+  id: number;
+  user_id: number;
+  text: string;
+  topic_id: number;
+  parent_message_id: number;
+  created_at: number;
+  user: TMessageUser;
+  reactions: TReactionsMassage[];
+  user_reaction: TReactionUser;
+};
+
+export type TMessageUser = {
   id: number;
   login: string;
   display_name: string;
   avatar: string;
 };
 
-export type ReactionsMassage = {
+export type TReactionsMassage = {
   reaction_id: number;
   count: string;
 };
 
-export type ReactionUser = {
+export type TReactionUser = {
   message_id: number;
   user_id: number;
   reaction_id: number;
