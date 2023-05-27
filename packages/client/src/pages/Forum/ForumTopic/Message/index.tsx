@@ -9,7 +9,7 @@ import {ReactionsList} from '../ReactionsList';
 import styles from './Message.module.scss';
 import {TMessageProps} from './typing';
 
-// оставил для демонстрации, перед merge уберу
+// @todo оставил для демонстрации, перед merge уберу
 const dataMock = [
 	{type: REACTIONS.PUKE, count:2, isReacted:true},
 	{type: REACTIONS.ANGRY, count:8, isReacted:false},

@@ -13,8 +13,8 @@ export const transformUser = (data: TUserDTO): TUser => ({
 	email: data.email,
 });
 
-export const transformReaction = (data: TReactionDTO): TReaction => ({
-	messageId: data.data.message_id,
-	userId: data.data.user_id,
-	reactionId: data.data.reaction_id,
+export const transformReaction = ({data}: TReactionDTO): TReaction => ({
+	messageId: data.message_id,
+	userId: data.user_id,
+	reactionId: data.reaction_id,
 });

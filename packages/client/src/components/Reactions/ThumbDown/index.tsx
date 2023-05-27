@@ -2,10 +2,15 @@ import './thumbDown.scss';
 
 export const ThumbDown = () => {
 	return (
-		<svg className='reaction--thumb-down'
-			fill='#ffce52' viewBox='0 0 24 24' strokeWidth='1' stroke='#ffb32b'
-		>
-			<path strokeLinecap='round' strokeLinejoin='round'
+		<svg
+			className='reaction--thumb-down'
+			fill='#ffce52'
+			viewBox='0 0 24 24'
+			strokeWidth='1'
+			stroke='#ffb32b'>
+			<path
+				strokeLinecap='round'
+				strokeLinejoin='round'
 				d='M6.633 10.5c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0
 				012.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0
 				00.322-1.672V3a.75.75 0 01.75-.75A2.25 2.25 0 0116.5 4.5c0
@@ -20,6 +25,5 @@ export const ThumbDown = () => {
 				4.665c0 1.194.232 2.333.654 3.375z'
 			/>
 		</svg>
-
 	);
 };
