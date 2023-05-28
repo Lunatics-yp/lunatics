@@ -2,16 +2,16 @@ import {
 	yandexProxyAll,
 	yandexProxyUserWithResponseHandler,
 	yandexCheckAuthorization,
-} from 'server/authMiddleware';
-import {xssMiddleware} from 'server/xssMiddleware';
+} from './authMiddleware';
+import {xssMiddleware} from './xssMiddleware';
 import type {ViteDevServer} from 'vite';
 import {createServer as createViteServer} from 'vite';
 import cors from 'cors';
 import express from 'express';
 import path from 'path';
 
-import {forumApiHandler} from 'server/api/forum';
-import {dbConnect} from 'server/api/sequelize';
+import {forumApiHandler} from './api/forum';
+import {dbConnect} from './api/sequelize';
 
 import {getSsrPath, ssrContent} from './ssr';
 

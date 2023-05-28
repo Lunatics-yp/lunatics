@@ -1,3 +1,3 @@
-import type {TApiData, TApiResponseData} from 'server/api/typing';
+import type {TApiData, TApiResponseData} from '../typing';
 
 export type TApiFunction = (data: TApiData) => Promise<TApiResponseData>;

@@ -1,5 +1,5 @@
-import {yandexProxyResponseHandler} from 'server/authMiddleware/utils/yandexProxyResponseHandler';
-import {filterCookies} from 'server/authMiddleware/utils/filterCookies';
+import {yandexProxyResponseHandler} from './yandexProxyResponseHandler';
+import {filterCookies} from './filterCookies';
 
 export {
 	yandexProxyResponseHandler,
