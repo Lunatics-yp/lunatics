@@ -1,4 +1,4 @@
-@import "client/src/styles/app";
+@import 'client/src/styles/app';
 
 .wrapper {
 	@include linkReset;
@@ -18,7 +18,7 @@
 	line-height: 1;
 	clip-path: polygon(80% 0%, 90% 0%, 100% 0, 100% 90%, 100% 100%, 15% 100%, 0 70%, 0 0);
 	padding-left: 30px;
-	ackground-color: ghostwhite;
+	background-color: ghostwhite;
 }
 
 .container {
