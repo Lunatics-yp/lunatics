@@ -1,5 +1,4 @@
 import type {Request, Response} from 'express';
-import {dbConnect} from 'server/api/sequelize';
 import {isValidPostData} from 'server/api/utils/postDataValidator';
 import {themeApi} from 'server/api/theme/themeApi';
 import type {TApiFunction, TApiResponseData} from 'server/api/theme/typing';
@@ -15,7 +14,6 @@ export const themeApiHandler = async (
 		res.status(400).json({reason: 'Неправильный запрос'});
 		return;
 	}
-	await dbConnect();
 	const {action, data} = postData;
 
 	let apiResponse: TApiResponseData = {};

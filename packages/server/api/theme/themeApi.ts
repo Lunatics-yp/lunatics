@@ -12,8 +12,11 @@ export const themeApi = {
 		try {
 			const userTheme = await UserTheme.findOne({where: {user_id: userId}});
 			const theme = userTheme?.dataValues.theme_name;
-			if(theme === null) return {data: ThemeNames.light};
-			else return {data: theme};
+			if(theme === null) {
+				return {data: ThemeNames.light};
+			} else {
+				return {data: theme};
+			}
 		} catch (e) {
 			return {reason: 'Ошибка получения темы'};
 		}

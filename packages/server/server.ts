@@ -65,7 +65,7 @@ export async function startServer(isDev: boolean, port: number) {
 		try {
 			await themeApiHandler(req, res);
 		} catch (e) {
-			console.log(e);
+			console.error(e);
 			res.sendStatus(500);
 		}
 	});
