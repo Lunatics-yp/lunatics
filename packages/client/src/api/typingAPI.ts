@@ -4,7 +4,6 @@ export type TErrorAPI = {
 
 export type TUserDTO = {
   id: number;
-  user_id: number;
   login: string;
   first_name: string;
   second_name: string;

@@ -78,7 +78,5 @@ export const getAllMessages = createAsyncThunk(
 	},
 );
 
-export const forumThunks = {
-	getAllForums, createForum, createTopic,
-	getAllTopics, createMessage, getAllMessages,
-};
+// eslint-disable-next-line max-len
+export const forumThunks = {getAllForums, createForum, createTopic,getAllTopics, createMessage, getAllMessages};

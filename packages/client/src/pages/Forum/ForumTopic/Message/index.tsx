@@ -20,10 +20,9 @@ export const Message = forwardRef<HTMLDivElement, TMessageProps>(
 			<div className={styles.wrapper} ref={ref}>
 				{!isOwner && <Avatar size='medium'/>}
 				<div
-					className={`${styles.message}
-					 ${styles.message_text} 
-					${isOwner && styles.message_me
-			}`}
+					// eslint-disable-next-line max-len
+					className={`${styles.message}  ${styles.message_text} ${isOwner && styles.message_me
+					}`}
 				>
 					<div className={styles.message__info}>
 						<span className={styles.message__author}>{isOwner ? 'Вы' : 'Trevor'}</span>

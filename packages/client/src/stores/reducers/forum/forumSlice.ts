@@ -4,10 +4,8 @@ import {getNextId} from 'client/src/utils/getters';
 import {TForumState} from './typing';
 import {forumThunks} from './forumThunks';
 import {isUserData} from 'client/src/api/request/utilits';
-import {
-	TCreateMessageResponseObj, TCreateTopicResponseObj,
-	TCreateForumResponseObj,
-} from 'client/src/api/typingForum';
+// eslint-disable-next-line max-len
+import {TCreateMessageResponseObj, TCreateTopicResponseObj,TCreateForumResponseObj} from 'client/src/api/typingForum';
 const initialState: TForumState = {
 	messages: [],
 	topics: [],
@@ -20,7 +18,7 @@ export const forumSlice = createSlice({
 	name: 'forum',
 	initialState,
 	reducers: {
-		//Форум
+		// Форум
 		addForum(state, {payload}: PayloadAction<string>) {
 			state.forums.push({
 				id: state.forums.length >= 1 ? getNextId(state.forums) : 1,
@@ -41,12 +39,12 @@ export const forumSlice = createSlice({
 		// Сообщения
 		addMessage(state, {payload}: PayloadAction<string>) {
 			state.messages.push({
-				id: state.messages.length >= 1 ?
-					getNextId(state.messages) : 1, isOwner: true, text: payload,
+				// eslint-disable-next-line max-len
+				id: state.messages.length >= 1 ? getNextId(state.messages) : 1, isOwner: true, text: payload,
 			});
 		},
 
-		//Ответ на сообщения
+		// Ответ на сообщения
 		addSubmessage(state, {payload}: PayloadAction<{parentid: number; content: string}>) {
 			const {parentid, content} = payload;
 			const messageId = getNextId(state.messages);
@@ -56,7 +54,7 @@ export const forumSlice = createSlice({
 
 	extraReducers: (builder) => {
 		builder
-			//createForum
+			// CreateForum
 			.addCase(forumThunks.createForum.fulfilled, (state, action) => {
 				state.isLoading = false;
 				if (isUserData(action.payload)) {
@@ -77,17 +75,15 @@ export const forumSlice = createSlice({
 				state.isLoading = false;
 				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
 			})
-			// getAllForums
+			// GetAllForums
 			.addCase(forumThunks.getAllForums.fulfilled, (state, action) => {
 				state.isLoading = false;
 				if (Array.isArray(action.payload)) {
 					action.payload.forEach((forum) => {
 						const existingForumIndex = state.forums.findIndex((f) => f.id === forum.id);
 						if (existingForumIndex === -1) {
-							state.forums.push({
-								id: forum.id, title: forum.name,
-								topicsCount: 0, answersCount: 0,
-							});
+							// eslint-disable-next-line max-len
+							state.forums.push({id: forum.id, title: forum.name, topicsCount: 0, answersCount: 0});
 						} else {
 							state.forums[existingForumIndex].title = forum.name;
 						}
@@ -103,7 +99,7 @@ export const forumSlice = createSlice({
 				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
 			});
 
-		// createTopic
+		// CreateTopic
 		builder.addCase(forumThunks.createTopic.fulfilled, (state, action) => {
 			state.isLoading = false;
 			if (isUserData(action.payload)) {
@@ -127,7 +123,7 @@ export const forumSlice = createSlice({
 			state.error = action.error.message ?? 'Возникла неизвестная ошибка';
 		})
 
-			// getAllTopics
+			// GetAllTopics
 			.addCase(forumThunks.getAllTopics.fulfilled, (state, action) => {
 				state.isLoading = false;
 				if (Array.isArray(action.payload)) {
@@ -155,7 +151,7 @@ export const forumSlice = createSlice({
 				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
 			})
 
-			// createMessage
+			// CreateMessage
 			.addCase(forumThunks.createMessage.fulfilled, (state, action) => {
 				state.isLoading = false;
 				if (isUserData(action.payload)) {
@@ -176,7 +172,7 @@ export const forumSlice = createSlice({
 				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
 			})
 
-			// getAllMessages
+			// GetAllMessages
 			.addCase(forumThunks.getAllMessages.fulfilled, (state, action) => {
 				state.isLoading = false;
 				if (Array.isArray(action.payload)) {

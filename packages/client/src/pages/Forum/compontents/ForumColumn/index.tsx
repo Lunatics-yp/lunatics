@@ -16,7 +16,6 @@ export const ForumColumn: FC<TForumColumnProps> = (props) => {
 					className={styles.forum}>
 					<p>{title}</p>
 				</div>
-				{/* //	<button>Удалить</button> */}
 			</NavLink>
 			<div className={styles.item}>
 				<p>{topicsCount}</p>
