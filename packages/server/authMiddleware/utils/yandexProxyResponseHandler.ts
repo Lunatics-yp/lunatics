@@ -4,6 +4,7 @@ import {userAPI} from 'server/api/user';
 import {yandexAuthUri} from 'server/authMiddleware/constants';
 import type {TUserData} from 'server/authMiddleware/typing';
 import {isValidUserData} from './userDataValidator';
+import {themeApi} from 'server/api/theme/themeApi';
 
 const yandexProxyResponseHandler = (
 	proxyRes: IncomingMessage,
@@ -32,9 +33,7 @@ const yandexProxyResponseHandler = (
 						avatar: data.avatar,
 					});
 					// И грузим его тему
-					// ...
-					const currentTheme = 100;
-					data.theme = currentTheme;
+					data.theme = await themeApi.get({userId: data.id});
 				}
 				// Собаем data обратно в строку и отправляем ответ клиенту
 				const modifiedResponse = JSON.stringify(data);
