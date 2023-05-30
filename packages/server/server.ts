@@ -13,7 +13,7 @@ import path from 'path';
 import {forumApiHandler} from './api/forum';
 import {dbConnect} from './api/sequelize';
 
-import {getSsrPath, ssrContent} from './ssr';
+import {getClientDir, getSsrPath, ssrContent} from './ssr';
 
 import cookieParser from 'cookie-parser';
 
@@ -33,7 +33,7 @@ export async function startServer(isDev: boolean, port: number) {
 		});
 		app.use(vite.middlewares);
 	} else {
-		const distPath = path.dirname(require.resolve('client/dist/index.html'));
+		const distPath = path.dirname(path.resolve(getClientDir(), 'dist/index.html'));
 		app.use('/assets', express.static(path.resolve(distPath, 'assets')));
 	}
 
@@ -43,6 +43,9 @@ export async function startServer(isDev: boolean, port: number) {
 	// Применяем middleware к приложению Express
 	app.use('/api/forum', xssMiddleware);
 	app.use('/api/forum', async (req, res) => {
+		if (req.method !== 'POST') {
+			res.sendStatus(500);
+		}
 		try {
 			const authUserData = await yandexCheckAuthorization(req);
 			if (!authUserData.isAuth || !authUserData.user) {
