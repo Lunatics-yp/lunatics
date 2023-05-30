@@ -72,7 +72,6 @@ export type TTopicListResponse = {
 };
 
 export type TTopics = {
-  time: string;
   id: number;
   name: string;
   forum_id: number;
@@ -124,11 +123,12 @@ export type TMessages = {
   text: string;
   topic_id: number;
   parent_message_id: number;
-  created_at: number;
-  user: TMessageUser;
-  reactions: TReactionsMassage[];
-	user_reaction: TReactionUser;
-	isOwner?: boolean;
+	created_at: number;
+	//сейчас поля не обязательные, изменю когда буду подключать бэк
+	//нужно будет структуру поменять немного
+  user?: TMessageUser;
+  reactions?: TReactionsMassage[];
+  user_reaction?: TReactionUser;
 };
 
 export type TMessageUser = {
