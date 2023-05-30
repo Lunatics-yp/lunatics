@@ -1,9 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {forumdAPI} from 'client/src/api/forum';
-import {
-	TCreateForumRequest, TForumListRequest,
-	TCreateTopicRequest, TCreateMessageRequest,
-} from 'client/src/api/typingForum';
+// eslint-disable-next-line max-len
+import {TCreateForumRequest, TForumListRequest,TCreateTopicRequest, TCreateMessageRequest} from 'client/src/api/typingForum';
 
 //Для взаимодействия с асинхронными actions используем createAsyncThunk.
 export const createForum = createAsyncThunk(
