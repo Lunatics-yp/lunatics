@@ -132,19 +132,20 @@ export const forumSlice = createSlice({
 				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
 			})
 
-		// // CreateMessage
-		// 	.addCase(forumThunks.createMessage.fulfilled, (state, action) => {
-		// 		const messageData = action.payload.data as unknown as TCreateMessageResponseObj;
-		// 		state.messages = [messageData, ...state. messages];
-		// 	})
-		// 	.addCase(forumThunks.createMessage.pending, (state) => {
-		// 		state.isLoading = true;
-		// 		state.error = '';
-		// 	})
-		// 	.addCase(forumThunks.createMessage.rejected, (state, action) => {
-		// 		state.isLoading = false;
-		// 		state.error = action.error.message ?? 'Возникла неизвестная ошибка';
-		// 	})
+		// CreateMessage
+			.addCase(forumThunks.createMessage.fulfilled, (state, action) => {
+				state.isLoading = false;
+				const messageData = action.payload.data as unknown as TCreateMessageResponseObj;
+				state.messages = [messageData, ...state.messages];
+			})
+			.addCase(forumThunks.createMessage.pending, (state) => {
+				state.isLoading = true;
+				state.error = '';
+			})
+			.addCase(forumThunks.createMessage.rejected, (state, action) => {
+				state.isLoading = false;
+				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
+			})
 
 			// GetAllMessages
 			.addCase(forumThunks.createMessage.rejected,(state, action: PayloadAction<any>) => {
