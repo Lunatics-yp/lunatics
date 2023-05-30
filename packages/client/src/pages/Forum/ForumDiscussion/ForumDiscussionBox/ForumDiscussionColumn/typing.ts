@@ -1,5 +1,5 @@
 export type TForumDiscussionColumnProps = {
-	title: string;
+	name: string;
 	lastAuthorName?: string;
 	date?: string;
 };

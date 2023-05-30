@@ -47,19 +47,17 @@ export const ForumTopic = () => {
 		newMessage.nulling();
 
 		if (selectedParent) {
-			dispatch(forumActions.addSubmessage(
-				{
-					parentid: selectedParent,
+			dispatch(
+				forumActions.addSubmessage({
+					parent_message_id: selectedParent,
 					content: messageContent,
-				},
-			));
+				}),
+			);
 			setSelectedParent(null);
 			return;
 		}
 
-		dispatch(forumActions.addMessage(
-			messageContent,
-		));
+		dispatch(forumActions.addMessage(messageContent));
 	}
 
 	// отправка сообщений на Enter и перенос строки на Shift + Enter
@@ -84,7 +82,7 @@ export const ForumTopic = () => {
 		});
 	}, []);
 
-	const MessageElements = messages.map((message) => (
+	const MessageElements = messages.map(message => (
 		<Message
 			key={message.id}
 			message={message}
@@ -105,7 +103,7 @@ export const ForumTopic = () => {
 				<div className={styles.footer}>
 					<div className={styles.reply}>
 						<div className={styles.reply__avatar}>
-							<Avatar size='small' src={user?.avatar}/>
+							<Avatar size="small" src={user?.avatar}/>
 						</div>
 						<div className={styles.reply__field}>
 							<textarea
@@ -126,12 +124,12 @@ export const ForumTopic = () => {
 						<div className={styles.footer__control}>
 							<div className={styles.footer__actions}>
 								<Button
-									text='Отмена'
+									text="Отмена"
 									onClick={onCancelHandler}
 									className={`${styles.cancel} ${styles.defaultBtn}`}
 								/>
 								<Button
-									text='Отправить'
+									text="Отправить"
 									onClick={onSubmitHandler}
 									className={`${styles.submit} ${styles.defaultBtn}`}
 								/>

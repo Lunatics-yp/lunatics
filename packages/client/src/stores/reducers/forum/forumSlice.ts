@@ -5,7 +5,9 @@ import {TForumState} from './typing';
 import {forumThunks} from './forumThunks';
 import {isUserData} from 'client/src/api/request/utilits';
 // eslint-disable-next-line max-len
-import {TCreateMessageResponseObj, TCreateTopicResponseObj,TCreateForumResponseObj} from 'client/src/api/typingForum';
+import {TCreateMessageResponseObj,TCreateForumResponseObj, TCreateTopicResponseObj, TMessages} from 'client/src/api/typingForum';
+import {AxiosResponse} from 'axios';
+
 const initialState: TForumState = {
 	messages: [],
 	topics: [],
@@ -45,10 +47,11 @@ export const forumSlice = createSlice({
 		},
 
 		// Ответ на сообщения
-		addSubmessage(state, {payload}: PayloadAction<{parentid: number; content: string}>) {
-			const {parentid, content} = payload;
+		// eslint-disable-next-line max-len
+		addSubmessage(state, {payload}: PayloadAction<{parent_message_id: number; content: string}>) {
+			const {parent_message_id, content} = payload;
 			const messageId = getNextId(state.messages);
-			state.messages.push({id: messageId, isOwner: true, text: content, parentid});
+			state.messages.push({id: messageId, isOwner: true, text: content, parent_message_id});
 		},
 	},
 
@@ -57,15 +60,8 @@ export const forumSlice = createSlice({
 			// CreateForum
 			.addCase(forumThunks.createForum.fulfilled, (state, action) => {
 				state.isLoading = false;
-				if (isUserData(action.payload)) {
-					const forumData = action.payload as unknown as TCreateForumResponseObj;
-					state.forums.push({
-						id: forumData.id,
-						title: forumData.name,
-						topicsCount: 0,
-						answersCount: 0,
-					});
-				}
+				const forumData = action.payload.data as unknown as TCreateForumResponseObj;
+				state.forums = [forumData, ...state.forums];
 			})
 			.addCase(forumThunks.createForum.pending, (state) => {
 				state.isLoading = true;
@@ -75,20 +71,12 @@ export const forumSlice = createSlice({
 				state.isLoading = false;
 				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
 			})
+
 			// GetAllForums
-			.addCase(forumThunks.getAllForums.fulfilled, (state, action) => {
+			// eslint-disable-next-line max-len
+			.addCase(forumThunks.getAllForums.fulfilled, (state, action: PayloadAction<any>) => {
 				state.isLoading = false;
-				if (Array.isArray(action.payload)) {
-					action.payload.forEach((forum) => {
-						const existingForumIndex = state.forums.findIndex((f) => f.id === forum.id);
-						if (existingForumIndex === -1) {
-							// eslint-disable-next-line max-len
-							state.forums.push({id: forum.id, title: forum.name, topicsCount: 0, answersCount: 0});
-						} else {
-							state.forums[existingForumIndex].title = forum.name;
-						}
-					});
-				}
+				state.forums = action.payload;
 			})
 			.addCase(forumThunks.getAllForums.pending, (state) => {
 				state.isLoading = true;
@@ -102,15 +90,8 @@ export const forumSlice = createSlice({
 		// CreateTopic
 		builder.addCase(forumThunks.createTopic.fulfilled, (state, action) => {
 			state.isLoading = false;
-			if (isUserData(action.payload)) {
-				const topicData = action.payload as unknown as TCreateTopicResponseObj;
-				state.topics.push({
-					id: topicData.id,
-					title: topicData.name,
-					lastAuthorName: '',
-					date: '',
-				});
-			}
+			const topicData = action.payload.data as unknown as TCreateTopicResponseObj;
+			state.topics = [topicData, ...state.topics];
 		});
 
 		builder.addCase(forumThunks.createTopic.pending, (state) => {
@@ -124,23 +105,9 @@ export const forumSlice = createSlice({
 		})
 
 			// GetAllTopics
-			.addCase(forumThunks.getAllTopics.fulfilled, (state, action) => {
+			.addCase(forumThunks.getAllTopics.fulfilled, (state, action: PayloadAction<any>) => {
 				state.isLoading = false;
-				if (Array.isArray(action.payload)) {
-					action.payload.forEach((topic) => {
-						const existingTopicIndex = state.topics.findIndex((t) => t.id === topic.id);
-						if (existingTopicIndex === -1) {
-							state.topics.push({
-								id: topic.id,
-								title: topic.name,
-								lastAuthorName: '',
-								date: '',
-							});
-						} else {
-							state.topics[existingTopicIndex].title = topic.name;
-						}
-					});
-				}
+				state.topics = action.payload;
 			})
 			.addCase(forumThunks.getAllTopics.pending, (state) => {
 				state.isLoading = true;
@@ -151,46 +118,24 @@ export const forumSlice = createSlice({
 				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
 			})
 
-			// CreateMessage
-			.addCase(forumThunks.createMessage.fulfilled, (state, action) => {
-				state.isLoading = false;
-				if (isUserData(action.payload)) {
-					const messageData = action.payload as unknown as TCreateMessageResponseObj;
-					state.messages.push({
-						id: messageData.id,
-						isOwner: true,
-						text: messageData.text,
-					});
-				}
-			})
-			.addCase(forumThunks.createMessage.pending, (state) => {
-				state.isLoading = true;
-				state.error = '';
-			})
-			.addCase(forumThunks.createMessage.rejected, (state, action) => {
-				state.isLoading = false;
-				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
-			})
+		// // CreateMessage
+		// .addCase(forumThunks.createMessage.fulfilled, (state, action) => {
+		// 	const messageData = action.payload.data as unknown as TMessages;
+		// 	state.messages = [messageData, ...state. messages];
+		// })
+		// .addCase(forumThunks.createMessage.pending, (state) => {
+		// 	state.isLoading = true;
+		// 	state.error = '';
+		// })
+		// .addCase(forumThunks.createMessage.rejected, (state, action) => {
+		// 	state.isLoading = false;
+		// 	state.error = action.error.message ?? 'Возникла неизвестная ошибка';
+		// })
 
 			// GetAllMessages
-			.addCase(forumThunks.getAllMessages.fulfilled, (state, action) => {
+			.addCase(forumThunks.createMessage.rejected,(state, action: PayloadAction<any>) => {
 				state.isLoading = false;
-				if (Array.isArray(action.payload)) {
-					action.payload.forEach((message) => {
-						const existingMessageIndex = state.messages.findIndex(
-							(m) => m.id === message.id);
-						if (existingMessageIndex === -1) {
-							state.messages.push({
-								id: message.id,
-								isOwner: message.isOwner,
-								text: message.text,
-								parentid: message.parentid,
-							});
-						} else {
-							state.messages[existingMessageIndex].text = message.text;
-						}
-					});
-				}
+				state.messages = action.payload;
 			})
 			.addCase(forumThunks.getAllMessages.pending, (state) => {
 				state.isLoading = true;
@@ -210,7 +155,8 @@ export const forumSelectors = {
 	messages: (state: RootState) => state.forumReducer.messages,
 	isLoading: (state: RootState) => state.forumReducer.isLoading,
 	error: (state: RootState) => state.forumReducer.error,
-	parentMessages: (state: RootState) => state.forumReducer.messages.filter(m => !m.parentid),
+	// eslint-disable-next-line max-len
+	parentMessages: (state: RootState) => state.forumReducer.messages.filter(m => !m.parent_message_id),
 };
 export const forumActions = forumSlice.actions;
 export default forumSlice.reducer;

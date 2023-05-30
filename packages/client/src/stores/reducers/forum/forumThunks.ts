@@ -22,7 +22,8 @@ export const getAllForums = createAsyncThunk(
 	'forum/getAllForums',
 	async (data: TForumListRequest, thunkAPI) => {
 		try {
-			return await forumdAPI.getAllForums(data);
+			const response = await forumdAPI.getAllForums(data);
+			return response.data;
 		}
 		catch (e) {
 			return thunkAPI.rejectWithValue(e);
@@ -46,7 +47,8 @@ export const getAllTopics = createAsyncThunk(
 	'forum/getAllTopics',
 	async (data: TCreateTopicRequest, thunkAPI) => {
 		try {
-			return await forumdAPI.getAllTopics(data);
+			const response = await forumdAPI.getAllTopics(data);
+			return response.data;
 		}
 		catch (e) {
 			return thunkAPI.rejectWithValue(e);
@@ -70,7 +72,8 @@ export const getAllMessages = createAsyncThunk(
 	'forum/getAllMessages',
 	async (data: TCreateMessageRequest, thunkAPI) => {
 		try {
-			return await forumdAPI.getAllMessages(data);
+			const response = await forumdAPI.getAllMessages(data);
+			return response.data;
 		}
 		catch (e) {
 			return thunkAPI.rejectWithValue(e);

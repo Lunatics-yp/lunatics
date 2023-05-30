@@ -7,9 +7,8 @@ export type TMessageProps = {
 
 export type TMessage = {
 	id: number;
-	isOwner: boolean;
+	isOwner?: boolean;
 	text: string;
 	subtext?: string;
-	parentid?: number;
-
+	parent_message_id?: number;
 };

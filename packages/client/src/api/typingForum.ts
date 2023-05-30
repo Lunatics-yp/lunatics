@@ -3,7 +3,7 @@ export type TCreateForumRequest = {
   data: TCreateForumRequestData;
 };
 
-type TCreateForumRequestData = {
+export type TCreateForumRequestData = {
   name: string;
 };
 
@@ -33,6 +33,8 @@ export type TForums = {
   user_id: number;
   created_at: number;
 };
+
+export type TForumListResponsesse = TForums[];
 
 export type TCreateTopicRequest = {
   action: string;

@@ -14,3 +14,27 @@ export type TUser = {
 	phone: string;
 	email: string;
 };
+
+export type TForumUser = {
+	id: number;
+	name: string;
+	user_id: number;
+	created_at: number;
+};
+
+export type TTopicUser = {
+	id: number;
+	name: string;
+	forum_id: number;
+	user_id: number;
+	created_at: number;
+};
+
+export type TMessageUser = {
+	id: number;
+	user_id: number;
+	text: string;
+	topic_id: number;
+	parent_message_id: number;
+	created_at: number;
+};
