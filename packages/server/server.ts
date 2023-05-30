@@ -18,11 +18,10 @@ import {getClientDir, getSsrPath, ssrContent} from './ssr';
 import cookieParser from 'cookie-parser';
 
 import {themeApiHandler} from './api/theme';
-import bodyParser from 'body-parser';
+
 export async function startServer(isDev: boolean, port: number) {
 	const app = express();
 	app.use(cors());
-	app.use(bodyParser.json());
 
 	let vite: ViteDevServer;
 
@@ -66,6 +65,7 @@ export async function startServer(isDev: boolean, port: number) {
 
 	app.use('/api/themes', async (req, res) => {
 		try {
+			app.use(express.json());
 			await themeApiHandler(req, res);
 		} catch (e) {
 			console.error(e);
