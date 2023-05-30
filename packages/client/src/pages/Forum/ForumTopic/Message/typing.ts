@@ -9,7 +9,6 @@ export type TMessage = {
 	id: number;
 	isOwner?: boolean;
 	text: string;
-	subtext: string;
+	subtext?: string;
 	parent_message_id?: number;
-	name: string;
 };

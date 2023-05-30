@@ -1,6 +1,11 @@
 import {apiForum} from './request';
-// eslint-disable-next-line max-len
-import {TCreateForumRequest, TCreateForumResponse, TForumListRequest, TForumListResponse, TCreateTopicRequest, TCreateTopicResponse, TTopicListRequest, TTopicListResponse, TCreateMessageRequest, TCreateMessageResponse, TMessageListRequest, TMessageListResponse} from './typingForum';
+
+import {
+	TCreateForumRequest, TCreateForumResponse, TForumListRequest,
+	TForumListResponse, TCreateTopicRequest, TCreateTopicResponse,
+	TTopicListRequest, TTopicListResponse, TCreateMessageRequest,
+	TCreateMessageResponse, TMessageListRequest, TMessageListResponse,
+} from './typingForum';
 import {FORUM_URL} from './constants';
 
 export const forumdAPI = {
