@@ -4,10 +4,9 @@ import {RootState} from 'client/src/stores/store';
 import {getNextId} from 'client/src/utils/getters';
 import {TForumState} from './typing';
 import {forumThunks} from './forumThunks';
-import {isUserData} from 'client/src/api/request/utilits';
+
 // eslint-disable-next-line max-len
-import {TCreateMessageResponseObj,TCreateForumResponseObj, TCreateTopicResponseObj, TMessages} from 'client/src/api/typingForum';
-import {AxiosResponse} from 'axios';
+import {TCreateForumResponseObj, TCreateTopicResponseObj} from 'client/src/api/typingForum';
 
 const initialState: TForumState = {
 	messages: [],
@@ -24,9 +23,10 @@ export const forumSlice = createSlice({
 		// Форум
 		addForum(state, {payload}: PayloadAction<string>) {
 			state.forums.push({
-			  id: state.forums.length >= 1 ? getNextId(state.forums) : 1,
-			  answersCount: 0,
-			  name: payload, // Change 'title' to 'name'
+				id: state.forums.length >= 1 ? getNextId(state.forums) : 1,
+				name: payload,
+				user_id: state.forums.length >= 1 ? getNextId(state.forums) : 1,
+				created_at: 0,
 			});
 		  },
 
@@ -34,8 +34,10 @@ export const forumSlice = createSlice({
 			state.topics.push({
 				id: state.topics.length >= 1 ? getNextId(state.topics) : 1,
 				name: action.payload,
-				lastAuthorName: '',
-				date: '',
+				time: '',
+				forum_id: 0,
+				user_id: 0,
+				created_at: 0,
 			});
 		},
 		// Сообщения
@@ -43,6 +45,12 @@ export const forumSlice = createSlice({
 			state.messages.push({
 				// eslint-disable-next-line max-len
 				id: state.messages.length >= 1 ? getNextId(state.messages) : 1, isOwner: true, text: payload,
+				user_id: 0,
+				topic_id: 0,
+				parent_message_id: 0,
+				created_at: 0,
+				user: undefined,
+				reactions: [],
 			});
 		},
 
@@ -51,7 +59,17 @@ export const forumSlice = createSlice({
 		addSubmessage(state, {payload}: PayloadAction<{parent_message_id: number; content: string}>) {
 			const {parent_message_id, content} = payload;
 			const messageId = getNextId(state.messages);
-			state.messages.push({id: messageId, isOwner: true, text: content, parent_message_id});
+			state.messages.push({
+				id: messageId,
+				isOwner: true,
+				text: content,
+				parent_message_id,
+				user_id: 0,
+				topic_id: 0,
+				created_at: 0,
+				reactions: [],
+				user_reaction: 0,
+			});
 		},
 	},
 

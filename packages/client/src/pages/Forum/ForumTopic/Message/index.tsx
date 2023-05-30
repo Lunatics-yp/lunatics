@@ -8,7 +8,7 @@ import styles from './Message.module.scss';
 
 export const Message = forwardRef<HTMLDivElement, TMessageProps>(function Message(props, ref) {
 	const {message, messages, setSelectedParent} = props;
-	const {isOwner, text, id} = message;
+	const {isOwner, text, id, name} = message;
 	const childrenMassage = messages.filter(el => el.parent_message_id === id);
 
 	const newSubmassage = () => {
@@ -24,7 +24,7 @@ export const Message = forwardRef<HTMLDivElement, TMessageProps>(function Messag
 					isOwner && styles.message_me
 				}`}>
 				<div className={styles.message__info}>
-					<span className={styles.message__author}>{isOwner ? 'Вы' : 'Trevor'}</span>
+					<span className={styles.message__author}>{name}</span>
 					<span className={styles.message__date}>23 мар 2023 в 21:31</span>
 				</div>
 				<p>{text}</p>

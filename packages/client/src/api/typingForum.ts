@@ -72,6 +72,7 @@ export type TTopicListResponse = {
 };
 
 export type TTopics = {
+  time: string;
   id: number;
   name: string;
   forum_id: number;
@@ -126,7 +127,8 @@ export type TMessages = {
   created_at: number;
   user: TMessageUser;
   reactions: TReactionsMassage[];
-  user_reaction: TReactionUser;
+	user_reaction: TReactionUser;
+	isOwner?: boolean;
 };
 
 export type TMessageUser = {

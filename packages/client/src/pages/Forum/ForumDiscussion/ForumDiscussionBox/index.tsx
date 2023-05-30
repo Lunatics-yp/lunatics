@@ -16,12 +16,7 @@ export const ForumDiscussionBox = () => {
 	const error = useAppSelector(forumSelectors.error);
 
 	const topicElements = topics.map(topics => (
-		<ForumDiscussionColumn
-			key={topics.id}
-			title={topics.title}
-			lastAuthorName={topics.lastAuthorName}
-			date={topics.date}
-		/>
+		<ForumDiscussionColumn key={topics.id} name={topics.name}/>
 	));
 
 	function createTopic() {
