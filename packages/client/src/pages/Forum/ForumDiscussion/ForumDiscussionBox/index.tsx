@@ -15,7 +15,7 @@ export const ForumDiscussionBox = () => {
 	const isLoading = useAppSelector(forumSelectors.isLoading);
 	const error = useAppSelector(forumSelectors.error);
 
-	const topicElements = topics.map((topics) => (
+	const topicElements = topics.map(topics => (
 		<ForumDiscussionColumn
 			key={topics.id}
 			title={topics.title}
@@ -38,7 +38,6 @@ export const ForumDiscussionBox = () => {
 		if (isLoading) return <div>Loading ...</div>;
 		if (error) return <div>Произошла ошибка {error}</div>;
 		if (topics.length === 0) return <div>Нет форумов</div>;
-
 	};
 
 	return (
@@ -57,21 +56,17 @@ export const ForumDiscussionBox = () => {
 						<input
 							onChange={newTopic.onChange}
 							value={newTopic.value}
-							type='text'
-							placeholder='Новый топик'
+							type="text"
+							placeholder="Новый топик"
 							className={styles.input}
 							maxLength={50}
 						/>
-						<Button
-							text='Создать топик'
-							onClick={createTopic}
-						/>
+						<Button text="Создать топик" onClick={createTopic}/>
 					</div>
 				</header>
 				<div className={styles.container__elements}>
 					{topicElements.length > 0 && topicElements}
 				</div>
-
 			</div>
 			{renderTopic()}
 		</main>

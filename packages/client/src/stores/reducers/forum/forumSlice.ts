@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {RootState} from 'client/src/stores/store';
 import {getNextId} from 'client/src/utils/getters';
@@ -23,17 +24,16 @@ export const forumSlice = createSlice({
 		// Форум
 		addForum(state, {payload}: PayloadAction<string>) {
 			state.forums.push({
-				id: state.forums.length >= 1 ? getNextId(state.forums) : 1,
-				topicsCount: 0,
-				answersCount: 0,
-				title: payload,
+			  id: state.forums.length >= 1 ? getNextId(state.forums) : 1,
+			  answersCount: 0,
+			  name: payload, // Change 'title' to 'name'
 			});
-		},
+		  },
 
 		addTopic: (state, action: PayloadAction<string>) => {
 			state.topics.push({
 				id: state.topics.length >= 1 ? getNextId(state.topics) : 1,
-				title: action.payload,
+				name: action.payload,
 				lastAuthorName: '',
 				date: '',
 			});
