@@ -4,7 +4,7 @@ import {userAPI} from '../../api/user';
 import {yandexAuthUri} from '../constants';
 import type {TUserData} from '../typing';
 import {isValidUserData} from './userDataValidator';
-import {themeApi} from 'server/api/theme/themeApi';
+import {themeApi} from '../../api/theme/themeApi';
 
 const yandexProxyResponseHandler = (
 	proxyRes: IncomingMessage,

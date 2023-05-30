@@ -17,7 +17,7 @@ import {getClientDir, getSsrPath, ssrContent} from './ssr';
 
 import cookieParser from 'cookie-parser';
 
-import {themeApiHandler} from 'server/api/theme';
+import {themeApiHandler} from './api/theme';
 import bodyParser from 'body-parser';
 export async function startServer(isDev: boolean, port: number) {
 	const app = express();
