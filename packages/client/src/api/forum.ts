@@ -1,5 +1,4 @@
 import {apiForum} from './request';
-
 import {
 	TCreateForumRequest, TCreateForumResponse, TForumListRequest,
 	TForumListResponse, TCreateTopicRequest, TCreateTopicResponse,
