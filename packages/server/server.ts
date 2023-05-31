@@ -25,7 +25,16 @@ export async function startServer(isDev: boolean, port: number) {
 
 	let vite: ViteDevServer;
 
+	const distPath = path.dirname(path.resolve(getClientDir(), 'dist/index.html'));
+
 	await dbConnect();
+
+	// Раздаём статику для production
+	if (!isDev) {
+		app.use('/favicon.png', express.static(path.resolve(distPath, 'favicon.png')));
+		app.use('/serviceWorker.js', express.static(path.resolve(distPath, 'serviceWorker.js')));
+		app.use('/assets', express.static(path.resolve(distPath, 'assets')));
+	}
 
 	if (isDev) {
 		vite = await createViteServer({
@@ -34,9 +43,6 @@ export async function startServer(isDev: boolean, port: number) {
 			appType: 'custom',
 		});
 		app.use(vite.middlewares);
-	} else {
-		const distPath = path.dirname(path.resolve(getClientDir(), 'dist/index.html'));
-		app.use('/assets', express.static(path.resolve(distPath, 'assets')));
 	}
 
 	app.use('/api/v2/auth/user', yandexProxyUserWithResponseHandler());
@@ -63,6 +69,7 @@ export async function startServer(isDev: boolean, port: number) {
 		}
 	});
 
+	app.use('/api/themes', xssMiddleware);
 	app.use('/api/themes', async (req, res) => {
 		try {
 			app.use(express.json());
