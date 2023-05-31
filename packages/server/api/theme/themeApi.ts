@@ -22,6 +22,7 @@ export const themeApi = {
 		}
 	},
 	change: async (data: TUserTheme): Promise<TApiResponseData> => {
+		console.log('data change', data);
 		const {themeName, userId} = data;
 		if (!themeName || !userId) {
 			return {reason: 'Неправильные данные для метода change theme'};

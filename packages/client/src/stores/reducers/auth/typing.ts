@@ -2,6 +2,7 @@ export type TAuthState = {
 	user: TUser | null;
 	isLoading: boolean;
 	error: string;
+	theme?: string | null;
   };
 
 export type TUser = {
@@ -13,4 +14,11 @@ export type TUser = {
 	avatar: string | null;
 	phone: string;
 	email: string;
+};
+export type TTheme = {
+	action: string,
+	data: {
+		userId: number,
+		themeName: string
+	}
 };

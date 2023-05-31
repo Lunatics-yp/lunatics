@@ -1,0 +1,86 @@
+.toggleCheckBox {
+	display: none;
+}
+
+label {
+	display: block;
+	position: absolute;
+	right: 10%;
+	left: 0;
+	width: 65px;
+	height: 30px;
+	margin: 0 auto;
+	background-color: var(--colorBackground);
+	border-radius: 58px;
+	cursor: pointer;
+	transition: 0.3s ease background-color;
+	overflow: hidden;
+}
+
+.starContainer {
+	position: absolute;
+	top: 4px;
+	left: 7px;
+	width: 22px;
+	height: 22px;
+	background-color: var(--colorYellowGamboge);
+	border-radius: 50%;
+	z-index: 1;
+}
+
+.star1 {
+	position: relative;
+}
+
+.star2 {
+	position: absolute;
+	transform: rotateZ(36deg);
+}
+
+.star {
+	top: -5px;
+	left: -2px;
+	font-size: 32px;
+	line-height: 31px;
+	color: var(--colorYellowGamboge);
+	transition: 0.3s ease color;
+}
+
+.moon::before {
+	content: '';
+	position: absolute;
+	top: -5px;
+	left: -10px;
+	width: 21px;
+	height: 21px;
+	background-color: var(--colorBackground);
+	border-radius: 50%;
+	transition: 0.3s ease background-color;
+}
+
+.toggleCheckBox:checked + label .moon {
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+	width: 21px;
+	height: 21px;
+	background-color: var(--colorWhite);
+	border-radius: 50%;
+	transition: 0.3s ease bottom;
+}
+
+.toggleCheckBox:checked + label {
+	background-color: var(--colorBlack);
+}
+
+.toggleCheckBox:checked + label .starContainer {
+	display: none;
+}
+
+.toggleCheckBox:checked + label .star {
+	color: var(--colorYellowGamboge);
+}
+
+.toggleCheckBox:checked + label .moon::before {
+	background-color: var(--colorBlack);
+}

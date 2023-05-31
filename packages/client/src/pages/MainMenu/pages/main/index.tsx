@@ -8,6 +8,7 @@ import {Menu} from 'client/src/components/Menu';
 import {Footer} from 'client/src/components/Footer';
 import {Button} from 'client/src/components/Button';
 import {Home} from 'client/src/components/images/Home';
+import {ThemesToggle} from 'client/src/components/ThemesToggle';
 
 // Компонент меню Главное меню
 export const MainMenuMain = () => {
@@ -40,6 +41,7 @@ export const MainMenuMain = () => {
 			<Header>
 				<Home/>
 				<div>Главное меню</div>
+				<ThemesToggle/>
 			</Header>
 			<Menu>
 				<Button

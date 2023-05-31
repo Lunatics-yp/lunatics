@@ -12,3 +12,9 @@ export type TUserDTO = {
   phone: string;
   email: string;
 };
+
+export type TThemeDTO = {
+	data: {
+		data: string;
+	};
+};
