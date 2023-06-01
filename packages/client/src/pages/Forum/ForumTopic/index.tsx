@@ -14,6 +14,7 @@ export const ForumTopic = () => {
 
 	const {user} = useAppSelector(state => state.authReducer);
 	const [isFocusing, setIsFocusing] = useState(false);
+	const [isReactionListActive, setIsReactionListActive] = useState<number | null>(null);
 	const newMessage = useInput('');
 	const dispatch = useAppDispatch();
 	const messages = useAppSelector(forumSelectors.messages);
@@ -36,6 +37,7 @@ export const ForumTopic = () => {
 
 	const messageContent = newMessage.value.trim();
 	function onSubmitHandler() {
+		setIsReactionListActive(null);
 		if (messageContent) {
 			dispatch(forumActions.addMessage(
 				messageContent,
@@ -69,6 +71,8 @@ export const ForumTopic = () => {
 
 	const MessageElements = messages.map((message) => (
 		<Message
+			isReactionListActive={isReactionListActive}
+			setIsReactionListActive={setIsReactionListActive}
 			key={message.id}
 			message={message}
 			ref={messagesEndRef}
