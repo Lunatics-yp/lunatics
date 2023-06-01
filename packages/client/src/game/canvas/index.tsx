@@ -46,7 +46,6 @@ export const Canvas = (props: TCanvas) => {
 
 	const canvas = React.useRef<HTMLCanvasElement>(null);
 	React.useEffect(() => {
-		console.log('setCtx');
 		if (canvas.current) {
 			setCtx(canvas.current.getContext('2d') as CanvasRenderingContext2D);
 		}
@@ -61,7 +60,6 @@ export const Canvas = (props: TCanvas) => {
 	}, [ctx]);
 
 	const loadImageAndSplitImage = async () => {
-		console.log('loadImageAndSplitImage');
 		const background = new Image();
 		const burn = new Image();
 		const destroyed = new Image();
@@ -96,7 +94,6 @@ export const Canvas = (props: TCanvas) => {
 	};
 
 	React.useEffect(() => {
-		console.log('redraw', redraw, selfRedraw);
 		if (!ctx) {
 			return;
 		}
@@ -117,7 +114,6 @@ export const Canvas = (props: TCanvas) => {
 	};
 
 	const clearCanvas = (ctx: CanvasRenderingContext2D) => {
-		console.log('clearCanvas');
 		ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 		drawBackground(ctx);
 		drawMesh(ctx);
@@ -137,7 +133,6 @@ export const Canvas = (props: TCanvas) => {
 		horizontal: HTMLImageElement;
 		vertical: HTMLImageElement;
 	}[]> => {
-		console.log('splitImage');
 		return new Promise((resolve) => {
 			const image = new Image();
 			image.src = imgSrc;
@@ -202,7 +197,6 @@ export const Canvas = (props: TCanvas) => {
 	};
 
 	const drawMesh = (ctx: CanvasRenderingContext2D) => {
-		console.log('drawMesh');
 		for (let i = 0; i < width; i++) {
 			for (let j = 0; j < height; j++) {
 				ctx.rect(i * rectSize, j * rectSize, rectSize, rectSize);

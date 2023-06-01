@@ -153,7 +153,6 @@ export const PageGame: FC = () => {
 	}, [winner]);
 
 	const doRedraw = () => {
-		console.log('doRedraw');
 		setRedraw(redraw + 1);
 	};
 

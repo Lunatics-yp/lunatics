@@ -92,7 +92,14 @@ export class GameBattle {
 		if(shootRespond.hadShoot){
 			if(shootRespond.hit){
 				if(shootRespond.destroyed){
-					this._enemyGround.setCellStatus(coordinates, CellStatus.DESTROYED);
+					const module
+						= SpaceModule.findSpaceModule(this._enemyShooting.modules, coordinates);
+					if(!module){
+						throw new Error('Модуль не найдет, такого быть не может)');
+					}
+					module.mapPosition.forEach(position => {
+						this._enemyGround.setCellStatus(position, CellStatus.DESTROYED);
+					});
 				}else{
 					this._enemyGround.setCellStatus(coordinates, CellStatus.BURNING);
 				}

@@ -34,13 +34,13 @@ export const modesData: TModesData = {
 	},
 	'Необычный' : {
 		map: {
-			width: 2,
-			height: 2,
+			width: 3,
+			height: 3,
 		},
 		ships: [
 			{
-				shape: shape1,
-				count: 1,
+				shape: shape2,
+				count: 2,
 			},
 		],
 	},
