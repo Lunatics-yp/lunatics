@@ -26,7 +26,7 @@ import {Canvas} from 'client/src/game/canvas';
 import {TShootRespond} from 'client/src/game/typing';
 
 // const test = () => {
-// 	const modeData = modesData['Необычный'];
+// 	const modeData = modesData['Обычный'];
 // 	const battle = new GameBattle(modeData);
 // 	battle.placement.randomLocateAllModulesToGround();
 // };
