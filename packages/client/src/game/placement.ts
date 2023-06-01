@@ -138,6 +138,7 @@ export class Placement extends GameMechanic {
 		const timeSpent = Math.round(performance.now() - timeStart);
 		const log = `Рандомная расстановка. Успех = ${isAllModulesLocated}\r\n
 		циклов = ${cyclesCount}, подциклов = ${subCyclesCount}, ${timeSpent}ms`;
+		console.log(log);
 		// На текущем этапе метод ничего не возвращает
 		// В будущем, скорее всего, будет возвращать результат и в случае неудачи
 		// покажем игроку сообщение об ошибке.

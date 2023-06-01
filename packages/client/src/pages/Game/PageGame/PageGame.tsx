@@ -1,5 +1,5 @@
 import {GameBattle} from 'client/src/game/battle';
-import {modesData} from 'client/src/game/constants/modes';
+// import {modesData} from 'client/src/game/constants/modes';
 import {TCoordinates} from 'client/src/game/typing';
 import {useNavigate} from 'react-router-dom';
 import {FC, useEffect, useState} from 'react';
