@@ -18,6 +18,7 @@ export const Canvas = (props: TCanvas) => {
 		battle,
 		owner,
 		redraw,
+		clear=0,
 		clickCallback,
 	} = props;
 
@@ -43,6 +44,8 @@ export const Canvas = (props: TCanvas) => {
 	const [ctx, setCtx] = useState<CanvasRenderingContext2D>();
 
 	const [selfRedraw, setSelfRedraw] = useState(0);
+
+	const [drawnCells, setDrawnCells] = useState<TDrawnCell[]>([]);
 
 	const canvas = React.useRef<HTMLCanvasElement>(null);
 	React.useEffect(() => {
@@ -93,15 +96,22 @@ export const Canvas = (props: TCanvas) => {
 		setSelfRedraw(selfRedraw + 1);
 		clearCanvas(ctx);
 		drawBackground(ctx, background);
-		drawMesh(ctx);
 	};
 
 	React.useEffect(() => {
-		if (!ctx) {
+		if (!ctx || !sprites) {
+			return;
+		}
+		clearCanvas(ctx);
+		drawBackground(ctx, sprites.background);
+	}, [clear]);
+
+	React.useEffect(() => {
+		if (!ctx || !sprites) {
 			return;
 		}
 		drawSprites(ctx);
-	}, [redraw, selfRedraw]);
+	}, [redraw, selfRedraw, drawnCells]);
 
 	const handleClick = (event: React.MouseEvent<HTMLCanvasElement>) => {
 		if (canvas.current && clickCallback) {
@@ -117,6 +127,7 @@ export const Canvas = (props: TCanvas) => {
 
 	const clearCanvas = (ctx: CanvasRenderingContext2D) => {
 		ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+		setDrawnCells([]);
 	};
 
 	const printLoading = (ctx: CanvasRenderingContext2D) => {
@@ -205,8 +216,6 @@ export const Canvas = (props: TCanvas) => {
 		}
 	};
 
-	const [drawnCells, setDrawnCells] = useState<TDrawnCell[]>([]);
-
 	const drawSprites = (ctx: CanvasRenderingContext2D) => {
 		if (!sprites) {
 			return;
@@ -285,6 +294,7 @@ export const Canvas = (props: TCanvas) => {
 
 	const drawBackground = (ctx: CanvasRenderingContext2D, background: HTMLImageElement) => {
 		ctx.drawImage(background, 0, 0, canvasWidth, canvasHeight);
+		drawMesh(ctx);
 	};
 
 	return (

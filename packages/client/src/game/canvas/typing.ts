@@ -7,6 +7,7 @@ export type TCanvas = {
 	battle: GameBattle;
 	owner: 'player' | 'enemy';
 	redraw: number;
+	clear?: number;
 	clickCallback?: Fn<unknown, TCoordinates>;
 };
 export type TSprites = {

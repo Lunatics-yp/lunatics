@@ -14,6 +14,7 @@ export const PageSetShips = () => {
 	const navigate = useNavigate();
 	const [isShipsOnBoard, setIsShipsOnBoard] = useState(false);
 	const [redraw, setRedraw] = useState(0);
+	const [clear, setClear] = useState(0);
 
 	const [battle] = useState(GameBattle.currentGame);
 
@@ -21,14 +22,21 @@ export const PageSetShips = () => {
 		setRedraw(redraw + 1);
 	};
 
-	const setShipsOnBoard = () => {
-		battle.placement.randomLocateAllModulesToGround();
-		setIsShipsOnBoard(battle.placement.isModulesLocated);
-		doRedraw();
+	const doClear = () => {
+		setClear(clear + 1);
 	};
+
 	const clearBoard = () => {
 		battle.placement.clear();
+		doClear();
 		setIsShipsOnBoard(false);
+		doRedraw();
+	};
+
+	const setShipsOnBoard = () => {
+		clearBoard();
+		battle.placement.randomLocateAllModulesToGround();
+		setIsShipsOnBoard(battle.placement.isModulesLocated);
 		doRedraw();
 	};
 
@@ -41,6 +49,7 @@ export const PageSetShips = () => {
 					battle={battle}
 					owner={'player'}
 					redraw={redraw}
+					clear={clear}
 				/>
 			</div>
 			<div className={styles.buttonsContainer}>
