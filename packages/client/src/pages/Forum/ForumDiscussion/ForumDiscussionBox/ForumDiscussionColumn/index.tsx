@@ -8,7 +8,7 @@ export const ForumDiscussionColumn: FC<TForumDiscussionColumnProps> = props => {
 	const {name, lastAuthorName} = props;
 	return (
 		<div className={styles.element}>
-			<Link to={`${name}`}>
+			<Link to={name}>
 				<div className={styles.element__title}>
 					<div className={styles.title}>
 						<p className={styles.title__text}>{name}</p>
@@ -16,7 +16,7 @@ export const ForumDiscussionColumn: FC<TForumDiscussionColumnProps> = props => {
 				</div>
 			</Link>
 			<div className={styles.element__info}>
-				<Avatar size="small"/>
+				<Avatar size='small'/>
 				<div className={styles.info}>
 					<div className={styles.info__name}>{lastAuthorName}</div>
 					<span className={styles.info__date}></span>
