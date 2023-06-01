@@ -1,5 +1,6 @@
 import {GameBattle} from 'client/src/game/battle';
-import {TCoordinates} from 'client/src/game/typing';
+import type {TCoordinates} from 'client/src/game/typing';
+import {CellStatus} from 'client/src/game/typing';
 import {Fn} from 'client/src/types';
 
 export type TCanvas = {
@@ -17,4 +18,10 @@ export type TSprites = {
 		horizontal: HTMLImageElement;
 		vertical: HTMLImageElement;
 	}[][];
+};
+
+export type TDrawnCell = {
+	x: number;
+	y: number;
+	status: CellStatus;
 };

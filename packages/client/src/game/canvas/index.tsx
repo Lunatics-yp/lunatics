@@ -10,7 +10,7 @@ import {CellStatus} from 'client/src/game/typing';
 import styles from 'client/src/pages/Game/PageSetShips/pageSetShips.module.scss';
 import React, {useState} from 'react';
 
-import type {TCanvas, TSprites} from './typing';
+import type {TCanvas, TDrawnCell, TSprites} from './typing';
 
 export const Canvas = (props: TCanvas) => {
 
@@ -56,10 +56,10 @@ export const Canvas = (props: TCanvas) => {
 			return;
 		}
 		printLoading(ctx);
-		loadImageAndSplitImage();
+		loadImageAndSplitImage(ctx);
 	}, [ctx]);
 
-	const loadImageAndSplitImage = async () => {
+	const loadImageAndSplitImage = async (ctx: CanvasRenderingContext2D) => {
 		const background = new Image();
 		const burn = new Image();
 		const destroyed = new Image();
@@ -91,13 +91,15 @@ export const Canvas = (props: TCanvas) => {
 		modules[4] = await splitImage(image4, 4);
 		setSprites({background, burn, miss, destroyed, modules});
 		setSelfRedraw(selfRedraw + 1);
+		clearCanvas(ctx);
+		drawBackground(ctx, background);
+		drawMesh(ctx);
 	};
 
 	React.useEffect(() => {
 		if (!ctx) {
 			return;
 		}
-		clearCanvas(ctx);
 		drawSprites(ctx);
 	}, [redraw, selfRedraw]);
 
@@ -115,8 +117,6 @@ export const Canvas = (props: TCanvas) => {
 
 	const clearCanvas = (ctx: CanvasRenderingContext2D) => {
 		ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-		drawBackground(ctx);
-		drawMesh(ctx);
 	};
 
 	const printLoading = (ctx: CanvasRenderingContext2D) => {
@@ -205,6 +205,8 @@ export const Canvas = (props: TCanvas) => {
 		}
 	};
 
+	const [drawnCells, setDrawnCells] = useState<TDrawnCell[]>([]);
+
 	const drawSprites = (ctx: CanvasRenderingContext2D) => {
 		if (!sprites) {
 			return;
@@ -214,6 +216,21 @@ export const Canvas = (props: TCanvas) => {
 			for (let x = 0; x < width; x++) {
 				const coordinates = {x, y};
 				const status = ground.getCellStatus(coordinates);
+
+				// Пишем массив отрисованных клеток и запоминаем их статус
+				// Отрисовываем только клетки с отличающимся статусом
+				let drawnCell = drawnCells.find(cell => cell.x === x && cell.y === y);
+				if(drawnCell && drawnCell.status==status){
+					continue;
+				}
+				if(!drawnCell){
+					drawnCell = {x, y, status} as TDrawnCell;
+					// Тут TS почему-то ругался, пришлось добавить ! и отлк правило
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					setDrawnCells((prev) => [...prev, drawnCell!]);
+				}
+				drawnCell.status=status;
+
 				let module, size, spriteIndex, sprite;
 				switch (status) {
 					case CellStatus.OCCUPIED:
@@ -266,10 +283,8 @@ export const Canvas = (props: TCanvas) => {
 		}
 	};
 
-	const drawBackground = (ctx: CanvasRenderingContext2D) => {
-		if (sprites) {
-			ctx.drawImage(sprites.background, 0, 0, canvasWidth, canvasHeight);
-		}
+	const drawBackground = (ctx: CanvasRenderingContext2D, background: HTMLImageElement) => {
+		ctx.drawImage(background, 0, 0, canvasWidth, canvasHeight);
 	};
 
 	return (
