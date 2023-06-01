@@ -37,6 +37,18 @@ export class SpaceModule {
 		return this._shape;
 	}
 
+	get size(): number {
+		return this._size;
+	}
+
+	get vertical():boolean {
+		if(this.size<2){
+			return false;
+		}
+		return this._mapCoordinates[0].x === this._mapCoordinates[1].x;
+
+	}
+
 	// Координаты на игровом поле
 	get mapPosition(): TCoordinates[] {
 		return this._mapCoordinates;
@@ -108,5 +120,16 @@ export class SpaceModule {
 				destroyed: false,
 			};
 		}
+	};
+
+	public getCellIndex = (mapCoordinates: TCoordinates): number => {
+		for (let i = 0; i < this.size; i++) {
+			if (this._mapCoordinates[i].x === mapCoordinates.x &&
+				this._mapCoordinates[i].y === mapCoordinates.y)
+			{
+				return i;
+			}
+		}
+		return -1;
 	};
 }

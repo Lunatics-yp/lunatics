@@ -4,7 +4,7 @@ import {PATHS} from 'client/src/routers/name';
 import {Background} from 'client/src/components/Background';
 import {Header} from 'client/src/components/Header';
 import {Button} from 'client/src/components/Button';
-import {Canvas} from 'client/src/pages/Game/PageSetShips/PageSetShips';
+// import {Canvas} from 'client/src/pages/Game/PageSetShips/PageSetShips';
 import {Footer} from 'client/src/components/Footer';
 import {Avatar} from 'client/src/components/Avatar';
 import {ModalGameActions} from 'client/src/pages/Game/Modals/modalGameActions';
@@ -95,7 +95,7 @@ export const PageGame: FC = () => {
 						<Avatar size='small'/>
 						<div>{players.player1}</div>
 					</div>
-					<Canvas/>
+					{/*<Canvas/>*/}
 					<div className={styles.restShips}>
 						Оставшиеся модули
 						<p>{player1Ships}</p>
@@ -106,7 +106,7 @@ export const PageGame: FC = () => {
 						<Avatar size='small'/>
 						<div>{players.player2}</div>
 					</div>
-					<Canvas/>
+					{/*<Canvas/>*/}
 					<div className={styles.restShips}>
 						Оставшиеся модули
 						<p>{player2Ships}</p>
