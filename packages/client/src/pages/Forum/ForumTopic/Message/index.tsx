@@ -1,4 +1,4 @@
-import {forwardRef, useState} from 'react';
+import {forwardRef} from 'react';
 import {useAppDispatch} from 'client/src/hooks/redux';
 import {deleteReaction, setReaction} from 'client/src/stores/reducers/forum/reactionsThunks';
 import {Avatar} from 'client/src/components/Avatar';
@@ -9,34 +9,24 @@ import {ReactionsList} from '../ReactionsList';
 import styles from './Message.module.scss';
 import {TMessageProps} from './typing';
 
-// @todo оставил для демонстрации, перед merge уберу
-const dataMock = [
-	{type: REACTIONS.PUKE, count:2, isReacted:true},
-	{type: REACTIONS.ANGRY, count:8, isReacted:false},
-];
-
 export const Message =  forwardRef<HTMLDivElement, TMessageProps>(
 	function  Message (props, ref) {
 		const {message, isReactionListActive, setIsReactionListActive} = props;
-		const {isOwner, text} = message;
+		const {isOwner, text, reactions} = message;
 		const dispatch = useAppDispatch();
-
-		const [reactions] = useState(dataMock);
 
 		const reactionsElements = reactions.map((reaction) => (
 			<MessageReaction
-				key={reaction.type}
+				key={reaction.reactionId}
 				count={reaction.count}
-				type={reaction.type}
-				isReacted={reaction.isReacted}
+				type={reaction.reactionId}
 				activeReaction={message.activeReaction}
 				onReactionMessage={onReactionMessage}
 			/>
 		));
 
-		function onReactionMessage(type: REACTIONS, isReacted: boolean) {
-			console.log('reacted', isReacted);
-			if (message.activeReaction) {
+		function onReactionMessage(type: REACTIONS) {
+			if (message.activeReaction === type) {
 				dispatch(deleteReaction({message_id: message.id}));
 			} else {
 				dispatch(setReaction({message_id: message.id, reaction_id: type}));
@@ -54,10 +44,6 @@ export const Message =  forwardRef<HTMLDivElement, TMessageProps>(
 				dispatch(setReaction({message_id: message.id, reaction_id: type}));
 			}
 			setIsReactionListActive(null);
-
-			if (!reactions.find(item => item.type === type)) {
-				reactions.push({type: type, count:1, isReacted:true});
-			}
 		}
 
 		return (

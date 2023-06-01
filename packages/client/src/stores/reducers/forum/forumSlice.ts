@@ -15,8 +15,8 @@ const initialState: TForumState = {
 		},
 		{id: 2, isOwner: false,
 			text: 'Как ты прошел этот непроходимый уровень?',
-			reactions: [],
-			activeReaction: null,
+			reactions: [{count:1, reactionId:8}, {count: 2, reactionId: 1}],
+			activeReaction: 8,
 		},
 	],
 	discussions: [
