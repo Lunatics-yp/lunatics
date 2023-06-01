@@ -25,12 +25,12 @@ import styles from './pageGame.module.scss';
 import {Canvas} from 'client/src/game/canvas';
 import {TShootRespond} from 'client/src/game/typing';
 
-const test = () => {
-	const modeData = modesData['Необычный'];
-	const battle = new GameBattle(modeData);
-	battle.placement.randomLocateAllModulesToGround();
-};
-test();
+// const test = () => {
+// 	const modeData = modesData['Необычный'];
+// 	const battle = new GameBattle(modeData);
+// 	battle.placement.randomLocateAllModulesToGround();
+// };
+// test();
 
 export const PageGame: FC = () => {
 	const navigate = useNavigate();

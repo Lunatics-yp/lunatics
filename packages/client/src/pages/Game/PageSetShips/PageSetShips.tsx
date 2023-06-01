@@ -36,7 +36,7 @@ export const PageSetShips = () => {
 		<>
 			<Header>Расстановка лунных модулей</Header>
 			<div className={styles.placementPageContainer}>
-				<div className={styles.shipsContainer}></div>
+				{/*<div className={styles.shipsContainer}></div>*/}
 				<Canvas
 					battle={battle}
 					owner={'player'}
