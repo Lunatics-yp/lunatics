@@ -5,6 +5,7 @@ const getLocationHost = () => {
 export const API_CONFIG = {
 	endpoint: `${getLocationHost()}/api/v2`,
 	resources: `${getLocationHost()}/api/v2/resources`,
+	local: `${getLocationHost()}/api`,
 };
 
 export const OAUTH_BASE_URL = 'https://oauth.yandex.ru/authorize';

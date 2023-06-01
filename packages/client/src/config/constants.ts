@@ -10,3 +10,15 @@ export const KEY_ENTER = 'Enter';
 
 // Кнопка переключения полноэкранного режима
 export const KEY_F = 'KeyF';
+
+// Возможные типы реакций
+export enum REACTIONS {
+	ANGRY = 1,
+	DISBELIEF = 2,
+	LAUGHING = 3,
+	LOVE = 4,
+	PUKE = 5,
+	SAD = 6,
+	THUMB_DOWN = 7,
+	THUMB_UP = 8,
+}

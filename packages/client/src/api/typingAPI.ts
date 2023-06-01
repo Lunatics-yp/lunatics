@@ -12,3 +12,11 @@ export type TUserDTO = {
   phone: string;
   email: string;
 };
+
+export type TReactionDTO = {
+	data: {
+		message_id: number;
+		user_id: number;
+		reaction_id: number;
+	};
+};

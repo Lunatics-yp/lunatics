@@ -1,0 +1,38 @@
+@import 'client/src/styles/app';
+
+.reaction {
+	&__box {
+		margin: 2px;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 2px;
+		padding: 1px 5px 0 3px;
+		min-width: 40px;
+		height: 21px;
+		border-radius: 12px;
+		background-color: var(--colorBlueWhite);
+		color: var(--colorSlateGrey);
+		font-weight: 600;
+		font-size: 10px;
+		line-height: 10px;
+		border: 1px solid var(--colorBlueWhite);
+	}
+
+	&__count {
+		cursor: pointer;
+	}
+
+	&__icon {
+		width: 20px;
+		height: 20px;
+		cursor: pointer;
+	}
+
+	&_me {
+		background-color: var(--colorBlueSky);
+		border: 1px solid var(--colorBlueSky);
+		color: var(--colorBlueLight);
+	}
+}
