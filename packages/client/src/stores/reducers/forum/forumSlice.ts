@@ -5,7 +5,7 @@ import {getNextId} from 'client/src/utils/getters';
 import {TForumState} from './typing';
 import {forumThunks} from './forumThunks';
 // eslint-disable-next-line max-len
-import {TCreateForumResponseObj, TCreateTopicResponseObj, TCreateMessageResponseObj} from 'client/src/api/typingForum';
+import {TCreateForumResponseData, TCreateTopicResponseData, TCreateMessageResponseData} from 'client/src/api/typingForum';
 
 const initialState: TForumState = {
 	messages: [],
@@ -74,7 +74,7 @@ export const forumSlice = createSlice({
 			// CreateForum
 			.addCase(forumThunks.createForum.fulfilled, (state, action) => {
 				state.isLoading = false;
-				const forumData = action.payload.data as unknown as TCreateForumResponseObj;
+				const forumData = action.payload.data as unknown as TCreateForumResponseData;
 				state.forums = [forumData, ...state.forums];
 			})
 			.addCase(forumThunks.createForum.pending, (state) => {
@@ -104,7 +104,7 @@ export const forumSlice = createSlice({
 		// CreateTopic
 		builder.addCase(forumThunks.createTopic.fulfilled, (state, action) => {
 			state.isLoading = false;
-			const topicData = action.payload.data as unknown as TCreateTopicResponseObj;
+			const topicData = action.payload.data as unknown as TCreateTopicResponseData;
 			state.topics = [topicData, ...state.topics];
 		});
 
@@ -134,7 +134,7 @@ export const forumSlice = createSlice({
 
 		 // CreateMessage
 			.addCase(forumThunks.createMessage.fulfilled, (state, action) => {
-				const messageData = action.payload.data as unknown as TCreateMessageResponseObj;
+				const messageData = action.payload.data as unknown as TCreateMessageResponseData;
 				state.messages = [messageData, ...state. messages];
 			})
 			.addCase(forumThunks.createMessage.pending, (state) => {

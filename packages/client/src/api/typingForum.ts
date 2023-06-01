@@ -8,10 +8,10 @@ export type TCreateForumRequestData = {
 };
 
 export type TCreateForumResponse = {
-  data: TCreateForumResponseObj;
+  data: TCreateForumResponseData;
 };
 
-export type TCreateForumResponseObj = {
+export type TCreateForumResponseData = {
   id: number;
   name: string;
   user_id: number;
@@ -20,7 +20,7 @@ export type TCreateForumResponseObj = {
 
 export type TForumListRequest = {
   action: string;
-  data: object;
+  data: Record<string, never>;
 };
 
 export type TForumListResponse = {
@@ -47,10 +47,10 @@ type TCreateTopicRequestData = {
 };
 
 export type TCreateTopicResponse = {
-  data: TCreateTopicResponseObj;
+  data: TCreateTopicResponseData;
 };
 
-export type TCreateTopicResponseObj = {
+export type TCreateTopicResponseData = {
   id: number;
   name: string;
   forum_id: number;
@@ -60,10 +60,10 @@ export type TCreateTopicResponseObj = {
 
 export type TTopicListRequest = {
   action: string;
-  data: TTopicListRequestObj;
+  data: TTopicListRequestData;
 };
 
-export type TTopicListRequestObj = {
+export type TTopicListRequestData = {
   forum_id: number;
 };
 
@@ -91,10 +91,10 @@ type TCreateMessageRequestData = {
 };
 
 export type TCreateMessageResponse = {
-  data: TCreateMessageResponseObj;
+  data: TCreateMessageResponseData;
 };
 
-export type TCreateMessageResponseObj = {
+export type TCreateMessageResponseData = {
   id: number;
   user_id: number;
   text: string;
@@ -105,10 +105,10 @@ export type TCreateMessageResponseObj = {
 
 export type TMessageListRequest = {
   action: string;
-  data: TMessageListRequestObj;
+  data: TMessageListRequestData;
 };
 
-export type TMessageListRequestObj = {
+export type TMessageListRequestData = {
   topic_id: number;
   parent_message_id: number;
 };
