@@ -1,11 +1,10 @@
-/* eslint-disable no-mixed-spaces-and-tabs */
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {RootState} from 'client/src/stores/store';
 import {getNextId} from 'client/src/utils/getters';
 import {TForumState} from './typing';
 import {forumThunks} from './forumThunks';
-// eslint-disable-next-line max-len
-import {TCreateForumResponseData, TCreateTopicResponseData, TCreateMessageResponseData} from 'client/src/api/typingForum';
+import {TCreateForumResponseData, TCreateTopicResponseData, TCreateMessageResponseData} from
+	'client/src/api/typingForum';
 
 const initialState: TForumState = {
 	messages: [],
@@ -27,7 +26,7 @@ export const forumSlice = createSlice({
 				user_id: state.forums.length >= 1 ? getNextId(state.forums) : 1,
 				created_at: 0,
 			});
-		  },
+		},
 
 		addTopic: (state, action: PayloadAction<string>) => {
 			state.topics.push({
@@ -132,7 +131,7 @@ export const forumSlice = createSlice({
 				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
 			})
 
-		 // CreateMessage
+		// CreateMessage
 			.addCase(forumThunks.createMessage.fulfilled, (state, action) => {
 				const messageData = action.payload.data as unknown as TCreateMessageResponseData;
 				state.messages = [messageData, ...state. messages];
@@ -169,8 +168,8 @@ export const forumSelectors = {
 	messages: (state: RootState) => state.forumReducer.messages,
 	isLoading: (state: RootState) => state.forumReducer.isLoading,
 	error: (state: RootState) => state.forumReducer.error,
-	// eslint-disable-next-line max-len
-	parentMessages: (state: RootState) => state.forumReducer.messages.filter(m => !m.parent_message_id),
+	parentMessages: (state: RootState) => state.forumReducer.messages.filter(m =>
+		!m.parent_message_id),
 };
 export const forumActions = forumSlice.actions;
 export default forumSlice.reducer;

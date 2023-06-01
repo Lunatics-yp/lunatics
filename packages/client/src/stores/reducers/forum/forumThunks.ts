@@ -4,7 +4,7 @@ import {forumdAPI} from 'client/src/api/forum';
 import {TCreateForumRequest, TForumListRequest,TCreateTopicRequest, TCreateMessageRequest} from 'client/src/api/typingForum';
 
 //Для взаимодействия с асинхронными actions используем createAsyncThunk.
-export const createForum = createAsyncThunk(
+const createForum = createAsyncThunk(
 	'forum/createForum',
 	async (data: TCreateForumRequest, thunkAPI) => {
 		try {
@@ -16,7 +16,7 @@ export const createForum = createAsyncThunk(
 	},
 );
 
-export const getAllForums = createAsyncThunk(
+const getAllForums = createAsyncThunk(
 	'forum/getAllForums',
 	async (data: TForumListRequest, thunkAPI) => {
 		try {
@@ -29,7 +29,7 @@ export const getAllForums = createAsyncThunk(
 	},
 );
 
-export const createTopic = createAsyncThunk(
+const createTopic = createAsyncThunk(
 	'forum/createTopic',
 	async (data: TCreateTopicRequest, thunkAPI) => {
 		try {
@@ -41,7 +41,7 @@ export const createTopic = createAsyncThunk(
 	},
 );
 
-export const getAllTopics = createAsyncThunk(
+const getAllTopics = createAsyncThunk(
 	'forum/getAllTopics',
 	async (data: TCreateTopicRequest, thunkAPI) => {
 		try {
@@ -54,7 +54,7 @@ export const getAllTopics = createAsyncThunk(
 	},
 );
 
-export const createMessage = createAsyncThunk(
+const createMessage = createAsyncThunk(
 	'forum/createMessage',
 	async (data: TCreateMessageRequest, thunkAPI) => {
 		try {
@@ -66,7 +66,7 @@ export const createMessage = createAsyncThunk(
 	},
 );
 
-export const getAllMessages = createAsyncThunk(
+const getAllMessages = createAsyncThunk(
 	'forum/getAllMessages',
 	async (data: TCreateMessageRequest, thunkAPI) => {
 		try {
