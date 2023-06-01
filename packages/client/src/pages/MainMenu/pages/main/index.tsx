@@ -49,6 +49,7 @@ export const MainMenuMain = () => {
 					}}/>
 				<Button
 					text='Играть онлайн'
+					disabled={true}
 					onClick={() => {
 						navigate(`${PATHS.mainMenuPlayOnline}`);
 					}}/>

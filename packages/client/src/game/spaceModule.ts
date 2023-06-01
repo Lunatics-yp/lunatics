@@ -6,7 +6,6 @@ import {
 
 // Класс лунного модуля (аналог корабля из Морского Боя)
 export class SpaceModule {
-	private readonly _name: string; // Название
 	private readonly _shape: TFixedCoordinates[]; // Форма (массив координат относительно "головы"
 	private readonly _size: number; // Кол-во занимаемых ячеек
 	private _mapCoordinates: TCoordinates[] = []; // Координаты на игровом поле
@@ -15,8 +14,7 @@ export class SpaceModule {
 	private _aliveCellsCount: number; // Количество целых ячеек
 
 	constructor(data: TSpaceModuleProps) {
-		const {name, shape} = data;
-		this._name = name;
+		const {shape} = data;
 		this._shape = shape;
 		const size = shape.length;
 		this._size = size;
@@ -26,7 +24,6 @@ export class SpaceModule {
 	// Заглушка, чтобы TS не ругался на неиспользуемые параметры класса
 	get info() {
 		return {
-			name: this._name,
 			isLocated: this._isLocated,
 			isAlive: this._isAlive,
 		};

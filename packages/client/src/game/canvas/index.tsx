@@ -1,0 +1,273 @@
+import image1 from 'client/src/assets/images/game/1.png';
+import image2 from 'client/src/assets/images/game/2.png';
+import image3 from 'client/src/assets/images/game/3.png';
+import image4 from 'client/src/assets/images/game/4.png';
+import imageMoon from 'client/src/assets/images/game/moon.png';
+import imageBurn from 'client/src/assets/images/game/burn.png';
+import imageMiss from 'client/src/assets/images/game/miss.png';
+import {CellStatus} from 'client/src/game/typing';
+import styles from 'client/src/pages/Game/PageSetShips/pageSetShips.module.scss';
+import React, {useState} from 'react';
+
+import type {TCanvas, TSprites} from './typing';
+
+export const Canvas = (props: TCanvas) => {
+
+	const {
+		battle,
+		owner,
+		redraw,
+		clickCallback,
+	} = props;
+
+	if (!battle) {
+		return <></>;
+	}
+
+	const ground = owner === 'player'
+		? battle.playerGround
+		: battle.enemyGround;
+
+	const {
+		width,
+		height,
+	} = ground.map.size;
+
+	const rectSize = 50;
+
+	const canvasWidth = width * rectSize;
+	const canvasHeight = height * rectSize;
+
+	const [sprites, setSprites] = useState<TSprites>();
+	const [ctx, setCtx] = useState<CanvasRenderingContext2D>();
+
+	const [selfRedraw, setSelfRedraw] = useState(0);
+
+	const canvas = React.useRef<HTMLCanvasElement>(null);
+	React.useEffect(() => {
+		if (canvas.current) {
+			setCtx(canvas.current.getContext('2d') as CanvasRenderingContext2D);
+		}
+	}, []);
+
+	React.useEffect(() => {
+		if (!ctx) {
+			return;
+		}
+		printLoading(ctx);
+		loadImageAndSplitImage();
+	}, [ctx]);
+
+	const loadImageAndSplitImage = async () => {
+		const background = new Image();
+		const burn = new Image();
+		const miss = new Image();
+
+		await new Promise((resolve) => {
+			background.src = imageMoon;
+			burn.src = imageBurn;
+			miss.src = imageMiss;
+			let counter = 3;
+			const loaded = () => {
+				counter--;
+				if (!counter) {
+					resolve(true);
+				}
+			};
+			background.onload = loaded;
+			burn.onload = loaded;
+			miss.onload = loaded;
+		});
+
+		const modules = [];
+		modules[1] = await splitImage(image1, 1);
+		modules[1] = await splitImage(image1, 1);
+		modules[2] = await splitImage(image2, 2);
+		modules[3] = await splitImage(image3, 3);
+		modules[4] = await splitImage(image4, 4);
+		setSprites({background, burn, miss, modules});
+		setSelfRedraw(selfRedraw + 1);
+	};
+
+	React.useEffect(() => {
+		if (!ctx) {
+			return;
+		}
+		clearCanvas(ctx);
+		drawSprites(ctx);
+	}, [redraw, selfRedraw]);
+
+	const handleClick = (event: React.MouseEvent<HTMLCanvasElement>) => {
+		if (canvas.current && clickCallback) {
+			const rect = canvas.current.getBoundingClientRect();
+			const pxX = event.clientX - rect.left;
+			const pxY = event.clientY - rect.top;
+			const rectX = Math.floor((pxX / rect.width) * width);
+			const rectY = Math.floor((pxY / rect.height) * height);
+			const coordinates = {x: rectX, y: rectY};
+			clickCallback(coordinates);
+		}
+	};
+
+	const clearCanvas = (ctx: CanvasRenderingContext2D) => {
+		ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+		drawBackground(ctx);
+		drawMesh(ctx);
+	};
+
+	const printLoading = (ctx: CanvasRenderingContext2D) => {
+		ctx.font = '24px Arial';
+		ctx.fillStyle = 'black';
+		ctx.textAlign = 'center';
+		ctx.fillText('Загрузка спрайтов', canvasWidth / 2, canvasHeight / 2);
+	};
+
+	const splitImage = (
+		imgSrc: string,
+		parts: number,
+	): Promise<{
+		horizontal: HTMLImageElement;
+		vertical: HTMLImageElement;
+	}[]> => {
+		return new Promise((resolve) => {
+			const image = new Image();
+			image.src = imgSrc;
+			image.onload = () => {
+				const {width, height} = image;
+
+				const partWidth = Math.floor(width / parts);
+				const sprites = [] as {
+					horizontal: HTMLImageElement;
+					vertical: HTMLImageElement;
+				}[];
+
+				for (let i = 0; i < parts; i++) {
+					const startX = i * partWidth;
+
+					const toSprite = (vertical: boolean = false) => {
+						const canvas = document.createElement('canvas');
+						const canvasCtx = canvas.getContext('2d') as CanvasRenderingContext2D;
+						canvas.width = partWidth;
+						canvas.height = height;
+
+						if (vertical) {
+							canvasCtx.translate(partWidth / 2, height / 2);
+							canvasCtx.rotate((90 * Math.PI) / 180);
+							canvasCtx.drawImage(
+								image,
+								startX,
+								0,
+								partWidth,
+								height,
+								-partWidth / 2,
+								-height / 2,
+								partWidth,
+								height,
+							);
+						} else {
+							canvasCtx.drawImage(
+								image,
+								startX,
+								0,
+								partWidth,
+								height,
+								0,
+								0,
+								partWidth,
+								height,
+							);
+						}
+
+						const spriteImage = new Image();
+						spriteImage.src = canvas.toDataURL();
+						return spriteImage;
+					};
+					sprites.push({
+						horizontal: toSprite(false),
+						vertical: toSprite(true),
+					});
+				}
+				resolve(sprites);
+			};
+		});
+	};
+
+	const drawMesh = (ctx: CanvasRenderingContext2D) => {
+		for (let i = 0; i < width; i++) {
+			for (let j = 0; j < height; j++) {
+				ctx.rect(i * rectSize, j * rectSize, rectSize, rectSize);
+				ctx.stroke();
+			}
+		}
+	};
+
+	const drawSprites = (ctx: CanvasRenderingContext2D) => {
+		if (!sprites) {
+			return;
+		}
+
+		for (let y = 0; y < height; y++) {
+			for (let x = 0; x < width; x++) {
+				const coordinates = {x, y};
+				const status = ground.getCellStatus(coordinates);
+				let module, size, spriteIndex, sprite;
+				switch (status) {
+					case CellStatus.OCCUPIED:
+						if (owner === 'player') {
+							module = battle.findSpaceModule(coordinates);
+							if (!module) {
+								throw new Error('Ошибка отрисовки графики');
+							}
+							size = module.size;
+							spriteIndex = module.getCellIndex(coordinates);
+							sprite = module.vertical
+								? sprites.modules[size][spriteIndex].vertical
+								: sprites.modules[size][spriteIndex].horizontal;
+						} else {
+							sprite = sprites.modules[3][2].vertical;
+						}
+						ctx.drawImage(
+							sprite,
+							x * rectSize,
+							y * rectSize,
+							rectSize,
+							rectSize);
+						break;
+					case CellStatus.BURNING:
+					case CellStatus.DESTROYED:
+						ctx.drawImage(
+							sprites.burn,
+							x * rectSize,
+							y * rectSize,
+							rectSize,
+							rectSize);
+						break;
+					case CellStatus.MISSED:
+						ctx.drawImage(
+							sprites.miss,
+							x * rectSize,
+							y * rectSize,
+							rectSize,
+							rectSize);
+						break;
+				}
+			}
+		}
+	};
+
+	const drawBackground = (ctx: CanvasRenderingContext2D) => {
+		if (sprites) {
+			ctx.drawImage(sprites.background, 0, 0, canvasWidth, canvasHeight);
+		}
+	};
+
+	return (
+		<canvas
+			ref={canvas}
+			width={canvasWidth}
+			height={canvasHeight}
+			className={styles.canvas}
+			onClick={handleClick}
+		/>
+	);
+};

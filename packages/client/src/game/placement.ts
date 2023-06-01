@@ -11,6 +11,8 @@ import {
 // Класс режима размещения лунных модулей
 export class Placement extends GameMechanic {
 
+	private _isAllModulesLocated = false;
+
 	constructor(
 		spaceGround: SpaceGround,
 		modulesTypesToBePlacement: TShapesList,
@@ -18,9 +20,9 @@ export class Placement extends GameMechanic {
 		const modules: SpaceModule[] = [];
 		// Перебираем полученный типы и формы лунных модулей и создаём экземпляры SpaceModule
 		for (const moduleData of modulesTypesToBePlacement) {
-			const {name, shape, count} = moduleData;
+			const {shape, count} = moduleData;
 			for (let x = 0; x < count; x++) {
-				modules.push(new SpaceModule({name, shape}));
+				modules.push(new SpaceModule({shape}));
 			}
 		}
 		super(spaceGround, modules);
@@ -131,6 +133,7 @@ export class Placement extends GameMechanic {
 		if (!isAllModulesLocated) {
 			this.clear();
 		}
+		this._isAllModulesLocated = isAllModulesLocated;
 		// Выводим информацию для разработчика в консоль
 		const timeSpent = Math.round(performance.now() - timeStart);
 		const log = `Рандомная расстановка. Успех = ${isAllModulesLocated}\r\n
@@ -139,4 +142,8 @@ export class Placement extends GameMechanic {
 		// В будущем, скорее всего, будет возвращать результат и в случае неудачи
 		// покажем игроку сообщение об ошибке.
 	};
+
+	get isModulesLocated(): boolean {
+		return this._isAllModulesLocated;
+	}
 }

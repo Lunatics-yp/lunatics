@@ -10,7 +10,7 @@ export class AI {
 	}
 
 	// Метод выстрела ИИ по карте игрока
-	shoot = (): TShootRespond => {
+	shoot = async (): Promise<TShootRespond> => {
 		// Массив всех доступных клеток для стрельбы и массив текущих горящих клеток
 		const {targets, burnings} = this._enemyShooting.ground.getAllCellForShootingAndBurning();
 

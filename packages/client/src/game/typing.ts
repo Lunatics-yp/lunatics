@@ -49,13 +49,11 @@ export type TShape = TFixedCoordinates[];
 
 // Тип пропсов для конструктора лунного модуля
 export type TSpaceModuleProps = {
-	readonly name: string;
 	readonly shape: TShape;
 };
 
 // Тип списка типов лунных модулей для расстановки
 export type TShapesList = {
-	name: string;
 	shape: TFixedCoordinates[];
 	count: number;
 }[];

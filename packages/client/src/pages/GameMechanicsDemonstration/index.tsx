@@ -16,7 +16,7 @@ import {
 	TShapesList,
 } from 'client/src/game/typing';
 // Локальные импорты
-import {shape1, shape2, shape3, shape4} from './shapes';
+import {shape1, shape2, shape3, shape4} from 'client/src/game/constants/shapes';
 import styles from './styles.module.scss';
 
 // ВРЕМЕННЫЙ метод для отображения текущего состояния карты на странице
@@ -43,22 +43,18 @@ const convertMapStatusToSymbol = (status: CellStatus) => {
 // Список форм лунных модулей для расстановки (зависит от режима игры)
 const lunarModulesTypesToBePlacement: TShapesList = [
 	{
-		name: 'Четверной',
 		shape: shape4,
 		count: 1,
 	},
 	{
-		name: 'Тройной',
 		shape: shape3,
 		count: 2,
 	},
 	{
-		name: 'Двойной',
 		shape: shape2,
 		count: 3,
 	},
 	{
-		name: 'Одиночный',
 		shape: shape1,
 		count: 4,
 	},
