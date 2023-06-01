@@ -96,7 +96,6 @@ export const PageGame: FC = () => {
 			return;
 		}
 		let whoseTurnNext;
-		console.log('useEffect', whoseTurn, actionName);
 		// Звуки
 		switch (actionName) {
 			case gameActionsName.hitShip:
@@ -154,6 +153,7 @@ export const PageGame: FC = () => {
 	}, [winner]);
 
 	const doRedraw = () => {
+		console.log('doRedraw');
 		setRedraw(redraw + 1);
 	};
 

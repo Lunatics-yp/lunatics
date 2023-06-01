@@ -91,7 +91,11 @@ export class GameBattle {
 		// Смотрим ответ и отмечаем на нашей карте врага результат
 		if(shootRespond.hadShoot){
 			if(shootRespond.hit){
-				this._enemyGround.setCellStatus(coordinates, CellStatus.BURNING);
+				if(shootRespond.destroyed){
+					this._enemyGround.setCellStatus(coordinates, CellStatus.DESTROYED);
+				}else{
+					this._enemyGround.setCellStatus(coordinates, CellStatus.BURNING);
+				}
 			}else{
 				this._enemyGround.setCellStatus(coordinates, CellStatus.MISSED);
 			}

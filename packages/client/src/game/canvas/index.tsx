@@ -4,6 +4,7 @@ import image3 from 'client/src/assets/images/game/3.png';
 import image4 from 'client/src/assets/images/game/4.png';
 import imageMoon from 'client/src/assets/images/game/moon.png';
 import imageBurn from 'client/src/assets/images/game/burn.png';
+import imageDestroyed from 'client/src/assets/images/game/destroyed.png';
 import imageMiss from 'client/src/assets/images/game/miss.png';
 import {CellStatus} from 'client/src/game/typing';
 import styles from 'client/src/pages/Game/PageSetShips/pageSetShips.module.scss';
@@ -45,6 +46,7 @@ export const Canvas = (props: TCanvas) => {
 
 	const canvas = React.useRef<HTMLCanvasElement>(null);
 	React.useEffect(() => {
+		console.log('setCtx');
 		if (canvas.current) {
 			setCtx(canvas.current.getContext('2d') as CanvasRenderingContext2D);
 		}
@@ -59,15 +61,18 @@ export const Canvas = (props: TCanvas) => {
 	}, [ctx]);
 
 	const loadImageAndSplitImage = async () => {
+		console.log('loadImageAndSplitImage');
 		const background = new Image();
 		const burn = new Image();
+		const destroyed = new Image();
 		const miss = new Image();
 
 		await new Promise((resolve) => {
 			background.src = imageMoon;
 			burn.src = imageBurn;
+			destroyed.src = imageDestroyed;
 			miss.src = imageMiss;
-			let counter = 3;
+			let counter = 4;
 			const loaded = () => {
 				counter--;
 				if (!counter) {
@@ -76,6 +81,7 @@ export const Canvas = (props: TCanvas) => {
 			};
 			background.onload = loaded;
 			burn.onload = loaded;
+			destroyed.onload = loaded;
 			miss.onload = loaded;
 		});
 
@@ -85,11 +91,12 @@ export const Canvas = (props: TCanvas) => {
 		modules[2] = await splitImage(image2, 2);
 		modules[3] = await splitImage(image3, 3);
 		modules[4] = await splitImage(image4, 4);
-		setSprites({background, burn, miss, modules});
+		setSprites({background, burn, miss, destroyed, modules});
 		setSelfRedraw(selfRedraw + 1);
 	};
 
 	React.useEffect(() => {
+		console.log('redraw', redraw, selfRedraw);
 		if (!ctx) {
 			return;
 		}
@@ -110,6 +117,7 @@ export const Canvas = (props: TCanvas) => {
 	};
 
 	const clearCanvas = (ctx: CanvasRenderingContext2D) => {
+		console.log('clearCanvas');
 		ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 		drawBackground(ctx);
 		drawMesh(ctx);
@@ -129,6 +137,7 @@ export const Canvas = (props: TCanvas) => {
 		horizontal: HTMLImageElement;
 		vertical: HTMLImageElement;
 	}[]> => {
+		console.log('splitImage');
 		return new Promise((resolve) => {
 			const image = new Image();
 			image.src = imgSrc;
@@ -193,6 +202,7 @@ export const Canvas = (props: TCanvas) => {
 	};
 
 	const drawMesh = (ctx: CanvasRenderingContext2D) => {
+		console.log('drawMesh');
 		for (let i = 0; i < width; i++) {
 			for (let j = 0; j < height; j++) {
 				ctx.rect(i * rectSize, j * rectSize, rectSize, rectSize);
@@ -234,9 +244,16 @@ export const Canvas = (props: TCanvas) => {
 							rectSize);
 						break;
 					case CellStatus.BURNING:
-					case CellStatus.DESTROYED:
 						ctx.drawImage(
 							sprites.burn,
+							x * rectSize,
+							y * rectSize,
+							rectSize,
+							rectSize);
+						break;
+					case CellStatus.DESTROYED:
+						ctx.drawImage(
+							sprites.destroyed,
 							x * rectSize,
 							y * rectSize,
 							rectSize,

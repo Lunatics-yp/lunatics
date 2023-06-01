@@ -11,6 +11,7 @@ export type TCanvas = {
 export type TSprites = {
 	background: HTMLImageElement;
 	burn: HTMLImageElement;
+	destroyed: HTMLImageElement;
 	miss: HTMLImageElement;
 	modules: {
 		horizontal: HTMLImageElement;
