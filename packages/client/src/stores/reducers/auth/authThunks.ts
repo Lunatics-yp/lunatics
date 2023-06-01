@@ -6,7 +6,6 @@ import {
 	TLoginRequestData,
 	TRegisterRequestData,
 } from 'client/src/api/typing';
-import {TTheme} from 'client/src/stores/reducers/auth/typing';
 import {themesApi} from 'client/src/api/themes';
 
 // Для взаимодействия с асинхронными actions используем createAsyncThunk.
@@ -78,11 +77,9 @@ export const changeUserAvatar = createAsyncThunk(
 
 export const changeUserTheme = createAsyncThunk(
 	'theme/change',
-	async (data: TTheme, thunkAPI) => {
-		console.log('changeUserTheme data', data);
-
+	async (themeName: string, thunkAPI) => {
 		try {
-			const response = await themesApi.changeUserTheme(data);
+			const response = await themesApi.changeUserTheme(themeName);
 			console.log('changeUserTheme response', response);
 			return response;
 		} catch (e) {

@@ -49,10 +49,10 @@ export const forumApiHandler = async (
 		apiResponse = await apiFunction(data);
 	}
 
-	if (apiResponse.data) {
+	if (!apiResponse.reason) {
 		res.json({
 			action: action,
-			data: apiResponse.data,
+			data: apiResponse.data ?? {},
 		});
 		return;
 	}

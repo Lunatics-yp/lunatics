@@ -7,14 +7,20 @@ import type {TApiFunction, TApiResponseData} from 'server/api/theme/typing';
 export const themeApiHandler = async (
 	req: Request,
 	res: Response,
+	userData: any ,
 ): Promise<void> => {
-	const postData = req.body.data;
+	const postData = req.body;
+	const userId = userData.id;
+	console.log('postData', postData);
+	console.log('userId', userId);
 	const isValid = isValidPostData(postData);
 	if (!isValid) {
 		res.status(400).json({reason: 'Неправильный запрос'});
 		return;
 	}
 	const {action, data} = postData;
+	console.log('data ', data);
+	data.userId = userId;
 
 	let apiResponse: TApiResponseData = {};
 
@@ -24,7 +30,9 @@ export const themeApiHandler = async (
 	};
 
 	if (action in actions) {
+		// @ts-ignore
 		const apiFunction = actions[action] as TApiFunction;
+		console.log('data if', data);
 		apiResponse = await apiFunction(data);
 	}
 

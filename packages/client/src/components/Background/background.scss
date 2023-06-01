@@ -5,4 +5,8 @@
 
 	z-index: -1;
 	background: var(--colorBackground);
+
+	&[data-theme='dark'] {
+		background: var(--colorThemeDarkBackground);
+	}
 }

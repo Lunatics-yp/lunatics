@@ -18,12 +18,11 @@ import {getSsrPath, ssrContent} from './ssr';
 import cookieParser from 'cookie-parser';
 
 import {themeApiHandler} from 'server/api/theme';
-import bodyParser from 'body-parser';
 export async function startServer(isDev: boolean, port: number) {
 	const app = express();
 	app.use(cors());
-	app.use(bodyParser.json());
-
+	app.use(express.json());
+	// app.use(bodyParser.json());
 	let vite: ViteDevServer;
 
 	await dbConnect();
@@ -42,6 +41,8 @@ export async function startServer(isDev: boolean, port: number) {
 
 	app.use('/api/v2/auth/user', yandexProxyUserWithResponseHandler());
 	app.use('/api/v2', yandexProxyAll());
+
+	app.use(express.json());
 
 	// Применяем middleware к приложению Express
 	app.use('/api/forum', xssMiddleware);
@@ -63,7 +64,11 @@ export async function startServer(isDev: boolean, port: number) {
 
 	app.use('/api/themes', async (req, res) => {
 		try {
-			await themeApiHandler(req, res);
+			const authUserData = await yandexCheckAuthorization(req);
+			console.log('authUserData', authUserData.user);
+			if (authUserData.user) {
+				await themeApiHandler(req, res, authUserData.user);
+			}
 		} catch (e) {
 			console.error(e);
 			res.sendStatus(500);

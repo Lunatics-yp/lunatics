@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import {API_CONFIG} from 'client/src/config/api';
 
 export type ResponseData = Record<string, never>;
 
@@ -21,11 +20,16 @@ export const themesApi = {
 			return null;
 		}
 	},
-	changeUserTheme: async (data: TChangeUserThemeData) => {
-		console.log('changeUserTheme data', data);
+	changeUserTheme: async (themeName: string) => {
+		console.log('changeUserTheme data',  themeName );
 		try {
-			const response = await axios.post<ResponseData>(API_ENDPOINT, {data});
-			return response.data.theme;
+			await axios.post<ResponseData>(API_ENDPOINT, {
+				action: 'theme.change',
+				data: {
+					themeName: themeName,
+				},
+			});
+			// return response.data.theme;
 		} catch (error) {
 			console.log(error, 'Ошибка отправки темы на сервер');
 		}

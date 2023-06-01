@@ -16,9 +16,6 @@ export type TUser = {
 	email: string;
 };
 export type TTheme = {
-	action: string,
-	data: {
 		userId: number,
 		themeName: string
-	}
 };

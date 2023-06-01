@@ -5,35 +5,37 @@ import {themesActions} from 'client/src/stores/reducers/auth/authSlice';
 import {Theme} from 'client/src/stores/reducers/userSettings/typing';
 import {themesApi} from 'client/src/api/themes';
 import styles from './styles.module.scss';
+
 export const ThemesToggle = () => {
 	const dispatch = useAppDispatch();
 	const user = useAppSelector(authSelectors.user);
-	const theme = useAppSelector(authSelectors.theme);
+	const themeName = useAppSelector(authSelectors.theme);
 
 	useEffect( () => {
-		console.log('theme', theme);
-		const changeThemeData = {
-			action: 'theme.change',
-			data: {
-				userId: user.user?.id,
-				themeName: theme,
-			},
-		};
-		if(user.user?.id && theme !== null && user.isLoading === false) {
-			console.log('theme if', theme);
-			themesApi.changeUserTheme(changeThemeData);
+		const userId = user.user?.id;
+		if(userId && themeName && user.isLoading === false) {
+			console.log('theme if', themeName);
+			themesApi.changeUserTheme(themeName);
 			// @ts-ignore
-			// dispatch(changeUserTheme(changeThemeData));
+			// dispatch(changeUserTheme(themeName));
 		}
-	},[theme]);
+	},[themeName]);
 
 	const changeTheme = async () => {
-		await dispatch(themesActions.changeTheme(theme === Theme.Light ? Theme.Dark : Theme.Light));
+		await dispatch(themesActions
+			.changeTheme(themeName === Theme.Light ? Theme.Dark : Theme.Light));
+		// if(userId && themeName  && user.isLoading === false) {
+		// 	console.log('theme if', themeName);
+		// 	await themesApi.changeUserTheme(themeName);
+		// 	// @ts-ignore
+		// 	// dispatch(changeUserTheme(themeName));
+		// 	// await themesApi.changeUserTheme(themeName);
+		// }
 	};
 	return (
 		<>
 			<input
-				checked={theme === Theme.Dark}
+				checked={themeName === Theme.Dark}
 				type='checkbox'
 				id='toggle_checkbox'
 				className={styles.toggleCheckBox}
