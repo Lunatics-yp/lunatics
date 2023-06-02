@@ -1,6 +1,6 @@
-import {MessagesReactions} from 'server/api/models';
-import type {TMessageReaction} from 'server/api/models';
-import type {TApiResponseData} from 'server/api/typing';
+import {MessagesReactions} from '../models';
+import type {TMessageReaction} from '../models';
+import type {TApiResponseData} from '../typing';
 
 // Апи Топика
 export const messageReactionApi = {

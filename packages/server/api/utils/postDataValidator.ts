@@ -1,4 +1,4 @@
-import type {TPostData} from 'server/api/typing';
+import type {TPostData} from '../typing';
 
 // Проверка валидности пост-запроса
 export const isValidPostData = (postData: any): postData is TPostData => {

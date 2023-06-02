@@ -1,7 +1,7 @@
-import {Messages, Users, MessagesReactions} from 'server/api/models';
-import type {TMessage} from 'server/api/models';
-import type {TApiResponseData} from 'server/api/typing';
-import {sequelize} from 'server/api/sequelize';
+import {Messages, Users, MessagesReactions} from '../models';
+import type {TMessage} from '../models';
+import type {TApiResponseData} from '../typing';
+import {sequelize} from '../sequelize';
 
 // Апи Топика
 export const messageApi = {

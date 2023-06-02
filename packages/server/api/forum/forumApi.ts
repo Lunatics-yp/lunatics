@@ -1,6 +1,6 @@
-import {Forums} from 'server/api/models';
-import type {TForum} from 'server/api/models';
-import type {TApiResponseData} from 'server/api/typing';
+import {Forums} from '../models';
+import type {TForum} from '../models';
+import type {TApiResponseData} from '../typing';
 
 // Апи Форума
 export const forumApi = {

@@ -48,7 +48,7 @@ CREATE TABLE "UserTheme" (
   "user_id" INT NOT NULL,
   "theme_name" VARCHAR(255),
   PRIMARY KEY ("user_id"),
-  FOREIGN KEY ("user_id") REFERENCES "Users" ("id") ON DELETE CASCADE,
+  FOREIGN KEY ("user_id") REFERENCES "Users" ("id") ON DELETE CASCADE
 );
 
 CREATE INDEX idx_forums_id ON "Forums" ("id");

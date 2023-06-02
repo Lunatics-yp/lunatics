@@ -1,4 +1,4 @@
-import type {TUserData} from 'server/authMiddleware/typing';
+import type {TUserData} from '../typing';
 
 // Проверка валидности пост-запроса
 export const isValidUserData = (data: any): data is TUserData => {

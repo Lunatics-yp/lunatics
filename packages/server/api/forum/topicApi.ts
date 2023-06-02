@@ -1,7 +1,7 @@
-import {Topics, Messages, Users} from 'server/api/models';
-import type {TTopic} from 'server/api/models';
-import type {TApiResponseData} from 'server/api/typing';
-import {sequelize} from 'server/api/sequelize';
+import {Topics, Messages, Users} from '../models';
+import type {TTopic} from '../models';
+import type {TApiResponseData} from '../typing';
+import {sequelize} from '../sequelize';
 
 // Апи Топика
 export const topicApi = {
