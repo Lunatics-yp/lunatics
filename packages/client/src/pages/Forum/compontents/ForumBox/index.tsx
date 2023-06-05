@@ -7,7 +7,7 @@ import {Button} from 'client/src/components/Button';
 import styles from './ForumBox.module.scss';
 
 export const ForumBox = () => {
-	const newTopic = useInput('');
+	const newForum = useInput('');
 	const forums = useAppSelector(forumSelectors.forums);
 	const isLoading = useAppSelector(forumSelectors.isLoading);
 	const dispatch = useAppDispatch();
@@ -16,14 +16,14 @@ export const ForumBox = () => {
 		<ForumColumn key={forum.id} id={forum.id} name={forum.name}/>
 	));
 
-	function createTopic() {
-		const newTopicContent = newTopic.value.trim();
+	function createForum() {
+		const newForumContent = newForum.value.trim();
 
-		if (newTopicContent) {
-			dispatch(forumActions.addForum(newTopicContent));
+		if (newForumContent) {
+			dispatch(forumActions.addForum(newForumContent));
 		}
 
-		newTopic.reset();
+		newForum.reset();
 	}
 
 	const renderForums = () => {
@@ -40,15 +40,15 @@ export const ForumBox = () => {
 				<ForumHeader/>
 				<div></div>
 				<input
-					onChange={newTopic.onChange}
-					value={newTopic.value}
+					onChange={newForum.onChange}
+					value={newForum.value}
 					type="text"
 					placeholder="Новая тема"
 					className={styles.input}
 					maxLength={50}
 				/>
 				<div className={styles.button}>
-					<Button disabled={!newTopic.value} text="Создать форум" onClick={createTopic}/>
+					<Button disabled={!newForum.value} text="Создать форум" onClick={createForum}/>
 				</div>
 				{renderForums()}
 			</div>
