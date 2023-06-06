@@ -7,8 +7,6 @@ export type TForumState = {
 	topics: TTopics[];
 	error: string;
 	isLoading: boolean;
-	reactions?: TReactions[];
-	activeReaction?: REACTIONS | null;
 };
 
 export type TReactions = {

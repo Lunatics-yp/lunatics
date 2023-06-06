@@ -168,44 +168,44 @@ export const forumSlice = createSlice({
 					const currentMessage = state.messages.find(
 						message => message.id === payloadTransform.messageId,
 					);
-					if (currentMessage) {
+					if (currentMessage && currentMessage.reactions) {
 						const currentReaction = currentMessage.reactions.find(
-							reaction => reaction.reactionId === payloadTransform.reactionId,
+							reaction => reaction.reaction_id === payloadTransform.reactionId,
 						);
 						// Добавить реакцию
-						if (!currentMessage.activeReaction) {
+						if (!currentMessage.user_reaction) {
 						// Реакция с таким типом первая
 							if (!currentReaction) {
 								currentMessage.reactions.push({
-									reactionId: payloadTransform.reactionId,
+									reaction_id: payloadTransform.reactionId,
 									count: 1,
 								});
 							} else {
 								currentMessage.reactions.push({
-									reactionId: payloadTransform.reactionId,
+									reaction_id: payloadTransform.reactionId,
 									count: currentReaction.count + 1,
 								});
 							}
-							currentMessage.activeReaction = payloadTransform.reactionId;
+							currentMessage.user_reaction = payloadTransform.reactionId;
 						} else {
 						// Обновить реакцию
 							const reactionsWithoutCurrent = currentMessage.reactions.filter(
-								reaction => reaction.reactionId !== payloadTransform.reactionId,
+								reaction => reaction.reaction_id !== payloadTransform.reactionId,
 							);
 							// Новая реакция с таким типом первая
 							if (!currentReaction) {
 								currentMessage.reactions.push({
-									reactionId: payloadTransform.reactionId,
+									reaction_id: payloadTransform.reactionId,
 									count: 1,
 								});
 							} else {
 								currentMessage.reactions.push({
-									reactionId: payloadTransform.reactionId,
+									reaction_id: payloadTransform.reactionId,
 									count: currentReaction.count + 1,
 								});
 							}
 							currentMessage.reactions = reactionsWithoutCurrent;
-							currentMessage.activeReaction = payloadTransform.reactionId;
+							currentMessage.user_reaction = payloadTransform.reactionId;
 						}
 					}
 				}
@@ -216,12 +216,12 @@ export const forumSlice = createSlice({
 					const currentMessage = state.messages.find(
 						message => message.id === action.meta.arg.message_id,
 					);
-					if (currentMessage) {
+					if (currentMessage && currentMessage.reactions) {
 						const reactionsWithoutCurrent = currentMessage.reactions.filter(
-							reaction => reaction.reactionId !== currentMessage.activeReaction,
+							reaction => reaction.reaction_id !== currentMessage.user_reaction,
 						);
 						currentMessage.reactions = reactionsWithoutCurrent;
-						currentMessage.activeReaction = null;
+						currentMessage.user_reaction = null;
 					}
 				}
 			});

@@ -1,3 +1,5 @@
+import {REACTIONS} from '../config/constants';
+
 export type TCreateForumRequest = {
 	action: string;
 	data: TCreateForumRequestData;
@@ -128,7 +130,7 @@ export type TMessages = {
 	//нужно будет структуру поменять немного
 	user?: TMessageUser;
 	reactions?: TReactionsMassage[];
-	user_reaction?: TReactionUser;
+	user_reaction?: REACTIONS | null;
 };
 
 export type TMessageUser = {
@@ -139,12 +141,12 @@ export type TMessageUser = {
 };
 
 export type TReactionsMassage = {
-	reaction_id: number;
-	count: string;
+	reaction_id: REACTIONS;
+	count: number;
 };
 
 export type TReactionUser = {
 	message_id: number;
 	user_id: number;
-	reaction_id: number;
+	reaction_id: REACTIONS;
 };

@@ -11,8 +11,8 @@ import styles from './Message.module.scss';
 import {TMessageProps} from './typing';
 
 export const Message = forwardRef<HTMLDivElement, TMessageProps>(function Message(props, ref) {
-	const {message, messages, setSelectedParent} = props;
-	const {message, isReactionListActive, setIsReactionListActive} = props;
+	const {messages, setSelectedParent, message, isReactionListActive, setIsReactionListActive} =
+		props;
 	const {isOwner, text, id, reactions} = message;
 	const dispatch = useAppDispatch();
 	const childrenMassage = messages.filter(el => el.parent_message_id === id);

@@ -12,8 +12,8 @@ import styles from './ForumTopic.module.scss';
 
 export const ForumTopic = () => {
 	const [isFocusing, setIsFocusing] = useState(false);
-	const [selectedParent, setSelectedParent] = useState(null);
-
+	const [selectedParent, setSelectedParent] = useState<number | null>(null);
+	const [isReactionListActive, setIsReactionListActive] = useState<number | null>(null);
 	const dispatch = useAppDispatch();
 
 	const {user} = useAppSelector(state => state.authReducer);
@@ -68,14 +68,14 @@ export const ForumTopic = () => {
 		}
 	}
 
-	// мгновенная прокрутка, выполняемая при монтировании компонента
+	// плавная прокрутка, выполняемая при изменении массива сообщений
 	useEffect(() => {
 		messagesEndRef.current?.scrollIntoView({
 			behavior: 'smooth',
 		});
 	}, [messages]);
 
-	// плавная прокрутка, выполняемая при изменении массива сообщений
+	// мгновенная прокрутка, выполняемая при монтировании компонента
 	useEffect(() => {
 		messagesEndRef.current?.scrollIntoView({
 			behavior: 'auto',
@@ -86,9 +86,13 @@ export const ForumTopic = () => {
 		<Message
 			key={message.id}
 			message={message}
+			activeReaction ={message.user_reaction}
+			reactions = {message.reactions}
 			ref={messagesEndRef}
 			messages={allMessages}
 			setSelectedParent={setSelectedParent}
+			isReactionListActive={isReactionListActive}
+			setIsReactionListActive={setIsReactionListActive}
 		/>
 	));
 

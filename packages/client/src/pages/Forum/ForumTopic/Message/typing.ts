@@ -4,7 +4,8 @@ export type TMessageProps = {
 	message: TMessage;
 	messages: TMessage[];
 	isReactionListActive?: number | null;
-	setSelectedParent: (isActive: number | null) => void;
+	setSelectedParent: (id: number | null) => void;
+	setIsReactionListActive: (isActive: number | null) => void;
 
 };
 
@@ -15,7 +16,7 @@ export type TMessage = {
 	subtext?: string;
 	parent_message_id?: number;
 	reactions: TReactions[];
-	activeReaction?: REACTIONS | null;
+	activeReaction: REACTIONS | null;
 };
 
 export type TReactions = {
