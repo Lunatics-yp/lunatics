@@ -1,12 +1,12 @@
+import {TMessages} from 'client/src/api/typingForum';
 import {REACTIONS} from 'client/src/config/constants';
 
 export type TMessageProps = {
-	message: TMessage;
-	messages: TMessage[];
+	message: TMessages;
+	messages: TMessages[];
 	isReactionListActive?: number | null;
 	setSelectedParent: (id: number | null) => void;
 	setIsReactionListActive: (isActive: number | null) => void;
-
 };
 
 export type TMessage = {
@@ -16,7 +16,7 @@ export type TMessage = {
 	subtext?: string;
 	parent_message_id?: number;
 	reactions: TReactions[];
-	activeReaction: REACTIONS | null;
+	activeReaction?: REACTIONS | null;
 };
 
 export type TReactions = {

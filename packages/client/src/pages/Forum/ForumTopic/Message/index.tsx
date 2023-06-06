@@ -1,7 +1,6 @@
 import {forwardRef} from 'react';
 import {useAppDispatch} from 'client/src/hooks/redux';
 import {deleteReaction, setReaction} from 'client/src/stores/reducers/forum/reactionsThunks';
-import {Avatar} from 'client/src/components/Avatar';
 import {REACTIONS} from 'client/src/config/constants';
 import {Stars} from 'client/src/components/images/Stars';
 import {MessageReaction} from '../MessageReaction';
@@ -13,19 +12,18 @@ import {TMessageProps} from './typing';
 export const Message = forwardRef<HTMLDivElement, TMessageProps>(function Message(props, ref) {
 	const {messages, setSelectedParent, message, isReactionListActive, setIsReactionListActive} =
 		props;
-	const {isOwner, text, id, reactions} = message;
+	const {text, id, reactions = []} = message;
 	const dispatch = useAppDispatch();
 	const childrenMassage = messages.filter(el => el.parent_message_id === id);
-
 	const newSubmassage = () => {
 		setSelectedParent(id);
 	};
 
 	const reactionsElements = reactions.map(reaction => (
 		<MessageReaction
-			key={reaction.reactionId}
+			key={reaction.reaction_id}
 			count={reaction.count}
-			type={reaction.reactionId}
+			type={reaction.reaction_id}
 			activeReaction={message.activeReaction}
 			onReactionMessage={onReactionMessage}
 		/>
@@ -54,12 +52,9 @@ export const Message = forwardRef<HTMLDivElement, TMessageProps>(function Messag
 
 	return (
 		<div className={styles.wrapper} ref={ref}>
-			{!isOwner && <Avatar size="medium"/>}
-			<div
-				className={`${styles.message} ${styles.message_text}
-				${isOwner && styles.message_me}`}>
+			<div className={`${styles.message} ${styles.message_text}`}>
 				<div className={styles.message__info}>
-					<span className={styles.message__author}>{isOwner ? 'Вы' : 'Trevor'}</span>
+					<span className={styles.message__author}>Trevor</span>
 					<span className={styles.message__date}>23 мар 2023 в 21:31</span>
 					<span
 						className={`${styles.message__reaction} ${styles.reaction_btn}`}
