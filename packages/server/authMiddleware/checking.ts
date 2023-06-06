@@ -1,8 +1,8 @@
 import axios from 'axios';
 import type {Request} from 'express';
-import {filterCookies} from 'server/authMiddleware/utils';
-import {yandexEndpoint} from 'server/authMiddleware/constants';
-import type {TUserData, TCheckAuth} from 'server/authMiddleware/typing';
+import {filterCookies} from './utils';
+import {yandexEndpoint} from './constants';
+import type {TUserData, TCheckAuth} from './typing';
 
 // Проверка активной авторизации
 export const yandexCheckAuthorization = async (req: Request): Promise<TCheckAuth> => {

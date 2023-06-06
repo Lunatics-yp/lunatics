@@ -1,6 +1,6 @@
 import {DataType, Model} from 'sequelize-typescript';
 import type {ModelAttributes} from 'sequelize/types';
-import {sequelize} from 'server/api/sequelize';
+import {sequelize} from '../sequelize';
 
 // Модель таблицы Users
 export type TUser = {

@@ -1,0 +1,28 @@
+# IDE & OS folders and files
+.idea
+.vscode
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Builds, vendors, tests builds, tmp
+coverage
+dist
+node_modules
+tmp
+packages/client/ssr-dist
+
+.git
+.github

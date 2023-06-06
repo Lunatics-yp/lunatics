@@ -1,7 +1,10 @@
+import {REACTIONS} from 'client/src/config/constants';
+
 export type TMessageProps = {
 	message: TMessage;
 	messages: TMessage[];
-	setSelectedParent?: any;
+	isReactionListActive?: number | null;
+	setSelectedParent: (isActive: number | null) => void;
 
 };
 
@@ -11,4 +14,17 @@ export type TMessage = {
 	text: string;
 	subtext?: string;
 	parent_message_id?: number;
+	reactions: TReactions[];
+	activeReaction?: REACTIONS | null;
+};
+
+export type TReactions = {
+	reactionId: REACTIONS;
+	count: number;
+};
+
+export type TReaction = {
+	messageId: number;
+	userId: number;
+	reactionId: REACTIONS;
 };

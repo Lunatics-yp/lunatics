@@ -1,8 +1,11 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {RootState} from 'client/src/stores/store';
+import {transformReaction} from 'client/src/api/apiTransformers';
+import {isErrorAPI, isReactionData} from 'client/src/api/request/utilits';
 import {getNextId} from 'client/src/utils/getters';
 import {TForumState} from './typing';
 import {forumThunks} from './forumThunks';
+import {reactionThunks} from './reactionsThunks';
 import {TCreateForumResponseData, TCreateTopicResponseData, TCreateMessageResponseData} from
 	'client/src/api/typingForum';
 
@@ -157,6 +160,70 @@ export const forumSlice = createSlice({
 			.addCase(forumThunks.getAllMessages.rejected, (state, action) => {
 				state.isLoading = false;
 				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
+			})
+			// Добавить / обновить реакцию
+			.addCase(reactionThunks.setReaction.fulfilled, (state, action) => {
+				if (isReactionData(action.payload)) {
+					const payloadTransform = transformReaction(action.payload);
+					const currentMessage = state.messages.find(
+						message => message.id === payloadTransform.messageId,
+					);
+					if (currentMessage) {
+						const currentReaction = currentMessage.reactions.find(
+							reaction => reaction.reactionId === payloadTransform.reactionId,
+						);
+						// Добавить реакцию
+						if (!currentMessage.activeReaction) {
+						// Реакция с таким типом первая
+							if (!currentReaction) {
+								currentMessage.reactions.push({
+									reactionId: payloadTransform.reactionId,
+									count: 1,
+								});
+							} else {
+								currentMessage.reactions.push({
+									reactionId: payloadTransform.reactionId,
+									count: currentReaction.count + 1,
+								});
+							}
+							currentMessage.activeReaction = payloadTransform.reactionId;
+						} else {
+						// Обновить реакцию
+							const reactionsWithoutCurrent = currentMessage.reactions.filter(
+								reaction => reaction.reactionId !== payloadTransform.reactionId,
+							);
+							// Новая реакция с таким типом первая
+							if (!currentReaction) {
+								currentMessage.reactions.push({
+									reactionId: payloadTransform.reactionId,
+									count: 1,
+								});
+							} else {
+								currentMessage.reactions.push({
+									reactionId: payloadTransform.reactionId,
+									count: currentReaction.count + 1,
+								});
+							}
+							currentMessage.reactions = reactionsWithoutCurrent;
+							currentMessage.activeReaction = payloadTransform.reactionId;
+						}
+					}
+				}
+			})
+			// Удалить реакцию
+			.addCase(reactionThunks.deleteReaction.fulfilled, (state, action) => {
+				if (!isErrorAPI(action.payload) && action.payload.deleted) {
+					const currentMessage = state.messages.find(
+						message => message.id === action.meta.arg.message_id,
+					);
+					if (currentMessage) {
+						const reactionsWithoutCurrent = currentMessage.reactions.filter(
+							reaction => reaction.reactionId !== currentMessage.activeReaction,
+						);
+						currentMessage.reactions = reactionsWithoutCurrent;
+						currentMessage.activeReaction = null;
+					}
+				}
 			});
 	},
 },

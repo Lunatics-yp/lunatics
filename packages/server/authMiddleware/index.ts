@@ -1,8 +1,8 @@
 import {
 	yandexProxyAll,
 	yandexProxyUserWithResponseHandler,
-} from 'server/authMiddleware/authorization';
-import {yandexCheckAuthorization} from 'server/authMiddleware/checking';
+} from './authorization';
+import {yandexCheckAuthorization} from './checking';
 
 export {
 	yandexProxyAll,

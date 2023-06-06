@@ -1,4 +1,4 @@
-import {TErrorAPI, TUserDTO} from './typingAPI';
+import {TErrorAPI, TReactionDTO, TUserDTO} from './typingAPI';
 export type TNullObject = Record<string, never>;
 
 /* Login */
@@ -76,4 +76,24 @@ export type TRedirectUri = string;
 
 export type TServiceId = {
 	service_id: string;
+};
+
+/* Reactions */
+
+export type TSetReactionResponseData = TReactionDTO | TErrorAPI;
+
+export enum REACTIONS_ACTION {
+	SET = 'reaction.set',
+	DELETE = 'reaction.delete',
+}
+
+export type  TSetReactionRequestData = {
+	message_id: number;
+	reaction_id: number;
+};
+
+export type TDeleteReactionResponseData = {deleted: boolean} | TErrorAPI;
+
+export type TDeleteReactionRequestData = {
+	message_id: number;
 };

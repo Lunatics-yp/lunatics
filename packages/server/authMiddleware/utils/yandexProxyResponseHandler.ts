@@ -1,8 +1,10 @@
 import type {Request, Response} from 'express';
 import type {IncomingMessage} from 'http';
-import {userAPI} from 'server/api/user';
-import {yandexAuthUri} from 'server/authMiddleware/constants';
-import type {TUserData} from 'server/authMiddleware/typing';
+import {userAPI} from '../../api/user';
+import {yandexAuthUri} from '../constants';
+import type {TUserData} from '../typing';
+import {isValidUserData} from './userDataValidator';
+import {themeApi} from '../../api/theme/themeApi';
 
 const yandexProxyResponseHandler = (
 	proxyRes: IncomingMessage,
@@ -22,7 +24,7 @@ const yandexProxyResponseHandler = (
 			try {
 				const data = JSON.parse(responseBody) as TUserData;
 				// Если ответ успешный и нет ошибки
-				if (res.statusCode === 200 && !('reason' in data)) {
+				if (res.statusCode === 200 && isValidUserData(data)) {
 					// Добавляем/обновляем юзера в БД
 					await userAPI.createOrUpdate({
 						id: data.id,
@@ -31,9 +33,7 @@ const yandexProxyResponseHandler = (
 						avatar: data.avatar,
 					});
 					// И грузим его тему
-					// ...
-					const currentTheme = 100;
-					data.theme = currentTheme;
+					data.theme = await themeApi.get({userId: data.id});
 				}
 				// Собаем data обратно в строку и отправляем ответ клиенту
 				const modifiedResponse = JSON.stringify(data);
