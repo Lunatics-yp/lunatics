@@ -11,48 +11,64 @@ import {REACTIONS} from 'client/src/config/constants';
 import styles from './reactionList.module.scss';
 import {TReactionList} from './typing';
 
-export const ReactionsList:FC<TReactionList> = (props) => {
+export const ReactionsList:FC<TReactionList> = props => {
 	const {onReact} = props;
 	return (
 		<div className={styles.reaction__list}>
-			<div className={styles.reaction__item}
-				onClick={()=>{onReact(REACTIONS.THUMB_UP);}}
-			>
+			<div
+				className={styles.reaction__item}
+				onClick={() => {
+					onReact(REACTIONS.THUMB_UP);
+				}}>
 				<ThumbUp/>
 			</div>
-			<div className={styles.reaction__item}
-				onClick={()=>{onReact(REACTIONS.ANGRY);}}
-			>
+			<div
+				className={styles.reaction__item}
+				onClick={() => {
+					onReact(REACTIONS.ANGRY);
+				}}>
 				<Angry/>
 			</div>
-			<div className={styles.reaction__item}
-				onClick={()=>{onReact(REACTIONS.LAUGHING);}}
-			>
+			<div
+				className={styles.reaction__item}
+				onClick={() => {
+					onReact(REACTIONS.LAUGHING);
+				}}>
 				<Laughing/>
 			</div>
-			<div className={styles.reaction__item}
-				onClick={()=>{onReact(REACTIONS.DISBELIEF);}}
-			>
+			<div
+				className={styles.reaction__item}
+				onClick={() => {
+					onReact(REACTIONS.DISBELIEF);
+				}}>
 				<Disbelief/>
 			</div>
-			<div className={styles.reaction__item}
-				onClick={()=>{onReact(REACTIONS.SAD);}}
-			>
+			<div
+				className={styles.reaction__item}
+				onClick={() => {
+					onReact(REACTIONS.SAD);
+				}}>
 				<Sad/>
 			</div>
-			<div className={styles.reaction__item}
-				onClick={()=>{onReact(REACTIONS.PUKE);}}
-			>
+			<div
+				className={styles.reaction__item}
+				onClick={() => {
+					onReact(REACTIONS.PUKE);
+				}}>
 				<Puke/>
 			</div>
-			<div className={styles.reaction__item}
-				onClick={()=>{onReact(REACTIONS.LOVE);}}
-			>
+			<div
+				className={styles.reaction__item}
+				onClick={() => {
+					onReact(REACTIONS.LOVE);
+				}}>
 				<Love/>
 			</div>
-			<div className={styles.reaction__item}
-				onClick={()=>{onReact(REACTIONS.THUMB_DOWN);}}
-			>
+			<div
+				className={styles.reaction__item}
+				onClick={() => {
+					onReact(REACTIONS.THUMB_DOWN);
+				}}>
 				<ThumbDown/>
 			</div>
 		</div>

@@ -1,8 +1,8 @@
 import {forwardRef} from 'react';
 import {useAppDispatch, useAppSelector} from 'client/src/hooks/redux';
 import {deleteReaction, setReaction} from 'client/src/stores/reducers/forum/reactionsThunks';
-import {Avatar} from 'client/src/components/Avatar';
 import {REACTIONS} from 'client/src/config/constants';
+import {Avatar} from 'client/src/components/Avatar';
 import {Stars} from 'client/src/components/images/Stars';
 import {MessageReaction} from '../MessageReaction';
 import {ReactionsList} from '../ReactionsList';
@@ -58,17 +58,19 @@ export const Message = forwardRef<HTMLDivElement, TMessageProps>(function Messag
 
 	return (
 		<div className={styles.wrapper} ref={ref}>
-			{!isOwner && <Avatar size="medium"/>}
-			<div
-				className={`${styles.message} ${styles.message_text}
-				${isOwner && styles.message_me}`}>
+			{!isOwner && <Avatar size='medium'/>}
+			<div className={`${styles.message} ${styles.message_text}
+				${isOwner && styles.message_me}`}
+			>
 				<div className={styles.message__info}>
-					<span className={styles.message__author}>{isOwner ? 'Вы' : 'Trevor'}</span>
+					<span className={styles.message__author}>
+						{isOwner ? 'Вы' : 'Ryan'}
+					</span>
 					<span className={styles.message__date}>23 мар 2023 в 21:31</span>
-					<span
-						className={`${styles.message__reaction} ${styles.reaction_btn}`}
-						title="Поставить реакцию"
-						onClick={toggleReactionWindow}>
+					<span className={`${styles.message__reaction} ${styles.reaction_btn}`}
+						title='Поставить реакцию'
+						onClick={toggleReactionWindow}
+					>
 						<Stars/>
 					</span>
 					{isReactionListActive === message.id && (
@@ -76,8 +78,13 @@ export const Message = forwardRef<HTMLDivElement, TMessageProps>(function Messag
 					)}
 				</div>
 				<p>{text}</p>
-				<button className={styles.message__dell} onClick={onNewSubmessage}></button>
-				<div className={styles.reaction__panel}>{reactionsElements}</div>
+				<button
+					className={styles.message__dell}
+					onClick={onNewSubmessage}>
+				</button>
+				<div className={styles.reaction__panel}>
+					{reactionsElements}
+				</div>
 				<div className={styles.message__sub}>
 					{childrenMassage.map((_submessage, index) => (
 						<Submessage key={index} message={_submessage}/>

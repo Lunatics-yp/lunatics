@@ -126,8 +126,6 @@ export type TMessages = {
 	topic_id: number;
 	parent_message_id: number;
 	created_at: number;
-	//сейчас поля не обязательные, изменю когда буду подключать бэк
-	//нужно будет структуру поменять немного
 	user?: TMessageUser;
 	reactions?: TReactionsMessage[];
 	user_reaction?: REACTIONS | null;
