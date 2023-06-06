@@ -1,5 +1,5 @@
 import {forwardRef} from 'react';
-import {useAppDispatch} from 'client/src/hooks/redux';
+import {useAppDispatch, useAppSelector} from 'client/src/hooks/redux';
 import {deleteReaction, setReaction} from 'client/src/stores/reducers/forum/reactionsThunks';
 import {Avatar} from 'client/src/components/Avatar';
 import {REACTIONS} from 'client/src/config/constants';
@@ -13,26 +13,30 @@ import {TMessageProps} from './typing';
 export const Message = forwardRef<HTMLDivElement, TMessageProps>(function Message(props, ref) {
 	const {messages, setSelectedParent, message, isReactionListActive, setIsReactionListActive} =
 		props;
-	const {isOwner, text, id, reactions} = message;
+	const {user} = useAppSelector(state => state.authReducer);
+	const {text, id} = message;
+	const isOwner = message.user?.id === user?.id;
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+	const reactions = message.reactions!;
 	const dispatch = useAppDispatch();
 	const childrenMassage = messages.filter(el => el.parent_message_id === id);
 
-	const newSubmassage = () => {
+	const onNewSubmessage = () => {
 		setSelectedParent(id);
 	};
 
 	const reactionsElements = reactions.map(reaction => (
 		<MessageReaction
-			key={reaction.reactionId}
+			key={reaction.reaction_id}
 			count={reaction.count}
-			type={reaction.reactionId}
-			activeReaction={message.activeReaction}
+			type={reaction.reaction_id}
+			activeReaction={message.user_reaction}
 			onReactionMessage={onReactionMessage}
 		/>
 	));
 
 	function onReactionMessage(type: REACTIONS) {
-		if (message.activeReaction === type) {
+		if (message.user_reaction === type) {
 			dispatch(deleteReaction({message_id: message.id}));
 		} else {
 			dispatch(setReaction({message_id: message.id, reaction_id: type}));
@@ -46,7 +50,7 @@ export const Message = forwardRef<HTMLDivElement, TMessageProps>(function Messag
 	}
 
 	function onReactionFromWindow(type: REACTIONS) {
-		if (message.activeReaction !== type) {
+		if (message.user_reaction !== type) {
 			dispatch(setReaction({message_id: message.id, reaction_id: type}));
 		}
 		setIsReactionListActive(null);
@@ -72,7 +76,7 @@ export const Message = forwardRef<HTMLDivElement, TMessageProps>(function Messag
 					)}
 				</div>
 				<p>{text}</p>
-				<button className={styles.message__dell} onClick={newSubmassage}></button>
+				<button className={styles.message__dell} onClick={onNewSubmessage}></button>
 				<div className={styles.reaction__panel}>{reactionsElements}</div>
 				<div className={styles.message__sub}>
 					{childrenMassage.map((_submessage, index) => (

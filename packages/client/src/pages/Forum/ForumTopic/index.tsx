@@ -86,8 +86,6 @@ export const ForumTopic = () => {
 		<Message
 			key={message.id}
 			message={message}
-			activeReaction ={message.user_reaction}
-			reactions = {message.reactions}
 			ref={messagesEndRef}
 			messages={allMessages}
 			setSelectedParent={setSelectedParent}

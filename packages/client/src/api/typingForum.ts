@@ -129,7 +129,7 @@ export type TMessages = {
 	//сейчас поля не обязательные, изменю когда буду подключать бэк
 	//нужно будет структуру поменять немного
 	user?: TMessageUser;
-	reactions?: TReactionsMassage[];
+	reactions?: TReactionsMessage[];
 	user_reaction?: REACTIONS | null;
 };
 
@@ -140,7 +140,7 @@ export type TMessageUser = {
 	avatar: string;
 };
 
-export type TReactionsMassage = {
+export type TReactionsMessage = {
 	reaction_id: REACTIONS;
 	count: number;
 };
