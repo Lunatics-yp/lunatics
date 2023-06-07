@@ -1,10 +1,11 @@
 import {useAppDispatch, useAppSelector} from 'client/src/hooks/redux';
-import {forumActions, forumSelectors} from 'client/src/stores/reducers/forum/forumSlice';
+import {forumSelectors} from 'client/src/stores/reducers/forum/forumSlice';
 import {useInput} from 'client/src/hooks/useInput';
 import {ForumColumn} from '../ForumColumn';
 import {ForumHeader} from '../ForumHeader';
 import {Button} from 'client/src/components/Button';
 import styles from './ForumBox.module.scss';
+import {forumThunks} from 'client/src/stores/reducers/forum/forumThunks';
 
 export const ForumBox = () => {
 	const newForum = useInput('');
@@ -17,10 +18,19 @@ export const ForumBox = () => {
 	));
 
 	function createForum() {
-		const newForumContent = newForum.value.trim();
+		const newTopicContent = newForum.value.trim();
 
-		if (newForumContent) {
-			dispatch(forumActions.addForum(newForumContent));
+		if (newTopicContent) {
+			// dispatch(forumActions.addForum(newTopicContent));
+			dispatch(
+				forumThunks.createForum({
+					action: 'forum.create',
+					data: {
+						name: newTopicContent,
+					},
+					// eslint-disable-next-line @typescript-eslint/comma-dangle
+				})
+			);
 		}
 
 		newForum.reset();

@@ -1,4 +1,4 @@
-import {apiForum} from './request';
+import {localApi} from './request/localApi';
 import {
 	TCreateForumRequest, TCreateForumResponse, TForumListRequest,
 	TForumListResponse, TCreateTopicRequest, TCreateTopicResponse,
@@ -10,26 +10,26 @@ import {FORUM_URL} from './constants';
 export const forumdAPI = {
 
 	createForum: (data: TCreateForumRequest) => (
-		apiForum.post<TCreateForumResponse>(FORUM_URL, data)
+		localApi.post<TCreateForumResponse>(FORUM_URL, data)
 	),
 
 	getAllForums: (data: TForumListRequest) => (
-		apiForum.post<TForumListResponse>(FORUM_URL, data)
+		localApi.post<TForumListResponse>(FORUM_URL, data)
 	),
 
 	createTopic: (data: TCreateTopicRequest) => (
-		apiForum.post<TCreateTopicResponse>(FORUM_URL, data)
+		localApi.post<TCreateTopicResponse>(FORUM_URL, data)
 	),
 
 	getAllTopics: (data: TTopicListRequest) => (
-		apiForum.post<TTopicListResponse>(FORUM_URL, data)
+		localApi.post<TTopicListResponse>(FORUM_URL, data)
 	),
 
 	createMessage: (data: TCreateMessageRequest) => (
-		apiForum.post<TCreateMessageResponse>(FORUM_URL, data)
+		localApi.post<TCreateMessageResponse>(FORUM_URL, data)
 	),
 
 	getAllMessages: (data: TMessageListRequest) => (
-		apiForum.post<TMessageListResponse>(FORUM_URL, data)
+		localApi.post<TMessageListResponse>(FORUM_URL, data)
 	),
 };

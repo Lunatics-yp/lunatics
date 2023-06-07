@@ -22,14 +22,14 @@ export const forumSlice = createSlice({
 	initialState,
 	reducers: {
 		// Форум
-		addForum(state, {payload}: PayloadAction<string>) {
-			state.forums.push({
-				id: state.forums.length >= 1 ? getNextId(state.forums) : 1,
-				name: payload,
-				user_id: state.forums.length >= 1 ? getNextId(state.forums) : 1,
-				created_at: 0,
-			});
-		},
+		// addForum(state, {payload}: PayloadAction<string>) {
+		// 	state.forums.push({
+		// 		id: state.forums.length >= 1 ? getNextId(state.forums) : 1,
+		// 		name: payload,
+		// 		user_id: state.forums.length >= 1 ? getNextId(state.forums) : 1,
+		// 		created_at: 0,
+		// 	});
+		// },
 
 		addTopic: (state, action: PayloadAction<string>) => {
 			state.topics.push({
