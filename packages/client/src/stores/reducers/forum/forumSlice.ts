@@ -31,28 +31,28 @@ export const forumSlice = createSlice({
 		// 	});
 		// },
 
-		addTopic: (state, action: PayloadAction<string>) => {
-			state.topics.push({
-				id: state.topics.length >= 1 ? getNextId(state.topics) : 1,
-				name: action.payload,
-				forum_id: 0,
-				user_id: 0,
-				created_at: 0,
-			});
-		},
+		// addTopic: (state, action: PayloadAction<string>) => {
+		// 	state.topics.push({
+		// 		id: state.topics.length >= 1 ? getNextId(state.topics) : 1,
+		// 		name: action.payload,
+		// 		forum_id: 0,
+		// 		user_id: 0,
+		// 		created_at: 0,
+		// 	});
+		// },
 		// Сообщения
-		addMessage(state, {payload}: PayloadAction<string>) {
-			state.messages.push({
-				// eslint-disable-next-line max-len
-				id: state.messages.length >= 1 ? getNextId(state.messages) : 1, text: payload,
-				user_id: 0,
-				topic_id: 0,
-				parent_message_id: 0,
-				created_at: 0,
-				user: undefined,
-				reactions: [],
-			});
-		},
+		// addMessage(state, {payload}: PayloadAction<string>) {
+		// 	state.messages.push({
+		// 		// eslint-disable-next-line max-len
+		// 		id: state.messages.length >= 1 ? getNextId(state.messages) : 1, text: payload,
+		// 		user_id: 0,
+		// 		topic_id: 0,
+		// 		parent_message_id: 0,
+		// 		created_at: 0,
+		// 		user: undefined,
+		// 		reactions: [],
+		// 	});
+		// },
 
 		// Ответ на сообщения
 		// eslint-disable-next-line max-len

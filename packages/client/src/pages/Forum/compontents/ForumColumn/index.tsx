@@ -8,7 +8,7 @@ export const ForumColumn: FC<TForumColumnProps> = props => {
 
 	return (
 		<>
-			<NavLink to={name} className={styles.link}>
+			<NavLink to={id.toString()} className={styles.link}>
 				<div
 					onClick={() => {
 						console.log(`clicked: ${id}`);

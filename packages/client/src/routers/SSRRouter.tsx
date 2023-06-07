@@ -45,7 +45,7 @@ export const SSRRouter = () => {
 						element={<ForumBox/>}
 					/>
 					<Route
-						path={':disccussionTitle'}
+						path={':forumId'}
 						element={<ForumDiscussion/>}
 					>
 						<Route

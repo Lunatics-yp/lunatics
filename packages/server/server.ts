@@ -48,6 +48,8 @@ export async function startServer(isDev: boolean, port: number) {
 	app.use('/api/v2/auth/user', yandexProxyUserWithResponseHandler());
 	app.use('/api/v2', yandexProxyAll());
 
+	app.use(express.json());
+
 	// Применяем middleware к приложению Express
 	app.use('/api/forum', xssMiddleware);
 	app.use('/api/forum', async (req, res) => {
@@ -60,7 +62,6 @@ export async function startServer(isDev: boolean, port: number) {
 				res.sendStatus(401);
 				return;
 			}
-			app.use(express.json());
 			await forumApiHandler(req, res, authUserData.user);
 		} catch (e) {
 			if (!res.headersSent) {

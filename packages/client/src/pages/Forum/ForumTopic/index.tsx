@@ -8,6 +8,7 @@ import {useFullscreen} from 'client/src/hooks/useFullscreen';
 import {useInput} from 'client/src/hooks/useInput';
 import {ForumTopicHeader} from './ForumTopicHeader/ForumTopicHeader';
 import {Message} from './Message';
+import {forumThunks} from 'client/src/stores/reducers/forum/forumThunks';
 import styles from './ForumTopic.module.scss';
 
 export const ForumTopic = () => {
@@ -56,8 +57,18 @@ export const ForumTopic = () => {
 			setSelectedParent(null);
 			return;
 		}
-
-		dispatch(forumActions.addMessage(messageContent));
+		dispatch(
+			forumThunks.createMessage({
+				action: 'message.create',
+				data: {
+					topic_id: 4,
+					parent_message_id: 0,
+					text: messageContent,
+				},
+				// eslint-disable-next-line @typescript-eslint/comma-dangle
+			})
+		);
+		//dispatch(forumActions.addMessage(messageContent));
 	}
 
 	// отправка сообщений на Enter и перенос строки на Shift + Enter
