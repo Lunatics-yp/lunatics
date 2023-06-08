@@ -11,6 +11,7 @@ export const themeApiHandler = async (
 	const postData = req.body.data;
 	const isValid = isValidPostData(postData);
 	if (!isValid) {
+		console.log('postData', postData);
 		res.status(400).json({reason: 'Неправильный запрос'});
 		return;
 	}

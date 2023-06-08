@@ -20,6 +20,7 @@ export const topicApi = {
 				data: newTopic,
 			};
 		} catch (e) {
+			console.log(e);
 			return {reason: 'Ошибка при создании строки в методе create topic'};
 		}
 	},

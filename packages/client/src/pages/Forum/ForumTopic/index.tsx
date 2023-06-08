@@ -1,7 +1,8 @@
 import {KeyboardEvent, useEffect, useRef, useState} from 'react';
+import {useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from 'client/src/hooks/redux';
 import {KEY_ENTER} from 'client/src/config/constants';
-import {forumActions, forumSelectors} from 'client/src/stores/reducers/forum/forumSlice';
+import {forumSelectors} from 'client/src/stores/reducers/forum/forumSlice';
 import {Avatar} from 'client/src/components/Avatar';
 import {Button} from 'client/src/components/Button';
 import {useFullscreen} from 'client/src/hooks/useFullscreen';
@@ -12,6 +13,7 @@ import {forumThunks} from 'client/src/stores/reducers/forum/forumThunks';
 import styles from './ForumTopic.module.scss';
 
 export const ForumTopic = () => {
+	const {topicId} = useParams();
 	const [isFocusing, setIsFocusing] = useState(false);
 	const [selectedParent, setSelectedParent] = useState<number | null>(null);
 	const [isReactionListActive, setIsReactionListActive] = useState<number | null>(null);
@@ -48,26 +50,33 @@ export const ForumTopic = () => {
 		newMessage.nulling();
 
 		if (selectedParent) {
-			dispatch(
-				forumActions.addSubmessage({
-					parent_message_id: selectedParent,
-					content: messageContent,
-				}),
-			);
-			setSelectedParent(null);
-			return;
+			if (topicId) {
+				dispatch(
+					forumThunks.createMessage({
+						action: 'message.create',
+						data: {
+							topic_id: +topicId,
+							parent_message_id: selectedParent,
+							text: messageContent,
+						},
+						// eslint-disable-next-line @typescript-eslint/comma-dangle
+					})
+				);
+			}
 		}
-		dispatch(
-			forumThunks.createMessage({
-				action: 'message.create',
-				data: {
-					topic_id: 4,
-					parent_message_id: 0,
-					text: messageContent,
-				},
-				// eslint-disable-next-line @typescript-eslint/comma-dangle
-			})
-		);
+		if (topicId){			
+			dispatch(
+				forumThunks.createMessage({
+					action: 'message.create',
+					data: {
+						topic_id: +topicId,
+						parent_message_id: null,
+						text: messageContent,
+					},
+					// eslint-disable-next-line @typescript-eslint/comma-dangle
+				})
+			);
+		}
 		//dispatch(forumActions.addMessage(messageContent));
 	}
 
@@ -137,7 +146,7 @@ export const ForumTopic = () => {
 						<div className={styles.footer__control}>
 							<div className={styles.footer__actions}>
 								<Button
-									text="Отмена"
+									text="Отменаа"
 									onClick={onCancelHandler}
 									className={`${styles.cancel} ${styles.defaultBtn}`}
 								/>

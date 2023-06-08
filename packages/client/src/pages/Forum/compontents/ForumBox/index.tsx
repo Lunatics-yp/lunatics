@@ -32,7 +32,6 @@ export const ForumBox = () => {
 				})
 			);
 		}
-
 		newForum.reset();
 	}
 
@@ -58,7 +57,7 @@ export const ForumBox = () => {
 					maxLength={50}
 				/>
 				<div className={styles.button}>
-					<Button disabled={!newForum.value} text="Создать форум" onClick={createForum}/>
+					<Button disabled={!newForum.value} text='Создать форум' onClick={createForum}/>
 				</div>
 				{renderForums()}
 			</div>

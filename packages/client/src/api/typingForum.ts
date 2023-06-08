@@ -88,7 +88,7 @@ export type TCreateMessageRequest = {
 
 type TCreateMessageRequestData = {
 	topic_id: number;
-	parent_message_id: number;
+	parent_message_id: number | null ;
 	text: string;
 };
 
@@ -102,7 +102,7 @@ export type TCreateMessageResponseData = {
 	text: string;
 	topic_id: number;
 	parent_message_id: number;
-	created_at: number;
+	created_at: number; 
 };
 
 export type TMessageListRequest = {

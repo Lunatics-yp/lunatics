@@ -17,7 +17,7 @@ export const ForumDiscussionBox = () => {
 	const isLoading = useAppSelector(forumSelectors.isLoading);
 	const error = useAppSelector(forumSelectors.error);
 	const topicElements = topics.map(topics => (
-		<ForumDiscussionColumn key={topics.id} name={topics.name}/>
+		<ForumDiscussionColumn key={topics.id} id={topics.id} name={topics.name}/>
 	));
 
 	function createTopic() {
@@ -26,7 +26,7 @@ export const ForumDiscussionBox = () => {
 		if (newTopicContent && forumId) {
 			dispatch(
 				forumThunks.createTopic({
-					action: 'topic.create',
+					action: 'topic.create', 
 					data: {
 						forum_id: +forumId,
 						name: newTopicContent,
@@ -46,16 +46,16 @@ export const ForumDiscussionBox = () => {
 	};
 
 	const Myforum = () => {
-		let urlTopic: string = '';
+		let urlTopic:string = '';
 		if (forumId != undefined) {
-			for (const el of forums) {
-				if (el.id === +forumId) {
-					urlTopic = el.name;
+			for( const el of forums) {
+				if (el.id === +forumId ){
+					urlTopic =el.name;
 				}
 			}
 		}
 		return urlTopic;
-	};
+	};	
 
 	return (
 		<main className={styles.wrapper}>
@@ -74,7 +74,7 @@ export const ForumDiscussionBox = () => {
 							onChange={newTopic.onChange}
 							value={newTopic.value}
 							type="text"
-							placeholder="Новый топик"
+							placeholder="Новый топ"
 							className={styles.input}
 							maxLength={50}
 						/>

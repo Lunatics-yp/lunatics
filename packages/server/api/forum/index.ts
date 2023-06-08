@@ -18,6 +18,7 @@ export const forumApiHandler = async (
 	const userId = userData.id;
 	const isValid = isValidPostData(postData);
 	if (!isValid) {
+		console.log('postDataForum', postData);
 		res.status(400).json({reason: 'Неправильный запрос'});
 		return;
 	}

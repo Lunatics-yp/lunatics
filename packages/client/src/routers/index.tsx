@@ -48,7 +48,7 @@ export const router = createBrowserRouter([
 						element: <ForumDiscussion/>,
 						children: [
 							{
-								path: ':topicTitle',
+								path: ':topicId',
 								element: <ForumTopic/>,
 							},
 						],

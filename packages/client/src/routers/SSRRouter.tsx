@@ -49,7 +49,7 @@ export const SSRRouter = () => {
 						element={<ForumDiscussion/>}
 					>
 						<Route
-							path={':topicTitle'}
+							path={':topicId'}
 							element={<ForumTopic/>}
 						/>
 					</Route>

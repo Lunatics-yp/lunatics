@@ -9,7 +9,7 @@ import styles from './ForumTopicHeader.module.scss';
 export const ForumTopicHeader:FC<TForumTopicHeaderProps> = (props) => {
 	const {fullScreenHandler} = props;
 
-	const topicName = useParams().topicTitle;
+	const topicName = useParams().topicId;
 	return (
 		<div className={styles.header}>
 			<div className={styles.header__left}>
