@@ -3,7 +3,7 @@ import {useAppDispatch, useAppSelector} from './redux';
 import {forumSelectors} from 'client/src/stores/reducers/forum/forumSlice';
 import {getAllForums} from 'client/src/stores/reducers/forum/forumThunks';
 
-export const useForum = () => {
+export const useForums = () => {
 	const dispatch = useAppDispatch();
 	const forums = useAppSelector(forumSelectors.forums);
 

@@ -1,5 +1,6 @@
 import {KeyboardEvent, useEffect, useRef, useState} from 'react';
 import {useParams} from 'react-router-dom';
+import {useMessages} from 'client/src/hooks/useMessages';
 import {useAppDispatch, useAppSelector} from 'client/src/hooks/redux';
 import {KEY_ENTER} from 'client/src/config/constants';
 import {forumSelectors} from 'client/src/stores/reducers/forum/forumSlice';
@@ -13,19 +14,19 @@ import {forumThunks} from 'client/src/stores/reducers/forum/forumThunks';
 import styles from './ForumTopic.module.scss';
 
 export const ForumTopic = () => {
-	const {topicId} = useParams();
+	const {topicId = ''} = useParams();
 	const [isFocusing, setIsFocusing] = useState(false);
 	const [selectedParent, setSelectedParent] = useState<number | null>(null);
 	const [isReactionListActive, setIsReactionListActive] = useState<number | null>(null);
 	const dispatch = useAppDispatch();
-
+	
 	const {user} = useAppSelector(state => state.authReducer);
 	const allMessages = useAppSelector(forumSelectors.messages);
-	const messages = useAppSelector(forumSelectors.parentMessages);
-
+	const {messages} = useMessages(+topicId);
+	//const messages = useAppSelector(forumSelectors.parentMessages);
 	const messagesEndRef = useRef<null | HTMLDivElement>(null);
 	const fullScreenBtnRef = useRef(null);
-
+	
 	const newMessage = useInput('');
 	const {toggleFullscreen} = useFullscreen(fullScreenBtnRef);
 
@@ -64,7 +65,7 @@ export const ForumTopic = () => {
 				);
 			}
 		}
-		if (topicId) {
+		if (topicId){			
 			dispatch(
 				forumThunks.createMessage({
 					action: 'message.create',
@@ -79,6 +80,25 @@ export const ForumTopic = () => {
 		}
 		//dispatch(forumActions.addMessage(messageContent));
 	}
+
+	// function onSubmitHandler() {
+	// 	if (!messageContent) return;
+	
+	// 	newMessage.nulling();
+	
+	// 	if (selectedParent) {
+	// 	  dispatch(
+	// 		forumActions.addSubmessage({
+	// 		  parentId: selectedParent,
+	// 		  content: messageContent,
+	// 		}),
+	// 	  );
+	// 	  setSelectedParent(null);
+	// 	  return;
+	// 	}
+	
+	// 	dispatch(forumActions.addMessage(messageContent));
+	//   }
 
 	// отправка сообщений на Enter и перенос строки на Shift + Enter
 	function onPressEnter(event: KeyboardEvent) {
@@ -112,9 +132,9 @@ export const ForumTopic = () => {
 			isReactionListActive={isReactionListActive}
 			setIsReactionListActive={setIsReactionListActive}
 		/>
-	));
+	)) ;
 
-	console.log(useAppSelector(state => state));
+	console.log(useAppSelector((state)=> state));
 
 	return (
 		<main className={styles.wrapper}>
