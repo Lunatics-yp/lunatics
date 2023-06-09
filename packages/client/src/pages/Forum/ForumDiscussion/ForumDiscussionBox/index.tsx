@@ -7,12 +7,15 @@ import {Button} from 'client/src/components/Button';
 import {ForumDiscussionColumn} from './ForumDiscussionColumn';
 import {forumThunks} from 'client/src/stores/reducers/forum/forumThunks';
 import styles from './ForumDiscussionBox.module.scss';
+import {useTopics} from 'client/src/hooks/useTopics';
 
 export const ForumDiscussionBox = () => {
-	const {forumId} = useParams();
+	
+	const {forumId = ''} = useParams();
 	const forums = useAppSelector(forumSelectors.forums);
 	const newTopic = useInput('');
-	const topics = useAppSelector(forumSelectors.topics);
+	const {topics} = useTopics(+forumId);
+	//const topics = useAppSelector(forumSelectors.topics);
 	const dispatch = useAppDispatch();
 	const isLoading = useAppSelector(forumSelectors.isLoading);
 	const error = useAppSelector(forumSelectors.error);
@@ -56,6 +59,7 @@ export const ForumDiscussionBox = () => {
 		}
 		return urlTopic;
 	};	
+	console.log(useAppSelector((state)=> state));
 
 	return (
 		<main className={styles.wrapper}>

@@ -6,6 +6,7 @@ import {TSubmessageProps} from './typing';
 export const Submessage = forwardRef<HTMLDivElement, TSubmessageProps>(
 	function Submessage({message}) {
 		const {isOwner, text} = message;
+		// const isOwner = message.user?.id === user?.id;
 
 		return (
 			<div className={styles.submessage}>

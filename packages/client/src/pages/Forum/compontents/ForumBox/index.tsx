@@ -6,10 +6,12 @@ import {ForumHeader} from '../ForumHeader';
 import {Button} from 'client/src/components/Button';
 import styles from './ForumBox.module.scss';
 import {forumThunks} from 'client/src/stores/reducers/forum/forumThunks';
+import {useForum} from 'client/src/hooks/useForum';
 
 export const ForumBox = () => {
+	const {forums} = useForum();
 	const newForum = useInput('');
-	const forums = useAppSelector(forumSelectors.forums);
+	//const forums = useAppSelector(forumSelectors.forums);
 	const isLoading = useAppSelector(forumSelectors.isLoading);
 	const dispatch = useAppDispatch();
 	const error = useAppSelector(forumSelectors.error);

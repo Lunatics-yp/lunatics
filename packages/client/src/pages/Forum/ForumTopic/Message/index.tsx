@@ -16,8 +16,7 @@ export const Message = forwardRef<HTMLDivElement, TMessageProps>(function Messag
 	const {user} = useAppSelector(state => state.authReducer);
 	const {text, id} = message;
 	const isOwner = message.user?.id === user?.id;
-	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-	const reactions = message.reactions!;
+	const reactions = message.reactions || [];
 	const dispatch = useAppDispatch();
 	const childrenMassage = messages.filter(el => el.parent_message_id === id);
 

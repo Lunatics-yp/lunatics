@@ -95,7 +95,8 @@ export const forumSlice = createSlice({
 		// CreateMessage
 			.addCase(forumThunks.createMessage.fulfilled, (state, action) => {
 				const messageData = action.payload.data as unknown as TCreateMessageResponseData;
-				state.messages = [messageData, ...state. messages];
+				console.log('messageData', messageData);
+				state.messages = [messageData, ...state.messages];
 			})
 			.addCase(forumThunks.createMessage.pending, (state) => {
 				state.isLoading = true;

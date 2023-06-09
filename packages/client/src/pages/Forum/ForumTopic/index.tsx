@@ -64,7 +64,7 @@ export const ForumTopic = () => {
 				);
 			}
 		}
-		if (topicId){			
+		if (topicId) {
 			dispatch(
 				forumThunks.createMessage({
 					action: 'message.create',
@@ -112,7 +112,9 @@ export const ForumTopic = () => {
 			isReactionListActive={isReactionListActive}
 			setIsReactionListActive={setIsReactionListActive}
 		/>
-	)) ;
+	));
+
+	console.log(useAppSelector(state => state));
 
 	return (
 		<main className={styles.wrapper}>

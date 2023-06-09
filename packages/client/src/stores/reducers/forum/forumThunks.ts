@@ -1,7 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {forumdAPI} from 'client/src/api/forum';
 // eslint-disable-next-line max-len
-import {TCreateForumRequest, TForumListRequest,TCreateTopicRequest, TCreateMessageRequest, TMessageListRequest} from 'client/src/api/typingForum';
+import {TCreateForumRequest, TForumListRequest,TCreateTopicRequest, TCreateMessageRequest, TMessageListRequest, TTopicListRequest} from 'client/src/api/typingForum';
 
 //Для взаимодействия с асинхронными actions используем createAsyncThunk.
 const createForum = createAsyncThunk(
@@ -16,7 +16,7 @@ const createForum = createAsyncThunk(
 	},
 );
 
-const getAllForums = createAsyncThunk(
+export const getAllForums = createAsyncThunk(
 	'forum/getAllForums',
 	async (data: TForumListRequest, thunkAPI) => {
 		try {
@@ -41,9 +41,9 @@ const createTopic = createAsyncThunk(
 	},
 );
 
-const getAllTopics = createAsyncThunk(
+export const getAllTopics = createAsyncThunk(
 	'forum/getAllTopics',
-	async (data: TCreateTopicRequest, thunkAPI) => {
+	async (data: TTopicListRequest, thunkAPI) => {
 		try {
 			const response = await forumdAPI.getAllTopics(data);
 			return response.data;
@@ -66,7 +66,7 @@ const createMessage = createAsyncThunk(
 	},
 );
 
-const getAllMessages = createAsyncThunk(
+export const getAllMessages = createAsyncThunk(
 	'forum/getAllMessages',
 	async (data: TMessageListRequest, thunkAPI) => {
 		try {
