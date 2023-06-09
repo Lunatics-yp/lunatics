@@ -12,11 +12,6 @@ export type TTopic = {
 	created_at: Date;
 };
 
-const topicOptions = {
-	timestamps: false,
-	tableName: 'Topics',
-};
-
 const topicModel: ModelAttributes<Model, TTopic> = {
 	id: {
 		type: DataType.INTEGER,
@@ -51,6 +46,17 @@ const topicModel: ModelAttributes<Model, TTopic> = {
 		allowNull: false,
 		defaultValue: DataType.NOW,
 	},
+};
+
+const topicOptions = {
+	timestamps: false,
+	tableName: 'Topics',
+	indexes: [
+		{
+			unique: false,
+			fields: ['forum_id'],
+		},
+	],
 };
 
 const Topics = sequelize.define('Topics', topicModel, topicOptions);

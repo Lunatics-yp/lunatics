@@ -13,11 +13,6 @@ export type TMessage = {
 	created_at?: Date;
 };
 
-const messageOptions = {
-	timestamps: false,
-	tableName: 'Messages',
-};
-
 const messageModel: ModelAttributes<Model, TMessage> = {
 	id: {
 		type: DataType.INTEGER,
@@ -59,6 +54,21 @@ const messageModel: ModelAttributes<Model, TMessage> = {
 		type: DataType.DATE,
 		defaultValue: DataType.NOW,
 	},
+};
+
+const messageOptions = {
+	timestamps: false,
+	tableName: 'Messages',
+	indexes: [
+		{
+			unique: false,
+			fields: ['topic_id'],
+		},
+		{
+			unique: false,
+			fields: ['parent_message_id'],
+		},
+	],
 };
 
 const Messages = sequelize.define('Messages', messageModel, messageOptions);

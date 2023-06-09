@@ -11,11 +11,6 @@ export type TForum = {
 	created_at: Date;
 };
 
-const forumOptions = {
-	timestamps: false,
-	tableName: 'Forums',
-};
-
 const forumModel: ModelAttributes<Model, TForum> = {
 	id: {
 		type: DataType.INTEGER,
@@ -41,6 +36,11 @@ const forumModel: ModelAttributes<Model, TForum> = {
 		allowNull: false,
 		defaultValue: DataType.NOW,
 	},
+};
+
+const forumOptions = {
+	timestamps: false,
+	tableName: 'Forums',
 };
 
 const Forums = sequelize.define('Forums', forumModel, forumOptions);

@@ -9,11 +9,6 @@ type TUserTheme = {
 	theme_name?: string;
 };
 
-const userThemeOptions = {
-	timestamps: false,
-	tableName: 'UserTheme',
-};
-
 const userThemeModel: ModelAttributes<Model, TUserTheme> = {
 	user_id: {
 		type: DataType.INTEGER,
@@ -27,6 +22,11 @@ const userThemeModel: ModelAttributes<Model, TUserTheme> = {
 	theme_name: {
 		type: DataType.STRING,
 	},
+};
+
+const userThemeOptions = {
+	timestamps: false,
+	tableName: 'UserTheme',
 };
 
 const UserTheme = sequelize.define('UserTheme', userThemeModel, userThemeOptions);
