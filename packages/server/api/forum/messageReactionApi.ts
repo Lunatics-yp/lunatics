@@ -10,15 +10,29 @@ export const messageReactionApi = {
 			return {reason: 'Неправильные параметры для метода set messageReaction'};
 		}
 		try {
-			const newMessageReaction = await MessagesReactions.upsert({
-				message_id,
-				reaction_id,
-				user_id,
+			// Проверяем наличие записи
+			const existingMessageReaction = await MessagesReactions.findOne({
+				where: {
+					message_id,
+					user_id,
+				},
 			});
+
+			const newMessageReaction = existingMessageReaction
+				// Если запись есть, то обновляем reaction_id
+				? await existingMessageReaction.update({reaction_id})
+				// Если нет, то создаём новую
+				: await MessagesReactions.create({
+					message_id,
+					user_id,
+					reaction_id,
+				});
+
 			return {
 				data: newMessageReaction,
 			};
 		} catch (e) {
+			console.log(e);
 			return {reason: 'Ошибка при создании строки в методе set messageReaction'};
 		}
 	},
