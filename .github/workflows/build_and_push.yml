@@ -1,6 +1,7 @@
 name: Push to GitHub Container Registry
 
 on:
+  pull_request:
   push:
     branches:
       - deploy-main
@@ -18,7 +19,7 @@ jobs:
         env:
           OWNER: '${{ github.repository_owner }}'
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
