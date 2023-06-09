@@ -52,6 +52,7 @@ export const forumApi = {
 				data: {deleted: isDeleted},
 			};
 		} catch (e) {
+			console.error(e);
 			return {reason: 'Ошибка удаления строки в методе delete forum'};
 		}
 	},

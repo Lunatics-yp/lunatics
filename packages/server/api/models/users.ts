@@ -10,15 +10,9 @@ export type TUser = {
 	avatar: string;
 };
 
-const userOptions = {
-	timestamps: false,
-	paranoid: false,
-	tableName: 'Users',
-};
-
 const userModel: ModelAttributes<Model, TUser> = {
 	id: {
-		type: DataType.NUMBER,
+		type: DataType.INTEGER,
 		primaryKey: true,
 		allowNull: false,
 	},
@@ -32,6 +26,12 @@ const userModel: ModelAttributes<Model, TUser> = {
 	avatar: {
 		type: DataType.STRING,
 	},
+};
+
+const userOptions = {
+	timestamps: false,
+	paranoid: false,
+	tableName: 'Users',
 };
 
 const Users = sequelize.define('Users', userModel, userOptions);

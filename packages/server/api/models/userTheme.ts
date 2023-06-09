@@ -9,11 +9,6 @@ type TUserTheme = {
 	theme_name?: string;
 };
 
-const userThemeOptions = {
-	timestamps: false,
-	tableName: 'UserTheme',
-};
-
 const userThemeModel: ModelAttributes<Model, TUserTheme> = {
 	user_id: {
 		type: DataType.INTEGER,
@@ -29,8 +24,14 @@ const userThemeModel: ModelAttributes<Model, TUserTheme> = {
 	},
 };
 
+const userThemeOptions = {
+	timestamps: false,
+	tableName: 'UserTheme',
+};
+
 const UserTheme = sequelize.define('UserTheme', userThemeModel, userThemeOptions);
 
 UserTheme.belongsTo(Users, {foreignKey: 'user_id'});
+Users.hasOne(UserTheme, {foreignKey: 'user_id'});
 
 export {UserTheme};

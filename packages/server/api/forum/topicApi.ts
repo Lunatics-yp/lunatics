@@ -1,7 +1,7 @@
 import {Topics, Messages, Users} from '../models';
 import type {TTopic} from '../models';
 import type {TApiResponseData} from '../typing';
-import {sequelize} from '../sequelize';
+import type {TTopicsRespond} from './typing';
 
 // Апи Топика
 export const topicApi = {
@@ -64,32 +64,39 @@ export const topicApi = {
 			return {reason: 'Неправильные параметры для метода list topic'};
 		}
 		try {
-			const topics = await Topics.findAll({
+			const topicsSQL = await Topics.findAll({
 				where: {forum_id},
 				include: [
 					{
 						model: Users,
-						as: 'user',
 					},
 					{
 						model: Messages,
-						as: 'last_message',
+						order: [['id', 'DESC']],
+						limit: 1,
+						required: false,
 						include: [
 							{
 								model: Users,
-								as: 'user',
 							},
 						],
-						order: [['id', 'DESC']],
-						limit: 1,
 					},
 				],
-				order: [[sequelize.col('last_message.id'), 'DESC']],
 			});
+
+			/** Тут я никак не смог добиться, чтобы в ответе был один объект
+			 * с последним сообщением, поэтому добавил обработку ответа и избавляюсь от массива */
+			const topics = JSON.parse(JSON.stringify(topicsSQL)) as TTopicsRespond;
+			topics.forEach(topic => {
+				topic['LastMessage'] = topic['Messages'] ? topic['Messages'][0] ?? {} : {};
+				delete topic['Messages'];
+			});
+
 			return {
 				data: topics,
 			};
 		} catch (e) {
+			console.error(e);
 			return {reason: 'Ошибка при получении списка топиков в методе list topic'};
 		}
 	},

@@ -10,11 +10,6 @@ export type TMessageReaction = {
 	reaction_id: number;
 };
 
-const messageReactionOptions = {
-	timestamps: false,
-	tableName: 'MessagesReactions',
-};
-
 const messageReactionModel: ModelAttributes<Model, TMessageReaction> = {
 	message_id: {
 		type: DataType.INTEGER,
@@ -40,10 +35,26 @@ const messageReactionModel: ModelAttributes<Model, TMessageReaction> = {
 	},
 };
 
+const messageReactionOptions = {
+	timestamps: false,
+	tableName: 'MessagesReactions',
+	indexes: [
+		{
+			unique: true,
+			fields: ['message_id', 'user_id'],
+		},
+	],
+};
+
 const MessagesReactions = sequelize.define(
 	'MessagesReactions',
 	messageReactionModel,
 	messageReactionOptions,
 );
+
+MessagesReactions.belongsTo(Users, {foreignKey: 'user_id'});
+MessagesReactions.belongsTo(Messages, {foreignKey: 'message_id'});
+Messages.hasMany(MessagesReactions, {foreignKey: 'message_id'});
+Messages.hasMany(MessagesReactions, {foreignKey: 'message_id', as: 'CurrentUserReaction'});
 
 export {MessagesReactions};

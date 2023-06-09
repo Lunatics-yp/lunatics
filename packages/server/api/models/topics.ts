@@ -12,11 +12,6 @@ export type TTopic = {
 	created_at: Date;
 };
 
-const topicOptions = {
-	timestamps: false,
-	tableName: 'Topics',
-};
-
 const topicModel: ModelAttributes<Model, TTopic> = {
 	id: {
 		type: DataType.INTEGER,
@@ -53,9 +48,22 @@ const topicModel: ModelAttributes<Model, TTopic> = {
 	},
 };
 
+const topicOptions = {
+	timestamps: false,
+	tableName: 'Topics',
+	indexes: [
+		{
+			unique: false,
+			fields: ['forum_id'],
+		},
+	],
+};
+
 const Topics = sequelize.define('Topics', topicModel, topicOptions);
 
 Topics.belongsTo(Forums, {foreignKey: 'forum_id'});
+Forums.hasMany(Topics, {foreignKey: 'forum_id'});
 Topics.belongsTo(Users, {foreignKey: 'user_id'});
+Users.hasMany(Topics, {foreignKey: 'user_id'});
 
 export {Topics};

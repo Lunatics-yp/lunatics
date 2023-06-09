@@ -73,7 +73,6 @@ export async function startServer(isDev: boolean, port: number) {
 	app.use('/api/themes', xssMiddleware);
 	app.use('/api/themes', async (req, res) => {
 		try {
-			app.use(express.json());
 			await themeApiHandler(req, res);
 		} catch (e) {
 			console.error(e);
