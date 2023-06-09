@@ -95,7 +95,7 @@ export const topicApi = {
 				data: topics,
 			};
 		} catch (e) {
-			console.log(e);
+			console.error(e);
 			return {reason: 'Ошибка при получении списка топиков в методе list topic'};
 		}
 	},
