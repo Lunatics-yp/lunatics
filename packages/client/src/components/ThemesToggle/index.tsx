@@ -10,14 +10,17 @@ export const ThemesToggle = () => {
 	const dispatch = useAppDispatch();
 	const user = useAppSelector(authSelectors.user);
 	const themeName = useAppSelector(authSelectors.theme);
-
+	console.log('theme', themeName);
 	useEffect( () => {
+
 		const userId = user.user?.id;
 		if(userId && themeName && user.isLoading === false) {
 			console.log('theme if', themeName);
 			themesApi.changeUserTheme(themeName);
-			// @ts-ignore
-			// dispatch(changeUserTheme(themeName));
+		}
+		if (themeName && !userId) {
+			console.log('theme if !userId', themeName);
+			document.documentElement.dataset.theme = themeName;
 		}
 	},[themeName]);
 

@@ -10,7 +10,7 @@ label {
 	width: 65px;
 	height: 30px;
 	margin: 0 auto;
-	background-color: var(--colorBackground);
+	background-color: var(--colorThemeToggle);
 	border-radius: 58px;
 	cursor: pointer;
 	transition: 0.3s ease background-color;
@@ -46,6 +46,10 @@ label {
 	transition: 0.3s ease color;
 }
 
+.moon {
+	color: var(--colorWhite)
+}
+
 .moon::before {
 	content: '';
 	position: absolute;
@@ -53,7 +57,7 @@ label {
 	left: -10px;
 	width: 21px;
 	height: 21px;
-	background-color: var(--colorBackground);
+	background-color: var(--colorThemeToggle);
 	border-radius: 50%;
 	transition: 0.3s ease background-color;
 }

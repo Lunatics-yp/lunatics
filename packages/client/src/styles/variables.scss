@@ -1,4 +1,4 @@
-:root {
+:root[data-theme='light'] {
 	// --colorText: black;
 	// --colorBg: white;
 	// --colorBlack: black;
@@ -42,7 +42,7 @@
 	--colorBlueTeal: #19678d;
 	--colorBackground: #07405b;
 	--colorBlueDark: #001e44;
-	--colorThemeDarkBackground: #002131;
+	--colorThemeToggle: #064d6e;
 
 	// Purple
 	--colorPurpleLight: #8f65b7;
@@ -58,3 +58,14 @@
 	// Text Shadow winner
 	--textWinnerShadow: #006181;
 }
+
+:root[data-theme='dark'] {
+	--colorBackground: #00283b;
+	--colorBlueSky: #046b76;
+	--colorBlueWhite: #ccd4d4;
+	--colorBlueLight: #87afb1;
+	--colorWhite: #ccd4d4;
+	--colorThemeToggle: white;
+	--colorBlack: #000;
+}
+
