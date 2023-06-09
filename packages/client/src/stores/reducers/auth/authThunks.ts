@@ -6,7 +6,6 @@ import {
 	TLoginRequestData,
 	TRegisterRequestData,
 } from 'client/src/api/typing';
-import {themesApi} from 'client/src/api/themes';
 
 // Для взаимодействия с асинхронными actions используем createAsyncThunk.
 export const fetchUser = createAsyncThunk(
@@ -75,19 +74,6 @@ export const changeUserAvatar = createAsyncThunk(
 	},
 );
 
-export const changeUserTheme = createAsyncThunk(
-	'theme/change',
-	async (themeName: string, thunkAPI) => {
-		try {
-			const response = await themesApi.changeUserTheme(themeName);
-			console.log('changeUserTheme response', response);
-			return response;
-		} catch (e) {
-			return thunkAPI.rejectWithValue(e);
-		}
-	},
-);
-
 export const authThunks = {
 	fetchUser,
 	login,
@@ -95,5 +81,4 @@ export const authThunks = {
 	logout,
 	changeUserData,
 	changeUserAvatar,
-	changeUserTheme,
 };

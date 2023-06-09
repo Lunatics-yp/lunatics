@@ -2,12 +2,13 @@ import type {Request, Response} from 'express';
 import {isValidPostData} from '../utils/postDataValidator';
 import {themeApi} from './themeApi';
 import type {TApiFunction, TApiResponseData} from './typing';
+import type {TUser} from '../models';
 
 // Апи Тем
 export const themeApiHandler = async (
 	req: Request,
 	res: Response,
-	userData: any ,
+	userData: TUser,
 ): Promise<void> => {
 	const postData = req.body;
 	const userId = userData.id;
@@ -19,7 +20,6 @@ export const themeApiHandler = async (
 		return;
 	}
 	const {action, data} = postData;
-	console.log('data ', data);
 	data.userId = userId;
 
 	let apiResponse: TApiResponseData = {};
@@ -30,9 +30,7 @@ export const themeApiHandler = async (
 	};
 
 	if (action in actions) {
-		// @ts-ignore
 		const apiFunction = actions[action] as TApiFunction;
-		console.log('data if', data);
 		apiResponse = await apiFunction(data);
 	}
 

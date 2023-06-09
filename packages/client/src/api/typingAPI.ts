@@ -11,6 +11,9 @@ export type TUserDTO = {
   avatar: string | null;
   phone: string;
   email: string;
+  theme: {
+	data: string | null;
+  };
 };
 
 export type TThemeDTO = {

@@ -27,7 +27,6 @@ export const authSlice = createSlice({
 			.addCase(authThunks.fetchUser.fulfilled, (state, action) => {
 				state.isLoading = false;
 				if (isUserData(action.payload)) {
-					// @ts-ignore
 					state.theme = action.payload.theme.data;
 					state.user = transformUser(action.payload);
 				}
@@ -101,12 +100,6 @@ export const authSlice = createSlice({
 			.addCase(authThunks.changeUserAvatar.rejected, (state, action) => {
 				state.isLoading = false;
 				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
-			})
-		// change theme
-			.addCase(authThunks.changeUserTheme.fulfilled, (state, action) => {
-				console.log('action.payload', action.payload);
-				// @ts-ignore
-				state.theme = action.payload;
 			});
 	},
 });

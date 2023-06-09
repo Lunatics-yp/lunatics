@@ -8,7 +8,7 @@ import {interceptors} from './interceptors';
  */
 const localApi = axios.create({
 	baseURL: API_CONFIG.local,
-	timeout: 5000,
+	// timeout: 5000,
 	withCredentials: true,
 	headers: {
 		'Content-Type': 'application/json',

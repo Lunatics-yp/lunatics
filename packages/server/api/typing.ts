@@ -1,4 +1,4 @@
-import type {TForum, TTopic, TMessage, TMessageReaction} from 'server/api/models';
+import type {TForum, TTopic, TMessage, TMessageReaction, TUserTheme} from 'server/api/models';
 
 type TForumAction = 'forum.list' | 'forum.create' | 'forum.delete';
 type TTopicAction = 'topic.list' | 'topic.create' | 'topic.delete';

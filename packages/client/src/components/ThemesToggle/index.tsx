@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from 'client/src/hooks/redux';
 import {authSelectors} from 'client/src/stores/reducers/auth/authSlice';
 import {themesActions} from 'client/src/stores/reducers/auth/authSlice';
@@ -9,31 +9,41 @@ import styles from './styles.module.scss';
 export const ThemesToggle = () => {
 	const dispatch = useAppDispatch();
 	const user = useAppSelector(authSelectors.user);
-	const themeName = useAppSelector(authSelectors.theme);
-	console.log('theme', themeName);
-	useEffect( () => {
+	const themeName: string | null | undefined = useAppSelector(authSelectors.theme);
+	const [themeLocal, setThemeLocal] = useState('');
 
+	useEffect( () => {
 		const userId = user.user?.id;
 		if(userId && themeName && user.isLoading === false) {
-			console.log('theme if', themeName);
+			console.log('if(userId && themeName && user.isLoading === false)', themeName);
 			themesApi.changeUserTheme(themeName);
-		}
-		if (themeName && !userId) {
-			console.log('theme if !userId', themeName);
 			document.documentElement.dataset.theme = themeName;
+			localStorage.setItem('theme', themeName);
 		}
-	},[themeName]);
+		if (!userId && themeName === null) {
+			const localTheme = window.localStorage.getItem('theme');
+			if (localTheme === null) {
+				document.documentElement.dataset.theme = Theme.Light;
+				localStorage.setItem('theme', Theme.Light);
+			} else {
+				setThemeLocal(localTheme);
+				document.documentElement.dataset.theme = localTheme;
+				localStorage.setItem('theme', localTheme);
+				dispatch(themesActions
+					.changeTheme(localTheme));
+			}
+		}
+		if(themeName !== null) {
+			document.documentElement.dataset.theme = themeName;
+			if (typeof themeName === 'string') {
+				localStorage.setItem('theme', themeName);
+			}
+		}
+	},[themeName, themeLocal]);
 
 	const changeTheme = async () => {
 		await dispatch(themesActions
 			.changeTheme(themeName === Theme.Light ? Theme.Dark : Theme.Light));
-		// if(userId && themeName  && user.isLoading === false) {
-		// 	console.log('theme if', themeName);
-		// 	await themesApi.changeUserTheme(themeName);
-		// 	// @ts-ignore
-		// 	// dispatch(changeUserTheme(themeName));
-		// 	// await themesApi.changeUserTheme(themeName);
-		// }
 	};
 	return (
 		<>
