@@ -1,0 +1,13 @@
+@import 'client/src/styles/app';
+
+.reaction {
+	&--thumb-down {
+		transform: scaleX(-1) rotate(180deg) scale(0.7);
+		transition: all var(--animationTimeSmall);
+
+		&:hover {
+			transform: scaleX(-1) rotate(180deg) scale(1);
+			transition: all var(--animationTimeSmall) ease;
+		}
+	}
+}

@@ -1,5 +1,5 @@
-import {Users} from 'server/api/models';
-import type {TUser} from 'server/api/models';
+import {Users} from '../models';
+import type {TUser} from '../models';
 
 export const userAPI = {
 	createOrUpdate: async (data: TUser) => {

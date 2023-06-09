@@ -18,3 +18,11 @@ export type TThemeDTO = {
 		data: string;
 	};
 };
+
+export type TReactionDTO = {
+	data: {
+		message_id: number;
+		user_id: number;
+		reaction_id: number;
+	};
+};

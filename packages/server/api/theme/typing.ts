@@ -1,4 +1,4 @@
-import type {TApiData} from 'server/api/typing';
+import type {TApiData} from '../typing';
 
 export type TUserTheme = {
 	userId: number;

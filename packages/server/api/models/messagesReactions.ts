@@ -1,6 +1,6 @@
 import {DataType, Model} from 'sequelize-typescript';
 import type {ModelAttributes} from 'sequelize/types';
-import {sequelize} from 'server/api/sequelize';
+import {sequelize} from '../sequelize';
 import {Users, Messages} from './';
 
 // Модель таблицы MessagesReactions
@@ -8,11 +8,6 @@ export type TMessageReaction = {
 	message_id: number;
 	user_id: number;
 	reaction_id: number;
-};
-
-const messageReactionOptions = {
-	timestamps: false,
-	tableName: 'MessagesReactions',
 };
 
 const messageReactionModel: ModelAttributes<Model, TMessageReaction> = {
@@ -40,10 +35,26 @@ const messageReactionModel: ModelAttributes<Model, TMessageReaction> = {
 	},
 };
 
+const messageReactionOptions = {
+	timestamps: false,
+	tableName: 'MessagesReactions',
+	indexes: [
+		{
+			unique: true,
+			fields: ['message_id', 'user_id'],
+		},
+	],
+};
+
 const MessagesReactions = sequelize.define(
 	'MessagesReactions',
 	messageReactionModel,
 	messageReactionOptions,
 );
+
+MessagesReactions.belongsTo(Users, {foreignKey: 'user_id'});
+MessagesReactions.belongsTo(Messages, {foreignKey: 'message_id'});
+Messages.hasMany(MessagesReactions, {foreignKey: 'message_id'});
+Messages.hasMany(MessagesReactions, {foreignKey: 'message_id', as: 'CurrentUserReaction'});
 
 export {MessagesReactions};

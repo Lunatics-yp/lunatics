@@ -1,4 +1,4 @@
-import {TErrorAPI, TThemeDTO, TUserDTO} from './typingAPI';
+import {TErrorAPI, TUserDTO} from './typingAPI';
 export type TNullObject = Record<string, never>;
 
 /* Login */
@@ -89,3 +89,23 @@ export type  TGetThemeRequestData = {
 	userId: number;
 };
 export type TThemeResponseData = TThemeDTO | TErrorAPI;
+
+/* Reactions */
+
+export type TSetReactionResponseData = TReactionDTO | TErrorAPI;
+
+export enum REACTIONS_ACTION {
+	SET = 'reaction.set',
+	DELETE = 'reaction.delete',
+}
+
+export type  TSetReactionRequestData = {
+	message_id: number;
+	reaction_id: number;
+};
+
+export type TDeleteReactionResponseData = {deleted: boolean} | TErrorAPI;
+
+export type TDeleteReactionRequestData = {
+	message_id: number;
+};

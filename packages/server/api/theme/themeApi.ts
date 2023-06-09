@@ -1,6 +1,6 @@
-import type {TApiResponseData, TUserTheme} from 'server/api/theme/typing';
-import {UserTheme} from 'server/api/models/userTheme';
-import {ThemeNames} from 'server/api/theme/constants';
+import type {TApiResponseData, TUserTheme} from './typing';
+import {UserTheme} from '../models/userTheme';
+import {ThemeNames} from './constants';
 
 // Апи Тем
 export const themeApi = {

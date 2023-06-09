@@ -1,7 +1,7 @@
 import type {Request, Response} from 'express';
-import {isValidPostData} from 'server/api/utils/postDataValidator';
-import {themeApi} from 'server/api/theme/themeApi';
-import type {TApiFunction, TApiResponseData} from 'server/api/theme/typing';
+import {isValidPostData} from '../utils/postDataValidator';
+import {themeApi} from './themeApi';
+import type {TApiFunction, TApiResponseData} from './typing';
 
 // Апи Тем
 export const themeApiHandler = async (

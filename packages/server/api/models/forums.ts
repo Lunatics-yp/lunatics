@@ -1,6 +1,6 @@
 import {DataType, Model} from 'sequelize-typescript';
 import type {ModelAttributes} from 'sequelize/types';
-import {sequelize} from 'server/api/sequelize';
+import {sequelize} from '../sequelize';
 import {Users} from './';
 
 // Модель таблицы Forums
@@ -9,11 +9,6 @@ export type TForum = {
 	name: string;
 	user_id: number;
 	created_at: Date;
-};
-
-const forumOptions = {
-	timestamps: false,
-	tableName: 'Forums',
 };
 
 const forumModel: ModelAttributes<Model, TForum> = {
@@ -43,8 +38,14 @@ const forumModel: ModelAttributes<Model, TForum> = {
 	},
 };
 
+const forumOptions = {
+	timestamps: false,
+	tableName: 'Forums',
+};
+
 const Forums = sequelize.define('Forums', forumModel, forumOptions);
 
 Forums.belongsTo(Users, {foreignKey: 'user_id'});
+Users.hasMany(Forums, {foreignKey: 'user_id'});
 
 export {Forums};

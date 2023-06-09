@@ -3,37 +3,65 @@ import type {TSsrRenderProps} from 'client/ssr/typing';
 import fs from 'fs';
 import path from 'path';
 
-const ssrDevPath = path.dirname(require.resolve('client'));
-const ssrProdPath = require.resolve('client/ssr-dist/client.cjs');
+export const getClientDir = () => {
+	let clientDir: string;
+	try {
+		clientDir = require.resolve('client');
+	} catch (e) {
+		// хак для docker, чтобы дать ему корректный путь до папки проекта client
+		clientDir = '/client/index.html';
+	}
+	return path.dirname(clientDir);
+};
+
+// Путь до подпроекта client
+const ssrDevPath = getClientDir();
+
+// Путь до билда скрипта для SSR (из client)
+const ssrProdPath = path.resolve(getClientDir(), 'ssr-dist/client.cjs');
+
+// Путь до билда подпроекта client
+const distPath = path.dirname(path.resolve(getClientDir(), 'dist/index.html'));
 
 export const getSsrPath = (isDev: boolean) => isDev ? ssrDevPath : ssrProdPath;
 
 export async function ssrContent(vite: ViteDevServer, url: string, isDev: boolean) {
+	if (isDev && !vite) {
+		throw Error('Не запущен ViteDevServer');
+	}
 
 	let render: TSsrRenderProps;
+	let setupStore;
+	let initialState;
 
-	let template = fs.readFileSync(
-		path.resolve(getSsrPath(isDev), 'index.html'),
-		'utf-8',
-	);
+	const templatePath = isDev
+		? path.resolve(ssrDevPath, 'index.html')
+		: path.resolve(distPath, 'index.html');
 
-	if (isDev && vite) {
+	let template = fs.readFileSync(templatePath, 'utf-8');
+
+	if (isDev) {
 		template = await vite.transformIndexHtml(url, template);
-		render = (await vite.ssrLoadModule(path.resolve(ssrDevPath, 'ssr/ssr.tsx'))).render;
+		const pathFileSSR = path.resolve(ssrDevPath, 'ssr/ssr.tsx');
+		render = (await vite.ssrLoadModule(pathFileSSR)).render;
 	} else {
 		render = (await import(ssrProdPath)).render;
 	}
 
-	const setupStore = (await vite.ssrLoadModule(path.resolve(ssrDevPath, 'src/stores/store.ts')))
-		.setupStore;
+	const [initialStateRender, appHtml] = render(url);
 
-	const store = setupStore();
-	const initialState = store.getState();
+	if (isDev) {
+		const pathFileStore = path.resolve(ssrDevPath, 'src/stores/store.ts');
+		setupStore = (await vite.ssrLoadModule(pathFileStore)).setupStore;
+		const store = setupStore();
+		initialState = store.getState();
+	} else {
+		initialState = initialStateRender;
+	}
 
 	const stringifyState = JSON.stringify(initialState).replace(/</g, '\\u003c');
 	const stateMarkup = `<script>window.__PRELOADED_STATE__ = ${stringifyState}</script>`;
 
-	const appHtml = render(url, store);
 	return template
 		.replace('<!--ssr-outlet-->', appHtml)
 		.replace('<!--preloadedState-->', stateMarkup);

@@ -1,10 +1,10 @@
 import type {Request, Response} from 'express';
 import type {IncomingMessage} from 'http';
-import {userAPI} from 'server/api/user';
-import {yandexAuthUri} from 'server/authMiddleware/constants';
-import type {TUserData} from 'server/authMiddleware/typing';
+import {userAPI} from '../../api/user';
+import {yandexAuthUri} from '../constants';
+import type {TUserData} from '../typing';
 import {isValidUserData} from './userDataValidator';
-import {themeApi} from 'server/api/theme/themeApi';
+import {themeApi} from '../../api/theme/themeApi';
 
 const yandexProxyResponseHandler = (
 	proxyRes: IncomingMessage,
