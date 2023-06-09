@@ -32,5 +32,6 @@ const userThemeModel: ModelAttributes<Model, TUserTheme> = {
 const UserTheme = sequelize.define('UserTheme', userThemeModel, userThemeOptions);
 
 UserTheme.belongsTo(Users, {foreignKey: 'user_id'});
+Users.hasOne(UserTheme, {foreignKey: 'user_id'});
 
 export {UserTheme};

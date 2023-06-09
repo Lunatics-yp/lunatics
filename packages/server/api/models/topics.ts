@@ -56,6 +56,8 @@ const topicModel: ModelAttributes<Model, TTopic> = {
 const Topics = sequelize.define('Topics', topicModel, topicOptions);
 
 Topics.belongsTo(Forums, {foreignKey: 'forum_id'});
+Forums.hasMany(Topics, {foreignKey: 'forum_id'});
 Topics.belongsTo(Users, {foreignKey: 'user_id'});
+Users.hasMany(Topics, {foreignKey: 'user_id'});
 
 export {Topics};

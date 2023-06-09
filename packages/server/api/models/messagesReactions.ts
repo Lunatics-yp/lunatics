@@ -46,4 +46,9 @@ const MessagesReactions = sequelize.define(
 	messageReactionOptions,
 );
 
+MessagesReactions.belongsTo(Users, {foreignKey: 'user_id'});
+Users.hasMany(MessagesReactions, {foreignKey: 'user_id'});
+MessagesReactions.belongsTo(Messages, {foreignKey: 'message_id'});
+Messages.hasOne(MessagesReactions, {foreignKey: 'message_id'});
+
 export {MessagesReactions};

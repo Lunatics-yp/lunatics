@@ -18,7 +18,7 @@ const userOptions = {
 
 const userModel: ModelAttributes<Model, TUser> = {
 	id: {
-		type: DataType.NUMBER,
+		type: DataType.INTEGER,
 		primaryKey: true,
 		allowNull: false,
 	},

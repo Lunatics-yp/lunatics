@@ -64,7 +64,9 @@ const messageModel: ModelAttributes<Model, TMessage> = {
 const Messages = sequelize.define('Messages', messageModel, messageOptions);
 
 Messages.belongsTo(Topics, {foreignKey: 'topic_id'});
+Topics.hasMany(Messages, {foreignKey: 'topic_id'});
 Messages.belongsTo(Users, {foreignKey: 'user_id'});
-Messages.belongsTo(Messages, {foreignKey: 'parent_message_id', as: 'parentMessage'});
+Messages.belongsTo(Messages, {foreignKey: 'parent_message_id'});
+Messages.hasMany(Messages, {foreignKey: 'parent_message_id'});
 
 export {Messages};

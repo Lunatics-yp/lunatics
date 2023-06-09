@@ -46,5 +46,6 @@ const forumModel: ModelAttributes<Model, TForum> = {
 const Forums = sequelize.define('Forums', forumModel, forumOptions);
 
 Forums.belongsTo(Users, {foreignKey: 'user_id'});
+Users.hasMany(Forums, {foreignKey: 'user_id'});
 
 export {Forums};
