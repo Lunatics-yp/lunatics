@@ -1,6 +1,7 @@
 import {MessagesReactions} from '../models';
 import type {TMessageReaction} from '../models';
 import type {TApiResponseData} from '../typing';
+import {sequelize} from '../sequelize';
 
 // Апи Топика
 export const messageReactionApi = {
@@ -10,24 +11,11 @@ export const messageReactionApi = {
 			return {reason: 'Неправильные параметры для метода set messageReaction'};
 		}
 		try {
-			// Проверяем наличие записи
-			const existingMessageReaction = await MessagesReactions.findOne({
-				where: {
-					message_id,
-					user_id,
-				},
-			});
-
-			const newMessageReaction = existingMessageReaction
-				// Если запись есть, то обновляем reaction_id
-				? await existingMessageReaction.update({reaction_id})
-				// Если нет, то создаём новую
-				: await MessagesReactions.create({
-					message_id,
-					user_id,
-					reaction_id,
-				});
-
+			const newMessageReaction = await sequelize.query(
+				`INSERT INTO "MessagesReactions" ("message_id", "user_id", "reaction_id")
+			  VALUES (${message_id}, ${user_id}, ${reaction_id})
+			  ON CONFLICT ("message_id", "user_id")
+			  DO UPDATE SET "reaction_id" = ${reaction_id}`);
 			return {
 				data: newMessageReaction,
 			};
