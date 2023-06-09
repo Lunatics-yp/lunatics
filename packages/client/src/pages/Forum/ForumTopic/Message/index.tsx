@@ -86,8 +86,8 @@ export const Message = forwardRef<HTMLDivElement, TMessageProps>(function Messag
 					{reactionsElements}
 				</div>
 				<div className={styles.message__sub}>
-					{childrenMassage.map((_submessage, index) => (
-						<Submessage key={index} message={_submessage}/>
+					{childrenMassage.map((submessage, index) => (
+						<Submessage key={index} message={submessage}/>
 					))}
 				</div>
 			</div>

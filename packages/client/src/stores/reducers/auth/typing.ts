@@ -35,6 +35,6 @@ export type TMessageUser = {
 	user_id: number;
 	text: string;
 	topic_id: number;
-	parent_message_id: number;
+	parent_message_id: number | null;
 	created_at: number;
 };

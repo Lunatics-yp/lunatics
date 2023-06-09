@@ -2,7 +2,6 @@ import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {RootState} from 'client/src/stores/store';
 import {transformReaction} from 'client/src/api/apiTransformers';
 import {isErrorAPI, isReactionData} from 'client/src/api/request/utilits';
-import {getNextId} from 'client/src/utils/getters';
 import {TForumState} from './typing';
 import {forumThunks} from './forumThunks';
 import {reactionThunks} from './reactionsThunks';
@@ -22,53 +21,12 @@ export const forumSlice = createSlice({
 	initialState,
 	reducers: {
 		// Форум
-		// addForum(state, {payload}: PayloadAction<string>) {
-		// 	state.forums.push({
-		// 		id: state.forums.length >= 1 ? getNextId(state.forums) : 1,
-		// 		name: payload,
-		// 		user_id: state.forums.length >= 1 ? getNextId(state.forums) : 1,
-		// 		created_at: 0,
-		// 	});
-		// },
-
-		// addTopic: (state, action: PayloadAction<string>) => {
-		// 	state.topics.push({
-		// 		id: state.topics.length >= 1 ? getNextId(state.topics) : 1,
-		// 		name: action.payload,
-		// 		forum_id: 0,
-		// 		user_id: 0,
-		// 		created_at: 0,
-		// 	});
-		// },
+		
 		// Сообщения
 		// addMessage(state, {payload}: PayloadAction<string>) {
-		// 	state.messages.push({
-		// 		// eslint-disable-next-line max-len
-		// 		id: state.messages.length >= 1 ? getNextId(state.messages) : 1, text: payload,
-		// 		user_id: 0,
-		// 		topic_id: 0,
-		// 		parent_message_id: 0,
-		// 		created_at: 0,
-		// 		user: undefined,
-		// 		reactions: [],
-		// 	});
-		// },
 
 		// Ответ на сообщения
-		// eslint-disable-next-line max-len
-		addSubmessage(state, {payload}: PayloadAction<{parent_message_id: number; content: string}>) {
-			const {parent_message_id, content} = payload;
-			const messageId = getNextId(state.messages);
-			state.messages.push({
-				id: messageId,
-				text: content,
-				parent_message_id,
-				user_id: 0,
-				topic_id: 0,
-				created_at: 0,
-				reactions: [],
-			});
-		},
+		
 	},
 
 	extraReducers: (builder) => {

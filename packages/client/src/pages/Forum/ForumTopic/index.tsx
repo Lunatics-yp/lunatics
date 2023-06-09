@@ -112,7 +112,7 @@ export const ForumTopic = () => {
 			isReactionListActive={isReactionListActive}
 			setIsReactionListActive={setIsReactionListActive}
 		/>
-	));
+	)) ;
 
 	return (
 		<main className={styles.wrapper}>
@@ -146,7 +146,7 @@ export const ForumTopic = () => {
 						<div className={styles.footer__control}>
 							<div className={styles.footer__actions}>
 								<Button
-									text="Отменаа"
+									text="Отмена"
 									onClick={onCancelHandler}
 									className={`${styles.cancel} ${styles.defaultBtn}`}
 								/>

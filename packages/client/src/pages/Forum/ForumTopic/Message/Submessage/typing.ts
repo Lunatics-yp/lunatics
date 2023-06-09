@@ -4,6 +4,6 @@ export type TSubmessageProps = {
 		isOwner?: boolean;
 		text: string;
 		subtext?: string;
-		parent_message_id?: number;
+		parent_message_id?: number| null;
 	};
 };
