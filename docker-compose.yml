@@ -30,7 +30,6 @@ services:
       - "${POSTGRES_PORT:-5432}:5432"
     volumes:
       - ./tmp/pgdata:/var/lib/postgresql/data
-      - ./db/dbinit.sql:/docker-entrypoint-initdb.d/dbinit.sql
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}

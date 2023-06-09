@@ -1,7 +1,7 @@
 import {Messages, Users, MessagesReactions} from '../models';
 import type {TMessage} from '../models';
 import type {TApiResponseData} from '../typing';
-import {sequelize} from '../sequelize';
+import type {TMessagesRespond} from './typing';
 
 // Апи Топика
 export const messageApi = {
@@ -64,36 +64,64 @@ export const messageApi = {
 			return {reason: 'Неправильные параметры для метода lest message'};
 		}
 		try {
-			const messages = await Messages.findAll({
+			const messagesSQL = await Messages.findAll({
 				where: {parent_message_id, topic_id},
 				include: [
 					{
 						model: Users,
-						as: 'user',
 					},
 					{
 						model: MessagesReactions,
-						as: 'reactions',
 						attributes: [
 							'reaction_id',
-							[sequelize.literal('COUNT(*)'), 'count'],
 						],
+						required: false,
 					},
 					{
 						model: MessagesReactions,
-						as: 'user_reaction',
-						attributes: [],
-						where: {user_id},
+						as: 'CurrentUserReaction',
 						required: false,
+						where: {user_id},
+						include: [
+							{
+								model: Users,
+							},
+						],
+						limit: 1,
 					},
 				],
-				group: ['Messages.id', 'reactions.reaction_id'],
-				order: [['id', 'ASC']],
 			});
+
+			/** Тут я никак не смог добиться, чтобы в ответе был сгруппрованный объект
+			 * с количеством каждых реакций, поэтому добавил обработку ответа
+			 * и пересчитываю реакции тут */
+			const messages = JSON.parse(JSON.stringify(messagesSQL)) as TMessagesRespond;
+
+			messages.forEach(message => {
+				const reactions: number[] = [];
+				message.MessagesReactions?.forEach(
+					reaction => reactions.push(reaction.reaction_id));
+				const result: Record<number, number> = {};
+				reactions.forEach(reaction => {
+					if (result[reaction] == undefined) {
+						result[reaction] = 0;
+					}
+					result[reaction]++;
+				});
+				message.Reactions = result;
+				delete message.MessagesReactions;
+
+				// Тут избавляемся от массива и оставляем один объект
+				message.UserReaction =
+					message.CurrentUserReaction ? message.CurrentUserReaction[0] ?? {} : {};
+				delete message.CurrentUserReaction;
+			});
+
 			return {
 				data: messages,
 			};
 		} catch (e) {
+			console.error(e);
 			return {reason: 'Ошибка при получении списка топиков в методе list topic'};
 		}
 	},

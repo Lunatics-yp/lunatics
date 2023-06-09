@@ -11,11 +11,6 @@ export type TForum = {
 	created_at: Date;
 };
 
-const forumOptions = {
-	timestamps: false,
-	tableName: 'Forums',
-};
-
 const forumModel: ModelAttributes<Model, TForum> = {
 	id: {
 		type: DataType.INTEGER,
@@ -43,8 +38,14 @@ const forumModel: ModelAttributes<Model, TForum> = {
 	},
 };
 
+const forumOptions = {
+	timestamps: false,
+	tableName: 'Forums',
+};
+
 const Forums = sequelize.define('Forums', forumModel, forumOptions);
 
 Forums.belongsTo(Users, {foreignKey: 'user_id'});
+Users.hasMany(Forums, {foreignKey: 'user_id'});
 
 export {Forums};
