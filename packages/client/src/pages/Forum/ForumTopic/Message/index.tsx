@@ -11,7 +11,6 @@ import {Answer} from 'client/src/components/images/Answer';
 import {TMessageProps} from './typing';
 import styles from './Message.module.scss';
 
-
 export const Message = forwardRef<HTMLDivElement, TMessageProps>(function Message(props, ref) {
 	const {messages, setSelectedParent, message, isReactionListActive, setIsReactionListActive} =
 		props;
