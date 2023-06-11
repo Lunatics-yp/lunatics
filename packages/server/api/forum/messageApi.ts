@@ -21,7 +21,6 @@ export const messageApi = {
 				data: newMessage,
 			};
 		} catch (e) {
-			console.log('ОШИБКА', e);
 			return {reason: 'Ошибка при создании строки в методе create message'};
 		}
 	},
