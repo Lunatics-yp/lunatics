@@ -19,15 +19,7 @@ const initialState: TForumState = {
 export const forumSlice = createSlice({
 	name: 'forum',
 	initialState,
-	reducers: {
-		// Форум
-		
-		// Сообщения
-		// addMessage(state, {payload}: PayloadAction<string>) {
-
-		// Ответ на сообщения
-		
-	},
+	reducers: {},
 
 	extraReducers: (builder) => {
 		builder
@@ -95,7 +87,6 @@ export const forumSlice = createSlice({
 		// CreateMessage
 			.addCase(forumThunks.createMessage.fulfilled, (state, action) => {
 				const messageData = action.payload.data as unknown as TCreateMessageResponseData;
-				console.log('messageData', messageData);
 				state.messages = [messageData, ...state. messages];
 			})
 			.addCase(forumThunks.createMessage.pending, (state) => {

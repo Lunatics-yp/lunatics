@@ -19,16 +19,13 @@ export const ForumTopic = () => {
 	const [selectedParent, setSelectedParent] = useState<number | null>(null);
 	const [isReactionListActive, setIsReactionListActive] = useState<number | null>(null);
 	const dispatch = useAppDispatch();
-	
 	const {user} = useAppSelector(state => state.authReducer);
 	const allMessages = useAppSelector(forumSelectors.messages);
 	const {messages} = useMessages(+topicId);
 	const messagesEndRef = useRef<null | HTMLDivElement>(null);
 	const fullScreenBtnRef = useRef(null);
-	
 	const newMessage = useInput('');
 	const {toggleFullscreen} = useFullscreen(fullScreenBtnRef);
-
 	const messageContent = newMessage.value.trim();
 
 	function fullScreenHandler() {
@@ -59,11 +56,11 @@ export const ForumTopic = () => {
 							parent_message_id: selectedParent,
 							text: messageContent,
 						},
-						// eslint-disable-next-line @typescript-eslint/comma-dangle
-					})
+					}),
 				);
 			}
 		}
+
 		if (topicId){			
 			dispatch(
 				forumThunks.createMessage({
@@ -77,25 +74,6 @@ export const ForumTopic = () => {
 			);
 		}
 	}
-
-	// function onSubmitHandler() {
-	// 	if (!messageContent) return;
-	
-	// 	newMessage.nulling();
-	
-	// 	if (selectedParent) {
-	// 	  dispatch(
-	// 		forumActions.addSubmessage({
-	// 		  parentId: selectedParent,
-	// 		  content: messageContent,
-	// 		}),
-	// 	  );
-	// 	  setSelectedParent(null);
-	// 	  return;
-	// 	}
-	
-	// 	dispatch(forumActions.addMessage(messageContent));
-	//   }
 
 	// отправка сообщений на Enter и перенос строки на Shift + Enter
 	function onPressEnter(event: KeyboardEvent) {

@@ -11,7 +11,6 @@ import {useForums} from 'client/src/hooks/useForums';
 export const ForumBox = () => {
 	const {forums} = useForums();
 	const newForum = useInput('');
-	//const forums = useAppSelector(forumSelectors.forums);
 	const isLoading = useAppSelector(forumSelectors.isLoading);
 	const dispatch = useAppDispatch();
 	const error = useAppSelector(forumSelectors.error);
@@ -23,15 +22,13 @@ export const ForumBox = () => {
 		const newTopicContent = newForum.value.trim();
 
 		if (newTopicContent) {
-			// dispatch(forumActions.addForum(newTopicContent));
 			dispatch(
 				forumThunks.createForum({
 					action: 'forum.create',
 					data: {
 						name: newTopicContent,
 					},
-					// eslint-disable-next-line @typescript-eslint/comma-dangle
-				})
+				}),
 			);
 		}
 		newForum.reset();
