@@ -5,7 +5,7 @@ import {isErrorAPI, isReactionData} from 'client/src/api/request/utilits';
 import {TForumState} from './typing';
 import {forumThunks} from './forumThunks';
 import {reactionThunks} from './reactionsThunks';
-import {TCreateForumResponseData, TCreateTopicResponseData, TCreateMessageResponseData} from
+import {TCreateForumResponseData, TCreateTopicResponseData} from
 	'client/src/api/typingForum';
 
 const initialState: TForumState = {
@@ -85,9 +85,8 @@ export const forumSlice = createSlice({
 			})
 
 		// CreateMessage
-			.addCase(forumThunks.createMessage.fulfilled, (state, action) => {
-				const messageData = action.payload.data as unknown as TCreateMessageResponseData;
-				state.messages = [messageData, ...state. messages];
+			.addCase(forumThunks.createMessage.fulfilled, (state) => {
+				state.isLoading = true;
 			})
 			.addCase(forumThunks.createMessage.pending, (state) => {
 				state.isLoading = true;

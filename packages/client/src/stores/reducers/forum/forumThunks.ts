@@ -58,7 +58,14 @@ const createMessage = createAsyncThunk(
 	'forum/createMessage',
 	async (data: TCreateMessageRequest, thunkAPI) => {
 		try {
-			return await forumdAPI.createMessage(data);
+			await forumdAPI.createMessage(data);
+			await thunkAPI.dispatch(getAllMessages({
+				action: 'message.list',
+				data: {
+					topic_id: data.data.topic_id,
+					parent_message_id: null,
+				},
+			}));
 		}
 		catch (e) {
 			return thunkAPI.rejectWithValue(e);

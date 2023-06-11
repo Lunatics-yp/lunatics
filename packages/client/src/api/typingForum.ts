@@ -102,7 +102,7 @@ export type TCreateMessageResponseData = {
 	text: string;
 	topic_id: number;
 	parent_message_id: number | null;
-	created_at: number; 
+	created_at: number;
 };
 
 export type TMessageListRequest = {
@@ -126,9 +126,9 @@ export type TMessages = {
 	topic_id: number;
 	parent_message_id: number | null;
 	created_at: number;
-	user?: TMessageUser;
-	reactions?: TReactionsMessage[];
-	user_reaction?: REACTIONS | null;
+	user: TMessageUser;
+	reactions: TReactionsMessage[];
+	user_reaction: REACTIONS | null;
 };
 
 export type TMessageUser = {
