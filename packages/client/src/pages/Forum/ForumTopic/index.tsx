@@ -23,7 +23,6 @@ export const ForumTopic = () => {
 	const {user} = useAppSelector(state => state.authReducer);
 	const allMessages = useAppSelector(forumSelectors.messages);
 	const {messages} = useMessages(+topicId);
-	//const messages = useAppSelector(forumSelectors.parentMessages);
 	const messagesEndRef = useRef<null | HTMLDivElement>(null);
 	const fullScreenBtnRef = useRef(null);
 	
@@ -74,11 +73,9 @@ export const ForumTopic = () => {
 						parent_message_id: null,
 						text: messageContent,
 					},
-					// eslint-disable-next-line @typescript-eslint/comma-dangle
-				})
+				}),
 			);
 		}
-		//dispatch(forumActions.addMessage(messageContent));
 	}
 
 	// function onSubmitHandler() {
@@ -133,8 +130,6 @@ export const ForumTopic = () => {
 			setIsReactionListActive={setIsReactionListActive}
 		/>
 	)) ;
-
-	console.log(useAppSelector((state)=> state));
 
 	return (
 		<main className={styles.wrapper}>
