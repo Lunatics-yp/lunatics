@@ -7,8 +7,10 @@ import {Stars} from 'client/src/components/images/Stars';
 import {MessageReaction} from '../MessageReaction';
 import {ReactionsList} from '../ReactionsList';
 import {Submessage} from './Submessage';
-import styles from './Message.module.scss';
+import {Answer} from 'client/src/components/images/Answer';
 import {TMessageProps} from './typing';
+import styles from './Message.module.scss';
+
 
 export const Message = forwardRef<HTMLDivElement, TMessageProps>(function Message(props, ref) {
 	const {messages, setSelectedParent, message, isReactionListActive, setIsReactionListActive} =
@@ -80,6 +82,7 @@ export const Message = forwardRef<HTMLDivElement, TMessageProps>(function Messag
 				<button
 					className={styles.message__dell}
 					onClick={onNewSubmessage}>
+					<Answer/>
 				</button>
 				<div className={styles.reaction__panel}>
 					{reactionsElements}
