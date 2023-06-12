@@ -1,3 +1,5 @@
+import {Theme} from 'client/src/stores/reducers/userSettings/typing';
+
 export type TErrorAPI = {
   reason: string;
 };
@@ -12,7 +14,7 @@ export type TUserDTO = {
   phone: string;
   email: string;
   theme: {
-	data: string | null;
+	data: `${Theme}` | null;
   };
 };
 

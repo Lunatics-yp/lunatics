@@ -4,6 +4,7 @@ import {transformUser} from 'client/src/api/apiTransformers';
 import {isUserData} from 'client/src/api/request/utilits';
 import {authThunks} from './authThunks';
 import {TAuthState} from './typing';
+import {Theme} from 'client/src/stores/reducers/userSettings/typing';
 
 const initialState: TAuthState = {
 	isLoading: false,
@@ -17,7 +18,7 @@ export const authSlice = createSlice({
 	name: 'auth',
 	initialState,
 	reducers: {
-		changeTheme(state, {payload}: PayloadAction<string>) {
+		changeTheme(state, {payload}: PayloadAction<`${Theme}`>) {
 			state.theme = payload;
 		},
 	},

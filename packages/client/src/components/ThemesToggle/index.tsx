@@ -15,7 +15,6 @@ export const ThemesToggle = () => {
 	useEffect( () => {
 		const userId = user.user?.id;
 		if(userId && themeName && user.isLoading === false) {
-			console.log('if(userId && themeName && user.isLoading === false)', themeName);
 			themesApi.changeUserTheme(themeName);
 			document.documentElement.dataset.theme = themeName;
 			localStorage.setItem('theme', themeName);
@@ -30,7 +29,7 @@ export const ThemesToggle = () => {
 				document.documentElement.dataset.theme = localTheme;
 				localStorage.setItem('theme', localTheme);
 				dispatch(themesActions
-					.changeTheme(localTheme));
+					.changeTheme(localTheme as Theme));
 			}
 		}
 		if(themeName !== null) {
@@ -54,7 +53,7 @@ export const ThemesToggle = () => {
 				className={styles.toggleCheckBox}
 				onChange={changeTheme}
 			/>
-			<label htmlFor='toggle_checkbox'>
+			<label className={styles.label} htmlFor='toggle_checkbox'>
 				<div className={styles.starContainer}>
 					<div className={`${styles.star} ${styles.star1}`}>★</div>
 					<div className={`${styles.star} ${styles.star2}`}>★</div>
