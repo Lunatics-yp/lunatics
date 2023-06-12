@@ -33,6 +33,11 @@
 4. Выполните команду `yarn dev --scope=client` чтобы запустить только клиент
 5. Выполните команду `yarn dev --scope=server` чтобы запустить только server
 
+### Запуск docker
+- `docker compose up` - запуск продакшн сборки (сервер+БД)
+- `docker compose up postgres` - запуск только БД
+- `docker compose -f docker-compose.pgadmin.yml up` - запуск pgadmin
+
 
 ### Как добавить зависимости?
 В этом проекте используется `monorepo` на основе [`lerna`](https://github.com/lerna/lerna)
