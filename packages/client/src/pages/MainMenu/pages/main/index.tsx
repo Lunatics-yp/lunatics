@@ -63,7 +63,6 @@ export const MainMenuMain = () => {
 					onClick={goToProfile}/>
 				<Button
 					text='Форум'
-					disabled={!user}
 					onClick={goToForum}/>
 				<Button
 					text='Авторы'
