@@ -1,4 +1,3 @@
-import {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useAppDispatch} from 'client/src/hooks/redux';
 import {useAuth} from 'client/src/hooks/useAuth';
@@ -15,35 +14,6 @@ export const MainMenuMain = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const user = useAuth();
-
-	const [country, setCountry] = useState('');
-	const [flagUrl, setFlagUrl] = useState('');
-
-	useEffect(() => {
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(
-				position => {
-					const {latitude, longitude} = position.coords;
-					fetch(
-						// eslint-disable-next-line max-len
-						`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`,
-					)
-						.then(response => response.json())
-						.then(data => {
-							setCountry(data.countryName);
-							setFlagUrl(
-								// eslint-disable-next-line max-len
-								`https://purecatamphetamine.github.io/country-flag-icons/3x2/${data.countryCode.toUpperCase()}.svg`,
-							);
-						})
-						.catch(error => console.log(error));
-				},
-				error => console.log(error),
-			);
-		} else {
-			console.log('Геолокация не поддерживается');
-		}
-	}, []);
 
 	// Временный каллбек для нерабочих кнопок
 	const callbackNull = () => {
@@ -67,11 +37,6 @@ export const MainMenuMain = () => {
 
 	return (
 		<>
-			<div>
-				{flagUrl && <img className='flag-style' src={flagUrl} alt={`${country} flag`}/>}
-				<h2>Страна: {country}</h2>
-			</div>
-
 			<Header>
 				<Home/>
 				<div>Главное меню</div>
@@ -98,6 +63,7 @@ export const MainMenuMain = () => {
 					onClick={goToProfile}/>
 				<Button
 					text='Форум'
+					disabled={!user}
 					onClick={goToForum}/>
 				<Button
 					text='Авторы'
