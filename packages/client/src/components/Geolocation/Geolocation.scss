@@ -1,14 +1,16 @@
 @import "client/src/styles/app";
 
-.flag {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	max-width: 25px;
-	margin-left: 5px;
-}
+.geolocation {
+	&__flag {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		max-width: 25px;
+		margin-left: 5px;
+	}
 
-.geolocationText {
-	font-size: calc(var(--height) / 2.5);
-	margin-left: 20px;
+	&__text {
+		font-size: calc(var(--height) / 2.5);
+		margin-left: 20px;
+	}
 }

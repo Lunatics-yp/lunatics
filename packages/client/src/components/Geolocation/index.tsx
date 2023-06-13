@@ -37,10 +37,10 @@ export const Geolocation: FC<TGeolocationrProps> = ({initialRegion, initialFlagU
 	return (
 		<>
 			<div className="geolocation">
-				<h2 className="geolocationText">Регион: {country || 'не определен'}</h2>
+				<h2 className="geolocation__text">Регион: {country || 'не определен'}</h2>
 			</div>
 			{flagUrl ? (
-				<img className="flag" src={flagUrl} alt={`${country} flag`}/>
+				<img className="geolocation__flag" src={flagUrl} alt={`${country} flag`}/>
 			) : (
 				<PirateFlag/>
 			)}
