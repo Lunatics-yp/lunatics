@@ -38,7 +38,7 @@ const messageWithCountedReactions = (message: TMessagesRespond[0]) => {
 			reaction => reactions.push(reaction.reaction_id));
 		const result: Record<number, number> = {};
 		reactions.forEach(reaction => {
-			if (result[reaction] == undefined) {
+			if (result[reaction] === undefined) {
 				result[reaction] = 0;
 			}
 			result[reaction]++;
