@@ -3,7 +3,7 @@ import {PirateFlag} from '../images/PirateFlag';
 import {TGeolocationsProps} from './typing';
 import './Geolocation.scss';
 
-export const Geolocation: FC<TGeolocationsProps> = (props) => {
+export const Geolocation: FC<TGeolocationsProps> = props => {
 	const {initialRegion = '', initialFlagUrl = ''} = props;
 	const [region, setRegion] = useState(initialRegion);
 	const [flagUrl, setFlagUrl] = useState(initialFlagUrl);
