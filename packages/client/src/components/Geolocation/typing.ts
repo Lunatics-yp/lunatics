@@ -1,4 +1,4 @@
-export type TGeolocationrProps = {
+export type TGeolocationsProps = {
 	initialRegion: string;
 	initialFlagUrl: string;
 };
