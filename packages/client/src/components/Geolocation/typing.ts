@@ -1,4 +1,4 @@
 export type TGeolocationrProps = {
-	src?: string | null;
-	alt?: string;
+	initialRegion: string;
+	initialFlagUrl: string;
 };

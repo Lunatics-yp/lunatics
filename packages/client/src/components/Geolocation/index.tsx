@@ -3,9 +3,9 @@ import {PirateFlag} from '../images/PirateFlag';
 import {TGeolocationrProps} from './typing';
 import './Geolocation.scss';
 
-export const Geolocation: FC<TGeolocationrProps> = () => {
-	const [country, setCountry] = useState('');
-	const [flagUrl, setFlagUrl] = useState('');
+export const Geolocation: FC<TGeolocationrProps> = ({initialRegion, initialFlagUrl}) => {
+	const [country, setCountry] = useState(initialRegion || '');
+	const [flagUrl, setFlagUrl] = useState(initialFlagUrl || '');
 
 	useEffect(() => {
 		if (navigator.geolocation) {

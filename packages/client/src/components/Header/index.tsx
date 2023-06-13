@@ -11,7 +11,7 @@ export const Header: FC<HeaderProps> = ({children}) => {
 	return (
 		<div className="header">
 			{children}
-			<Geolocation/>
+			<Geolocation initialFlagUrl="" initialRegion=""/>
 		</div>
 	);
 };
