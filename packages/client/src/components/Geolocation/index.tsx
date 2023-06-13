@@ -1,4 +1,5 @@
 import {FC, useEffect, useState} from 'react';
+import {PirateFlag} from '../images/PirateFlag';
 import {TGeolocationrProps} from './typing';
 import './Geolocation.scss';
 
@@ -36,9 +37,13 @@ export const Geolocation: FC<TGeolocationrProps> = () => {
 	return (
 		<>
 			<div className="geolocation">
-				<h2 className="geolocationText">Регион: {country}</h2>
+				<h2 className="geolocationText">Регион: {country || 'не определен'}</h2>
 			</div>
-			{flagUrl && <img className="flag" src={flagUrl} alt={`${country} flag`}/>}
+			{flagUrl ? (
+				<img className="flag" src={flagUrl} alt={`${country} flag`}/>
+			) : (
+				<PirateFlag/>
+			)}
 		</>
 	);
 };
