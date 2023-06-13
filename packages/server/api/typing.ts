@@ -17,3 +17,11 @@ export type TApiResponseData = {
 	reason?: string;
 	data?: object;
 };
+
+export type TReactionResponse = {
+	message_id?: number;
+	user_id?: number;
+	reaction_id?: number;
+	deleted?: number;
+	Message: unknown;
+};

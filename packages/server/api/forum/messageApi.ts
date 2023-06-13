@@ -1,7 +1,58 @@
+import {sequelizeToObject} from '../utils/sequelizeToObject';
 import {Messages, Users, MessagesReactions} from '../models';
 import type {TMessage} from '../models';
 import type {TApiResponseData} from '../typing';
 import type {TMessagesRespond} from './typing';
+
+const messageInfoRequest = (user_id: number) => {
+	return [
+		{
+			model: Users,
+		},
+		{
+			model: MessagesReactions,
+			attributes: [
+				'reaction_id',
+			],
+			required: false,
+		},
+		{
+			model: MessagesReactions,
+			as: 'CurrentUserReaction',
+			required: false,
+			where: {user_id},
+			include: [
+				{
+					model: Users,
+				},
+			],
+			limit: 1,
+		},
+	];
+};
+
+const messageWithCountedReactions = (message: TMessagesRespond[0]) => {
+	if (message.MessagesReactions) {
+		const reactions: number[] = [];
+		message.MessagesReactions?.forEach(
+			reaction => reactions.push(reaction.reaction_id));
+		const result: Record<number, number> = {};
+		reactions.forEach(reaction => {
+			if (result[reaction] == undefined) {
+				result[reaction] = 0;
+			}
+			result[reaction]++;
+		});
+		message.Reactions = result;
+		delete message.MessagesReactions;
+
+		// Тут избавляемся от массива и оставляем один объект
+		message.UserReaction =
+			message.CurrentUserReaction ? message.CurrentUserReaction[0] ?? {} : {};
+		delete message.CurrentUserReaction;
+	}
+	return message;
+};
 
 // Апи Топика
 export const messageApi = {
@@ -66,56 +117,11 @@ export const messageApi = {
 		try {
 			const messagesSQL = await Messages.findAll({
 				where: {parent_message_id, topic_id},
-				include: [
-					{
-						model: Users,
-					},
-					{
-						model: MessagesReactions,
-						attributes: [
-							'reaction_id',
-						],
-						required: false,
-					},
-					{
-						model: MessagesReactions,
-						as: 'CurrentUserReaction',
-						required: false,
-						where: {user_id},
-						include: [
-							{
-								model: Users,
-							},
-						],
-						limit: 1,
-					},
-				],
+				include: messageInfoRequest(user_id),
 			});
 
-			/** Тут я никак не смог добиться, чтобы в ответе был сгруппрованный объект
-			 * с количеством каждых реакций, поэтому добавил обработку ответа
-			 * и пересчитываю реакции тут */
-			const messages = JSON.parse(JSON.stringify(messagesSQL)) as TMessagesRespond;
-
-			messages.forEach(message => {
-				const reactions: number[] = [];
-				message.MessagesReactions?.forEach(
-					reaction => reactions.push(reaction.reaction_id));
-				const result: Record<number, number> = {};
-				reactions.forEach(reaction => {
-					if (result[reaction] == undefined) {
-						result[reaction] = 0;
-					}
-					result[reaction]++;
-				});
-				message.Reactions = result;
-				delete message.MessagesReactions;
-
-				// Тут избавляемся от массива и оставляем один объект
-				message.UserReaction =
-					message.CurrentUserReaction ? message.CurrentUserReaction[0] ?? {} : {};
-				delete message.CurrentUserReaction;
-			});
+			const messages = sequelizeToObject<TMessagesRespond>(messagesSQL);
+			messages.map(message => messageWithCountedReactions(message));
 
 			return {
 				data: messages,
@@ -123,6 +129,19 @@ export const messageApi = {
 		} catch (e) {
 			console.error(e);
 			return {reason: 'Ошибка при получении списка топиков в методе list topic'};
+		}
+	},
+	get: async (message_id: number, user_id: number): Promise<object> => {
+		try {
+			const messageSQL = await Messages.findOne({
+				where: {id: message_id},
+				include: messageInfoRequest(user_id),
+			});
+			const message = sequelizeToObject<TMessagesRespond[0]>(messageSQL);
+			return messageWithCountedReactions(message);
+		} catch (e) {
+			console.error(e);
+			return {reason: 'Ошибка удаления строки в методе unset messageReaction'};
 		}
 	},
 };
