@@ -12,8 +12,6 @@ export const themeApiHandler = async (
 ): Promise<void> => {
 	const postData = req.body;
 	const userId = userData.id;
-	console.log('postData', postData);
-	console.log('userId', userId);
 	const isValid = isValidPostData(postData);
 	if (!isValid) {
 		res.status(400).json({reason: 'Неправильный запрос'});

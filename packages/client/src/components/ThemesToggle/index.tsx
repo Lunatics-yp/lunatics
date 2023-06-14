@@ -12,12 +12,17 @@ export const ThemesToggle = () => {
 	const themeName: string | null | undefined = useAppSelector(authSelectors.theme);
 	const [themeLocal, setThemeLocal] = useState('');
 
+	const setThemeName = () => {
+		if (typeof themeName === 'string') {
+			document.documentElement.dataset.theme = themeName;
+			localStorage.setItem('theme', themeName);
+		}
+	};
 	useEffect( () => {
 		const userId = user.user?.id;
 		if(userId && themeName && user.isLoading === false) {
 			themesApi.changeUserTheme(themeName);
-			document.documentElement.dataset.theme = themeName;
-			localStorage.setItem('theme', themeName);
+			setThemeName();
 		}
 		if (!userId && themeName === null) {
 			const localTheme = window.localStorage.getItem('theme');
@@ -26,8 +31,7 @@ export const ThemesToggle = () => {
 				localStorage.setItem('theme', Theme.Light);
 			} else {
 				setThemeLocal(localTheme);
-				document.documentElement.dataset.theme = localTheme;
-				localStorage.setItem('theme', localTheme);
+				setThemeName();
 				dispatch(themesActions
 					.changeTheme(localTheme as Theme));
 			}

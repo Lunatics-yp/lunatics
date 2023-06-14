@@ -2,8 +2,8 @@ import {
 	yandexProxyAll,
 	yandexProxyUserWithResponseHandler,
 	yandexCheckAuthorization,
-} from 'server/authMiddleware';
-import {xssMiddleware} from 'server/xssMiddleware';
+} from './authMiddleware';
+import {xssMiddleware} from './xssMiddleware';
 import type {ViteDevServer} from 'vite';
 import {createServer as createViteServer} from 'vite';
 import cors from 'cors';

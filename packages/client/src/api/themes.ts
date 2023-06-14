@@ -11,7 +11,7 @@ export const themesApi = {
 				},
 			});
 		} catch (error) {
-			console.log(error, 'Ошибка отправки темы на сервер');
+			console.error(error, 'Ошибка отправки темы на сервер');
 		}
 	},
 };
