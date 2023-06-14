@@ -22,6 +22,3 @@ export function geolocationReducer(state = initialState, action: GeolocationActi
 export const geolocationSelectors = {
 	geolocation: (state: RootState)  => state.geolocationReducer,
 };
-// export const authSelectors = {
-// 	user: (state: RootState) => state.authReducer,
-// };

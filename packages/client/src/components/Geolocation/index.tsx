@@ -1,10 +1,8 @@
-/* eslint-disable no-constant-condition */
-/* eslint-disable max-len */
 import {useEffect} from 'react';
-import {PirateFlag} from '../images/PirateFlag';
 import {useAppDispatch} from 'client/src/hooks/redux';
 import {geolocationSelectors} from 'client/src/stores/reducers/geolocation/GeolocationReducers';
 import {useAppSelector} from 'client/src/hooks/redux';
+import {PirateFlag} from '../images/PirateFlag';
 import './Geolocation.scss';
 
 export const Geolocation = () => {
@@ -15,10 +13,10 @@ export const Geolocation = () => {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(
 				position => {
-					const {latitude, longitude} = position.coords;
+					const {longitude} = position.coords;
 					fetch(
 						// eslint-disable-next-line max-len
-						`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=ru`,
+						`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=&longitude=${longitude}&localityLanguage=ru`,
 					)
 						.then(response => response.json())
 						.then(data => {
@@ -40,7 +38,6 @@ export const Geolocation = () => {
 
 	const code = geolocation.flag.toUpperCase();
 	const src = `https://purecatamphetamine.github.io/country-flag-icons/3x2/${code}.svg`;
-
 	return (
 		<>
 			<div className="geolocation">
@@ -48,7 +45,7 @@ export const Geolocation = () => {
 					Cтрана: {geolocation.countryName || 'не определена'}
 				</h2>
 			</div>
-			{`https://purecatamphetamine.github.io/country-flag-icons/3x2/${geolocation.flag.toUpperCase()}.svg` ? (
+			{geolocation.countryName ? (
 				<img
 					className="geolocation__flag"
 					src={src}
