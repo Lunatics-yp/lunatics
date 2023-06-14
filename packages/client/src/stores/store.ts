@@ -3,7 +3,7 @@ import authReducer from './reducers/auth/authSlice';
 import userSettingsReducer from './reducers/userSettings/userSettingsSlice';
 import forumReducer from './reducers/forum/forumSlice';
 import leaderboardReducer from './reducers/leaderboard/leaderboardSlice';
-
+import {geolocationReducer} from './reducers/geolocation/GeolocationReducers';
 /**
  * Автоматически комбинирует slice reducers,
  * включает в себя работу с redux-thunk по умолчанию
@@ -13,6 +13,7 @@ const rootReducer = combineReducers({
 	userSettingsReducer,
 	forumReducer,
 	leaderboardReducer,
+	geolocationReducer,
 });
 
 export const setupStore = () => {

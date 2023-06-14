@@ -1,12 +1,15 @@
-import {FC, useEffect, useState} from 'react';
+/* eslint-disable no-constant-condition */
+/* eslint-disable max-len */
+import {useEffect} from 'react';
 import {PirateFlag} from '../images/PirateFlag';
-import {TGeolocationsProps} from './typing';
+import {useAppDispatch} from 'client/src/hooks/redux';
+import {geolocationSelectors} from 'client/src/stores/reducers/geolocation/GeolocationReducers';
+import {useAppSelector} from 'client/src/hooks/redux';
 import './Geolocation.scss';
 
-export const Geolocation: FC<TGeolocationsProps> = props => {
-	const {initialRegion = '', initialFlagUrl = ''} = props;
-	const [region, setRegion] = useState(initialRegion);
-	const [flagUrl, setFlagUrl] = useState(initialFlagUrl);
+export const Geolocation = () => {
+	const dispatch = useAppDispatch();
+	const geolocation = useAppSelector(geolocationSelectors.geolocation);
 
 	useEffect(() => {
 		if (navigator.geolocation) {
@@ -15,16 +18,16 @@ export const Geolocation: FC<TGeolocationsProps> = props => {
 					const {latitude, longitude} = position.coords;
 					fetch(
 						// eslint-disable-next-line max-len
-						`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`,
+						`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=ru`,
 					)
 						.then(response => response.json())
 						.then(data => {
-							console.log(data);
-							setRegion(data.continent);
-							setFlagUrl(
-								// eslint-disable-next-line max-len
-								`https://purecatamphetamine.github.io/country-flag-icons/3x2/${data.countryCode.toUpperCase()}.svg`,
-							);
+							const action = {
+								type: 'actionGeolocation',
+								countryName: data.countryName,
+								countryCode: data.countryCode,
+							};
+							dispatch(action);
 						})
 						.catch(error => console.log(error));
 				},
@@ -35,13 +38,22 @@ export const Geolocation: FC<TGeolocationsProps> = props => {
 		}
 	}, []);
 
+	const code = geolocation.flag.toUpperCase();
+	const src = `https://purecatamphetamine.github.io/country-flag-icons/3x2/${code}.svg`;
+
 	return (
 		<>
 			<div className="geolocation">
-				<h2 className="geolocation__text">Регион: {region || 'не определен'}</h2>
+				<h2 className="geolocation__text">
+					Cтрана: {geolocation.countryName || 'не определена'}
+				</h2>
 			</div>
-			{flagUrl ? (
-				<img className="geolocation__flag" src={flagUrl} alt={`${region} flag`}/>
+			{`https://purecatamphetamine.github.io/country-flag-icons/3x2/${geolocation.flag.toUpperCase()}.svg` ? (
+				<img
+					className="geolocation__flag"
+					src={src}
+					alt={`${geolocation.countryName} flag`}
+				/>
 			) : (
 				<PirateFlag/>
 			)}
