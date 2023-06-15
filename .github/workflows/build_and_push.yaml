@@ -1,4 +1,4 @@
-name: Push to GitHub Container Registry2
+name: Build server docker image
 
 on:
   push:
