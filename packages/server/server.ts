@@ -1,7 +1,7 @@
 import {
 	yandexProxyAll,
 	yandexProxyUserWithResponseHandler,
-	yandexCheckAuthorization,
+	checkAuthorizationMiddleware,
 } from './authMiddleware';
 import {xssMiddleware} from './xssMiddleware';
 import type {ViteDevServer} from 'vite';
@@ -52,17 +52,13 @@ export async function startServer(isDev: boolean, port: number) {
 
 	// Применяем middleware к приложению Express
 	app.use('/api/forum', xssMiddleware);
+	app.use('/api/forum', checkAuthorizationMiddleware);
 	app.use('/api/forum', async (req, res) => {
 		if (req.method !== 'POST') {
 			res.sendStatus(500);
 		}
 		try {
-			const authUserData = await yandexCheckAuthorization(req);
-			if (!authUserData.isAuth || !authUserData.user) {
-				res.sendStatus(401);
-				return;
-			}
-			await forumApiHandler(req, res, authUserData.user);
+			await forumApiHandler(req, res);
 		} catch (e) {
 			if (!res.headersSent) {
 				res.sendStatus(500);
@@ -71,7 +67,11 @@ export async function startServer(isDev: boolean, port: number) {
 	});
 
 	app.use('/api/themes', xssMiddleware);
+	app.use('/api/forum', checkAuthorizationMiddleware);
 	app.use('/api/themes', async (req, res) => {
+		if (req.method !== 'POST') {
+			res.sendStatus(500);
+		}
 		try {
 			await themeApiHandler(req, res);
 		} catch (e) {
