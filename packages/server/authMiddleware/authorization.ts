@@ -15,7 +15,6 @@ export const yandexProxyAll = (): RequestHandler => {
 			const filteredCookies = filterCookies(req);
 			proxyReq.setHeader('cookie', filteredCookies);
 		},
-		secure: false,
 	});
 };
 
@@ -31,7 +30,6 @@ export const yandexProxyUserWithResponseHandler = (): RequestHandler => {
 			const filteredCookies = filterCookies(req);
 			proxyReq.setHeader('cookie', filteredCookies);
 		},
-		secure: false,
 		selfHandleResponse: true,
 		onProxyRes: yandexProxyResponseHandler,
 	});
