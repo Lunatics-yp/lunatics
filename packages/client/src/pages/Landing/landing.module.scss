@@ -11,7 +11,8 @@
 	flex-grow: 1;
 	overflow-x: visible;
 	overflow-y: auto;
-	padding: 0 10% 20px;
+	padding: 0 20px 20px;
+	max-width: 600px;
 	min-height: calc(100% - 55px);
 	color: var(--colorGreyLight);
 	text-shadow:
