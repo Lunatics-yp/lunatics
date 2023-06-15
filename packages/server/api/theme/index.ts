@@ -1,14 +1,16 @@
-import type {Request, Response} from 'express';
+import type {Response} from 'express';
 import {isValidPostData} from '../utils/postDataValidator';
 import {themeApi} from './themeApi';
 import type {TApiFunction, TApiResponseData} from './typing';
+import type {TRequestWithUserData} from '../../authMiddleware/typing';
 
 // Апи Тем
 export const themeApiHandler = async (
-	req: Request,
+	req: TRequestWithUserData,
 	res: Response,
 ): Promise<void> => {
 	const postData = req.body.data;
+	const userId = req.authUserData!.id;
 	const isValid = isValidPostData(postData);
 	if (!isValid) {
 		res.status(400).json({reason: 'Неправильный запрос'});
@@ -17,6 +19,8 @@ export const themeApiHandler = async (
 	const {action, data} = postData;
 
 	let apiResponse: TApiResponseData = {};
+
+	data.user_id = userId; // Евгения, тут твой user id после проверки авторизации
 
 	const actions = {
 		'theme.get': themeApi.get,
