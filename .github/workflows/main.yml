@@ -7,8 +7,9 @@ on:
   # Позволяет запускать вручную из GitHub
   workflow_dispatch:
 
-  # Позволяет запускать при push в main (и при commit и при merge)
+  # Позволяет запускать при push в main (и при commit и при merge
   push:
+  pull_request:
     branches:
       - deploy-main
 
