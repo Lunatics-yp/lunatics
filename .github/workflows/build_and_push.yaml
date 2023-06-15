@@ -1,4 +1,4 @@
-name: Push to GitHub Container Registry
+name: Push to GitHub Container Registry2
 
 on:
   push:
