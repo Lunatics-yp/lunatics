@@ -37,6 +37,20 @@ services:
     networks:
       - awesome
 
+  nginx:
+    container_name: prakticum-nginx
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - server
+    networks:
+      - awesome
+
 networks:
   awesome:
     driver: bridge
