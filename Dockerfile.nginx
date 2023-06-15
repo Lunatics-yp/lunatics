@@ -1,7 +1,13 @@
 FROM nginx:latest
 
+RUN apt-get update && apt-get install -y openssl
+
 COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
-COPY ./nginx/devcert.crt /etc/nginx/certs/devcert.crt
-COPY ./nginx/devcert.key /etc/nginx/certs/devcert.key
+
+RUN mkdir /certs
+WORKDIR /certs
+RUN openssl genrsa -out devcert.key 2048
+RUN openssl req -new -key devcert.key -out devcert.csr -subj "/C=RU/ST=/L=/O=Lunatics/CN=ubuntuserver.local"
+RUN openssl x509 -req -days 365 -in devcert.csr -signkey devcert.key -out devcert.crt
 
 CMD ["nginx", "-g", "daemon off;"]
