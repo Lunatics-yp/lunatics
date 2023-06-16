@@ -23,7 +23,7 @@
     "reflect-metadata": "0.1.13",
     "sequelize": "6.31.1",
     "sequelize-typescript": "2.1.5",
-		"xss": "1.0.14",
+    "xss": "1.0.14",
 		"vite": "4.3.9"
   },
   "devDependencies": {

@@ -45,6 +45,7 @@ export async function startServer(isDev: boolean, port: number) {
 		});
 		app.use(vite.middlewares);
 	}
+	
 	app.use(cspMiddleware());
 	app.use('/api/v2/auth/user', yandexProxyUserWithResponseHandler());
 	app.use('/api/v2', yandexProxyAll());
