@@ -1,5 +1,5 @@
 # Определяем название процесса (просто отображается на странице Actions в GitHub)
-name: Push To Yandex Cloud CR
+name: Push to Yandex Cloud CR
 
 # Определяем условия запуска процесса
 # @see https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
@@ -7,13 +7,17 @@ on:
   # Позволяет запускать вручную из GitHub
   workflow_dispatch:
 
-  # Позволяет запускать при push в main (и при commit и при merge
+  # Позволяет запускать при push в main (и при commit и при merge)
   push:
+    branches:
+      - main
+
+  # @todo тестовая сборка при PR в deploy-main
   pull_request:
     branches:
       - deploy-main
 
-# Определяем процесс (состоит из нескольких последовательных/параллельных джобов)
+# Определяем процесс (состоит из нескольких последовательных/параллельных jobs)
 jobs:
   # Но нам хватит одного
   build:
@@ -37,17 +41,17 @@ jobs:
       # Построение образа и отправка его в Container Registry
       - name: Build, tag, and push image to Yandex Cloud Container Registry
         env:
-          # Здесь указываем идентификатор регистра (о нём позднее)
+          # Идентификатор регистра
           CR_REGISTRY: crp6su4mm3fuqknj0lpo
-          # Здесь указываем название репозитория (впрочем оно далее не используется)
+          # Название репозитория (впрочем оно далее не используется)
           CR_REPOSITORY: lunatics-24.practicum.yandex.ru
-          # Здесь ничего не меняем (формирует уникальное название для образа)
+          # Формируется уникальное название для образа (ничего не меняем)
           IMAGE_TAG: ${{ github.sha }}
-          # Далее указываем все прочие нужные нам перееменные среды
+          # Далее указываем все прочие нужные нам переменные среды
           CLIENT_PORT: 3000
-          SERVER_PORT: 3001
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          SERVER_PORT: 3000
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           POSTGRES_DB: postgres
           POSTGRES_PORT: 5432
 
