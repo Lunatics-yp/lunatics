@@ -7,7 +7,7 @@ import type {TRequestWithUserData} from '../../authMiddleware/typing';
 // Апи Тем
 export const themeApiHandler = async (
 	req: TRequestWithUserData,
-	res: Response
+	res: Response,
 ): Promise<void> => {
 	const postData = req.body;
 	const userId = req.authUserData!.id;

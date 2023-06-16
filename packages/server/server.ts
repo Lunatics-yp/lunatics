@@ -67,17 +67,13 @@ export async function startServer(isDev: boolean, port: number) {
 	});
 
 	app.use('/api/themes', xssMiddleware);
-	app.use('/api/forum', checkAuthorizationMiddleware);
+	app.use('/api/themes', checkAuthorizationMiddleware);
 	app.use('/api/themes', async (req, res) => {
 		if (req.method !== 'POST') {
 			res.sendStatus(500);
 		}
 		try {
-			const authUserData = await yandexCheckAuthorization(req);
-			console.log('authUserData', authUserData.user);
-			if (authUserData.user) {
-				await themeApiHandler(req, res, authUserData.user);
-			}
+			await themeApiHandler(req, res);
 		} catch (e) {
 			console.error(e);
 			res.sendStatus(500);
