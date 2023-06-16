@@ -1,0 +1,62 @@
+version: "3.8"
+
+services:
+  server:
+    container_name: prakticum-server
+    image: ghcr.io/lunatics-yp/lunatics/server:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+      args:
+        SERVER_PORT: 5000
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - SERVER_PORT=5000
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    depends_on:
+      - postgres
+    networks:
+      - awesome
+
+  postgres:
+    image: postgres:15
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./tmp/pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - awesome
+
+  nginx:
+    container_name: prakticum-nginx
+    image: ghcr.io/lunatics-yp/lunatics/nginx:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+      args:
+        DOMAIN: ubuntuserver.local
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - server
+    environment:
+      - DOMAIN=ubuntuserver.local
+    networks:
+      - awesome
+
+networks:
+  awesome:
+    driver: bridge
