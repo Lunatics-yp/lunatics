@@ -9,6 +9,7 @@ import type {TForum} from './forums';
 import type {TTopic} from './topics';
 import type {TMessage} from './messages';
 import type {TMessageReaction} from './messagesReactions';
+import type  {TUserTheme} from 'server/api/theme/typing';
 
 export {
 	Users,
@@ -21,4 +22,5 @@ export {
 	TTopic,
 	TMessage,
 	TMessageReaction,
+	TUserTheme,
 };

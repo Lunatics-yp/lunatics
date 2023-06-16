@@ -62,6 +62,7 @@ export async function startServer(isDev: boolean, port: number) {
 				res.sendStatus(401);
 				return;
 			}
+			app.use(express.json());
 			await forumApiHandler(req, res, authUserData.user);
 		} catch (e) {
 			if (!res.headersSent) {
@@ -73,7 +74,11 @@ export async function startServer(isDev: boolean, port: number) {
 	app.use('/api/themes', xssMiddleware);
 	app.use('/api/themes', async (req, res) => {
 		try {
-			await themeApiHandler(req, res);
+			const authUserData = await yandexCheckAuthorization(req);
+			console.log('authUserData', authUserData.user);
+			if (authUserData.user) {
+				await themeApiHandler(req, res, authUserData.user);
+			}
 		} catch (e) {
 			console.error(e);
 			res.sendStatus(500);

@@ -2,19 +2,23 @@ import type {Request, Response} from 'express';
 import {isValidPostData} from '../utils/postDataValidator';
 import {themeApi} from './themeApi';
 import type {TApiFunction, TApiResponseData} from './typing';
+import type {TUser} from '../models';
 
 // Апи Тем
 export const themeApiHandler = async (
 	req: Request,
 	res: Response,
+	userData: TUser,
 ): Promise<void> => {
-	const postData = req.body.data;
+	const postData = req.body;
+	const userId = userData.id;
 	const isValid = isValidPostData(postData);
 	if (!isValid) {
 		res.status(400).json({reason: 'Неправильный запрос'});
 		return;
 	}
 	const {action, data} = postData;
+	data.userId = userId;
 
 	let apiResponse: TApiResponseData = {};
 
