@@ -3,7 +3,6 @@ import {
 	yandexProxyUserWithResponseHandler,
 	yandexCheckAuthorization,
 } from './authMiddleware';
-//import {cspMiddleware} from 'cspMiddleware';
 import {cspMiddleware} from './cspMiddleware';
 import {xssMiddleware} from './xssMiddleware';
 import type {ViteDevServer} from 'vite';
