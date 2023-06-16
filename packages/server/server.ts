@@ -73,7 +73,11 @@ export async function startServer(isDev: boolean, port: number) {
 			res.sendStatus(500);
 		}
 		try {
-			await themeApiHandler(req, res);
+			const authUserData = await yandexCheckAuthorization(req);
+			console.log('authUserData', authUserData.user);
+			if (authUserData.user) {
+				await themeApiHandler(req, res, authUserData.user);
+			}
 		} catch (e) {
 			console.error(e);
 			res.sendStatus(500);

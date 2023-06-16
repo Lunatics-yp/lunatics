@@ -7,9 +7,9 @@ import type {TRequestWithUserData} from '../../authMiddleware/typing';
 // Апи Тем
 export const themeApiHandler = async (
 	req: TRequestWithUserData,
-	res: Response,
+	res: Response
 ): Promise<void> => {
-	const postData = req.body.data;
+	const postData = req.body;
 	const userId = req.authUserData!.id;
 	const isValid = isValidPostData(postData);
 	if (!isValid) {
@@ -17,6 +17,7 @@ export const themeApiHandler = async (
 		return;
 	}
 	const {action, data} = postData;
+	data.userId = userId;
 
 	let apiResponse: TApiResponseData = {};
 
