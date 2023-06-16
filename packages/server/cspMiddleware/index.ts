@@ -1,6 +1,6 @@
 import {expressCspHeader, SELF, NONE, INLINE} from 'express-csp-header';
 import {isDev} from '../utils/isDev';
-import {FLAG_ICONS, HOT_MODULE_REPLACEMENT} from './cspConstants';
+import {BIG_DATA, FLAG_ICONS, HOT_MODULE_REPLACEMENT} from './cspConstants';
 
 export const cspMiddleware = () => {
 	return expressCspHeader({
@@ -16,6 +16,7 @@ export const cspMiddleware = () => {
 			'media-src': [SELF],
 			'connect-src': [
 				SELF,
+				BIG_DATA,
 				isDev ? HOT_MODULE_REPLACEMENT : '',
 			],
 			'script-src': [SELF, INLINE],
