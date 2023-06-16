@@ -27,6 +27,7 @@ const dbConnect = async () => {
 		console.log('  ➜ 🎸 Connected to the Postgres DB');
 	} catch (error) {
 		console.error('Unable to connect to the database:', error);
+		setTimeout(dbConnect, 5000);
 	}
 };
 
