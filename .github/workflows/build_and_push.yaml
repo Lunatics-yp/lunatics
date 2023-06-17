@@ -3,6 +3,7 @@ name: Build server and nginx docker images
 on:
   push:
     branches:
+      - djpont-nginx-patch-2
       - deploy
       - dev
 
