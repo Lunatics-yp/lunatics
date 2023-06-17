@@ -1,14 +1,13 @@
-import type {Response} from 'express';
 import {isValidPostData} from '../utils/postDataValidator';
 import {themeApi} from './themeApi';
 import type {TApiFunction, TApiResponseData} from './typing';
-import type {TRequestWithUserData} from '../../authMiddleware/typing';
+import type {TApi} from '../typing';
 
 // Апи Тем
-export const themeApiHandler = async (
-	req: TRequestWithUserData,
-	res: Response,
-): Promise<void> => {
+export const themeApiHandler: TApi = async (
+	req,
+	res,
+) => {
 	const postData = req.body;
 	const userId = req.authUserData!.id;
 	const isValid = isValidPostData(postData);

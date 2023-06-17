@@ -10,14 +10,16 @@ import cors from 'cors';
 import express from 'express';
 import path from 'path';
 
-import {forumApiHandler} from './api/forum';
-import {dbConnect} from './api/sequelize';
-
 import {getClientDir, getSsrPath, ssrContent} from './ssr';
 
 import cookieParser from 'cookie-parser';
 
-import {themeApiHandler} from './api/theme';
+import {
+	apiMiddleware,
+	themeApiHandler,
+	forumApiHandler,
+	dbConnect,
+} from './api';
 
 export async function startServer(isDev: boolean, port: number) {
 	const app = express();
@@ -45,41 +47,23 @@ export async function startServer(isDev: boolean, port: number) {
 		app.use(vite.middlewares);
 	}
 
+	// Прокси
 	app.use('/api/v2/auth/user', yandexProxyUserWithResponseHandler());
 	app.use('/api/v2', yandexProxyAll());
 
 	app.use(express.json());
 
-	// Применяем middleware к приложению Express
+	// Апи форума
 	app.use('/api/forum', xssMiddleware);
 	app.use('/api/forum', checkAuthorizationMiddleware);
-	app.use('/api/forum', async (req, res) => {
-		if (req.method !== 'POST') {
-			res.sendStatus(500);
-		}
-		try {
-			await forumApiHandler(req, res);
-		} catch (e) {
-			if (!res.headersSent) {
-				res.sendStatus(500);
-			}
-		}
-	});
+	app.use('/api/forum', apiMiddleware(forumApiHandler));
 
+	// Апи темы
 	app.use('/api/themes', xssMiddleware);
 	app.use('/api/themes', checkAuthorizationMiddleware);
-	app.use('/api/themes', async (req, res) => {
-		if (req.method !== 'POST') {
-			res.sendStatus(500);
-		}
-		try {
-			await themeApiHandler(req, res);
-		} catch (e) {
-			console.error(e);
-			res.sendStatus(500);
-		}
-	});
+	app.use('/api/themes', apiMiddleware(themeApiHandler));
 
+	// Прочие запросы
 	app.use('*', cookieParser() as any, async (req, res, next) => {
 		const requestType = req.method;
 		if (requestType !== 'GET') {

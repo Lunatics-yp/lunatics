@@ -1,18 +1,16 @@
-import type {Response} from 'express';
 import type {TApiFunction} from './typing';
-import type {TRequestWithUserData} from '../../authMiddleware/typing';
 import {isValidPostData} from '../utils/postDataValidator';
-import type {TApiResponseData} from '../typing';
+import type {TApi, TApiResponseData} from '../typing';
 import {forumApi} from './forumApi';
 import {topicApi} from './topicApi';
 import {messageApi} from './messageApi';
 import {messageReactionApi} from './messageReactionApi';
 
 // Апи Форума
-export const forumApiHandler = async (
-	req: TRequestWithUserData,
-	res: Response,
-): Promise<void> => {
+export const forumApiHandler: TApi = async (
+	req,
+	res,
+) => {
 	const postData = req.body;
 	const userId = req.authUserData!.id;
 	const isValid = isValidPostData(postData);
