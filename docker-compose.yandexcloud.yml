@@ -3,7 +3,7 @@ version: "3.8"
 services:
   server:
     container_name: prakticum-server
-    image: ghcr.io/lunatics-yp/lunatics/server:latest
+    image: ghcr.io/lunatics-yp/lunatics/server:7b8c1972544a22e795acb0a02ffcb060507d937c
     build:
       context: .
       dockerfile: Dockerfile.server
@@ -40,7 +40,7 @@ services:
 
   nginx:
     container_name: prakticum-nginx
-    image: ghcr.io/lunatics-yp/lunatics/nginx:latest
+    image: ghcr.io/lunatics-yp/lunatics/nginx:7b8c1972544a22e795acb0a02ffcb060507d937c
     build:
       context: .
       dockerfile: Dockerfile.nginx
@@ -52,6 +52,8 @@ services:
       - "443:443"
     depends_on:
       - server
+    volumes:
+      - /etc/certs:/certs
     environment:
       - DOMAIN=ubuntuserver.local
     networks:
