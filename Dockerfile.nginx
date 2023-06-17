@@ -1,0 +1,16 @@
+FROM nginx:latest
+
+RUN apt-get update
+
+COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
+
+COPY ./nginx/validation /validation
+
+RUN apt-get install -y openssl \
+	&& apt-get clean \
+	&& mkdir /certs \
+	&& openssl genrsa -out /certs/lunatics.key 2048 \
+	&& openssl req -new -key /certs/lunatics.key -out /certs/lunatics.csr -subj "/C=RU/ST=/L=/O=Lunatics/CN=${DOMAIN}" \
+	&& openssl x509 -req -days 365 -in /certs/lunatics.csr -signkey /certs/lunatics.key -out /certs/lunatics.crt
+
+CMD ["nginx", "-g", "daemon off;"]
