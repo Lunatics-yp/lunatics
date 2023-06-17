@@ -4,6 +4,8 @@ RUN apt-get update
 
 COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
+COPY ./nginx/validation /validation
+
 RUN apt-get install -y openssl \
 	&& apt-get clean \
 	&& mkdir /certs \
