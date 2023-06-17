@@ -45,7 +45,7 @@ services:
       context: .
       dockerfile: Dockerfile.nginx
       args:
-        DOMAIN: ubuntuserver.local
+        DOMAIN: luns.space
     restart: always
     ports:
       - "80:80"
@@ -55,7 +55,7 @@ services:
     volumes:
       - /etc/certs:/certs
     environment:
-      - DOMAIN=ubuntuserver.local
+      - DOMAIN=luns.space
     networks:
       - awesome
 
