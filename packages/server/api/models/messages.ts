@@ -1,6 +1,6 @@
 import {DataType, Model} from 'sequelize-typescript';
 import type {ModelAttributes} from 'sequelize/types';
-import {sequelize} from 'server/api/sequelize';
+import {sequelize} from '../sequelize';
 import {Users, Topics} from './';
 
 // Модель таблицы Messages
@@ -11,11 +11,6 @@ export type TMessage = {
 	topic_id: number;
 	parent_message_id?: number;
 	created_at?: Date;
-};
-
-const messageOptions = {
-	timestamps: false,
-	tableName: 'Messages',
 };
 
 const messageModel: ModelAttributes<Model, TMessage> = {
@@ -61,10 +56,27 @@ const messageModel: ModelAttributes<Model, TMessage> = {
 	},
 };
 
+const messageOptions = {
+	timestamps: false,
+	tableName: 'Messages',
+	indexes: [
+		{
+			unique: false,
+			fields: ['topic_id'],
+		},
+		{
+			unique: false,
+			fields: ['parent_message_id'],
+		},
+	],
+};
+
 const Messages = sequelize.define('Messages', messageModel, messageOptions);
 
 Messages.belongsTo(Topics, {foreignKey: 'topic_id'});
+Topics.hasMany(Messages, {foreignKey: 'topic_id'});
 Messages.belongsTo(Users, {foreignKey: 'user_id'});
-Messages.belongsTo(Messages, {foreignKey: 'parent_message_id', as: 'parentMessage'});
+Messages.belongsTo(Messages, {foreignKey: 'parent_message_id'});
+Messages.hasMany(Messages, {foreignKey: 'parent_message_id'});
 
 export {Messages};

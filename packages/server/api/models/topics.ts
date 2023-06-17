@@ -1,6 +1,6 @@
 import {DataType, Model} from 'sequelize-typescript';
 import type {ModelAttributes} from 'sequelize/types';
-import {sequelize} from 'server/api/sequelize';
+import {sequelize} from '../sequelize';
 import {Users, Forums} from './';
 
 // Модель таблицы Topics
@@ -10,11 +10,6 @@ export type TTopic = {
 	forum_id: number;
 	user_id: number;
 	created_at: Date;
-};
-
-const topicOptions = {
-	timestamps: false,
-	tableName: 'Topics',
 };
 
 const topicModel: ModelAttributes<Model, TTopic> = {
@@ -53,9 +48,22 @@ const topicModel: ModelAttributes<Model, TTopic> = {
 	},
 };
 
+const topicOptions = {
+	timestamps: false,
+	tableName: 'Topics',
+	indexes: [
+		{
+			unique: false,
+			fields: ['forum_id'],
+		},
+	],
+};
+
 const Topics = sequelize.define('Topics', topicModel, topicOptions);
 
 Topics.belongsTo(Forums, {foreignKey: 'forum_id'});
+Forums.hasMany(Topics, {foreignKey: 'forum_id'});
 Topics.belongsTo(Users, {foreignKey: 'user_id'});
+Users.hasMany(Topics, {foreignKey: 'user_id'});
 
 export {Topics};

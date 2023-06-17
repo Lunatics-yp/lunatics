@@ -2,31 +2,39 @@ import {
 	yandexProxyAll,
 	yandexProxyUserWithResponseHandler,
 	yandexCheckAuthorization,
-} from 'server/authMiddleware';
-import {xssMiddleware} from 'server/xssMiddleware';
+} from './authMiddleware';
+import {xssMiddleware} from './xssMiddleware';
 import type {ViteDevServer} from 'vite';
 import {createServer as createViteServer} from 'vite';
 import cors from 'cors';
 import express from 'express';
 import path from 'path';
 
-import {forumApiHandler} from 'server/api/forum';
-import {dbConnect} from 'server/api/sequelize';
+import {forumApiHandler} from './api/forum';
+import {dbConnect} from './api/sequelize';
 
-import {getSsrPath, ssrContent} from './ssr';
+import {getClientDir, getSsrPath, ssrContent} from './ssr';
 
 import cookieParser from 'cookie-parser';
 
-import {themeApiHandler} from 'server/api/theme';
-import bodyParser from 'body-parser';
+import {themeApiHandler} from './api/theme';
+
 export async function startServer(isDev: boolean, port: number) {
 	const app = express();
 	app.use(cors());
-	app.use(bodyParser.json());
 
 	let vite: ViteDevServer;
 
+	const distPath = path.dirname(path.resolve(getClientDir(), 'dist/index.html'));
+
 	await dbConnect();
+
+	// Раздаём статику для production
+	if (!isDev) {
+		app.use('/favicon.png', express.static(path.resolve(distPath, 'favicon.png')));
+		app.use('/serviceWorker.js', express.static(path.resolve(distPath, 'serviceWorker.js')));
+		app.use('/assets', express.static(path.resolve(distPath, 'assets')));
+	}
 
 	if (isDev) {
 		vite = await createViteServer({
@@ -35,17 +43,19 @@ export async function startServer(isDev: boolean, port: number) {
 			appType: 'custom',
 		});
 		app.use(vite.middlewares);
-	} else {
-		const distPath = path.dirname(require.resolve('client/dist/index.html'));
-		app.use('/assets', express.static(path.resolve(distPath, 'assets')));
 	}
 
 	app.use('/api/v2/auth/user', yandexProxyUserWithResponseHandler());
 	app.use('/api/v2', yandexProxyAll());
 
+	app.use(express.json());
+
 	// Применяем middleware к приложению Express
 	app.use('/api/forum', xssMiddleware);
 	app.use('/api/forum', async (req, res) => {
+		if (req.method !== 'POST') {
+			res.sendStatus(500);
+		}
 		try {
 			const authUserData = await yandexCheckAuthorization(req);
 			if (!authUserData.isAuth || !authUserData.user) {
@@ -61,9 +71,14 @@ export async function startServer(isDev: boolean, port: number) {
 		}
 	});
 
+	app.use('/api/themes', xssMiddleware);
 	app.use('/api/themes', async (req, res) => {
 		try {
-			await themeApiHandler(req, res);
+			const authUserData = await yandexCheckAuthorization(req);
+			console.log('authUserData', authUserData.user);
+			if (authUserData.user) {
+				await themeApiHandler(req, res, authUserData.user);
+			}
 		} catch (e) {
 			console.error(e);
 			res.sendStatus(500);

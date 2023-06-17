@@ -1,6 +1,9 @@
-import {MessagesReactions} from 'server/api/models';
-import type {TMessageReaction} from 'server/api/models';
-import type {TApiResponseData} from 'server/api/typing';
+import {messageApi} from '../forum/messageApi';
+import {MessagesReactions} from '../models';
+import type {TMessageReaction} from '../models';
+import type {TApiResponseData, TReactionResponse} from '../typing';
+import {sequelize} from '../sequelize';
+import {sequelizeToObject} from '../utils/sequelizeToObject';
 
 // Апи Топика
 export const messageReactionApi = {
@@ -10,15 +13,21 @@ export const messageReactionApi = {
 			return {reason: 'Неправильные параметры для метода set messageReaction'};
 		}
 		try {
-			const newMessageReaction = await MessagesReactions.upsert({
-				message_id,
-				reaction_id,
-				user_id,
-			});
+			const newMessageReaction = await sequelize.query(
+				`INSERT INTO "MessagesReactions" ("message_id", "user_id", "reaction_id")
+				VALUES (${message_id}, ${user_id}, ${reaction_id})
+				ON CONFLICT ("message_id", "user_id") DO
+				UPDATE SET "reaction_id" = ${reaction_id}
+				RETURNING "message_id", "user_id", "reaction_id"`);
+
+			const data = sequelizeToObject<TReactionResponse>(newMessageReaction[0][0]);
+			data.Message = await messageApi.get(message_id, user_id);
+
 			return {
-				data: newMessageReaction,
+				data,
 			};
 		} catch (e) {
+			console.log(e);
 			return {reason: 'Ошибка при создании строки в методе set messageReaction'};
 		}
 	},
@@ -31,10 +40,17 @@ export const messageReactionApi = {
 			const isDeleted = await MessagesReactions.destroy({
 				where: {message_id, user_id},
 			});
+
+			const data: TReactionResponse = {
+				deleted: isDeleted,
+				Message: await messageApi.get(message_id, user_id),
+			};
+
 			return {
-				data: {deleted: isDeleted},
+				data,
 			};
 		} catch (e) {
+			console.error(e);
 			return {reason: 'Ошибка удаления строки в методе unset messageReaction'};
 		}
 	},

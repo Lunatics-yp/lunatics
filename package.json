@@ -6,7 +6,7 @@
 		"packages-link": "cd packages/client && yarn link && cd ../server && yarn link client && cd ../..",
 		"build": "lerna run build",
 		"build:ssr": "lerna run build:ssr",
-		"dev:client": "lerna run dev  --scope=client",
+		"dev:client": "lerna run dev --scope=client",
 		"dev:server": "yarn build:ssr && lerna run dev --scope=server",
 		"dev": "lerna run dev",
 		"test": "lerna run test",

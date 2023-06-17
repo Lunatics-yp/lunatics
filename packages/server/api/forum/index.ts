@@ -1,8 +1,8 @@
 import type {Request, Response} from 'express';
-import type {TUser} from 'server/api/models';
-import type {TApiFunction} from 'server/api/forum/typing';
-import {isValidPostData} from 'server/api/utils/postDataValidator';
-import type {TApiResponseData} from 'server/api/typing';
+import type {TUser} from '../models';
+import type {TApiFunction} from './typing';
+import {isValidPostData} from '../utils/postDataValidator';
+import type {TApiResponseData} from '../typing';
 import {forumApi} from './forumApi';
 import {topicApi} from './topicApi';
 import {messageApi} from './messageApi';
@@ -49,10 +49,10 @@ export const forumApiHandler = async (
 		apiResponse = await apiFunction(data);
 	}
 
-	if (apiResponse.data) {
+	if (!apiResponse.reason) {
 		res.json({
 			action: action,
-			data: apiResponse.data,
+			data: apiResponse.data ?? {},
 		});
 		return;
 	}

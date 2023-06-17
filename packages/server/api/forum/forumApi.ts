@@ -1,6 +1,6 @@
-import {Forums} from 'server/api/models';
-import type {TForum} from 'server/api/models';
-import type {TApiResponseData} from 'server/api/typing';
+import {Forums} from '../models';
+import type {TForum} from '../models';
+import type {TApiResponseData} from '../typing';
 
 // Апи Форума
 export const forumApi = {
@@ -18,6 +18,7 @@ export const forumApi = {
 				data: newForum,
 			};
 		} catch (e) {
+			console.error(e);
 			return {reason: 'Ошибка при создании строки в методе create forum'};
 		}
 	},
@@ -36,6 +37,7 @@ export const forumApi = {
 				data: updatedForum as object,
 			};
 		} catch (e) {
+			console.error(e);
 			return {reason: 'Ошибка при изменении строки в методе rename forum'};
 		}
 	},
@@ -52,6 +54,7 @@ export const forumApi = {
 				data: {deleted: isDeleted},
 			};
 		} catch (e) {
+			console.error(e);
 			return {reason: 'Ошибка удаления строки в методе delete forum'};
 		}
 	},
@@ -64,6 +67,7 @@ export const forumApi = {
 				data: forums,
 			};
 		} catch (e) {
+			console.error(e);
 			return {reason: 'Ошибка при получении списка форумов в методе list forum'};
 		}
 	},
