@@ -33,7 +33,7 @@ export const themeApiHandler = async (
 		apiResponse = await apiFunction(data);
 	}
 
-	if (apiResponse.data) {
+	if (!apiResponse.reason) {
 		res.json({
 			data: apiResponse,
 		});

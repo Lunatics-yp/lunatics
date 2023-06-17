@@ -128,7 +128,7 @@ export const messageApi = {
 			};
 		} catch (e) {
 			console.error(e);
-			return {reason: 'Ошибка при получении списка топиков в методе list topic'};
+			return {reason: 'Ошибка при получении списка сообщений в методе list message'};
 		}
 	},
 	get: async (message_id: number, user_id: number): Promise<object> => {
@@ -141,7 +141,7 @@ export const messageApi = {
 			return messageWithCountedReactions(message);
 		} catch (e) {
 			console.error(e);
-			return {reason: 'Ошибка удаления строки в методе unset messageReaction'};
+			return {reason: 'Ошибка при получении сообщения в методе get message'};
 		}
 	},
 };

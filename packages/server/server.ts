@@ -84,6 +84,7 @@ export async function startServer(isDev: boolean, port: number) {
 		const requestType = req.method;
 		if (requestType !== 'GET') {
 			res.sendStatus(500);
+			return;
 		}
 		try {
 			const url = req.originalUrl;

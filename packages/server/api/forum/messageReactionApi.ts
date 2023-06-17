@@ -34,7 +34,7 @@ export const messageReactionApi = {
 	delete: async (data: TMessageReaction): Promise<TApiResponseData> => {
 		const {message_id, user_id} = data;
 		if (!message_id) {
-			return {reason: 'Неправильные параметры для метода unset messageReaction'};
+			return {reason: 'Неправильные параметры для метода delete messageReaction'};
 		}
 		try {
 			const isDeleted = await MessagesReactions.destroy({
@@ -51,7 +51,7 @@ export const messageReactionApi = {
 			};
 		} catch (e) {
 			console.error(e);
-			return {reason: 'Ошибка удаления строки в методе unset messageReaction'};
+			return {reason: 'Ошибка удаления строки в методе delete messageReaction'};
 		}
 	},
 };
