@@ -59,5 +59,4 @@ jobs:
         # Тем не менее, оставшиеся шаги более не должны вызывать вопросы
         run: |
           docker compose build
-          # docker tag lunatics-server:latest cr.yandex/$CR_REGISTRY/lunatics-server:latest
           docker push cr.yandex/$CR_REGISTRY/lunatics-server:${{ github.sha }}
