@@ -1,9 +1,10 @@
-name: Build server docker image
+name: Build server and nginx docker images
 
 on:
   push:
     branches:
-      - feature/lun-99-action-for-deploy
+      - deploy
+      - dev
 
 jobs:
   build-and-push:
@@ -12,17 +13,20 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
       - name: set lower case owner name
         run: |
           echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
         env:
           OWNER: '${{ github.repository_owner }}'
+
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build and push server image
         uses: docker/build-push-action@v2
         with:
@@ -30,3 +34,11 @@ jobs:
           file: Dockerfile.server
           push: true
           tags: ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/server:${{ github.sha }}
+
+      - name: Build and push nginx image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: Dockerfile.nginx
+          push: true
+          tags: ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/nginx:${{ github.sha }}
