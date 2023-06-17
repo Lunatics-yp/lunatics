@@ -3,7 +3,8 @@ name: Build server and nginx docker images
 on:
   push:
     branches:
-      - feature/cookies-fix
+      - deploy
+      - dev
 
 jobs:
   build-and-push:
