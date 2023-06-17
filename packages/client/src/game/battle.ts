@@ -60,6 +60,13 @@ export class GameBattle {
 		return this._modulesCount;
 	}
 
+	public clear = () => {
+		this.placement.clear();
+		this._enemyPlacement.clear();
+		this._enemyPlacement.randomLocateAllModulesToGround();
+		this._enemyGround.clear();
+	};
+
 	static get currentGame() {
 		return GameBattle._currentGame;
 	}
@@ -78,7 +85,7 @@ export class GameBattle {
 		setTimeout(async () => {
 			const shootRespond = await this._enemyAi.shoot();
 			callback(shootRespond);
-		},1000);
+		},2000);
 	}
 
 	// Стрельба ИГРОКА по ВРАГУ
@@ -97,6 +104,20 @@ export class GameBattle {
 					if(!module){
 						throw new Error('Модуль не найдет, такого быть не может)');
 					}
+					module.mapPosition.forEach(position => {
+						const {x, y} = position;
+						for (let aroundY = y - 1; aroundY <= y + 1; aroundY++) {
+							for (let aroundX = x - 1; aroundX <= x + 1; aroundX++) {
+								const aroundPosition = {x: aroundX, y: aroundY};
+								if (this._enemyGround.isPositionInsideMap(aroundPosition)) {
+									this._enemyGround.setCellStatus(
+										aroundPosition,
+										CellStatus.MISSED,
+									);
+								}
+							}
+						}
+					});
 					module.mapPosition.forEach(position => {
 						this._enemyGround.setCellStatus(position, CellStatus.DESTROYED);
 					});

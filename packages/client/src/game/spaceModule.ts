@@ -59,6 +59,12 @@ export class SpaceModule {
 		this._mapCoordinates = coordinates;
 	}
 
+	// Вылечить (для рестарта игры)
+	public heal = () => {
+		this._isAlive=true;
+		this._aliveCellsCount=this.size;
+	};
+
 	// Сбросить координаты на игровом поле
 	unsetLocatedToMap = () => {
 		this._isLocated = false;

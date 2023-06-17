@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {PATHS} from 'client/src/routers/name';
 import {Background} from 'client/src/components/Background';
@@ -27,7 +27,7 @@ export const PageSetShips = () => {
 	};
 
 	const clearBoard = () => {
-		battle.placement.clear();
+		battle.clear();
 		doClear();
 		setIsShipsOnBoard(false);
 		doRedraw();
@@ -39,6 +39,10 @@ export const PageSetShips = () => {
 		setIsShipsOnBoard(battle.placement.isModulesLocated);
 		doRedraw();
 	};
+
+	useEffect(() => {
+		clearBoard();
+	}, []);
 
 	return (
 		<>

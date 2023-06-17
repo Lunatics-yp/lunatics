@@ -31,7 +31,6 @@ export class Shooting extends GameMechanic {
 			}
 			const hitRespond = module.hit(coordinates);
 			// Выводим в консоль результаты выстрела (для разработчика)
-			console.log(hitRespond);
 			if (hitRespond.destroyed && hitRespond.spaceModule) {
 				return destroy(hitRespond.spaceModule);
 			} else {

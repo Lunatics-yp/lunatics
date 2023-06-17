@@ -1,6 +1,6 @@
 import {TShapesList, TSize} from 'client/src/game/typing';
 
-export type TModes = 'Обычный' | 'Необычный';
+export type TModes = 'Стандартный' | 'Лунный кратер' | 'Галактический размах';
 
 export type TModeData = {
 	map: TSize;

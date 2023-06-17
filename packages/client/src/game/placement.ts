@@ -72,6 +72,13 @@ export class Placement extends GameMechanic {
 		this.ground.clear();
 		for (const module of this.modules) {
 			module.unsetLocatedToMap();
+			module.heal();
+		}
+	};
+
+	healAllModules = () => {
+		for (const module of this.modules) {
+			module.heal();
 		}
 	};
 
