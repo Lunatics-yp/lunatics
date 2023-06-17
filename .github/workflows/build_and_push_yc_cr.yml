@@ -12,7 +12,7 @@ on:
     branches:
       - main
 
-  # @todo тестовая сборка при PR в deploy-main
+  # Временная тестовая сборка при PR в deploy-main (@todo после проверки удалить)
   pull_request:
     branches:
       - deploy-main
@@ -59,4 +59,5 @@ jobs:
         # Тем не менее, оставшиеся шаги более не должны вызывать вопросы
         run: |
           docker compose build
+          docker tag lunatics-server:latest cr.yandex/$CR_REGISTRY/lunatics-server:${{ github.sha }}
           docker push cr.yandex/$CR_REGISTRY/lunatics-server:${{ github.sha }}
