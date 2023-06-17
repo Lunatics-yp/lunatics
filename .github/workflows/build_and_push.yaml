@@ -1,10 +1,15 @@
 name: Build server and nginx docker images
 
 on:
+  # Временная тестовая сборка при push в deploy (после проверки задачи удалить)
   push:
     branches:
       - deploy
       - dev
+  # Временная тестовая сборка при PR в deploy-main (@todo после проверки удалить)
+  pull_request:
+    branches:
+      - deploy-main
 
 jobs:
   build-and-push:
@@ -12,33 +17,52 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: set lower case owner name
-        run: |
-          echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
+      # Авторизация в Яндекс.Облаке (здесь ничего не меняем)
+      - name: Yandex Cloud CR "Login" Action for GitHub Actions
+        uses: yc-actions/yc-cr-login@v1
+        with:
+          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+
+      # server image -> Container Registry
+      - name: Build, tag, and push `server` image to Yandex Cloud Container Registry
         env:
-          OWNER: '${{ github.repository_owner }}'
+          # Идентификатор регистра
+          CR_REGISTRY: ${{ secrets.YC_CR_REGISTRY }}
+          # Название репозитория (впрочем оно далее не используется)
+          CR_REPOSITORY: ${{ secrets.YC_CR_REPOSITORY }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker compose build
+          docker tag prakticum-server:latest cr.yandex/$CR_REGISTRY/server:$IMAGE_TAG
+          docker push cr.yandex/$CR_REGISTRY/server:$IMAGE_TAG
 
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+#      - name: set lower case owner name
+#        run: |
+#          echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
+#        env:
+#          OWNER: '${{ github.repository_owner }}'
 
-      - name: Build and push server image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: Dockerfile.server
-          push: true
-          tags: ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/server:${{ github.sha }}
+#      - name: Login to GitHub Container Registry
+#        uses: docker/login-action@v1
+#        with:
+#          registry: ghcr.io
+#          username: ${{ github.actor }}
+#          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push nginx image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: Dockerfile.nginx
-          push: true
-          tags: ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/nginx:${{ github.sha }}
+#      - name: Build and push server image
+#        uses: docker/build-push-action@v2
+#        with:
+#          context: .
+#          file: Dockerfile.server
+#          push: true
+#          tags: ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/server:${{ github.sha }}
+
+#      - name: Build and push nginx image
+#        uses: docker/build-push-action@v2
+#        with:
+#          context: .
+#          file: Dockerfile.nginx
+#          push: true
+#          tags: ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/nginx:${{ github.sha }}
