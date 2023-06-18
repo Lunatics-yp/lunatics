@@ -17,7 +17,8 @@
 
 ## Демо проекта
 
-- https://lunatics-git-dev-lunatics-yp.vercel.app
+- https://luns.space
+- https://lunatics-git-dev-lunatics-yp.vercel.app (vercel)
 
 ## Документация проекта
 
@@ -91,6 +92,17 @@
 В качестве `root directory` укажите `packages/client`
 
 Все ваши PR будут автоматически деплоиться на vercel. URL вам предоставит деплоящий бот
+
+## Деплой на Яндекс.Облако
+
+Спецификация docker compose для Яндекс.Облака:\
+[docker-compose.yandexcloud.yml](/docker-compose.yandexcloud.yml)
+
+Образы docker собираются каждый раз при пуше в ветку `dev` (актуальный список событий в файле [.github/workflows/build_and_push.yaml](/.github/workflows/build_and_push.yaml)).
+
+Образы загружаются в `Container Registry`.
+
+После выполнения github workflow нужно обновить ссылки на образы в спецификации docker compose в настройках ВМ (для server и nginx).
 
 ## Production окружение в докере
 Перед первым запуском выполните `node init.js`
