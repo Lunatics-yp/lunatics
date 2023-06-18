@@ -18,7 +18,7 @@
 ## Демо проекта
 
 - https://luns.space
-- https://lunatics-git-dev-lunatics-yp.vercel.app (vercel)
+- https://lunatics-git-dev-lunatics-yp.vercel.app (версия `только client` на Vercel)
 
 ## Документация проекта
 
@@ -85,13 +85,6 @@
 ## Ой, ничего не работает :(
 
 Откройте issue, я приду :)
-
-## Автодеплой статики на vercel
-Зарегистрируйте аккаунт на [vercel](https://vercel.com/)
-Следуйте [инструкции](https://vitejs.dev/guide/static-deploy.html#vercel-for-git)
-В качестве `root directory` укажите `packages/client`
-
-Все ваши PR будут автоматически деплоиться на vercel. URL вам предоставит деплоящий бот
 
 ## Деплой на Яндекс.Облако
 

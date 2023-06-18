@@ -1,7 +1,6 @@
 name: Build server and nginx docker images
 
 on:
-  # Временная тестовая сборка при push в deploy (после проверки задачи удалить)
   push:
     branches:
       - deploy
