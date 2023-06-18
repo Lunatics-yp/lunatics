@@ -6,10 +6,6 @@ on:
     branches:
       - deploy
       - dev
-  # Временная тестовая сборка при PR в deploy (после проверки удалить)
-  pull_request:
-    branches:
-      - deploy
 
 jobs:
   build-and-push:
