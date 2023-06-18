@@ -43,6 +43,8 @@ jobs:
           docker compose build
           docker tag lunatics-server:latest cr.yandex/$CR_REGISTRY/server:$IMAGE_TAG
           docker push cr.yandex/$CR_REGISTRY/server:$IMAGE_TAG
+          docker tag lunatics-nginx:latest cr.yandex/$CR_REGISTRY/nginx:$IMAGE_TAG
+          docker push cr.yandex/$CR_REGISTRY/nginx:$IMAGE_TAG
 
 #      - name: set lower case owner name
 #        run: |
