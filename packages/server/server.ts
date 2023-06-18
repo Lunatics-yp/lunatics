@@ -3,6 +3,7 @@ import {
 	yandexProxyUserWithResponseHandler,
 	checkAuthorizationMiddleware,
 } from './authMiddleware';
+import {cspMiddleware} from './cspMiddleware';
 import {xssMiddleware} from './xssMiddleware';
 import type {ViteDevServer} from 'vite';
 import {createServer as createViteServer} from 'vite';
@@ -46,8 +47,10 @@ export async function startServer(isDev: boolean, port: number) {
 		});
 		app.use(vite.middlewares);
 	}
-
-	// Прокси
+  
+	app.use(cspMiddleware());
+  
+  // Прокси
 	app.use('/api/v2/auth/user', yandexProxyUserWithResponseHandler());
 	app.use('/api/v2', yandexProxyAll());
 
