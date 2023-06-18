@@ -33,6 +33,12 @@ jobs:
           # Название репозитория (впрочем оно далее не используется)
           CR_REPOSITORY: ${{ secrets.YC_CR_REPOSITORY }}
           IMAGE_TAG: ${{ github.sha }}
+          SERVER_PORT: 3000
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: postgres
+          POSTGRES_PORT: 5432
+          DOMAIN: luns.space
         run: |
           docker compose build
           docker tag prakticum-server:latest cr.yandex/$CR_REGISTRY/server:$IMAGE_TAG
