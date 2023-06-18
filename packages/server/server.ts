@@ -50,7 +50,7 @@ export async function startServer(isDev: boolean, port: number) {
   
 	app.use(cspMiddleware());
   
-  // Прокси
+	// Прокси
 	app.use('/api/v2/auth/user', yandexProxyUserWithResponseHandler());
 	app.use('/api/v2', yandexProxyAll());
 
