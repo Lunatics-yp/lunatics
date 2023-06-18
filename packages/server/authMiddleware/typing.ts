@@ -1,3 +1,5 @@
+import type {Request} from 'express';
+
 export type TUserData = {
 	theme: object ;
 	id: number;
@@ -15,3 +17,8 @@ export type TCheckAuth = {
 	isAuth: boolean; // Авторизован ли
 	user?: TUserData; // Данные о юзере
 };
+
+// Тип данные запроса после прохождения проверки авторизации (для использования в апи)
+export type TRequestWithUserData = {
+	authUserData?: TUserData;
+} & Request;

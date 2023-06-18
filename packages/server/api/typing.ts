@@ -1,4 +1,6 @@
 import type {TForum, TTopic, TMessage, TMessageReaction, TUserTheme} from './models';
+import type {TRequestWithUserData} from '../authMiddleware/typing';
+import type {Response} from 'express';
 
 type TForumAction = 'forum.list' | 'forum.create' | 'forum.delete';
 type TTopicAction = 'topic.list' | 'topic.create' | 'topic.delete';
@@ -25,3 +27,8 @@ export type TReactionResponse = {
 	deleted?: number;
 	Message: unknown;
 };
+
+export type TApi = (
+	req: TRequestWithUserData,
+	res: Response
+) => Promise<void>;

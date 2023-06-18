@@ -1,21 +1,18 @@
-import type {Request, Response} from 'express';
-import type {TUser} from '../models';
 import type {TApiFunction} from './typing';
 import {isValidPostData} from '../utils/postDataValidator';
-import type {TApiResponseData} from '../typing';
+import type {TApi, TApiResponseData} from '../typing';
 import {forumApi} from './forumApi';
 import {topicApi} from './topicApi';
 import {messageApi} from './messageApi';
 import {messageReactionApi} from './messageReactionApi';
 
 // Апи Форума
-export const forumApiHandler = async (
-	req: Request,
-	res: Response,
-	userData: TUser,
-): Promise<void> => {
+export const forumApiHandler: TApi = async (
+	req,
+	res,
+) => {
 	const postData = req.body;
-	const userId = userData.id;
+	const userId = req.authUserData!.id;
 	const isValid = isValidPostData(postData);
 	if (!isValid) {
 		res.status(400).json({reason: 'Неправильный запрос'});
