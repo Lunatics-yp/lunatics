@@ -102,7 +102,6 @@ export const Canvas = (props: TCanvas) => {
 
 		const modules = [];
 		modules[1] = await splitImage(image1, 1);
-		modules[1] = await splitImage(image1, 1);
 		modules[2] = await splitImage(image2, 2);
 		modules[3] = await splitImage(image3, 3);
 		modules[4] = await splitImage(image4, 4);
