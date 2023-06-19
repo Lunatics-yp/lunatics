@@ -20,14 +20,19 @@ const sequelizeOptions: SequelizeOptions = {
 const sequelize = new Sequelize(sequelizeOptions);
 
 // Подключение к БД
-const dbConnect = async () => {
-	try {
-		await sequelize.authenticate();
-		await sequelize.sync();
-		console.log('  ➜ 🎸 Connected to the Postgres DB');
-	} catch (error) {
-		console.error('Unable to connect to the database:', error);
-	}
-};
+const dbConnect = () => new Promise((resolve) => {
+	const connect = async () => {
+		try {
+			await sequelize.authenticate();
+			await sequelize.sync();
+			console.log('➜ 🎸 Connected to the Postgres DB');
+			resolve(true);
+		} catch (error) {
+			console.error('Unable to connect to the database:', error);
+			setTimeout(connect, 5000);
+		}
+	};
+	connect();
+});
 
 export {sequelize, dbConnect};

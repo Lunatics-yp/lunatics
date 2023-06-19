@@ -15,6 +15,11 @@ export type TUser = {
 	email: string;
 };
 
+export type TTheme = {
+	userId: number,
+	themeName: string
+};
+
 export type TForumUser = {
 	id: number;
 	name: string;

@@ -1,0 +1,9 @@
+FROM nginx:latest
+
+RUN apt-get update
+
+COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
+
+COPY ./nginx/validation /validation
+
+CMD ["nginx", "-g", "daemon off;"]

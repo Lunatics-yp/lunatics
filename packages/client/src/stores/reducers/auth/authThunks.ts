@@ -74,4 +74,11 @@ export const changeUserAvatar = createAsyncThunk(
 	},
 );
 
-export const authThunks = {fetchUser, login, register, logout, changeUserData, changeUserAvatar};
+export const authThunks = {
+	fetchUser,
+	login,
+	register,
+	logout,
+	changeUserData,
+	changeUserAvatar,
+};

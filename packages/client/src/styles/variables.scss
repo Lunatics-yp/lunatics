@@ -1,4 +1,4 @@
-:root {
+:root[data-theme='light'] {
 	// --colorText: black;
 	// --colorBg: white;
 	// --colorBlack: black;
@@ -44,6 +44,7 @@
 	--colorBlueTeal: #19678d;
 	--colorBackground: #07405b;
 	--colorBlueDark: #001e44;
+	--colorThemeToggle: #064d6e;
 
 	// Purple
 	--colorPurpleLight: #8f65b7;
@@ -59,3 +60,54 @@
 	// Text Shadow winner
 	--textWinnerShadow: #006181;
 }
+
+:root[data-theme='dark'] {
+	// Blue
+	--colorBackground: #00283b;
+	--colorBlueSky: #046b76;
+	--colorBlueWhite: #ccd4d4;
+	--colorBlueLight: #4a8d92;
+	--colorBlueDark: #161916;
+	--colorBlueTeal: #145778;
+
+	// White
+	--colorWhite: #ccd4d4;
+	--colorThemeToggle: white;
+
+	// Black
+	--colorBlack: #000;
+
+	// Yellow
+	--colorYellowBlue: #876b08;
+	--colorYellowLemon: #b69d08;
+	--colorYellowGrayishDark: #3d4143;
+	--colorYellowDirt: #343738;
+	--colorYellowWhite: #cad4ca;
+	--colorYellowGamboge: #c90;
+	--colorYellow: #fa9929;
+	--colorOriginalYellow: #ff0;
+	--colorOrange: #a0540a;
+	--gradientOrangeYellow: linear-gradient(to top, var(--colorOrange), #a57d30);
+	--gradientOrangeYellowDark: linear-gradient(to top, var(--colorOrange), #a57d30);
+
+	// Grey
+	--colorSlateGrey: #5e666f;
+	--colorGreyLight: #b5b9bd;
+	--colorGray: #607b7d;
+
+	// Purple
+	--colorPurpleLight: #8f65b7;
+	--colorPurple: #551a8b;
+
+	// Red
+	--colorRadicalRed: #ff3347;
+	--colorRedError: #d93d3d;
+
+	// Text Shadow winner
+	--textWinnerShadow: #006181;
+
+	// TIME:
+	--animationTimeBase: 500ms;
+	--animationTimeSmall: 200ms;
+}
+
