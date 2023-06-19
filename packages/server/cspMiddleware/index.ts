@@ -11,6 +11,7 @@ export const cspMiddleware = () => {
 			'img-src': [
 				SELF,
 				FLAG_ICONS,
+				'\'data:\'',
 			],
 			'font-src': [SELF],
 			'media-src': [SELF],
