@@ -1,6 +1,7 @@
 import {FC, ReactNode} from 'react';
 import './header.scss';
 import {Geolocation} from '../Geolocation';
+
 // Тип компонента заголовок окна
 type HeaderProps = {
 	children: ReactNode;

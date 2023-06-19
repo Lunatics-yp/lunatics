@@ -7,9 +7,9 @@ const initialState: TGeolocation = {
 	flag: '',
 };
 
-type GeolocationAction = {type: string; countryName: string; countryCode: string};
+type TGeolocationAction = {type: string; countryName: string; countryCode: string};
 
-export function geolocationReducer(state = initialState, action: GeolocationAction): TGeolocation {
+export function geolocationReducer(state = initialState, action: TGeolocationAction): TGeolocation {
 	if (action.type === 'actionGeolocation') {
 		return {
 			countryName: action.countryName,
