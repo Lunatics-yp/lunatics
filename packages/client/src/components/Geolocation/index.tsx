@@ -10,14 +10,14 @@ export const Geolocation = () => {
 
 	return (
 		<>
-			<div className="geolocation">
-				<h2 className="geolocation__text">
+			<div className='geolocation'>
+				<h2 className='geolocation__text'>
 					Cтрана: {geolocation.countryName || 'не определена'}
 				</h2>
 			</div>
 			{geolocation.countryName ? (
 				<img
-					className="geolocation__flag"
+					className='geolocation__flag'
 					src={src}
 					alt={`${geolocation.countryName} flag`}
 				/>
