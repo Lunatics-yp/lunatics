@@ -253,7 +253,7 @@ export const PageGame: FC = () => {
 			<Footer className={styles.footerPlacement}>
 				<Timer
 					isGameOver={winner > 0}
-					updateTime={handleTimerUpdate}
+					updateTimeCallback={handleTimerUpdate}
 				/>
 			</Footer>
 			{winner > 0 && (
