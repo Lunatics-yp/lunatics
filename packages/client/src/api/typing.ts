@@ -1,4 +1,4 @@
-import {TErrorAPI, TReactionDTO, TUserDTO} from './typingAPI';
+import {TErrorAPI, TReactionDTO, TThemeDTO, TUserDTO} from './typingAPI';
 export type TNullObject = Record<string, never>;
 
 /* Login */
@@ -77,6 +77,17 @@ export type TRedirectUri = string;
 export type TServiceId = {
 	service_id: string;
 };
+
+/* Themes */
+
+export enum THEMES_ACTION {
+	CHANGE = 'theme.change',
+}
+
+export type  TThemeRequestData = {
+	themeName: string;
+};
+export type TThemeResponseData = TThemeDTO | TErrorAPI;
 
 /* Reactions */
 

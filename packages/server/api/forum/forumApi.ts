@@ -18,6 +18,7 @@ export const forumApi = {
 				data: newForum,
 			};
 		} catch (e) {
+			console.error(e);
 			return {reason: 'Ошибка при создании строки в методе create forum'};
 		}
 	},
@@ -36,6 +37,7 @@ export const forumApi = {
 				data: updatedForum as object,
 			};
 		} catch (e) {
+			console.error(e);
 			return {reason: 'Ошибка при изменении строки в методе rename forum'};
 		}
 	},
@@ -65,6 +67,7 @@ export const forumApi = {
 				data: forums,
 			};
 		} catch (e) {
+			console.error(e);
 			return {reason: 'Ошибка при получении списка форумов в методе list forum'};
 		}
 	},

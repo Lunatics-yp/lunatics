@@ -1,14 +1,16 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from 'client/src/stores/store';
 import {transformUser} from 'client/src/api/apiTransformers';
 import {isUserData} from 'client/src/api/request/utilits';
 import {authThunks} from './authThunks';
 import {TAuthState} from './typing';
+import {Theme} from 'client/src/stores/reducers/userSettings/typing';
 
 const initialState: TAuthState = {
 	isLoading: false,
 	error: '',
 	user: null,
+	theme: null,
 };
 
 // Slice - функция, которая автоматически генерирует Action Creators и типы Action
@@ -16,6 +18,9 @@ export const authSlice = createSlice({
 	name: 'auth',
 	initialState,
 	reducers: {
+		changeTheme(state, {payload}: PayloadAction<`${Theme}`>) {
+			state.theme = payload;
+		},
 	},
 	extraReducers: (builder) => {
 		builder
@@ -23,6 +28,7 @@ export const authSlice = createSlice({
 			.addCase(authThunks.fetchUser.fulfilled, (state, action) => {
 				state.isLoading = false;
 				if (isUserData(action.payload)) {
+					state.theme = action.payload.theme.data;
 					state.user = transformUser(action.payload);
 				}
 			})
@@ -95,12 +101,13 @@ export const authSlice = createSlice({
 			.addCase(authThunks.changeUserAvatar.rejected, (state, action) => {
 				state.isLoading = false;
 				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
-			})
-		;
+			});
 	},
 });
 
 export const authSelectors = {
 	user: (state: RootState) => state.authReducer,
+	theme: (state: RootState) => state.authReducer.theme,
 };
+export const themesActions = authSlice.actions;
 export default authSlice.reducer;

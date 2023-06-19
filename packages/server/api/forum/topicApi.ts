@@ -1,3 +1,4 @@
+import {sequelizeToObject} from '../utils/sequelizeToObject';
 import {Topics, Messages, Users} from '../models';
 import type {TTopic} from '../models';
 import type {TApiResponseData} from '../typing';
@@ -83,9 +84,7 @@ export const topicApi = {
 				],
 			});
 
-			/** Тут я никак не смог добиться, чтобы в ответе был один объект
-			 * с последним сообщением, поэтому добавил обработку ответа и избавляюсь от массива */
-			const topics = JSON.parse(JSON.stringify(topicsSQL)) as TTopicsRespond;
+			const topics = sequelizeToObject<TTopicsRespond>(topicsSQL) as TTopicsRespond;
 			topics.forEach(topic => {
 				topic['LastMessage'] = topic['Messages'] ? topic['Messages'][0] ?? {} : {};
 				delete topic['Messages'];
