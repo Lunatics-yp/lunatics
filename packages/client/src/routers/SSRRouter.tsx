@@ -9,7 +9,6 @@ import {MainMenuMain} from 'client/src/pages/MainMenu/pages/main';
 import {MainMenuPlayAgainstAI} from 'client/src/pages/MainMenu/pages/playAgainstAI';
 import {MainMenuPlayOnline} from 'client/src/pages/MainMenu/pages/playOnline';
 import {MainMenuSettings} from 'client/src/pages/MainMenu/pages/settings';
-import {TestPage} from 'client/src/pages/TestPage';
 import {Page500} from 'client/src/pages/500';
 import {Page404} from 'client/src/pages/404';
 import {PageRegister} from 'client/src/pages/Register';
@@ -20,11 +19,9 @@ import {PageAuth} from 'client/src/pages/Auth';
 import {PageProfile} from 'client/src/pages/Profile';
 import {PageProfileChangePassword} from 'client/src/pages/ProfileChangePassword';
 import {ForumDiscussion} from 'client/src/pages/Forum/ForumDiscussion';
-import {GameCanvasPage} from 'client/src/pages/GameCanvas';
 import {PageSetShips} from 'client/src/pages/Game/PageSetShips/PageSetShips';
 import {PageGame} from 'client/src/pages/Game/PageGame/PageGame';
 import {PageGameResults} from 'client/src/pages/Game/PageGameResults/PageGameResults';
-import {PageGameMechanicsDemonstration} from 'client/src/pages/GameMechanicsDemonstration';
 import {LeaderboardPage} from 'client/src/pages/Leaderboard';
 
 export const SSRRouter = () => {
@@ -54,10 +51,6 @@ export const SSRRouter = () => {
 						/>
 					</Route>
 				</Route>
-				<Route
-					path={PATHS.test}
-					element={<TestPage/>}
-				/>
 				<Route
 					path={PATHS.profile}
 					element={
@@ -128,16 +121,8 @@ export const SSRRouter = () => {
 					element={<PageGame/>}
 				/>
 				<Route
-					path={PATHS.gameCanvas}
-					element={<GameCanvasPage/>}
-				/>
-				<Route
 					path={PATHS.gameResults}
 					element={<PageGameResults/>}
-				/>
-				<Route
-					path={PATHS.gameMechanicsDemonstration}
-					element={<PageGameMechanicsDemonstration/>}
 				/>
 				<Route
 					path={PATHS.leaderboard}

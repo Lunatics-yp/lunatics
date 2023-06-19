@@ -9,6 +9,7 @@ import styles from './pageSetShips.module.scss';
 
 import {GameBattle} from 'client/src/game/battle';
 import {Canvas} from 'client/src/game/canvas';
+import {useBattle} from 'client/src/hooks/useBattle';
 
 export const PageSetShips = () => {
 	const navigate = useNavigate();
@@ -17,6 +18,11 @@ export const PageSetShips = () => {
 	const [clear, setClear] = useState(0);
 
 	const [battle] = useState(GameBattle.currentGame);
+	const isBattle = useBattle(battle);
+
+	if (!isBattle) {
+		return null;
+	}
 
 	const doRedraw = () => {
 		setRedraw(redraw + 1);
@@ -27,7 +33,7 @@ export const PageSetShips = () => {
 	};
 
 	const clearBoard = () => {
-		battle.clear();
+		battle.reset();
 		doClear();
 		setIsShipsOnBoard(false);
 		doRedraw();
@@ -48,7 +54,6 @@ export const PageSetShips = () => {
 		<>
 			<Header>Расстановка лунных модулей</Header>
 			<div className={styles.placementPageContainer}>
-				{/*<div className={styles.shipsContainer}></div>*/}
 				<Canvas
 					battle={battle}
 					owner={'player'}

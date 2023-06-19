@@ -8,9 +8,11 @@ import imageDestroyed from 'client/src/assets/images/game/destroyed.png';
 import imageMiss from 'client/src/assets/images/game/miss.png';
 import {CellStatus} from 'client/src/game/typing';
 import styles from 'client/src/pages/Game/PageSetShips/pageSetShips.module.scss';
-import React, {useState} from 'react';
+import {useState, useEffect, useRef, MouseEvent, useLayoutEffect} from 'react';
 
 import type {TCanvas, TDrawnCell, TSprites} from './typing';
+
+const rectSizeCoefficient = 2; // Коэффициент для разрешения реднера
 
 export const Canvas = (props: TCanvas) => {
 
@@ -18,7 +20,7 @@ export const Canvas = (props: TCanvas) => {
 		battle,
 		owner,
 		redraw,
-		clear=0,
+		clear = 0,
 		clickCallback,
 	} = props;
 
@@ -35,26 +37,38 @@ export const Canvas = (props: TCanvas) => {
 		height,
 	} = ground.map.size;
 
-	const rectSize = 50;
-
-	const canvasWidth = width * rectSize;
-	const canvasHeight = height * rectSize;
-
 	const [sprites, setSprites] = useState<TSprites>();
 	const [ctx, setCtx] = useState<CanvasRenderingContext2D>();
+
+	const [rectSize, setRectSize] = useState(0);
+
+	const [canvasWidth, setCanvasWidth] = useState(0);
+	const [canvasHeight, setCanvasHeight] = useState(0);
+
+	useEffect(() => {
+		setCanvasWidth(rectSize * width);
+		setCanvasHeight(rectSize * height);
+	}, [rectSize]);
 
 	const [selfRedraw, setSelfRedraw] = useState(0);
 
 	const [drawnCells, setDrawnCells] = useState<TDrawnCell[]>([]);
 
-	const canvas = React.useRef<HTMLCanvasElement>(null);
-	React.useEffect(() => {
+	const canvas = useRef<HTMLCanvasElement>(null);
+	useEffect(() => {
 		if (canvas.current) {
 			setCtx(canvas.current.getContext('2d') as CanvasRenderingContext2D);
 		}
 	}, []);
 
-	React.useEffect(() => {
+	useLayoutEffect(() => {
+		if (canvas.current) {
+			const rect = canvas.current.getBoundingClientRect();
+			setRectSize(rect.height / height * rectSizeCoefficient);
+		}
+	}, [canvas]);
+
+	useEffect(() => {
 		if (!ctx) {
 			return;
 		}
@@ -98,7 +112,7 @@ export const Canvas = (props: TCanvas) => {
 		drawBackground(ctx, background);
 	};
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (!ctx || !sprites) {
 			return;
 		}
@@ -106,14 +120,14 @@ export const Canvas = (props: TCanvas) => {
 		drawBackground(ctx, sprites.background);
 	}, [clear]);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (!ctx || !sprites) {
 			return;
 		}
 		drawSprites(ctx);
 	}, [redraw, selfRedraw, drawnCells]);
 
-	const handleClick = (event: React.MouseEvent<HTMLCanvasElement>) => {
+	const handleClick = (event: MouseEvent<HTMLCanvasElement>) => {
 		if (canvas.current && clickCallback) {
 			const rect = canvas.current.getBoundingClientRect();
 			const pxX = event.clientX - rect.left;
@@ -254,40 +268,28 @@ export const Canvas = (props: TCanvas) => {
 								? sprites.modules[size][spriteIndex].vertical
 								: sprites.modules[size][spriteIndex].horizontal;
 						} else {
-							sprite = sprites.modules[3][2].vertical;
+							sprite = sprites.modules[1][0].vertical;
 						}
-						ctx.drawImage(
-							sprite,
-							x * rectSize,
-							y * rectSize,
-							rectSize,
-							rectSize);
 						break;
 					case CellStatus.BURNING:
-						ctx.drawImage(
-							sprites.burn,
-							x * rectSize,
-							y * rectSize,
-							rectSize,
-							rectSize);
+						sprite = sprites.burn;
 						break;
 					case CellStatus.DESTROYED:
-						ctx.drawImage(
-							sprites.destroyed,
-							x * rectSize,
-							y * rectSize,
-							rectSize,
-							rectSize);
+						sprite = sprites.destroyed;
 						break;
 					case CellStatus.MISSED:
-						ctx.drawImage(
-							sprites.miss,
-							x * rectSize,
-							y * rectSize,
-							rectSize,
-							rectSize);
+						sprite = sprites.miss;
 						break;
+					default:
+						continue;
 				}
+				ctx.drawImage(
+					sprite,
+					x * rectSize,
+					y * rectSize,
+					rectSize,
+					rectSize,
+				);
 			}
 		}
 	};

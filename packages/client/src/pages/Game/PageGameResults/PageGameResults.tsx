@@ -1,3 +1,5 @@
+import {GameBattle} from 'client/src/game/battle';
+import {useBattle} from 'client/src/hooks/useBattle';
 import {useNavigate} from 'react-router-dom';
 import {useState} from 'react';
 import {PATHS} from 'client/src/routers/name';
@@ -14,42 +16,37 @@ import styles from './pageGameResults.module.scss';
 
 export const PageGameResults = () => {
 	const navigate = useNavigate();
-	//данные из стора
-	const players  = {
-		player1: 'Jack',
-		player2: 'Jon',
-	};
-	//время игры в секундах
-	const gameTime = 302;
 
-	const gameTimeString = () => {
-		const hours = (Math.floor(gameTime / 3600)).toString().padStart(2, '0');
-		const minutes = (Math.floor(gameTime / 60)).toString().padStart(2, '0');
-		const seconds = (gameTime % 60).toString().padStart(2, '0');
-		return `${hours}:${minutes}:${seconds}`;
+	const [battle] = useState(GameBattle.currentGame);
+	const isBattle = useBattle(battle);
+
+	if (!isBattle) {
+		return null;
+	}
+
+	const [battleStatistic] = useState(GameBattle.currentGame.statistic);
+
+	//данные из стора
+	const players = {
+		player1: 'Игрок',
+		player2: 'ИИ',
 	};
-	const playersStatistic = {
-		player1: {
-			destroyedModules: 7,
-			missMotion: 20,
-			points: 47,
-		},
-		player2: {
-			destroyedModules: 3,
-			missMotion: 32,
-			points: 22,
-		},
-	};
+
 	const result = {
 		win: 'Победа!',
 		lose: 'Поражение :(',
 	};
-	const [isRepeatGame, setIsRepeatGame] = useState(false);
+
+	const [isRepeatGame/*, setIsRepeatGame*/] = useState(false);
 
 	return (
 		<>
 			<Header>Результаты игры</Header>
-			<div className={styles.winnerIs}>{result.win}</div>
+			<div className={styles.winnerIs}>{
+				battleStatistic.winner == 1
+					? result.win
+					: result.lose
+			}</div>
 			<div className={styles.tableWrapper}>
 				<table>
 					<thead>
@@ -62,19 +59,24 @@ export const PageGameResults = () => {
 					</thead>
 					<tbody>
 						<tr>
-							<td>Уничтожено модулей</td>
-							<td>{playersStatistic.player1.destroyedModules}</td>
-							<td>{playersStatistic.player2.destroyedModules}</td>
+							<td>Выстрелов</td>
+							<td>{battleStatistic.player.shoots}</td>
+							<td>{battleStatistic.enemy.shoots}</td>
+						</tr>
+						<tr>
+							<td>Попаданий</td>
+							<td>{battleStatistic.player.hit}</td>
+							<td>{battleStatistic.enemy.hit}</td>
 						</tr>
 						<tr>
 							<td>Промахов</td>
-							<td>{playersStatistic.player1.missMotion}</td>
-							<td>{playersStatistic.player2.missMotion}</td>
+							<td>{battleStatistic.player.miss}</td>
+							<td>{battleStatistic.enemy.miss}</td>
 						</tr>
 						<tr>
-							<td>Набрано очков</td>
-							<td>{playersStatistic.player1.points}</td>
-							<td>{playersStatistic.player2.points}</td>
+							<td>Уничтожено модулей</td>
+							<td>{battleStatistic.player.destroyed}</td>
+							<td>{battleStatistic.enemy.destroyed}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -89,12 +91,12 @@ export const PageGameResults = () => {
 				text='В главное меню'
 				onClick={() => navigate(PATHS.mainMenu)}
 			/>
-			<Button
-				className={`${styles.buttonResultsGame} ${styles.button}`}
-				text='Реванш'
-				onClick={() => setIsRepeatGame(true)}
-			/>
-			{ isRepeatGame  &&
+			{/*<Button*/}
+			{/*	className={`${styles.buttonResultsGame} ${styles.button}`}*/}
+			{/*	text='Реванш'*/}
+			{/*	onClick={() => setIsRepeatGame(true)}*/}
+			{/*/>*/}
+			{isRepeatGame &&
 				<Modal>
 					<ModalRepeatGame player={players.player1}></ModalRepeatGame>
 					<ModalRepeatGameButtons/>
@@ -102,7 +104,7 @@ export const PageGameResults = () => {
 			}
 			<Footer className={styles.footerPlacement}>
 				<p>
-					Длительность игры: {gameTimeString()}
+					Длительность игры: {battleStatistic.time}
 				</p>
 			</Footer>
 			<Background/>

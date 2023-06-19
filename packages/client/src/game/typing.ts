@@ -76,3 +76,17 @@ export type TSpaceGroundDisplayProps = {
 	map: TMap;
 	rerender: unknown;
 };
+
+export type TPlayerStatistic = {
+	shoots: number;
+	hit: number;
+	miss: number;
+	destroyed: number;
+};
+
+export type TBattleStatistic = {
+	player: TPlayerStatistic;
+	enemy: TPlayerStatistic;
+	time: string;
+	winner: number;
+};

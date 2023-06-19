@@ -1,6 +1,6 @@
 import {GameBattle} from 'client/src/game/battle';
-// import {modesData} from 'client/src/game/constants/modes';
 import {TCoordinates} from 'client/src/game/typing';
+import {useBattle} from 'client/src/hooks/useBattle';
 import {useNavigate} from 'react-router-dom';
 import {FC, useEffect, useState} from 'react';
 import {PATHS} from 'client/src/routers/name';
@@ -25,17 +25,18 @@ import styles from './pageGame.module.scss';
 import {Canvas} from 'client/src/game/canvas';
 import {TShootRespond} from 'client/src/game/typing';
 
-// const test = () => {
-// 	const modeData = modesData['Обычный'];
-// 	const battle = new GameBattle(modeData);
-// 	battle.placement.randomLocateAllModulesToGround();
-// };
-// test();
-
 export const PageGame: FC = () => {
 	const navigate = useNavigate();
 	const {soundsList} = SoundsList();
 	const {playSound, createSound, soundToggle, isOn, playGameOver, stopMusic} = SoundManager();
+
+	const [redraw, setRedraw] = useState(0);
+	const [battle] = useState(GameBattle.currentGame);
+	const isBattle = useBattle(battle);
+
+	if (!isBattle) {
+		return null;
+	}
 
 	useEffect(() => {
 		for (const audio in soundsList) createSound(audio);
@@ -44,12 +45,9 @@ export const PageGame: FC = () => {
 		};
 	}, []);
 
-	const [redraw, setRedraw] = useState(0);
-	const [battle] = useState(GameBattle.currentGame);
-
 	//данные из стора
-	const [player1Ships, setPlayer1Ships] = useState(battle.modulesCount);
-	const [player2Ships, setPlayer2Ships] = useState(battle.modulesCount);
+	const [player1Ships, setPlayer1Ships] = useState(battle?.modulesCount);
+	const [player2Ships, setPlayer2Ships] = useState(battle?.modulesCount);
 
 	const players = {
 		1: 'Игрок',
@@ -148,6 +146,7 @@ export const PageGame: FC = () => {
 
 	useEffect(() => {
 		if (winner) {
+			battle.statistic.winner = winner;
 			playGameOver();
 		}
 	}, [winner]);
@@ -178,6 +177,10 @@ export const PageGame: FC = () => {
 		} else {
 			setActionName(gameActionsName.hitShip);
 		}
+	};
+
+	const handleTimerUpdate = (newTime: string) => {
+		battle.statistic.time = newTime;
 	};
 
 	const enemyShootingReceiver = (shootRespond: TShootRespond) => {
@@ -248,7 +251,10 @@ export const PageGame: FC = () => {
 				}}
 			/>
 			<Footer className={styles.footerPlacement}>
-				<Timer isGameOver={winner > 0}/>
+				<Timer
+					isGameOver={winner > 0}
+					updateTime={handleTimerUpdate}
+				/>
 			</Footer>
 			{winner > 0 && (
 				<Modal>

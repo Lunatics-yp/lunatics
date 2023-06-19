@@ -5,7 +5,12 @@ import {Placement} from './placement';
 import {Shooting} from './shooting';
 import {SpaceGround} from './spaceGround';
 import {SpaceModule} from './spaceModule';
-import type {TCoordinates, TShootRespond} from './typing';
+import type {
+	TCoordinates,
+	TShootRespond,
+	TPlayerStatistic,
+	TBattleStatistic,
+} from './typing';
 import {CellStatus} from './typing';
 
 export class GameBattle {
@@ -26,6 +31,8 @@ export class GameBattle {
 
 	private readonly _modulesCount: number; // Общее кол-во модулей (для подсчета победителя)
 
+	private readonly _statistic: TBattleStatistic;
+
 	constructor(modeData: TModeData) {
 		const {map, ships} = modeData;
 		this._playerGround = new SpaceGround({width: map.width, height: map.height});
@@ -37,9 +44,17 @@ export class GameBattle {
 		this._enemyGround = new SpaceGround({width: map.width, height: map.height});
 		this._enemyRealGround = new SpaceGround({width: map.width, height: map.height});
 		this._enemyPlacement = new Placement(this._enemyRealGround, ships);
-		this._enemyPlacement.randomLocateAllModulesToGround();
 		this._enemyShooting = new Shooting(this._enemyRealGround, this._enemyPlacement.modules);
 		this._enemyAi = new AI(this._playerShooting);
+
+		this._statistic = {
+			player: {shoots: 0, hit: 0, miss: 0, destroyed: 0},
+			enemy: {shoots: 0, hit: 0, miss: 0, destroyed: 0},
+			time: '',
+			winner: 0,
+		};
+
+		this.reset();
 
 		GameBattle._currentGame = this;
 	}
@@ -60,11 +75,23 @@ export class GameBattle {
 		return this._modulesCount;
 	}
 
-	public clear = () => {
+	get statistic(): TBattleStatistic {
+		return this._statistic;
+	}
+
+	public reset = () => {
 		this.placement.clear();
 		this._enemyPlacement.clear();
 		this._enemyPlacement.randomLocateAllModulesToGround();
 		this._enemyGround.clear();
+		[this.statistic.enemy, this.statistic.player].forEach(statistic => {
+			statistic.shoots = 0;
+			statistic.hit = 0;
+			statistic.miss = 0;
+			statistic.destroyed = 0;
+		});
+		this.statistic.time = '';
+		this.statistic.winner = 0;
 	};
 
 	static get currentGame() {
@@ -84,6 +111,7 @@ export class GameBattle {
 	public async enemyShooting(callback: Fn<void, TShootRespond>) {
 		setTimeout(async () => {
 			const shootRespond = await this._enemyAi.shoot();
+			this.calculateStatistic(shootRespond, this.statistic.enemy);
 			callback(shootRespond);
 		},2000);
 	}
@@ -124,11 +152,26 @@ export class GameBattle {
 				}else{
 					this._enemyGround.setCellStatus(coordinates, CellStatus.BURNING);
 				}
-			}else{
+			} else {
 				this._enemyGround.setCellStatus(coordinates, CellStatus.MISSED);
 			}
 		}
+		this.calculateStatistic(shootRespond, this.statistic.player);
 		callback(shootRespond);
+	}
+
+	private calculateStatistic(shootRespond: TShootRespond, playerStatistic: TPlayerStatistic) {
+		if (shootRespond.hadShoot) {
+			playerStatistic.shoots++;
+			if (shootRespond.hit) {
+				playerStatistic.hit++;
+				if (shootRespond.destroyed) {
+					playerStatistic.destroyed++;
+				}
+			} else {
+				playerStatistic.miss++;
+			}
+		}
 	}
 
 }

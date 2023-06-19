@@ -83,7 +83,7 @@ export class Placement extends GameMechanic {
 	};
 
 	// Метод рандомной расстановки всех лунных моделей
-	randomLocateAllModulesToGround = () => {
+	randomLocateAllModulesToGround = (printLog: boolean = false) => {
 		// Кол-во попыток на каждую ячейку. Вычислено экспериментально.
 		const cyclesPerOneCell = 10;
 		const {width: mapWidth, height: mapHeight} = this.ground.map.size;
@@ -145,7 +145,9 @@ export class Placement extends GameMechanic {
 		const timeSpent = Math.round(performance.now() - timeStart);
 		const log = `Рандомная расстановка. Успех = ${isAllModulesLocated}\r\n
 		циклов = ${cyclesCount}, подциклов = ${subCyclesCount}, ${timeSpent}ms`;
-		console.log(log);
+		if (printLog) {
+			console.log(log);
+		}
 		// На текущем этапе метод ничего не возвращает
 		// В будущем, скорее всего, будет возвращать результат и в случае неудачи
 		// покажем игроку сообщение об ошибке.
