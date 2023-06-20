@@ -1,6 +1,7 @@
 import {forwardRef} from 'react';
 import {useAppDispatch, useAppSelector} from 'client/src/hooks/redux';
 import moment from 'moment';
+import {useAuth} from 'client/src/hooks/useAuth';
 import {deleteReaction, setReaction} from 'client/src/stores/reducers/forum/reactionsThunks';
 import {REACTIONS} from 'client/src/config/constants';
 import {Avatar} from 'client/src/components/Avatar';
@@ -20,6 +21,7 @@ export const Message = forwardRef<HTMLDivElement, TMessageProps>(function Messag
 	const isOwner = message.user?.id === user?.id;
 	const reactions = message.reactions || [];
 	const dispatch = useAppDispatch();
+	const userNow = useAuth() ?? {login: ''};
 	const childrenMassage = messages.filter(el => el.parent_message_id === id);
 	const time = moment(message.created_at).format('YYYY-MM-DD HH:mm:ss');
 
@@ -66,7 +68,7 @@ export const Message = forwardRef<HTMLDivElement, TMessageProps>(function Messag
 			>
 				<div className={styles.message__info}>
 					<span className={styles.message__author}>
-						{isOwner ? 'Вы' : 'Ryan'}
+						{userNow.login}
 					</span>
 					<span className={styles.message__date}>{time}</span>
 					<span className={`${styles.message__reaction} ${styles.reaction_btn}`}
