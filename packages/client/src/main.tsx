@@ -11,6 +11,6 @@ hydrateRoot(
 	<StrictMode>
 		<BrowserRouter>
 			<App/>
-		</BrowserRouter>,
+		</BrowserRouter>
 	</StrictMode>,
 );
