@@ -16,11 +16,11 @@ export const ForumTopicHeader:FC<TForumTopicHeaderProps> = (props) => {
 				<Link to={PATHS.forum}>
 					<h2 className={styles.title}>Форумы</h2>
 				</Link>
-				<span className={styles.arrow}>{'>'}</span>
+				<span className={styles.arrow}>&raquo;</span>
 				<Link to={PATHS.topic}>
 					<h2 className={styles.title}>Темы</h2>
 				</Link>
-				<span className={styles.arrow}>{'>'}</span>
+				<span className={styles.arrow}>&raquo;</span>
 				<h2 className={styles.title_color}>{topicName}</h2>
 			</div>
 			<div className={styles.header__right}>

@@ -7,7 +7,7 @@ export const Forum = () => {
 		<>
 			<Header>
 				<Home/>
-				<div>Forum</div>
+				<div>Форум</div>
 			</Header>
 			<Outlet/>
 		</>
