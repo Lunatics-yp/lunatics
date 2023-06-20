@@ -1,3 +1,11 @@
+:root {
+	--width: 1200px;
+
+	// TIME (all theme):
+	--animationTimeBase: 500ms;
+	--animationTimeSmall: 200ms;
+}
+
 :root[data-theme='light'] {
 	// --colorText: black;
 	// --colorBg: white;
@@ -6,10 +14,6 @@
 	// --colorError: #ff2f2f;
 	// --colorLink: #0d6efd;
 	// --colorLinkHover: #094bb0;
-
-	// TIME:
-	--animationTimeBase: 500ms;
-	--animationTimeSmall: 200ms;
 
 	// COLORS:
 	// White
@@ -105,9 +109,5 @@
 
 	// Text Shadow winner
 	--textWinnerShadow: #006181;
-
-	// TIME:
-	--animationTimeBase: 500ms;
-	--animationTimeSmall: 200ms;
 }
 

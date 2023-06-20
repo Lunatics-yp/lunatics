@@ -3,7 +3,9 @@
 .wrapper {
 	@include linkReset;
 
-	margin: 20px 100px;
+	max-width: var(--width);
+	margin: 0 auto;
+	padding: 20px;
 }
 
 .create {
@@ -29,7 +31,7 @@
 	color: var(--colorBlueSky);
 }
 
-.topic {
+.forum {
 	&__list {
 		flex-direction: column-reverse;
 		width: 100%;
@@ -40,5 +42,20 @@
 		row-gap: 20px;
 		align-content: center;
 		justify-items: center;
+	}
+
+	&__line {
+		grid-column: 1 / 4;
+		margin: 20px 0;
+		color: var(--colorWhite);
+	}
+
+	&__form {
+		grid-column: 1 / 4;
+		display: flex;
+		gap: 20px;
+		justify-self: start;
+		padding-left: 30px;
+		padding-bottom: 24px;
 	}
 }

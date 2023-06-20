@@ -28,14 +28,14 @@ export const ForumBox = () => {
 	}
 
 	function createForum() {
-		const newTopicContent = newForum.value.trim();
+		const newForumContent = newForum.value.trim();
 
-		if (newTopicContent) {
+		if (newForumContent) {
 			dispatch(
 				forumThunks.createForum({
 					action: 'forum.create',
 					data: {
-						name: newTopicContent,
+						name: newForumContent,
 					},
 				}),
 			);
@@ -44,28 +44,38 @@ export const ForumBox = () => {
 	}
 
 	const renderForums = () => {
-		if (isLoading) return <div>Loading ...</div>;
-		if (error) return <div>Произошла ошибка {error}</div>;
-		if (forums.length == 0) return <div>Нет форумов</div>;
-
+		if (isLoading) {
+			return <div className={styles.forum__line}>Загрузка&hellip;</div>;
+		}
+		if (error) {
+			return <div className={styles.forum__line}>Произошла ошибка {error}</div>;
+		}
+		if (!forums.length) {
+			return <div className={styles.forum__line}>Нет форумов</div>;
+		}
 		return <>{ForumColumnElements}</>;
 	};
 
 	return (
 		<div className={styles.wrapper}>
-			<div className={styles.topic__list}>
+			<div className={styles.forum__list}>
 				<ForumHeader/>
-				<div></div>
-				<input
-					onChange={newForum.onChange}
-					value={newForum.value}
-					type='text'
-					placeholder='Новая тема'
-					className={styles.input}
-					maxLength={50}
-				/>
-				<div className={styles.button}>
-					<Button disabled={!newForum.value} text='Создать форум' onClick={createForum}/>
+				<div className={styles.forum__form}>
+					<input
+						onChange={newForum.onChange}
+						value={newForum.value}
+						type='text'
+						placeholder='Новый форум'
+						className={styles.input}
+						maxLength={50}
+					/>
+					<div className={styles.button}>
+						<Button
+							disabled={!newForum.value}
+							text='Создать форум'
+							onClick={createForum}
+						/>
+					</div>
 				</div>
 				{renderForums()}
 			</div>

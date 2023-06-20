@@ -17,8 +17,12 @@ export const ForumColumn: FC<TForumColumnProps> = props => {
 					<p>{name}</p>
 				</div>
 			</NavLink>
-			<div className={styles.item}></div>
-			<div className={styles.item}></div>
+			<div className={styles.item}>
+				<p>&nbsp;</p>
+			</div>
+			<div className={styles.item}>
+				<p>&nbsp;</p>
+			</div>
 		</>
 	);
 };
