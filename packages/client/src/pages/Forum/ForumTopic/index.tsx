@@ -61,7 +61,7 @@ export const ForumTopic = () => {
 			}
 		}
 
-		if (topicId){			
+		if (topicId) {
 			dispatch(
 				forumThunks.createMessage({
 					action: 'message.create',
@@ -120,7 +120,7 @@ export const ForumTopic = () => {
 				<div className={styles.footer}>
 					<div className={styles.reply}>
 						<div className={styles.reply__avatar}>
-							<Avatar size="small" src={user?.avatar}/>
+							<Avatar size='small' src={user?.avatar}/>
 						</div>
 						<div className={styles.reply__field}>
 							<textarea
@@ -141,12 +141,12 @@ export const ForumTopic = () => {
 						<div className={styles.footer__control}>
 							<div className={styles.footer__actions}>
 								<Button
-									text="Отмена"
+									text='Отмена'
 									onClick={onCancelHandler}
 									className={`${styles.cancel} ${styles.defaultBtn}`}
 								/>
 								<Button
-									text="Отправить"
+									text='Отправить'
 									onClick={onSubmitHandler}
 									className={`${styles.submit} ${styles.defaultBtn}`}
 								/>

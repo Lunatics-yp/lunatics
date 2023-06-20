@@ -27,7 +27,7 @@ export const ForumDiscussionBox = () => {
 		if (newTopicContent && forumId) {
 			dispatch(
 				forumThunks.createTopic({
-					action: 'topic.create', 
+					action: 'topic.create',
 					data: {
 						forum_id: +forumId,
 						name: newTopicContent,
@@ -55,7 +55,7 @@ export const ForumDiscussionBox = () => {
 			}
 		}
 		return urlTopic;
-	};	
+	};
 	console.log(useAppSelector((state)=> state));
 
 	return (
@@ -74,12 +74,12 @@ export const ForumDiscussionBox = () => {
 						<input
 							onChange={newTopic.onChange}
 							value={newTopic.value}
-							type="text"
-							placeholder="Новый топ"
+							type='text'
+							placeholder='Новый топик'
 							className={styles.input}
 							maxLength={50}
 						/>
-						<Button text="Создать топ" onClick={createTopic}/>
+						<Button text='Создать топик' onClick={createTopic}/>
 					</div>
 				</header>
 				<div className={styles.container__elements}>
