@@ -48,6 +48,17 @@ export class Shooting extends GameMechanic {
 		const destroy = (spaceModule: SpaceModule): TShootRespond => {
 			const moduleCoordinates = spaceModule.mapPosition;
 			for (const mapCoordinates of moduleCoordinates) {
+				const {x, y} = mapCoordinates;
+				for (let aroundY = y - 1; aroundY <= y + 1; aroundY++) {
+					for (let aroundX = x - 1; aroundX <= x + 1; aroundX++) {
+						const aroundPosition = {x: aroundX, y: aroundY};
+						if(this.ground.isPositionInsideMap(aroundPosition)){
+							this.ground.setCellStatus(aroundPosition, CellStatus.MISSED);
+						}
+					}
+				}
+			}
+			for (const mapCoordinates of moduleCoordinates) {
 				this.ground.setCellStatus(mapCoordinates, CellStatus.DESTROYED);
 			}
 			return {
