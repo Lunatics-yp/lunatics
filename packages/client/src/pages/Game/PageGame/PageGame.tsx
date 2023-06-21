@@ -25,15 +25,6 @@ import styles from './pageGame.module.scss';
 import {Canvas} from 'client/src/game/canvas';
 import {TShootRespond} from 'client/src/game/typing';
 
-import {modesData} from 'client/src/game/constants/modes';
-
-const test = () => {
-	const modeData = modesData['Лунный кратер'];
-	const battle = new GameBattle(modeData);
-	battle.placement.randomLocateAllModulesToGround();
-};
-test();
-
 export const PageGame: FC = () => {
 	const navigate = useNavigate();
 	const {soundsList} = SoundsList();
