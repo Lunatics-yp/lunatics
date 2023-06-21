@@ -25,6 +25,15 @@ import styles from './pageGame.module.scss';
 import {Canvas} from 'client/src/game/canvas';
 import {TShootRespond} from 'client/src/game/typing';
 
+import {modesData} from 'client/src/game/constants/modes';
+
+const test = () => {
+	const modeData = modesData['Лунный кратер'];
+	const battle = new GameBattle(modeData);
+	battle.placement.randomLocateAllModulesToGround();
+};
+test();
+
 export const PageGame: FC = () => {
 	const navigate = useNavigate();
 	const {soundsList} = SoundsList();
@@ -60,6 +69,7 @@ export const PageGame: FC = () => {
 
 	const [winner, setWinner] = useState(0);
 	const [whoseTurn, setWhoseTurn] = useState(1);
+	const [showGameoverModal, setShowGameoverModal] = useState(false);
 
 	const classNamePlayer1 = `${styles.playerName} ${styles.playerName1}
 		${whoseTurn === 1 ? `${styles.turn}` : `${styles.wait}`}`;
@@ -148,6 +158,9 @@ export const PageGame: FC = () => {
 		if (winner) {
 			battle.statistic.winner = winner;
 			playGameOver();
+			setTimeout(() => {
+				setShowGameoverModal(true);
+			}, 2000);
 		}
 	}, [winner]);
 
@@ -206,7 +219,11 @@ export const PageGame: FC = () => {
 				<Sound play={() => soundToggle(soundNames.background)} isOn={isOn}/>
 			</Header>
 			<div className={styles.gamePageContainer}>
-				<div className={styles.firstPlayer}>
+				<div className={
+					`${styles.leftPlayer} ${winner === 0
+						? whoseTurn === 1 ? styles.inactivePlayer : styles.activePlayer
+						: ''}`
+				}>
 					<div className={classNamePlayer1}>
 						<Avatar size='small'/>
 						<div>{players[1]}</div>
@@ -221,7 +238,11 @@ export const PageGame: FC = () => {
 						<p>{player1Ships}</p>
 					</div>
 				</div>
-				<div>
+				<div className={
+					`${styles.leftPlayer} ${winner === 0
+						? whoseTurn === 2 ? styles.inactivePlayer : styles.activePlayer
+						: ''}`
+				}>
 					<div className={classNamePlayer2}>
 						<Avatar size='small'/>
 						<div>{players[2]}</div>
@@ -256,7 +277,7 @@ export const PageGame: FC = () => {
 					updateTimeCallback={handleTimerUpdate}
 				/>
 			</Footer>
-			{winner > 0 && (
+			{winner > 0 && showGameoverModal && (
 				<Modal>
 					<ModalGameover
 						winner={players[winner]}

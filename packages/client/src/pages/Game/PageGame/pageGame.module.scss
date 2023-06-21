@@ -34,9 +34,28 @@
 	height: calc(67vh - 50px);
 	padding-top: 25px;
 	user-select: none;
+	gap: 60px;
 
-	.firstPlayer {
-		margin-right: 60px;
+	.leftPlayer, .rightPlayer {
+		transition: transform 0.5s ease, opacity 0.5s ease;
+	}
+
+	.leftPlayer {
+		transform-origin: left;
+	}
+
+	.rightPlayer {
+		transform-origin: right;
+	}
+
+	.activePlayer {
+		transform: scale(1.1);
+		opacity: 1;
+	}
+
+	.inactivePlayer {
+		transform: scale(0.9);
+		opacity: 0.5;
 	}
 
 	.wait {
@@ -47,7 +66,7 @@
 	.restShips {
 		display: flex;
 		align-items: center;
-		margin-top: 15px;
+		margin-top: 5px;
 
 		> p {
 			font-size: 20px;
@@ -55,7 +74,6 @@
 			margin: 0 0 0 25px;
 		}
 	}
-
 }
 
 .playerName {
