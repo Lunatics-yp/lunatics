@@ -239,7 +239,7 @@ export const PageGame: FC = () => {
 					</div>
 				</div>
 				<div className={
-					`${styles.leftPlayer} ${winner === 0
+					`${styles.rightPlayer} ${winner === 0
 						? whoseTurn === 2 ? styles.inactivePlayer : styles.activePlayer
 						: ''}`
 				}>
