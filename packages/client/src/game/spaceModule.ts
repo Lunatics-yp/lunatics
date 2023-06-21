@@ -6,7 +6,6 @@ import {
 
 // Класс лунного модуля (аналог корабля из Морского Боя)
 export class SpaceModule {
-	private readonly _name: string; // Название
 	private readonly _shape: TFixedCoordinates[]; // Форма (массив координат относительно "головы"
 	private readonly _size: number; // Кол-во занимаемых ячеек
 	private _mapCoordinates: TCoordinates[] = []; // Координаты на игровом поле
@@ -15,8 +14,7 @@ export class SpaceModule {
 	private _aliveCellsCount: number; // Количество целых ячеек
 
 	constructor(data: TSpaceModuleProps) {
-		const {name, shape} = data;
-		this._name = name;
+		const {shape} = data;
 		this._shape = shape;
 		const size = shape.length;
 		this._size = size;
@@ -26,7 +24,6 @@ export class SpaceModule {
 	// Заглушка, чтобы TS не ругался на неиспользуемые параметры класса
 	get info() {
 		return {
-			name: this._name,
 			isLocated: this._isLocated,
 			isAlive: this._isAlive,
 		};
@@ -35,6 +32,18 @@ export class SpaceModule {
 	// Форма лунного модуля
 	get shape(): TFixedCoordinates[] {
 		return this._shape;
+	}
+
+	get size(): number {
+		return this._size;
+	}
+
+	get vertical():boolean {
+		if(this.size<2){
+			return false;
+		}
+		return this._mapCoordinates[0].x === this._mapCoordinates[1].x;
+
 	}
 
 	// Координаты на игровом поле
@@ -49,6 +58,12 @@ export class SpaceModule {
 		this._isLocated = true;
 		this._mapCoordinates = coordinates;
 	}
+
+	// Вылечить (для рестарта игры)
+	public heal = () => {
+		this._isAlive=true;
+		this._aliveCellsCount=this.size;
+	};
 
 	// Сбросить координаты на игровом поле
 	unsetLocatedToMap = () => {
@@ -108,5 +123,16 @@ export class SpaceModule {
 				destroyed: false,
 			};
 		}
+	};
+
+	public getCellIndex = (mapCoordinates: TCoordinates): number => {
+		for (let i = 0; i < this.size; i++) {
+			if (this._mapCoordinates[i].x === mapCoordinates.x &&
+				this._mapCoordinates[i].y === mapCoordinates.y)
+			{
+				return i;
+			}
+		}
+		return -1;
 	};
 }

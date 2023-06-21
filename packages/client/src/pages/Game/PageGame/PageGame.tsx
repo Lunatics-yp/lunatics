@@ -1,10 +1,12 @@
+import {GameBattle} from 'client/src/game/battle';
+import {TCoordinates} from 'client/src/game/typing';
+import {useBattle} from 'client/src/hooks/useBattle';
 import {useNavigate} from 'react-router-dom';
 import {FC, useEffect, useState} from 'react';
 import {PATHS} from 'client/src/routers/name';
 import {Background} from 'client/src/components/Background';
 import {Header} from 'client/src/components/Header';
 import {Button} from 'client/src/components/Button';
-import {Canvas} from 'client/src/pages/Game/PageSetShips/PageSetShips';
 import {Footer} from 'client/src/components/Footer';
 import {Avatar} from 'client/src/components/Avatar';
 import {ModalGameActions} from 'client/src/pages/Game/Modals/modalGameActions';
@@ -20,10 +22,21 @@ import {SoundManager, soundNames} from 'client/src/utils/soundManager';
 
 import styles from './pageGame.module.scss';
 
+import {Canvas} from 'client/src/game/canvas';
+import {TShootRespond} from 'client/src/game/typing';
+
 export const PageGame: FC = () => {
 	const navigate = useNavigate();
 	const {soundsList} = SoundsList();
 	const {playSound, createSound, soundToggle, isOn, playGameOver, stopMusic} = SoundManager();
+
+	const [redraw, setRedraw] = useState(0);
+	const [battle] = useState(GameBattle.currentGame);
+	const isBattle = useBattle(battle);
+
+	if (!isBattle) {
+		return null;
+	}
 
 	useEffect(() => {
 		for (const audio in soundsList) createSound(audio);
@@ -33,19 +46,20 @@ export const PageGame: FC = () => {
 	}, []);
 
 	//данные из стора
-	const player1Ships = 10;
-	const player2Ships = 10;
+	const [player1Ships, setPlayer1Ships] = useState(battle?.modulesCount);
+	const [player2Ships, setPlayer2Ships] = useState(battle?.modulesCount);
+
 	const players = {
-		player1: 'Jack',
-		player2: 'Jon',
+		1: 'Игрок',
+		2: 'ИИ',
 	};
-	const winner = players.player1;
 	const result = {
 		win: 'Победа!',
 		lose: 'Поражение :(',
 	};
-	const isWinner = false;
-	const whoseTurn = 1;
+
+	const [winner, setWinner] = useState(0);
+	const [whoseTurn, setWhoseTurn] = useState(1);
 
 	const classNamePlayer1 = `${styles.playerName} ${styles.playerName1}
 		${whoseTurn === 1 ? `${styles.turn}` : `${styles.wait}`}`;
@@ -63,7 +77,7 @@ export const PageGame: FC = () => {
 	const [gameActions, setGameActions] = useState(false);
 	const [actionName, setActionName] = useState('');
 	const gameActionsName = {
-		whoseTurn: `Ходит ${players.player1}`,
+		turn: `Ходит ${players[whoseTurn]}`,
 		miss: 'Мимо',
 		hitShip: 'Подбил модуль!',
 		destroy: 'Уничтожил модуль!',
@@ -75,13 +89,115 @@ export const PageGame: FC = () => {
 		useFadeModal(timeout, () => setGameActions(false), false);
 	}
 
-	if (actionName === gameActionsName.hitShip || actionName === gameActionsName.destroy) {
-		playSound(soundNames.explosion);
-		setActionName(gameActionsName.whoseTurn);
-	}
-	if (isWinner) {
-		playGameOver();
-	}
+	useEffect(() => {
+		if (winner) {
+			return;
+		}
+		let whoseTurnNext;
+		// Звуки
+		switch (actionName) {
+			case gameActionsName.hitShip:
+			case gameActionsName.destroy:
+				playSound(soundNames.explosion);
+				break;
+			case gameActionsName.miss:
+				playSound(soundNames.miss);
+				break;
+		}
+		// Логика игры
+		switch (actionName) {
+			case gameActionsName.hitShip:
+				setActionName(gameActionsName.turn);
+				if (whoseTurn === 2) {
+					battle.enemyShooting(enemyShootingReceiver);
+				}
+				break;
+			case gameActionsName.destroy:
+				if (whoseTurn === 1) {
+					setPlayer2Ships(player2Ships - 1);
+				} else {
+					setPlayer1Ships(player1Ships - 1);
+				}
+				setActionName(gameActionsName.turn);
+				if (whoseTurn === 2) {
+					battle.enemyShooting(enemyShootingReceiver);
+				}
+				break;
+			case gameActionsName.miss:
+				// Переход хода
+				whoseTurnNext = whoseTurn === 1 ? 2 : 1;
+				setWhoseTurn(whoseTurnNext);
+				setActionName(gameActionsName.turn);
+				if (whoseTurnNext === 2) {
+					battle.enemyShooting(enemyShootingReceiver);
+				}
+				break;
+		}
+	}, [actionName]);
+
+	useEffect(() => {
+		if (player1Ships === 0 && player2Ships > 0) {
+			setWinner(2);
+		}
+		if (player2Ships === 0 && player1Ships > 0) {
+			setWinner(1);
+		}
+	}, [player1Ships, player2Ships]);
+
+	useEffect(() => {
+		if (winner) {
+			battle.statistic.winner = winner;
+			playGameOver();
+		}
+	}, [winner]);
+
+	const doRedraw = () => {
+		setRedraw(redraw + 1);
+	};
+
+	const playerShooting = (coordinates: TCoordinates) => {
+		if (whoseTurn !== 1) {
+			console.log('playerShooting не тот игрок ходит', whoseTurn);
+			return;
+		}
+		battle.playerShooting(coordinates, playerShootingReceiver);
+	};
+
+	const playerShootingReceiver = (shootRespond: TShootRespond) => {
+		if (!shootRespond.hadShoot) {
+			return;
+		}
+		doRedraw();
+		if (!shootRespond.hit) {
+			setActionName(gameActionsName.miss);
+			return;
+		}
+		if (shootRespond.destroyed) {
+			setActionName(gameActionsName.destroy);
+		} else {
+			setActionName(gameActionsName.hitShip);
+		}
+	};
+
+	const handleTimerUpdate = (newTime: string) => {
+		battle.statistic.time = newTime;
+	};
+
+	const enemyShootingReceiver = (shootRespond: TShootRespond) => {
+		if (!shootRespond.hadShoot) {
+			throw new Error('Ошибка выстрела врага');
+		}
+		doRedraw();
+		if (!shootRespond.hit) {
+			setActionName(gameActionsName.miss);
+			return;
+		}
+		if (shootRespond.destroyed) {
+			setActionName(gameActionsName.destroy);
+		} else {
+			setActionName(gameActionsName.hitShip);
+		}
+	};
 
 	return (
 		<div>
@@ -93,9 +209,13 @@ export const PageGame: FC = () => {
 				<div className={styles.firstPlayer}>
 					<div className={classNamePlayer1}>
 						<Avatar size='small'/>
-						<div>{players.player1}</div>
+						<div>{players[1]}</div>
 					</div>
-					<Canvas/>
+					<Canvas
+						battle={battle}
+						owner={'player'}
+						redraw={redraw}
+					/>
 					<div className={styles.restShips}>
 						Оставшиеся модули
 						<p>{player1Ships}</p>
@@ -104,9 +224,14 @@ export const PageGame: FC = () => {
 				<div>
 					<div className={classNamePlayer2}>
 						<Avatar size='small'/>
-						<div>{players.player2}</div>
+						<div>{players[2]}</div>
 					</div>
-					<Canvas/>
+					<Canvas
+						battle={battle}
+						owner={'enemy'}
+						redraw={redraw}
+						clickCallback={playerShooting}
+					/>
 					<div className={styles.restShips}>
 						Оставшиеся модули
 						<p>{player2Ships}</p>
@@ -115,7 +240,7 @@ export const PageGame: FC = () => {
 			</div>
 			<div className={classNameTurn}>
 				Ходит
-				<p>{players.player1}</p>
+				<p>{players[whoseTurn]}</p>
 			</div>
 			<Button
 				className={`${styles.buttonExitGame} ${styles.button}`}
@@ -126,11 +251,17 @@ export const PageGame: FC = () => {
 				}}
 			/>
 			<Footer className={styles.footerPlacement}>
-				<Timer isGameOver={isWinner}/>
+				<Timer
+					isGameOver={winner > 0}
+					updateTimeCallback={handleTimerUpdate}
+				/>
 			</Footer>
-			{isWinner && (
+			{winner > 0 && (
 				<Modal>
-					<ModalGameover winner={winner} result={result.win}></ModalGameover>
+					<ModalGameover
+						winner={players[winner]}
+						result={winner == 1 ? result.win : result.lose}
+					/>
 					<ModalGameoverButtons/>
 				</Modal>
 			)}

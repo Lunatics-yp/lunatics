@@ -11,6 +11,8 @@ import {
 // Класс режима размещения лунных модулей
 export class Placement extends GameMechanic {
 
+	private _isAllModulesLocated = false;
+
 	constructor(
 		spaceGround: SpaceGround,
 		modulesTypesToBePlacement: TShapesList,
@@ -18,9 +20,9 @@ export class Placement extends GameMechanic {
 		const modules: SpaceModule[] = [];
 		// Перебираем полученный типы и формы лунных модулей и создаём экземпляры SpaceModule
 		for (const moduleData of modulesTypesToBePlacement) {
-			const {name, shape, count} = moduleData;
+			const {shape, count} = moduleData;
 			for (let x = 0; x < count; x++) {
-				modules.push(new SpaceModule({name, shape}));
+				modules.push(new SpaceModule({shape}));
 			}
 		}
 		super(spaceGround, modules);
@@ -70,11 +72,18 @@ export class Placement extends GameMechanic {
 		this.ground.clear();
 		for (const module of this.modules) {
 			module.unsetLocatedToMap();
+			module.heal();
+		}
+	};
+
+	healAllModules = () => {
+		for (const module of this.modules) {
+			module.heal();
 		}
 	};
 
 	// Метод рандомной расстановки всех лунных моделей
-	randomLocateAllModulesToGround = () => {
+	randomLocateAllModulesToGround = (printLog: boolean = false) => {
 		// Кол-во попыток на каждую ячейку. Вычислено экспериментально.
 		const cyclesPerOneCell = 10;
 		const {width: mapWidth, height: mapHeight} = this.ground.map.size;
@@ -131,12 +140,20 @@ export class Placement extends GameMechanic {
 		if (!isAllModulesLocated) {
 			this.clear();
 		}
+		this._isAllModulesLocated = isAllModulesLocated;
 		// Выводим информацию для разработчика в консоль
 		const timeSpent = Math.round(performance.now() - timeStart);
-		console.log(`Рандомная расстановка. Успех = ${isAllModulesLocated}`);
-		console.log(`циклов = ${cyclesCount}, подциклов = ${subCyclesCount}, ${timeSpent}ms`);
+		const log = `Рандомная расстановка. Успех = ${isAllModulesLocated}\r\n
+		циклов = ${cyclesCount}, подциклов = ${subCyclesCount}, ${timeSpent}ms`;
+		if (printLog) {
+			console.log(log);
+		}
 		// На текущем этапе метод ничего не возвращает
 		// В будущем, скорее всего, будет возвращать результат и в случае неудачи
 		// покажем игроку сообщение об ошибке.
 	};
+
+	get isModulesLocated(): boolean {
+		return this._isAllModulesLocated;
+	}
 }

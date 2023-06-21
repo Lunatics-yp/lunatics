@@ -1,6 +1,5 @@
 export const PATHS = {
 	home: '/',
-	test: '/test',
 	mainMenu: '/mainmenu',
 	mainMenuPlayOnline: '/mainmenu/playOnline/',
 	mainMenuPlayAgainstAI: '/mainmenu/playAgainstAI/',
@@ -14,9 +13,7 @@ export const PATHS = {
 	profile: '/profile',
 	placement: '/placement',
 	game: '/game',
-	gameCanvas: '/gameCanvas',
 	gameResults: '/gameResults',
 	profileChangePassword: '/profileChangePassword',
-	gameMechanicsDemonstration: '/gameMechanicsDemonstration',
 	leaderboard: '/leaderboard',
 };

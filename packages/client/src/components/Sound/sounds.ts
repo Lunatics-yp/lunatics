@@ -3,6 +3,7 @@ import {useAppSelector} from 'client/src/hooks/redux';
 import background from 'client/src/assets/sounds/gameBackground.mp3';
 import explosion from 'client/src/assets/sounds/explosion.mp3';
 import gameOver from 'client/src/assets/sounds/game-over.mp3';
+import miss from 'client/src/assets/sounds/miss.mp3';
 import {userSettingsSelectors} from 'client/src/stores/reducers/userSettings/userSettingsSlice';
 
 export const SoundsList = () => {
@@ -21,6 +22,11 @@ export const SoundsList = () => {
 		},
 		gameOver: {
 			src: gameOver,
+			volume: soundVolume / 10,
+			loop: false,
+		},
+		miss: {
+			src: miss,
 			volume: soundVolume / 10,
 			loop: false,
 		},

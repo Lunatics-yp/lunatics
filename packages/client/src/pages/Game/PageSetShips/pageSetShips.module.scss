@@ -10,6 +10,7 @@
 .placementPageContainer {
 	display: flex;
 	height: calc(80vh - 50px);
+	justify-content: center;
 
 	.shipsContainer {
 		width: 35%;

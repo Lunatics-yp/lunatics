@@ -4,6 +4,7 @@ export enum soundNames {
 	background ='background',
 	gameOver = 'gameOver',
 	explosion = 'explosion',
+	miss = 'miss',
 }
 export const SoundManager = () => {
 	const {soundsList} = SoundsList();

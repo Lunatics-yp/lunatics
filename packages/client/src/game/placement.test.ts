@@ -13,7 +13,6 @@ describe('Placement Class', () => {
 	];
 	const shapesList: TShapesList = [
 		{
-			name: 'Г-образный',
 			shape: shape,
 			count: modulesNum,
 		},

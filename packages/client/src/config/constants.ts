@@ -22,3 +22,5 @@ export enum REACTIONS {
 	THUMB_DOWN = 7,
 	THUMB_UP = 8,
 }
+
+export const githubAuthorsLink = 'https://github.com/orgs/Lunatics-yp/people?query=role%3Aowner';
