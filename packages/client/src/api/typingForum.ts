@@ -58,6 +58,7 @@ export type TCreateTopicResponseData = {
 	forum_id: number;
 	user_id: number;
 	created_at: number;
+	LastMessage: TMessages;
 };
 
 export type TTopicListRequest = {
