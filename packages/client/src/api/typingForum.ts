@@ -79,6 +79,7 @@ export type TTopics = {
 	forum_id: number;
 	user_id: number;
 	created_at: number;
+	LastMessage: TMessages;
 };
 
 export type TCreateMessageRequest = {

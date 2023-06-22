@@ -22,3 +22,5 @@ export enum REACTIONS {
 	THUMB_DOWN = 7,
 	THUMB_UP = 8,
 }
+
+export const DATE_FORMAT = 'DD.MM.YYYY HH:mm:ss';

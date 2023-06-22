@@ -18,10 +18,6 @@ export const ForumDiscussionBox = () => {
 	const isLoading = useAppSelector(forumSelectors.isLoading);
 	const error = useAppSelector(forumSelectors.error);
 
-	const topicElements = topics.map(topics => (
-		<ForumDiscussionColumn key={topics.id} id={topics.id} name={topics.name}/>
-	));
-
 	function createTopic() {
 		const newTopicContent = newTopic.value.trim();
 
@@ -40,7 +36,7 @@ export const ForumDiscussionBox = () => {
 		newTopic.reset();
 	}
 
-	const renderTopicsInfo = () => {
+	const renderTopics = () => {
 		if (isLoading) {
 			return <div className={styles.textLine}>Загрузка&hellip;</div>;
 		}
@@ -50,8 +46,19 @@ export const ForumDiscussionBox = () => {
 		if (!topics.length) {
 			return <div className={styles.textLine}>Нет топиков</div>;
 		}
+		return (
+			<div className={styles.topics}>{topics.map(topic =>
+				<ForumDiscussionColumn
+					key={topic.id}
+					id={topic.id}
+					name={topic.name}
+					lastMessage={topic.LastMessage}
+				/>)}
+			</div>
+		);
 	};
 
+	// @todo нужно брать из сервера
 	const Myforum = () => {
 		let urlTopic:string = '';
 		if (forumId != undefined) {
@@ -63,7 +70,6 @@ export const ForumDiscussionBox = () => {
 		}
 		return urlTopic;
 	};
-	console.log(useAppSelector((state)=> state));
 
 	return (
 		<main className={styles.wrapper}>
@@ -91,12 +97,7 @@ export const ForumDiscussionBox = () => {
 					onClick={createTopic}
 				/>
 			</div>
-			{renderTopicsInfo()}
-			{!!topicElements.length && (
-				<div className={styles.topics}>
-					{topicElements}
-				</div>
-			)}
+			{renderTopics()}
 		</main>
 	);
 };
