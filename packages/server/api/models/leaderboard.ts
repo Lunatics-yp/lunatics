@@ -14,6 +14,7 @@ export type TLeaderboard = {
 const leaderboardModel: ModelAttributes<Model, TLeaderboard> = {
 	id: {
 		type: DataType.INTEGER,
+		autoIncrement: true,
 		primaryKey: true,
 		allowNull: false,
 	},
@@ -48,6 +49,7 @@ const leaderboardOptions = {
 			fields: ['user_id'],
 		},
 	],
+	autoIncrement: true,
 };
 
 const Leaderboard = sequelize.define('Leaderboard', leaderboardModel, leaderboardOptions);
