@@ -239,7 +239,7 @@ export const PageGame: FC = () => {
 						<p>{player1Ships}</p>
 					</div>
 				</div>
-				<div className={getPlayerClassName(1)}>
+				<div className={getPlayerClassName(2)}>
 					<div className={classNamePlayer2}>
 						<Avatar size='small'/>
 						<div>{players[2]}</div>
