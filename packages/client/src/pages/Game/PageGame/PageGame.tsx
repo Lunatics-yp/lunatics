@@ -209,11 +209,10 @@ export const PageGame: FC = () => {
 			? styles.leftPlayer
 			: styles.rightPlayer;
 		if (winner === 0) {
-			if (whoseTurn === player) {
-				className += ` ${styles.inactivePlayer}`;
-			} else {
-				className += ` ${styles.activePlayer}`;
-			}
+			// Тут логика перевёрнута, потому что мы выделяем карту другого игрока, а не свою
+			className += whoseTurn === player
+				? ` ${styles.inactivePlayer}`
+				: ` ${styles.activePlayer}`;
 		}
 		return className;
 	};
@@ -240,7 +239,7 @@ export const PageGame: FC = () => {
 						<p>{player1Ships}</p>
 					</div>
 				</div>
-				<div className={getPlayerClassName(2)}>
+				<div className={getPlayerClassName(1)}>
 					<div className={classNamePlayer2}>
 						<Avatar size='small'/>
 						<div>{players[2]}</div>
