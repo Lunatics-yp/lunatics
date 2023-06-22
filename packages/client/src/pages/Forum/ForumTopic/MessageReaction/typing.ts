@@ -3,6 +3,6 @@ import {REACTIONS} from 'client/src/config/constants';
 export type TMessageReactionProps = {
 	count: number;
 	type: REACTIONS;
-	activeReaction: REACTIONS | null;
+	activeReaction?: REACTIONS | null;
 	onReactionMessage: (type: REACTIONS) => void;
 };

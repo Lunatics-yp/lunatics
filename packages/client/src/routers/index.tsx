@@ -41,11 +41,11 @@ export const router = createBrowserRouter([
 						element: <ForumBox/>,
 					},
 					{
-						path: ':disccussionTitle',
+						path: ':forumId',
 						element: <ForumDiscussion/>,
 						children: [
 							{
-								path: ':topicTitle',
+								path: ':topicId',
 								element: <ForumTopic/>,
 							},
 						],

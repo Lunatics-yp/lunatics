@@ -66,6 +66,7 @@ export const topicApi = {
 		try {
 			const topicsSQL = await Topics.findAll({
 				where: {forum_id},
+				order: [['id', 'DESC']],
 				include: [
 					{
 						model: Users,

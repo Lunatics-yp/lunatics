@@ -1,11 +1,14 @@
 @import 'client/src/styles/app';
+@import 'client/src/pages/Forum/Forum.module';
 
 .wrapper {
 	@include linkReset;
 	@include headerForumTopicWithLinks;
 
+	width: 100%;
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
+	row-gap: 20px;
 }
 
 .title {
@@ -14,14 +17,10 @@
 	}
 }
 
-.container {
-	margin-top: 15px;
-	width: 80%;
-	border-radius: 1rem;
-	padding: 0 20px;
+.formCreate {
+	margin: 0 0 20px 30px;
+}
 
-	&__elements {
-		display: grid;
-
-	}
+.topics {
+	display: grid;
 }

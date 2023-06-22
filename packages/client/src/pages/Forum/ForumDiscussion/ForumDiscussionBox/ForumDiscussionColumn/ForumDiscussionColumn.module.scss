@@ -26,6 +26,12 @@
 		background-color: inherit;
 		border-radius: 2px;
 	}
+
+	&__del {
+		border: 0;
+		background: transparent;
+		margin-left: 25px;
+	}
 }
 
 .info {
@@ -42,7 +48,6 @@
 		color: var(--colorSlateGrey);
 		font-size: 13px;
 	}
-
 }
 
 .title {

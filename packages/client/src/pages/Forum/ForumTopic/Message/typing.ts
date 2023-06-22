@@ -1,7 +1,9 @@
-import {TMessage} from 'client/src/stores/reducers/forum/typing';
+import {TMessages} from 'client/src/api/typingForum';
 
 export type TMessageProps = {
-	message: TMessage;
-	isReactionListActive: number | null;
+	message: TMessages;
+	messages: TMessages[];
+	isReactionListActive?: number | null;
+	setSelectedParent: (id: number | null) => void;
 	setIsReactionListActive: (isActive: number | null) => void;
 };

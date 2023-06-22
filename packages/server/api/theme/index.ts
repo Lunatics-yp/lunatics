@@ -12,6 +12,7 @@ export const themeApiHandler: TApi = async (
 	const userId = req.authUserData!.id;
 	const isValid = isValidPostData(postData);
 	if (!isValid) {
+		console.log('postData', postData);
 		res.status(400).json({reason: 'Неправильный запрос'});
 		return;
 	}

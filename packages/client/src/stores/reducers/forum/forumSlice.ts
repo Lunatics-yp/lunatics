@@ -1,62 +1,115 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
+import {RootState} from 'client/src/stores/store';
 import {transformReaction} from 'client/src/api/apiTransformers';
 import {isErrorAPI, isReactionData} from 'client/src/api/request/utilits';
-import {RootState} from 'client/src/stores/store';
-import {getNextId} from 'client/src/utils/getters';
-import {reactionThunks} from './reactionsThunks';
 import {TForumState} from './typing';
+import {forumThunks} from './forumThunks';
+import {reactionThunks} from './reactionsThunks';
+import {TCreateForumResponseData, TCreateTopicResponseData} from
+	'client/src/api/typingForum';
 
 const initialState: TForumState = {
-	messages: [
-		{id: 1, isOwner: true,
-			text: 'Хей! Привет, мы рады поприветствовать тебя на нашем форуме!!!',
-			reactions: [],
-			activeReaction: null,
-		},
-		{id: 2, isOwner: false,
-			text: 'Как ты прошел этот непроходимый уровень?',
-			reactions: [{count:1, reactionId:8}, {count: 2, reactionId: 1}],
-			activeReaction: 8,
-		},
-	],
-	discussions: [
-		{id: 1, title: 'Sky Wars', lastAuthorName: 'Obi Wan Kenobi', date: 'the 22th of December'},
-		{id: 2, title: 'Благодарности', lastAuthorName: 'Евгений Малкин', date: 'вчера'},
-		{id: 3, title: 'Война и мир', lastAuthorName: 'Лев Толстой', date: '1867 год'},
-		{id: 4, title: 'Рецепт пиццы', lastAuthorName: 'Шеф', date: 'сегодня'},
-	],
-	forums: [
-		{id: 1, title: 'Название Форума 1', discussionsCount: 1, answersCount: 2},
-		{id: 2, title: 'Название Форума 2', discussionsCount: 58, answersCount: 77},
-	],
+	messages: [],
+	topics: [],
+	forums: [],
+	error: '',
+	isLoading: false,
 };
 
 export const forumSlice = createSlice({
 	name: 'forum',
 	initialState,
-	reducers: {
-		// Форум
-		addForum(state, {payload}: PayloadAction<string>) {
-			state.forums.push({
-				id: getNextId(state.forums),
-				discussionsCount: 0,
-				answersCount: 0,
-				title: payload,
-			});
-		},
-		// Сообщения
-		addMessage(state, {payload}: PayloadAction<string>) {
-			state.messages.push({
-				id: getNextId(state.messages),
-				isOwner: true,
-				text: payload,
-				reactions: [],
-				activeReaction: null,
-			});
-		},
-	},
-	extraReducers: builder => {
+	reducers: {},
+
+	extraReducers: (builder) => {
 		builder
+			// CreateForum
+			.addCase(forumThunks.createForum.fulfilled, (state, action) => {
+				state.isLoading = false;
+				const forumData = action.payload.data as unknown as TCreateForumResponseData;
+				state.forums = [forumData, ...state.forums];
+			})
+			.addCase(forumThunks.createForum.pending, (state) => {
+				state.isLoading = true;
+				state.error = '';
+			})
+			.addCase(forumThunks.createForum.rejected, (state, action) => {
+				state.isLoading = false;
+				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
+			})
+
+			// GetAllForums
+			// eslint-disable-next-line max-len
+			.addCase(forumThunks.getAllForums.fulfilled, (state, action: PayloadAction<any>) => {
+				state.isLoading = false;
+				state.forums = action.payload;
+			})
+			.addCase(forumThunks.getAllForums.pending, (state) => {
+				state.isLoading = true;
+				state.error = '';
+			})
+			.addCase(forumThunks.getAllForums.rejected, (state, action) => {
+				state.isLoading = false;
+				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
+			});
+
+		// CreateTopic
+		builder.addCase(forumThunks.createTopic.fulfilled, (state, action) => {
+			state.isLoading = false;
+			const topicData = action.payload.data as unknown as TCreateTopicResponseData;
+			state.topics = [topicData, ...state.topics];
+		});
+
+		builder.addCase(forumThunks.createTopic.pending, (state) => {
+			state.isLoading = true;
+			state.error = '';
+		});
+
+		builder.addCase(forumThunks.createTopic.rejected, (state, action) => {
+			state.isLoading = false;
+			state.error = action.error.message ?? 'Возникла неизвестная ошибка';
+		})
+
+			// GetAllTopics
+			.addCase(forumThunks.getAllTopics.fulfilled, (state, action: PayloadAction<any>) => {
+				state.isLoading = false;
+				state.topics = action.payload;
+			})
+			.addCase(forumThunks.getAllTopics.pending, (state) => {
+				state.isLoading = true;
+				state.error = '';
+			})
+			.addCase(forumThunks.getAllTopics.rejected, (state, action) => {
+				state.isLoading = false;
+				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
+			})
+
+		// CreateMessage
+			.addCase(forumThunks.createMessage.fulfilled, (state) => {
+				state.isLoading = true;
+			})
+			.addCase(forumThunks.createMessage.pending, (state) => {
+				state.isLoading = true;
+				state.error = '';
+			})
+			.addCase(forumThunks.createMessage.rejected, (state, action) => {
+				state.isLoading = false;
+				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
+			})
+
+			// GetAllMessages
+			.addCase(forumThunks.getAllMessages.fulfilled,(state, action: PayloadAction<any>) => {
+				state.isLoading = false;
+				state.messages = action.payload;
+			})
+			.addCase(forumThunks.getAllMessages.pending, (state) => {
+				state.isLoading = true;
+				state.error = '';
+			})
+			.addCase(forumThunks.getAllMessages.rejected, (state, action) => {
+				state.isLoading = false;
+				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
+			})
 			// Добавить / обновить реакцию
 			.addCase(reactionThunks.setReaction.fulfilled, (state, action) => {
 				if (isReactionData(action.payload)) {
@@ -64,44 +117,44 @@ export const forumSlice = createSlice({
 					const currentMessage = state.messages.find(
 						message => message.id === payloadTransform.messageId,
 					);
-					if (currentMessage) {
+					if (currentMessage && currentMessage.reactions) {
 						const currentReaction = currentMessage.reactions.find(
-							reaction => reaction.reactionId === payloadTransform.reactionId,
+							reaction => reaction.reaction_id === payloadTransform.reactionId,
 						);
 						// Добавить реакцию
-						if (!currentMessage.activeReaction) {
-							// Реакция с таким типом первая
+						if (!currentMessage.user_reaction) {
+						// Реакция с таким типом первая
 							if (!currentReaction) {
 								currentMessage.reactions.push({
-									reactionId: payloadTransform.reactionId,
+									reaction_id: payloadTransform.reactionId,
 									count: 1,
 								});
 							} else {
 								currentMessage.reactions.push({
-									reactionId: payloadTransform.reactionId,
+									reaction_id: payloadTransform.reactionId,
 									count: currentReaction.count + 1,
 								});
 							}
-							currentMessage.activeReaction = payloadTransform.reactionId;
+							currentMessage.user_reaction = payloadTransform.reactionId;
 						} else {
-							// Обновить реакцию
+						// Обновить реакцию
 							const reactionsWithoutCurrent = currentMessage.reactions.filter(
-								reaction => reaction.reactionId !== payloadTransform.reactionId,
+								reaction => reaction.reaction_id !== payloadTransform.reactionId,
 							);
 							// Новая реакция с таким типом первая
 							if (!currentReaction) {
 								currentMessage.reactions.push({
-									reactionId: payloadTransform.reactionId,
+									reaction_id: payloadTransform.reactionId,
 									count: 1,
 								});
 							} else {
 								currentMessage.reactions.push({
-									reactionId: payloadTransform.reactionId,
+									reaction_id: payloadTransform.reactionId,
 									count: currentReaction.count + 1,
 								});
 							}
 							currentMessage.reactions = reactionsWithoutCurrent;
-							currentMessage.activeReaction = payloadTransform.reactionId;
+							currentMessage.user_reaction = payloadTransform.reactionId;
 						}
 					}
 				}
@@ -112,23 +165,27 @@ export const forumSlice = createSlice({
 					const currentMessage = state.messages.find(
 						message => message.id === action.meta.arg.message_id,
 					);
-					if (currentMessage) {
+					if (currentMessage && currentMessage.reactions) {
 						const reactionsWithoutCurrent = currentMessage.reactions.filter(
-							reaction => reaction.reactionId !== currentMessage.activeReaction,
+							reaction => reaction.reaction_id !== currentMessage.user_reaction,
 						);
 						currentMessage.reactions = reactionsWithoutCurrent;
-						currentMessage.activeReaction = null;
+						currentMessage.user_reaction = null;
 					}
 				}
-			})
-		;
+			});
 	},
-});
+},
+);
 
 export const forumSelectors = {
 	forums: (state: RootState) => state.forumReducer.forums,
-	discussions: (state: RootState) => state.forumReducer.discussions,
+	topics: (state: RootState) => state.forumReducer.topics,
 	messages: (state: RootState) => state.forumReducer.messages,
+	isLoading: (state: RootState) => state.forumReducer.isLoading,
+	error: (state: RootState) => state.forumReducer.error,
+	parentMessages: (state: RootState) => state.forumReducer.messages.filter(m =>
+		!m.parent_message_id),
 };
 export const forumActions = forumSlice.actions;
 export default forumSlice.reducer;

@@ -3,25 +3,24 @@ import {NavLink} from 'react-router-dom';
 import {TForumColumnProps} from './typing';
 import styles from './ForumColumn.module.scss';
 
-export const ForumColumn: FC<TForumColumnProps> = (props) => {
-	const {title, discussionsCount = 0, answersCount = 0, id} = props;
+/**
+ * Строка с элементом форума
+ */
+export const ForumColumn: FC<TForumColumnProps> = props => {
+	const {name, id} = props;
 
 	return (
 		<>
-			<NavLink to={title} className={styles.link}>
-				<div
-					onClick={() => {
-						console.log(`clicked: ${id}`);
-					}}
-					className={styles.forum}>
-					<p>{title}</p>
+			<NavLink to={id.toString()} className={styles.link}>
+				<div className={styles.forum}>
+					<p>{name}</p>
 				</div>
 			</NavLink>
 			<div className={styles.item}>
-				<p>{discussionsCount}</p>
+				<p>&nbsp;</p>
 			</div>
 			<div className={styles.item}>
-				<p>{answersCount}</p>
+				<p>&nbsp;</p>
 			</div>
 		</>
 	);

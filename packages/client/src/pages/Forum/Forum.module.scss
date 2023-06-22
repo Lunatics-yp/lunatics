@@ -1,0 +1,27 @@
+.wrapper {
+	max-width: var(--forumWidth);
+	margin: 0 auto;
+	padding: 20px;
+}
+
+.formCreate {
+	display: flex;
+	gap: 20px;
+	max-width: 400px;
+
+	.input {
+		line-height: 1;
+		clip-path: polygon(80% 0%, 90% 0%, 100% 0, 100% 90%, 100% 100%, 15% 100%, 0 70%, 0 0);
+		padding-left: 30px;
+
+		&:placeholder-shown {
+			color: var(--colorBlueSky);
+		}
+	}
+}
+
+.textLine {
+	margin: 20px 0;
+	color: var(--colorWhite);
+	text-align: center;
+}

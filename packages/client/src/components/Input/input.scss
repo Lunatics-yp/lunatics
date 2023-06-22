@@ -6,14 +6,7 @@ div.input {
 	position: relative;
 	width: var(--width);
 	height: var(--height);
-	clip-path:
-		polygon(
-			var(--crop) 0,
-			100% 0,
-			100% 100%,
-			0 100%,
-			0 var(--crop)
-		);
+	clip-path: polygon(var(--crop) 0, 100% 0, 100% 100%, 0 100%, 0 var(--crop));
 	background: var(--colorBlueSky);
 	white-space: nowrap;
 
@@ -40,17 +33,7 @@ div.input {
 		width: 100%;
 		height: var(--height);
 		background: var(--colorBlueLight);
-		clip-path:
-			polygon(
-				0 0,
-				10% 0,
-				15% 50%,
-				85% 50%,
-				90% 0,
-				100% 0,
-				100% 100%,
-				0 100%
-			);
+		clip-path: polygon(0 0, 10% 0, 15% 50%, 85% 50%, 90% 0, 100% 0, 100% 100%, 0 100%);
 	}
 
 	&:hover,

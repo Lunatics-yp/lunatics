@@ -23,4 +23,6 @@ export enum REACTIONS {
 	THUMB_UP = 8,
 }
 
+export const DATE_FORMAT = 'DD.MM.YYYY HH:mm:ss';
+
 export const githubAuthorsLink = 'https://github.com/orgs/Lunatics-yp/people?query=role%3Aowner';

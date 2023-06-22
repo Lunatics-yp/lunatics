@@ -1,5 +1,7 @@
+import {TMessages} from 'client/src/api/typingForum';
+
 export type TForumDiscussionColumnProps = {
-	title: string;
-	lastAuthorName?: string;
-	date?: string;
+	id: number;
+	name: string;
+	lastMessage: TMessages;
 };
