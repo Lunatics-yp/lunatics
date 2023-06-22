@@ -19,6 +19,7 @@ import {
 	apiMiddleware,
 	themeApiHandler,
 	forumApiHandler,
+	leaderboardApiHandler,
 	dbConnect,
 } from './api';
 
@@ -47,9 +48,9 @@ export async function startServer(isDev: boolean, port: number) {
 		});
 		app.use(vite.middlewares);
 	}
-  
+
 	app.use(cspMiddleware());
-  
+
 	// Прокси
 	app.use('/api/v2/auth/user', yandexProxyUserWithResponseHandler());
 	app.use('/api/v2', yandexProxyAll());
@@ -60,6 +61,11 @@ export async function startServer(isDev: boolean, port: number) {
 	app.use('/api/forum', xssMiddleware);
 	app.use('/api/forum', checkAuthorizationMiddleware);
 	app.use('/api/forum', apiMiddleware(forumApiHandler));
+
+	// Апи лидерборда
+	app.use('/api/leaderboard', xssMiddleware);
+	app.use('/api/leaderboard', checkAuthorizationMiddleware);
+	app.use('/api/leaderboard', apiMiddleware(leaderboardApiHandler));
 
 	// Апи темы
 	app.use('/api/themes', xssMiddleware);

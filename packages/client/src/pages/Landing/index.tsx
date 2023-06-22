@@ -29,6 +29,10 @@ export const PageLanding = () => {
 		navigate(PATHS.forum);
 	};
 
+	const goToLeaderboard = () => {
+		navigate(`${PATHS.leaderboard}`);
+	};
+
 	const goToRules = () => {
 		rulesElementRef.current?.scrollIntoView();
 	};
@@ -62,6 +66,7 @@ export const PageLanding = () => {
 					<Button text='Играть' onClick={goToPlay}/>
 					<Button text='Форум' onClick={goToForum}/>
 					<Button text='Правила' onClick={goToRules}/>
+					<Button text='Лидеры' onClick={goToLeaderboard}/>
 				</div>
 				<div dangerouslySetInnerHTML={{__html: gameDescription}}/>
 				<div ref={rulesElementRef} dangerouslySetInnerHTML={{__html: gameRules}}/>
