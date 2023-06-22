@@ -17,6 +17,7 @@ export const ForumDiscussionBox = () => {
 	const dispatch = useAppDispatch();
 	const isLoading = useAppSelector(forumSelectors.isLoading);
 	const error = useAppSelector(forumSelectors.error);
+
 	const topicElements = topics.map(topics => (
 		<ForumDiscussionColumn key={topics.id} id={topics.id} name={topics.name}/>
 	));
@@ -39,10 +40,16 @@ export const ForumDiscussionBox = () => {
 		newTopic.reset();
 	}
 
-	const renderTopic = () => {
-		if (isLoading) return <div>Loading ...</div>;
-		if (error) return <div>Произошла ошибка {error}</div>;
-		if (topics.length === 0) return <div>Нет форумов</div>;
+	const renderTopicsInfo = () => {
+		if (isLoading) {
+			return <div className={styles.textLine}>Загрузка&hellip;</div>;
+		}
+		if (error) {
+			return <div className={styles.textLine}>Произошла ошибка {error}</div>;
+		}
+		if (!topics.length) {
+			return <div className={styles.textLine}>Нет топиков</div>;
+		}
 	};
 
 	const Myforum = () => {
@@ -60,33 +67,36 @@ export const ForumDiscussionBox = () => {
 
 	return (
 		<main className={styles.wrapper}>
-			<div className={styles.container}>
-				<header className={styles.header}>
-					<div className={styles.header__left}>
-						<Link to={PATHS.forum}>
-							<h2 className={styles.title}>Форумы</h2>
-						</Link>
-						<span className={`${styles.arrow} ${styles.title_base}`}>{'>'}</span>
-						<h2 className={`${styles.title} ${styles.title_base}`}>Просмотр форума</h2>
-						<h2 className={styles.title_base}>{Myforum()}</h2>
-					</div>
-					<div className={styles.header__right}>
-						<input
-							onChange={newTopic.onChange}
-							value={newTopic.value}
-							type='text'
-							placeholder='Новый топик'
-							className={styles.input}
-							maxLength={50}
-						/>
-						<Button text='Создать топик' onClick={createTopic}/>
-					</div>
-				</header>
-				<div className={styles.container__elements}>
-					{topicElements.length > 0 && topicElements}
+			<header className={styles.header}>
+				<div className={styles.header__left}>
+					<Link to={PATHS.forum}>
+						<h2 className={styles.title}>Форумы</h2>
+					</Link>
+					<span className={`${styles.arrow} ${styles.title_base}`}>&gt;</span>
+					<h2 className={styles.title_base}>{Myforum()}</h2>
 				</div>
+			</header>
+			<div className={`${styles.formCreate}`}>
+				<input
+					onChange={newTopic.onChange}
+					value={newTopic.value}
+					type='text'
+					placeholder='Новый топик'
+					className={styles.input}
+					maxLength={50}
+				/>
+				<Button
+					text='Создать топик'
+					disabled={!newTopic.value}
+					onClick={createTopic}
+				/>
 			</div>
-			{renderTopic()}
+			{renderTopicsInfo()}
+			{!!topicElements.length && (
+				<div className={styles.topics}>
+					{topicElements}
+				</div>
+			)}
 		</main>
 	);
 };

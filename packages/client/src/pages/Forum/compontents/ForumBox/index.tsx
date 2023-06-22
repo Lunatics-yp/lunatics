@@ -45,13 +45,13 @@ export const ForumBox = () => {
 
 	const renderForums = () => {
 		if (isLoading) {
-			return <div className={styles.forum__line}>Загрузка&hellip;</div>;
+			return <div className={styles.textLine}>Загрузка&hellip;</div>;
 		}
 		if (error) {
-			return <div className={styles.forum__line}>Произошла ошибка {error}</div>;
+			return <div className={styles.textLine}>Произошла ошибка {error}</div>;
 		}
 		if (!forums.length) {
-			return <div className={styles.forum__line}>Нет форумов</div>;
+			return <div className={styles.textLine}>Нет форумов</div>;
 		}
 		return <>{ForumColumnElements}</>;
 	};
@@ -60,7 +60,7 @@ export const ForumBox = () => {
 		<div className={styles.wrapper}>
 			<div className={styles.forum__list}>
 				<ForumHeader/>
-				<div className={styles.forum__form}>
+				<div className={styles.formCreate}>
 					<input
 						onChange={newForum.onChange}
 						value={newForum.value}
@@ -69,13 +69,11 @@ export const ForumBox = () => {
 						className={styles.input}
 						maxLength={50}
 					/>
-					<div className={styles.button}>
-						<Button
-							disabled={!newForum.value}
-							text='Создать форум'
-							onClick={createForum}
-						/>
-					</div>
+					<Button
+						text='Создать форум'
+						disabled={!newForum.value}
+						onClick={createForum}
+					/>
 				</div>
 				{renderForums()}
 			</div>

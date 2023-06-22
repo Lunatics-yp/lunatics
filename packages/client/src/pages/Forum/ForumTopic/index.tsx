@@ -8,7 +8,7 @@ import {Avatar} from 'client/src/components/Avatar';
 import {Button} from 'client/src/components/Button';
 import {useFullscreen} from 'client/src/hooks/useFullscreen';
 import {useInput} from 'client/src/hooks/useInput';
-import {ForumTopicHeader} from './ForumTopicHeader/ForumTopicHeader';
+import {ForumTopicHeader} from './ForumTopicHeader';
 import {Message} from './Message';
 import {forumThunks} from 'client/src/stores/reducers/forum/forumThunks';
 import styles from './ForumTopic.module.scss';

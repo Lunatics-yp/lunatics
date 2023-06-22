@@ -1,11 +1,9 @@
 @import 'client/src/styles/app';
+@import 'client/src/pages/Forum/Forum.module';
 
 .wrapper {
 	@include linkReset;
 	@include headerForumTopicWithLinks;
-
-	display: flex;
-	justify-content: center;
 }
 
 .title {
@@ -14,20 +12,10 @@
 	}
 }
 
-.input {
-	line-height: 1;
-	clip-path: polygon(80% 0%, 90% 0%, 100% 0, 100% 90%, 100% 100%, 15% 100%, 0 70%, 0 0);
-	padding-left: 30px;
-	background-color: ghostwhite;
+.formCreate {
+	margin: 0 0 20px 20px;
 }
 
-.container {
-	margin-top: 15px;
-	width: 80%;
-	border-radius: 1rem;
-	padding: 0 20px;
-
-	&__elements {
-		display: grid;
-	}
+.topics {
+	display: grid;
 }

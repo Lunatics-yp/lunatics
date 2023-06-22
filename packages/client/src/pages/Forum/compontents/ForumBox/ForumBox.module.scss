@@ -1,34 +1,8 @@
 @import 'client/src/styles/app';
+@import 'client/src/pages/Forum/Forum.module';
 
 .wrapper {
 	@include linkReset;
-
-	max-width: var(--width);
-	margin: 0 auto;
-	padding: 20px;
-}
-
-.create {
-	&_forum {
-		display: flex;
-		justify-content: center;
-		gap: 40%;
-		margin: 30px 70px;
-	}
-}
-
-.button {
-	width: 80%;
-}
-
-.input {
-	line-height: 1;
-	clip-path: polygon(80% 0%, 90% 0%, 100% 0, 100% 90%, 100% 100%, 15% 100%, 0 70%, 0 0);
-	padding-left: 30px;
-}
-
-.input:placeholder-shown {
-	color: var(--colorBlueSky);
 }
 
 .forum {
@@ -43,19 +17,16 @@
 		align-content: center;
 		justify-items: center;
 	}
+}
 
-	&__line {
-		grid-column: 1 / 4;
-		margin: 20px 0;
-		color: var(--colorWhite);
-	}
+.formCreate {
+	width: 100%;
+	grid-column: 1 / 4;
+	justify-self: start;
+	padding-left: 30px;
+	padding-bottom: 24px;
+}
 
-	&__form {
-		grid-column: 1 / 4;
-		display: flex;
-		gap: 20px;
-		justify-self: start;
-		padding-left: 30px;
-		padding-bottom: 24px;
-	}
+.textLine {
+	grid-column: 1 / 4;
 }
