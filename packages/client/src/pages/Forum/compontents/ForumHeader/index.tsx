@@ -7,7 +7,7 @@ export const ForumHeader = () => {
 				<h2 className={styles.title}>Форумы</h2>
 			</div>
 			<div className={styles.header__right}>
-				<p className={styles.title}>Темы</p>
+				<p className={styles.title}>Топики</p>
 			</div>
 			<div className={styles.header__right}>
 				<p className={styles.title}>Ответы</p>

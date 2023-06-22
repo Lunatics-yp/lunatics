@@ -1,12 +1,12 @@
 @import 'client/src/styles/app';
 
 .wrapper {
-	display: flex;
-	justify-content: center;
+	max-width: var(--forumWidth);
+	margin: 0 auto;
+	padding: 20px;
 
 	*::-webkit-scrollbar {
 		width: 12px;
-
 	}
 
 	*::-webkit-scrollbar-track {
@@ -25,10 +25,7 @@
 }
 
 .container {
-	margin-top: 15px;
-	width: 80%;
 	background-color: var(--colorBlueWhite);
-	border: 2px solid var(--colorGreyLight);
 	border-radius: 1rem;
 
 	&__messages {
