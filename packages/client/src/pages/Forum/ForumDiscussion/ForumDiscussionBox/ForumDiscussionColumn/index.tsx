@@ -11,7 +11,7 @@ export const ForumDiscussionColumn: FC<TForumDiscussionColumnProps> = props => {
 	const hasMessages = lastMessage && lastMessage.id !== undefined;
 	let messageDate;
 	let messageUser;
-	if (hasMessages && lastMessage.User) {
+	if (hasMessages) {
 		messageUser = lastMessage.User;
 		messageDate = moment(lastMessage.created_at).format(DATE_FORMAT);
 	}

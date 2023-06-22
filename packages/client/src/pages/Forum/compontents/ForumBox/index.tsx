@@ -65,7 +65,7 @@ export const ForumBox = () => {
 						onChange={newForum.onChange}
 						value={newForum.value}
 						type='text'
-						placeholder='Новый форум'
+						placeholder='Название форума'
 						className={styles.input}
 						maxLength={50}
 					/>

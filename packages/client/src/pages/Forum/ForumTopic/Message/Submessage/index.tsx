@@ -1,20 +1,19 @@
 import {forwardRef} from 'react';
 import moment from 'moment';
 import {Like} from 'client/src/components/images/Like';
-import {useAuth} from 'client/src/hooks/useAuth';
+import {DATE_FORMAT} from 'client/src/config/constants';
 import styles from './Submessage.module.scss';
 import {TSubmessageProps} from './typing';
 
 export const Submessage = forwardRef<HTMLDivElement, TSubmessageProps>(
 	function Submessage({message}) {
 		const {isOwner, text} = message;
-		const userNow = useAuth() ?? {login: ''};
-		const time = moment(message.created_at).format('YYYY-MM-DD HH:mm:ss');
+		const time = moment(message.created_at).format(DATE_FORMAT);
 
 		return (
 			<div className={styles.submessage}>
 				<span className={styles.message__author}>
-					{userNow.login}
+					{message.User.display_name}
 				</span>
 				<span className={styles.message__date}>{time}</span>
 				<div className={`${styles.submessage__content}

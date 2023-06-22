@@ -1,7 +1,6 @@
 import {FC} from 'react';
 import {Link, useParams} from 'react-router-dom';
 import {PATHS} from 'client/src/routers/name';
-import {Button} from 'client/src/components/Button';
 import {FullScreen} from 'client/src/components/images/FullScreen';
 import {TForumTopicHeaderProps} from './typing';
 import styles from './ForumTopicHeader.module.scss';
@@ -27,9 +26,6 @@ export const ForumTopicHeader:FC<TForumTopicHeaderProps> = (props) => {
 			</div>
 			<div className={styles.header__right}>
 				<div className={styles.fullScreen}>
-					<Button
-						text='Редактировать тему'
-					/>
 					<FullScreen
 						onClick={fullScreenHandler}
 					/>

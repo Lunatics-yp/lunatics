@@ -1,22 +1,22 @@
 import {Link, useParams} from 'react-router-dom';
-import {PATHS} from 'client/src/routers/name';
 import {useAppSelector, useAppDispatch} from 'client/src/hooks/redux';
+import {PATHS} from 'client/src/routers/name';
 import {useInput} from 'client/src/hooks/useInput';
+import {useTopics} from 'client/src/hooks/useTopics';
 import {forumSelectors} from 'client/src/stores/reducers/forum/forumSlice';
+import {forumThunks} from 'client/src/stores/reducers/forum/forumThunks';
 import {Button} from 'client/src/components/Button';
 import {ForumDiscussionColumn} from './ForumDiscussionColumn';
-import {forumThunks} from 'client/src/stores/reducers/forum/forumThunks';
 import styles from './ForumDiscussionBox.module.scss';
-import {useTopics} from 'client/src/hooks/useTopics';
 
 export const ForumDiscussionBox = () => {
 	const {forumId = ''} = useParams();
-	const forums = useAppSelector(forumSelectors.forums);
 	const newTopic = useInput('');
 	const {topics} = useTopics(+forumId);
 	const dispatch = useAppDispatch();
 	const isLoading = useAppSelector(forumSelectors.isLoading);
 	const error = useAppSelector(forumSelectors.error);
+	const forums = useAppSelector(forumSelectors.forums);
 
 	function createTopic() {
 		const newTopicContent = newTopic.value.trim();
@@ -87,7 +87,7 @@ export const ForumDiscussionBox = () => {
 					onChange={newTopic.onChange}
 					value={newTopic.value}
 					type='text'
-					placeholder='Новый топик'
+					placeholder='Название топика'
 					className={styles.input}
 					maxLength={50}
 				/>

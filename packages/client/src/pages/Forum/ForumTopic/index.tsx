@@ -1,16 +1,17 @@
 import {KeyboardEvent, useEffect, useRef, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import {useMessages} from 'client/src/hooks/useMessages';
 import {useAppDispatch, useAppSelector} from 'client/src/hooks/redux';
+import {useMessages} from 'client/src/hooks/useMessages';
+import {useInput} from 'client/src/hooks/useInput';
+import {useAuth} from 'client/src/hooks/useAuth';
+import {useFullscreen} from 'client/src/hooks/useFullscreen';
 import {KEY_ENTER} from 'client/src/config/constants';
 import {forumSelectors} from 'client/src/stores/reducers/forum/forumSlice';
+import {forumThunks} from 'client/src/stores/reducers/forum/forumThunks';
 import {Avatar} from 'client/src/components/Avatar';
 import {Button} from 'client/src/components/Button';
-import {useFullscreen} from 'client/src/hooks/useFullscreen';
-import {useInput} from 'client/src/hooks/useInput';
 import {ForumTopicHeader} from './ForumTopicHeader';
 import {Message} from './Message';
-import {forumThunks} from 'client/src/stores/reducers/forum/forumThunks';
 import styles from './ForumTopic.module.scss';
 
 export const ForumTopic = () => {
@@ -19,7 +20,7 @@ export const ForumTopic = () => {
 	const [selectedParent, setSelectedParent] = useState<number | null>(null);
 	const [isReactionListActive, setIsReactionListActive] = useState<number | null>(null);
 	const dispatch = useAppDispatch();
-	const {user} = useAppSelector(state => state.authReducer);
+	const user = useAuth();
 	const allMessages = useAppSelector(forumSelectors.messages);
 	const {messages} = useMessages(+topicId);
 	const messagesEndRef = useRef<null | HTMLDivElement>(null);
@@ -116,7 +117,12 @@ export const ForumTopic = () => {
 					fullScreenBtnRef={fullScreenBtnRef}
 					fullScreenHandler={fullScreenHandler}
 				/>
-				<div className={styles.container__messages}>{MessageElements}</div>
+				<div className={styles.container__messages}>
+					{messages.length
+						? MessageElements
+						: <div className={styles.textLine}>Нет сообщений</div>
+					}
+				</div>
 				<div className={styles.footer}>
 					<div className={styles.reply}>
 						<div className={styles.reply__avatar}>
@@ -131,8 +137,8 @@ export const ForumTopic = () => {
 								className={styles.field}
 								placeholder={
 									selectedParent !== null
-										? 'Ответить на комментарий...'
-										: 'Написать комментарий...'
+										? 'Ответить на сообщение...'
+										: 'Написать сообщение...'
 								}
 							/>
 						</div>

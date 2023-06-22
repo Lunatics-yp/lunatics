@@ -2,11 +2,7 @@
 
 .wrapper {
 	display: flex;
-	border-top: 1px solid var(--colorGreyLight);
-
-	&:first-child {
-		padding-top: 20px;
-	}
+	margin: 20px 0;
 }
 
 .reaction {
@@ -39,7 +35,6 @@
 	min-width: 202px;
 	word-break: break-word;
 	white-space: pre-wrap;
-	margin: 21px 10px;
 
 	&:hover .reaction {
 		&_btn {
@@ -55,7 +50,6 @@
 		justify-content: flex-end;
 		background-color: var(--colorGreyLight);
 		margin-left: auto;
-		margin-right: 20px;
 	}
 
 	&__retwit {

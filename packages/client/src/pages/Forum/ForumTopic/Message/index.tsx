@@ -1,9 +1,8 @@
 import {forwardRef} from 'react';
 import {useAppDispatch, useAppSelector} from 'client/src/hooks/redux';
 import moment from 'moment';
-import {useAuth} from 'client/src/hooks/useAuth';
 import {deleteReaction, setReaction} from 'client/src/stores/reducers/forum/reactionsThunks';
-import {REACTIONS} from 'client/src/config/constants';
+import {DATE_FORMAT, REACTIONS} from 'client/src/config/constants';
 import {Avatar} from 'client/src/components/Avatar';
 import {Stars} from 'client/src/components/images/Stars';
 import {MessageReaction} from '../MessageReaction';
@@ -18,12 +17,11 @@ export const Message = forwardRef<HTMLDivElement, TMessageProps>(function Messag
 		props;
 	const {user} = useAppSelector(state => state.authReducer);
 	const {text, id} = message;
-	const isOwner = message.user?.id === user?.id;
+	const isOwner = message.User.id === user?.id;
 	const reactions = message.reactions || [];
 	const dispatch = useAppDispatch();
-	const userNow = useAuth() ?? {login: ''};
 	const childrenMassage = messages.filter(el => el.parent_message_id === id);
-	const time = moment(message.created_at).format('YYYY-MM-DD HH:mm:ss');
+	const time = moment(message.created_at).format(DATE_FORMAT);
 
 	const onNewSubmessage = () => {
 		setSelectedParent(id);
@@ -62,13 +60,13 @@ export const Message = forwardRef<HTMLDivElement, TMessageProps>(function Messag
 
 	return (
 		<div className={styles.wrapper} ref={ref}>
-			{!isOwner && <Avatar size='medium'/>}
+			{!isOwner && <Avatar size='medium' src={message.User.avatar}/>}
 			<div className={`${styles.message} ${styles.message_text}
 				${isOwner && styles.message_me}`}
 			>
 				<div className={styles.message__info}>
 					<span className={styles.message__author}>
-						{userNow.login}
+						{message.User.display_name}
 					</span>
 					<span className={styles.message__date}>{time}</span>
 					<span className={`${styles.message__reaction} ${styles.reaction_btn}`}
@@ -91,8 +89,8 @@ export const Message = forwardRef<HTMLDivElement, TMessageProps>(function Messag
 					{reactionsElements}
 				</div>
 				<div className={styles.message__sub}>
-					{childrenMassage.map((submessage, index) => (
-						<Submessage key={index} message={submessage}/>
+					{childrenMassage.map(submessage => (
+						<Submessage key={submessage.id} message={submessage}/>
 					))}
 				</div>
 			</div>

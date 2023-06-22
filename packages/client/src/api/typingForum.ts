@@ -127,7 +127,7 @@ export type TMessages = {
 	topic_id: number;
 	parent_message_id: number | null;
 	created_at: number;
-	user: TMessageUser;
+	User: TMessageUser;
 	reactions: TReactionsMessage[];
 	user_reaction: REACTIONS | null;
 };

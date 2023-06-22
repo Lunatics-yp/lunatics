@@ -10,7 +10,7 @@ export const ForumHeader = () => {
 				<p className={styles.title}>Топики</p>
 			</div>
 			<div className={styles.header__right}>
-				<p className={styles.title}>Ответы</p>
+				<p className={styles.title}>Сообщения</p>
 			</div>
 		</>
 	);
