@@ -32,6 +32,10 @@ export const MainMenuMain = () => {
 		navigate(`${PATHS.forum}`);
 	};
 
+	const goToLeaderboard = () => {
+		navigate(`${PATHS.leaderboard}`);
+	};
+
 	const goToProfile = () => {
 		navigate(PATHS.profile);
 	};
@@ -67,6 +71,10 @@ export const MainMenuMain = () => {
 					text='Форум'
 					disabled={!user}
 					onClick={goToForum}/>
+				<Button
+					text='Таблица лидеров'
+					disabled={!user}
+					onClick={goToLeaderboard}/>
 				<Button
 					text='Авторы'
 					onClick={goToAuthors}/>
