@@ -8,8 +8,10 @@ export const useForums = () => {
 	const forums = useAppSelector(forumSelectors.forums);
 
 	useEffect(() => {
-		dispatch(getAllForums( {action: 'forum.list',
-			data: {}}));
+		dispatch(getAllForums({
+			action: 'forum.list',
+			data: {},
+		}));
 	}, []);
 
 	return {forums};
