@@ -4,7 +4,7 @@ export const ForumHeader = () => {
 	return (
 		<>
 			<div className={styles.header__left}>
-				<p className={styles.title}>Форумы</p>
+				<h2 className={styles.title}>Форумы</h2>
 			</div>
 			<div className={styles.header__right}>
 				<p className={styles.title}>Темы</p>

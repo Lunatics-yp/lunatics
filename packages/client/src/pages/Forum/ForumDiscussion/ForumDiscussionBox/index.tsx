@@ -67,7 +67,7 @@ export const ForumDiscussionBox = () => {
 
 	return (
 		<main className={styles.wrapper}>
-			<header className={styles.header}>
+			<div>
 				<div className={styles.header__left}>
 					<Link to={PATHS.forum}>
 						<h2 className={styles.title}>Форумы</h2>
@@ -75,7 +75,7 @@ export const ForumDiscussionBox = () => {
 					<span className={`${styles.arrow} ${styles.title_base}`}>&gt;</span>
 					<h2 className={styles.title_base}>{Myforum()}</h2>
 				</div>
-			</header>
+			</div>
 			<div className={`${styles.formCreate}`}>
 				<input
 					onChange={newTopic.onChange}
