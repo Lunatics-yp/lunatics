@@ -1,3 +1,4 @@
+import {Home} from 'client/src/components/images/Home';
 import {NotAuthorizedForm} from 'client/src/forms/NotAuthorized';
 import {useAuth} from 'client/src/hooks/useAuth';
 import {useNavigate} from 'react-router-dom';
@@ -33,7 +34,10 @@ export const LeaderboardPage = () => {
 	if (error) return <div className='leaderboard__loading'> Возникла ошибка</div>;
 	return (
 		<div className='leaderboard'>
-			<Header>Лидерборд</Header>
+			<Header>
+				<Home/>
+				Таблица лидеров
+			</Header>
 			<Button
 				text='Назад'
 				className='buttonBack'
