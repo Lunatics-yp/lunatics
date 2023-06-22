@@ -41,26 +41,26 @@ export type TChangeUserRequestData = {
 	display_name: string;
 };
 
+/* Leaderboard */
+
 export type TLeaderboard = {
-	ratingFieldName: string;
-	cursor: number;
+	offset: number;
 	limit: number;
 };
 
-export type TLeaderboardData = {
-	id?: number;
-	name: string;
-};
-
-export type TAddLeaderboard = {
-	ratingFieldName: string;
-	data: TLeaderboardData;
-	teamName: string;
-};
-
 export type TLeaderboardResponse = {
-	data: TLeaderboardData;
+	id: number;
+	games: number;
+	wins: number;
+	User: {
+		avatar: string | null;
+		display_name: string;
+		id: number;
+		login: string;
+	};
 };
+
+/* OAuth */
 
 export type TOAuthYandexResponseData = undefined | TErrorAPI;
 

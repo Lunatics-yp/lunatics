@@ -17,15 +17,15 @@ export const leaderboardSlice = createSlice({
 	reducers: {},
 	extraReducers: (builder) => {
 		builder
-			/* eslint-disable-next-line max-len */
-			.addCase(leaderboardThunks.getAllLeader.fulfilled, (state, action: PayloadAction<any>) => {
-				state.isLoading = false;
-				if (isErrorAPI(action.payload)) {
-					state.error = action.payload.reason;
-					return;
-				}
-				state.leaders = action.payload;
-			})
+			.addCase(leaderboardThunks.getAllLeader.fulfilled,
+				(state, action: PayloadAction<any>) => {
+					state.isLoading = false;
+					if (isErrorAPI(action.payload)) {
+						state.error = action.payload.reason;
+						return;
+					}
+					state.leaders = action.payload.data;
+				})
 			.addCase(leaderboardThunks.getAllLeader.pending, (state) => {
 				state.isLoading = true;
 				state.error = '';
