@@ -19,6 +19,7 @@ import {Timer} from 'client/src/components/timer/timer';
 import {SoundsList} from 'client/src/components/Sound/sounds';
 import {Sound} from 'client/src/components/Sound';
 import {SoundManager, soundNames} from 'client/src/utils/soundManager';
+import {leaderboardAPI} from 'client/src/api/leaderboard';
 
 import styles from './pageGame.module.scss';
 
@@ -148,6 +149,7 @@ export const PageGame: FC = () => {
 		if (winner) {
 			battle.statistic.winner = winner;
 			playGameOver();
+			leaderboardAPI.addGameResult(winner === 1);
 		}
 	}, [winner]);
 

@@ -1,3 +1,5 @@
+import {NotAuthorizedForm} from 'client/src/forms/NotAuthorized';
+import {useAuth} from 'client/src/hooks/useAuth';
 import {useNavigate} from 'react-router-dom';
 import {PATHS} from 'client/src/routers/name';
 import {Button} from 'client/src/components/Button';
@@ -10,9 +12,15 @@ import './leaderboard.scss';
 export const LeaderboardPage = () => {
 	const {leaderboardState: {isLoading, leaders = [], error}, setPage, page} = useLeaderboard();
 	const navigate = useNavigate();
+	const user = useAuth();
+
 	const goToMainMenu = () => {
 		navigate(PATHS.mainMenu);
 	};
+
+	if (!user) {
+		return <NotAuthorizedForm/>;
+	}
 
 	const nextLeaders = () => {
 		setPage(__prevPage => ++__prevPage);
@@ -43,10 +51,9 @@ export const LeaderboardPage = () => {
 					</thead>
 					<tbody className='leaderboard__list-bottom'>
 						{leaders.map((leader, index) => {
-							const {data} = leader;
-							const {id} = data;
+							const {id} = leader;
 							const key = `${index}-${id}`;
-							return <LeadersElement key={key} leader={leader} index={index}/>;
+							return <LeadersElement key={key} data={leader} index={index}/>;
 						})}
 					</tbody>
 
