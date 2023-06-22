@@ -49,13 +49,11 @@ export type TShape = TFixedCoordinates[];
 
 // Тип пропсов для конструктора лунного модуля
 export type TSpaceModuleProps = {
-	readonly name: string;
 	readonly shape: TShape;
 };
 
 // Тип списка типов лунных модулей для расстановки
 export type TShapesList = {
-	name: string;
 	shape: TFixedCoordinates[];
 	count: number;
 }[];
@@ -77,4 +75,18 @@ export type TShootRespond = {
 export type TSpaceGroundDisplayProps = {
 	map: TMap;
 	rerender: unknown;
+};
+
+export type TPlayerStatistic = {
+	shoots: number;
+	hit: number;
+	miss: number;
+	destroyed: number;
+};
+
+export type TBattleStatistic = {
+	player: TPlayerStatistic;
+	enemy: TPlayerStatistic;
+	time: string;
+	winner: number;
 };

@@ -14,7 +14,6 @@ describe('Shooting Class', () => {
 	];
 	const shapesList: TShapesList = [
 		{
-			name: 'Г-образный',
 			shape: shape,
 			count: 1,
 		},
@@ -41,43 +40,43 @@ describe('Shooting Class', () => {
 		module = placement.modules[0];
 	});
 
-	test('Проверяем стрельбу по пустому полю и по уже отстрелянной клетке', () => {
+	test('Проверяем стрельбу по пустому полю и по уже отстрелянной клетке', async () => {
 		const coordinates = {x: 1, y: 1};
-		const result1 = shooting.shoot(coordinates);
-		const result2 = shooting.shoot(coordinates);
+		const result1 = await shooting.shoot(coordinates);
+		const result2 = await shooting.shoot(coordinates);
 		expect(result1.hadShoot).toBe(true);
 		expect(result2.hadShoot).toBe(false);
 	});
 
-	test('Проверяем стрельбу по ячейке за пределами карты', () => {
-		const result1 = shooting.shoot({x: -1, y: 0});
-		const result2 = shooting.shoot({x: 0, y: size + 1});
+	test('Проверяем стрельбу по ячейке за пределами карты', async () => {
+		const result1 = await shooting.shoot({x: -1, y: 0});
+		const result2 = await shooting.shoot({x: 0, y: size + 1});
 		expect(result1.hadShoot).toBe(false);
 		expect(result2.hadShoot).toBe(false);
 	});
 
-	test('Проверяем урон по модулю', () => {
+	test('Проверяем урон по модулю', async () => {
 		const coordinates = {x: 1, y: 1};
 		placement.locateModuleToGround(module, coordinates);
-		const result = shooting.shoot(coordinates);
+		const result = await shooting.shoot(coordinates);
 		expect(result.hadShoot).toBe(true);
 		expect(result.hit).toBe(true);
 		expect(result.destroyed).toBe(false);
 		expect(module.info.isAlive).toBe(true);
 	});
 
-	test('Проверяем промах', () => {
+	test('Проверяем промах', async () => {
 		placement.locateModuleToGround(module, {x: 1, y: 1});
-		const result = shooting.shoot({x: 0, y: 0});
+		const result = await shooting.shoot({x: 0, y: 0});
 		expect(result.hadShoot).toBe(true);
 		expect(result.hit).toBe(false);
 	});
 
-	test('Проверяем уничтожение модуля', () => {
+	test('Проверяем уничтожение модуля', async () => {
 		placement.locateModuleToGround(module, {x: 1, y: 1});
-		const result1 = shooting.shoot({x: 1, y: 1});
-		const result2 = shooting.shoot({x: 1, y: 2});
-		const result3 = shooting.shoot({x: 2, y: 2});
+		const result1 = await shooting.shoot({x: 1, y: 1});
+		const result2 = await shooting.shoot({x: 1, y: 2});
+		const result3 = await shooting.shoot({x: 2, y: 2});
 		expect(result1.destroyed).toBe(false);
 		expect(result2.destroyed).toBe(false);
 		expect(result3.destroyed).toBe(true);

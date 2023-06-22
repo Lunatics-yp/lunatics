@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {PATHS} from 'client/src/routers/name';
 import {Background} from 'client/src/components/Background';
@@ -7,57 +7,63 @@ import {Button} from 'client/src/components/Button';
 import {Footer} from 'client/src/components/Footer';
 import styles from './pageSetShips.module.scss';
 
-//Canvas будет из реализации команды, это просто временно добавила
-export const Canvas = () => {
-	const canvas = React.useRef<HTMLCanvasElement>(null);
-	React.useEffect(() => {
-		if(canvas.current) {
-			const ctx = canvas.current.getContext('2d') as CanvasRenderingContext2D;
-			draw(ctx);
-		}
-	});
-	const x = 500;
-	const y = 500;
-	const widthRect = 50;
+import {GameBattle} from 'client/src/game/battle';
+import {Canvas} from 'client/src/game/canvas';
+import {useBattle} from 'client/src/hooks/useBattle';
 
-	const draw = (ctx: CanvasRenderingContext2D) => {
-		for (let i = 0; i < x  ; i+=widthRect) {
-			for (let j = 0; j < y; j+=widthRect) {
-				ctx.rect(i, j, widthRect, widthRect);
-				ctx.stroke();
-			}
-		}
-	};
-	return (
-		<canvas
-			ref={canvas}
-			width={x}
-			height={y}
-			className={styles.canvas}
-		/>
-	);
-};
 export const PageSetShips = () => {
 	const navigate = useNavigate();
 	const [isShipsOnBoard, setIsShipsOnBoard] = useState(false);
-	const setShipsOnBoard = () => {
-		setIsShipsOnBoard(true);
+	const [redraw, setRedraw] = useState(0);
+	const [clear, setClear] = useState(0);
+
+	const [battle] = useState(GameBattle.currentGame);
+	const isBattle = useBattle(battle);
+
+	if (!isBattle) {
+		return null;
+	}
+
+	const doRedraw = () => {
+		setRedraw(redraw + 1);
 	};
+
+	const doClear = () => {
+		setClear(clear + 1);
+	};
+
 	const clearBoard = () => {
-		console.log('поле очищено');
+		battle.reset();
+		doClear();
 		setIsShipsOnBoard(false);
+		doRedraw();
 	};
+
+	const setShipsOnBoard = () => {
+		clearBoard();
+		battle.placement.randomLocateAllModulesToGround();
+		setIsShipsOnBoard(battle.placement.isModulesLocated);
+		doRedraw();
+	};
+
+	useEffect(() => {
+		clearBoard();
+	}, []);
 
 	return (
 		<>
 			<Header>Расстановка лунных модулей</Header>
 			<div className={styles.placementPageContainer}>
-				<div className={styles.shipsContainer}>
-				</div>
-				<Canvas/>
+				<Canvas
+					battle={battle}
+					owner={'player'}
+					redraw={redraw}
+					clear={clear}
+				/>
 			</div>
 			<div className={styles.buttonsContainer}>
-				<Button text='Начать бой'
+				<Button
+					text='Начать бой'
 					className={styles.button}
 					disabled={!isShipsOnBoard}
 					onClick={() => navigate(PATHS.game)}/>

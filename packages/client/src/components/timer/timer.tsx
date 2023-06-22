@@ -3,16 +3,22 @@ import {MyTimer} from './timerClass';
 
 type TProps = {
 	isGameOver: boolean;
+	updateTimeCallback?: (newTime: string) => void;
 };
 
 export const Timer: FC<TProps> = (props) => {
 
-	const {isGameOver} = props;
+	const {isGameOver, updateTimeCallback} = props;
 
 	const [timer, setTimer] = useState<MyTimer>();
 
 	const timerCallback = (timeString: string) => {
-		setTime(timeString);
+		if (!isGameOver) {
+			setTime(timeString);
+			if(updateTimeCallback){
+				updateTimeCallback(timeString);
+			}
+		}
 	};
 
 	const [time, setTime] = useState('');

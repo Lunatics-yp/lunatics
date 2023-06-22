@@ -22,7 +22,7 @@ export class Shooting extends GameMechanic {
 	 * - `hit` (boolean): Было ли попадание в лунный модуль
 	 * - `destroyed` (boolean): Было ли полное уничтожение лунного модуля
 	 */
-	shoot = (coordinates: TCoordinates): TShootRespond => {
+	shoot = async (coordinates: TCoordinates): Promise<TShootRespond> => {
 		// Метод нанесения урона по лунному модулю
 		const hit = (): TShootRespond => {
 			const module = SpaceModule.findSpaceModule(this.modules, coordinates);
@@ -31,7 +31,6 @@ export class Shooting extends GameMechanic {
 			}
 			const hitRespond = module.hit(coordinates);
 			// Выводим в консоль результаты выстрела (для разработчика)
-			console.log(hitRespond);
 			if (hitRespond.destroyed && hitRespond.spaceModule) {
 				return destroy(hitRespond.spaceModule);
 			} else {

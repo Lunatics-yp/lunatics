@@ -5,7 +5,6 @@ import {MainMenuMain} from '../pages/MainMenu/pages/main';
 import {MainMenuPlayAgainstAI} from '../pages/MainMenu/pages/playAgainstAI';
 import {MainMenuPlayOnline} from '../pages/MainMenu/pages/playOnline';
 import {MainMenuSettings} from '../pages/MainMenu/pages/settings';
-import {TestPage} from 'client/src/pages/TestPage';
 import {PATHS} from 'client/src/routers/name';
 import {Page500} from 'client/src/pages/500';
 import {Page404} from 'client/src/pages/404';
@@ -17,11 +16,9 @@ import {PageAuth} from 'client/src/pages/Auth';
 import {PageProfile} from 'client/src/pages/Profile';
 import {PageProfileChangePassword} from 'client/src/pages/ProfileChangePassword';
 import {ForumDiscussion} from 'client/src/pages/Forum/ForumDiscussion';
-import {GameCanvasPage} from 'client/src/pages/GameCanvas';
 import {PageSetShips} from 'client/src/pages/Game/PageSetShips/PageSetShips';
 import {PageGame} from 'client/src/pages/Game/PageGame/PageGame';
 import {PageGameResults} from 'client/src/pages/Game/PageGameResults/PageGameResults';
-import {PageGameMechanicsDemonstration} from 'client/src/pages/GameMechanicsDemonstration';
 import {LeaderboardPage} from '../pages/Leaderboard';
 import {AuthRoute} from './Routes/AuthRoute';
 import {GuestRoute} from './Routes/GuestRoute';
@@ -54,10 +51,6 @@ export const router = createBrowserRouter([
 						],
 					},
 				],
-			},
-			{
-				path: PATHS.test,
-				element: <TestPage/>,
 			},
 			{
 				path: PATHS.profile,
@@ -130,16 +123,8 @@ export const router = createBrowserRouter([
 				element: <PageGame/>,
 			},
 			{
-				path: PATHS.gameCanvas,
-				element: <GameCanvasPage/>,
-			},
-			{
 				path: PATHS.gameResults,
 				element: <PageGameResults/>,
-			},
-			{
-				path: PATHS.gameMechanicsDemonstration,
-				element: <PageGameMechanicsDemonstration/>,
 			},
 			{
 				path: PATHS.leaderboard,

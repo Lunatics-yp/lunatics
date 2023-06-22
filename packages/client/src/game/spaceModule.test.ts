@@ -4,7 +4,6 @@ import {TShape} from './typing';
 
 describe('SpaceModule Class', () => {
 	let module: SpaceModule;
-	const name = 'Г-образный';
 	const shape: TShape = [
 		{x: 0, y: 0},
 		{x: 0, y: 1},
@@ -12,12 +11,11 @@ describe('SpaceModule Class', () => {
 	];
 
 	beforeEach(() => {
-		module = new SpaceModule({name, shape});
+		module = new SpaceModule({shape});
 	});
 
 	test('Проверяем данные только что созданного модуля', () => {
 		const info = module.info;
-		expect(info.name).toBe(name);
 		expect(info.isLocated).toBe(false);
 		expect(info.isAlive).toBe(true);
 		expect(module.shape).toEqual(shape);

@@ -62,10 +62,6 @@ export const PageLanding = () => {
 					<Button text='Играть' onClick={goToPlay}/>
 					<Button text='Форум' onClick={goToForum}/>
 					<Button text='Правила' onClick={goToRules}/>
-					<Button
-						text='Демонстрация'
-						onClick={() => navigate(PATHS.gameMechanicsDemonstration)}
-					/>
 				</div>
 				<div dangerouslySetInnerHTML={{__html: gameDescription}}/>
 				<div ref={rulesElementRef} dangerouslySetInnerHTML={{__html: gameRules}}/>

@@ -8,6 +8,7 @@ import {Menu} from 'client/src/components/Menu';
 import {Footer} from 'client/src/components/Footer';
 import {Button} from 'client/src/components/Button';
 import {Home} from 'client/src/components/images/Home';
+import {githubAuthorsLink} from 'client/src/config/constants';
 
 // Компонент меню Главное меню
 export const MainMenuMain = () => {
@@ -16,8 +17,8 @@ export const MainMenuMain = () => {
 	const user = useAuth();
 
 	// Временный каллбек для нерабочих кнопок
-	const callbackNull = () => {
-		console.log('Клик по кнопке');
+	const goToAuthors = () => {
+		window.open(githubAuthorsLink, '_blank');
 	};
 
 	const handleLogout = async () => {
@@ -49,6 +50,7 @@ export const MainMenuMain = () => {
 					}}/>
 				<Button
 					text='Играть онлайн'
+					disabled={true}
 					onClick={() => {
 						navigate(`${PATHS.mainMenuPlayOnline}`);
 					}}/>
@@ -67,7 +69,7 @@ export const MainMenuMain = () => {
 					onClick={goToForum}/>
 				<Button
 					text='Авторы'
-					onClick={callbackNull}/>
+					onClick={goToAuthors}/>
 				<Button
 					text='Выйти'
 					onClick={handleLogout}/>
