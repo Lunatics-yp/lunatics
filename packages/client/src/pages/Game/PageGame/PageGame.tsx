@@ -203,6 +203,21 @@ export const PageGame: FC = () => {
 		}
 	};
 
+	// Стиль для блока с картой игрока
+	const getPlayerClassName = (player: 1 | 2) => {
+		let className = player === 1
+			? styles.leftPlayer
+			: styles.rightPlayer;
+		if (winner === 0) {
+			if (whoseTurn === player) {
+				className += ` ${styles.inactivePlayer}`;
+			} else {
+				className += ` ${styles.activePlayer}`;
+			}
+		}
+		return className;
+	};
+
 	return (
 		<div>
 			<Header>
@@ -210,11 +225,7 @@ export const PageGame: FC = () => {
 				<Sound play={() => soundToggle(soundNames.background)} isOn={isOn}/>
 			</Header>
 			<div className={styles.gamePageContainer}>
-				<div className={
-					`${styles.leftPlayer} ${winner === 0
-						? whoseTurn === 1 ? styles.inactivePlayer : styles.activePlayer
-						: ''}`
-				}>
+				<div className={getPlayerClassName(1)}>
 					<div className={classNamePlayer1}>
 						<Avatar size='small'/>
 						<div>{players[1]}</div>
@@ -229,11 +240,7 @@ export const PageGame: FC = () => {
 						<p>{player1Ships}</p>
 					</div>
 				</div>
-				<div className={
-					`${styles.rightPlayer} ${winner === 0
-						? whoseTurn === 2 ? styles.inactivePlayer : styles.activePlayer
-						: ''}`
-				}>
+				<div className={getPlayerClassName(2)}>
 					<div className={classNamePlayer2}>
 						<Avatar size='small'/>
 						<div>{players[2]}</div>
