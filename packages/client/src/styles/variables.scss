@@ -1,0 +1,113 @@
+:root {
+	--forumWidth: 1200px;
+
+	// TIME (all theme):
+	--animationTimeBase: 500ms;
+	--animationTimeSmall: 200ms;
+}
+
+:root[data-theme='light'] {
+	// --colorText: black;
+	// --colorBg: white;
+	// --colorBlack: black;
+	// --colorWhite: white;
+	// --colorError: #ff2f2f;
+	// --colorLink: #0d6efd;
+	// --colorLinkHover: #094bb0;
+
+	// COLORS:
+	// White
+	--colorWhite: #fff;
+	--colorWhiteSmoke: #efefef;
+
+	// Grey
+	--colorTransparentGrey: #aeb7c21f;
+	--colorBlack: #000;
+	--colorGreyDark: #3a393a;
+	--colorSlateGrey: #818c99;
+	--colorGreyLight: #dce1e6;
+	--colorBrightGrey: #eaeaea;
+
+	// Yellow
+	--colorYellowDirt: #3b3d34;
+	--colorYellowGrayishDark: #59594e;
+	--colorYellowGamboge: #c90;
+	--colorYellowBlue: #b48f0a;
+	--colorYellow: #fa9929;
+	--colorYellowLemon: #ffde11;
+	--colorOriginalYellow: #ff0;
+	--colorYellowWhite: #fffcf3;
+	--colorOrange: #fd830c;
+	--gradientOrangeYellow: linear-gradient(to top, var(--colorOrange), #f7ba45);
+	--gradientOrangeYellowDark: linear-gradient(to top, var(--colorOrange), #fa9929);
+
+	// Blue
+	--colorBlueWhite: #f5ffff;
+	--colorBlueLight: #bbf2f6;
+	--colorBlueSky: #07b4c5;
+	--colorBlueTeal: #19678d;
+	--colorBackground: #07405b;
+	--colorBlueDark: #001e44;
+	--colorThemeToggle: #064d6e;
+
+	// Purple
+	--colorPurpleLight: #8f65b7;
+	--colorPurple: #551a8b;
+
+	// Gray
+	--colorGray: #ddd;
+
+	// Red
+	--colorRadicalRed: #ff3347;
+	--colorRedError: #d93d3d;
+
+	// Text Shadow winner
+	--textWinnerShadow: #006181;
+}
+
+:root[data-theme='dark'] {
+	// Blue
+	--colorBackground: #00283b;
+	--colorBlueSky: #046b76;
+	--colorBlueWhite: #ccd4d4;
+	--colorBlueLight: #4a8d92;
+	--colorBlueDark: #161916;
+	--colorBlueTeal: #145778;
+
+	// White
+	--colorWhite: #ccd4d4;
+	--colorThemeToggle: white;
+
+	// Black
+	--colorBlack: #000;
+
+	// Yellow
+	--colorYellowBlue: #876b08;
+	--colorYellowLemon: #b69d08;
+	--colorYellowGrayishDark: #3d4143;
+	--colorYellowDirt: #343738;
+	--colorYellowWhite: #cad4ca;
+	--colorYellowGamboge: #c90;
+	--colorYellow: #fa9929;
+	--colorOriginalYellow: #ff0;
+	--colorOrange: #a0540a;
+	--gradientOrangeYellow: linear-gradient(to top, var(--colorOrange), #a57d30);
+	--gradientOrangeYellowDark: linear-gradient(to top, var(--colorOrange), #a57d30);
+
+	// Grey
+	--colorSlateGrey: #5e666f;
+	--colorGreyLight: #b5b9bd;
+	--colorGray: #607b7d;
+
+	// Purple
+	--colorPurpleLight: #8f65b7;
+	--colorPurple: #551a8b;
+
+	// Red
+	--colorRadicalRed: #ff3347;
+	--colorRedError: #d93d3d;
+
+	// Text Shadow winner
+	--textWinnerShadow: #006181;
+}
+

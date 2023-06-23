@@ -1,5 +1,27 @@
 root = true
 
-[*.{js,ts}]
+[*]
+indent_style = tab
+indent_size = 4
+max_line_length = 100
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{js,jsx,ts,tsx,css,scss}]
+ij_typescript_use_double_quotes = false
+ij_javascript_use_double_quotes = false
+ij_css_use_double_quotes = false
+ij_sass_use_double_quotes = false
+ij_scss_use_double_quotes = false
+ij_typescript_force_quote_style = true
+ij_javascript_force_quote_style = true
+ij_typescript_import_prefer_absolute_path = true
+ij_typescript_enforce_trailing_comma = whenmultiline
+ij_any_keep_blank_lines_in_code = 1
+
+[*.json]
+indent_size = 2
+
+[*.{yaml,yml,sql}]
 indent_style = space
 indent_size = 2

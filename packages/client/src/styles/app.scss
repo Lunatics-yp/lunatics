@@ -1,0 +1,20 @@
+@import 'vendor/modern-normalize';
+@import 'variables';
+@import 'reset';
+@import 'mixins';
+
+div.app {
+	@include fullscreen;
+
+	position: relative;
+}
+
+.reactions {
+	transform: scale(0.7);
+	transition: all var(--animationTimeSmall);
+
+	&:hover {
+		transform: scale(1);
+		transition: all var(--animationTimeSmall) ease;
+	}
+}

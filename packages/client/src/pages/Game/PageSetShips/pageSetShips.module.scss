@@ -1,0 +1,31 @@
+@use 'client/src/components/Button/button';
+@use 'client/src/pages/Game/PageGame/pageGame.module';
+
+.canvas {
+	height: 80%;
+	margin-top: 20px;
+	border: 2px solid black;
+}
+
+.placementPageContainer {
+	display: flex;
+	height: calc(80vh - 50px);
+	justify-content: center;
+
+	.shipsContainer {
+		width: 35%;
+		margin-right: 20px;
+		height: 80%;
+		margin-top: 10px;
+	}
+}
+
+.buttonsContainer {
+	display: flex;
+	justify-content: center;
+
+	.button {
+		width: 270px;
+		margin-right: 25px;
+	}
+}

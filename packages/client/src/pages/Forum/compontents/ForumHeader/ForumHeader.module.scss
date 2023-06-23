@@ -1,0 +1,18 @@
+@import 'client/src/styles/app';
+
+.header {
+	&__left {
+		justify-self: start;
+		padding-left: 30px;
+		font-weight: 700;
+	}
+
+	&__right {
+		letter-spacing: 1px;
+	}
+}
+
+.title {
+	color: var(--colorWhite);
+	font-size: 24px;
+}

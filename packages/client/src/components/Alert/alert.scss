@@ -1,0 +1,22 @@
+.alert {
+	margin: 1rem 0;
+	padding: 15px 20px;
+	border: 1px solid;
+	color: var(--colorGray);
+
+	&:empty {
+		display: none;
+	}
+
+	&_error {
+		color: var(--colorRedError);
+	}
+
+	&_warning {
+		color: var(--colorOrange);
+	}
+
+	&_success {
+		color: var(--colorBlueSky);
+	}
+}

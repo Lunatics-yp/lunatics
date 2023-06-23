@@ -1,0 +1,86 @@
+@import 'client/src/styles/app';
+
+.element {
+	@include linkReset;
+
+	display: grid;
+	grid-template-columns: 3fr 1fr;
+	background-color: var(--colorBackgroud);
+	padding: 7px 0;
+	margin: 0 20px;
+	transition: all var(--animationTimeBase);
+
+	&__title {
+		@include flexCenter;
+
+		padding: 3px 40px;
+		background-color: var(--colorYellowLemon);
+		border-radius: 2px;
+	}
+
+	&__info {
+		@include flexCenter;
+
+		width: 200px;
+		padding: 8px 12px;
+		background-color: inherit;
+		border-radius: 2px;
+	}
+
+	&__del {
+		border: 0;
+		background: transparent;
+		margin-left: 25px;
+	}
+}
+
+.info {
+	margin-left: 10px;
+	text-align: center;
+
+	&__name {
+		color: var(--colorBlueSky);
+		padding-top: 3px;
+	}
+
+	&__date {
+		padding-top: 3px;
+		color: var(--colorSlateGrey);
+		font-size: 13px;
+	}
+}
+
+.title {
+	@include flexCenter;
+
+	background-color: var(--colorYellowBlue);
+	width: 100%;
+	border-radius: 2px;
+	transition: all var(--animationTimeBase);
+
+	&__text {
+		margin: 18px 0;
+		color: var(--colorWhite);
+		font-size: 20px;
+		transition: all var(--animationTimeBase);
+	}
+}
+
+a:hover {
+	.element {
+		&__title {
+			transition: all var(--animationTimeBase);
+			background-color: var(--colorYellowGrayishDark);
+		}
+	}
+}
+
+a:hover .title {
+	transition: all var(--animationTimeBase);
+	background-color: var(--colorYellowDirt);
+
+	p {
+		transition: all var(--animationTimeBase);
+		color: var(--colorSlateGrey);
+	}
+}

@@ -1,0 +1,21 @@
+.form {
+	width: 400px;
+}
+
+.formGroup {
+	margin-bottom: 1rem;
+
+	&_btns {
+		margin-top: 1.5rem;
+
+		> .button {
+			margin-top: 1rem;
+		}
+	}
+}
+
+.formError {
+	margin-top: 7px;
+	font-size: 0.8em;
+	color: var(--colorRedError);
+}

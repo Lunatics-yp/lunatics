@@ -1,0 +1,9 @@
+@import 'client/src/styles/mixins';
+
+.background {
+	@include fullscreen;
+
+	z-index: -1;
+	background: var(--colorBackground);
+
+}

@@ -1,10 +1,16 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
-import './index.css'
+import {App} from 'client/src/App';
+import {StrictMode} from 'react';
+import {hydrateRoot} from 'react-dom/client';
+import 'client/src/styles/root.scss';
+import 'client/src/styles/app.scss';
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-)
+import {BrowserRouter} from 'react-router-dom';
+
+hydrateRoot(
+	document.getElementById('root') as HTMLElement,
+	<StrictMode>
+		<BrowserRouter>
+			<App/>
+		</BrowserRouter>
+	</StrictMode>,
+);

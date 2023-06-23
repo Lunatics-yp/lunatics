@@ -1,0 +1,26 @@
+@import 'client/src/styles/app';
+@import 'client/src/pages/Forum/Forum.module';
+
+.wrapper {
+	@include linkReset;
+	@include headerForumTopicWithLinks;
+
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	row-gap: 20px;
+}
+
+.title {
+	&_base {
+		color: var(--colorBlueWhite);
+	}
+}
+
+.formCreate {
+	margin: 0 0 20px 30px;
+}
+
+.topics {
+	display: grid;
+}

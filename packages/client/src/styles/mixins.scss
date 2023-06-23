@@ -1,0 +1,109 @@
+@mixin fullscreen {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
+@mixin flexHorizontal {
+	display: flex;
+	flex-flow: row nowrap;
+}
+
+@mixin flexVertical {
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+@mixin menuFlexVertical {
+	@include flexVertical;
+
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+
+	> div:not(div.header,div.footer) {
+		flex: 1;
+	}
+}
+
+@mixin flexCenter {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+@mixin buttonHover {
+	&:hover {
+		transition: all var(--animationTimeBase) ease-in-out;
+		transform: translateX(25px);
+		border-bottom: 2px solid var(--colorBlueLight);
+		opacity: 0.9;
+	}
+
+	&:active {
+		border-bottom: 2px solid var(--colorYellow);
+	}
+}
+
+@mixin linkReset {
+	a {
+		text-decoration: none;
+		color: inherit;
+	}
+}
+
+@mixin headerForumTopicWithLinks {
+	.header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		color: var(--colorBackground);
+
+		&__left {
+			display: flex;
+			align-items: flex-start;
+			column-gap: 20px;
+			margin-left: 30px;
+
+			a {
+				color: var(--colorBlueSky);
+
+				&:hover {
+					opacity: 0.7;
+				}
+			}
+		}
+
+		&__right {
+			margin: 20px;
+		}
+	}
+
+	.title {
+		text-overflow: ellipsis;
+		display: flex;
+		font-size: 24px;
+
+		&_color {
+			color: var(--colorPurple);
+		}
+	}
+
+	.arrow {
+		@include flexCenter;
+
+		font-weight: 700;
+		margin: 20px 0;
+		font-size: 1.5em;
+	}
+
+}
+
+@mixin textIllumination {
+	text-shadow: -6px 0 17px var(--textWinnerShadow), 0 1px 17px var(--textWinnerShadow), 1px 0 17px var(--textWinnerShadow), 0 -1px 17px var(--textWinnerShadow);
+}

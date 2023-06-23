@@ -1,18 +1,21 @@
-import { useEffect } from 'react'
-import './App.css'
+import {Provider} from 'react-redux';
+import {Background} from 'client/src/components/Background';
+import {setupStore} from 'client/src/stores/store';
+import {registerServiceWorker} from 'client/src/utils/serviceWorker';
+import {SSRRouter} from 'client/src/routers/SSRRouter';
+import 'client/src/styles/errorsPages.scss';
 
-function App() {
-  useEffect(() => {
-    const fetchServerData = async () => {
-      const url = `http://localhost:${__SERVER_PORT__}`
-      const response = await fetch(url)
-      const data = await response.json()
-      console.log(data)
-    }
-
-    fetchServerData()
-  }, [])
-  return <div className="App">Вот тут будет жить ваше приложение :)</div>
+if (process.env.NODE_ENV === 'production') {
+	registerServiceWorker();
 }
 
-export default App
+const store = setupStore();
+
+export const App = () => {
+	return (
+		<Provider store={store}>
+			<SSRRouter/>
+			<Background/>
+		</Provider>
+	);
+};
