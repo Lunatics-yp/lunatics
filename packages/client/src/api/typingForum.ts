@@ -1,4 +1,5 @@
-import {REACTIONS} from '../config/constants';
+import {REACTIONS} from 'client/src/config/constants';
+import {TNullObject} from './typing';
 
 export type TCreateForumRequest = {
 	action: string;
@@ -35,8 +36,6 @@ export type TForums = {
 	user_id: number;
 	created_at: number;
 };
-
-export type TForumListResponsesse = TForums[];
 
 export type TCreateTopicRequest = {
 	action: string;
@@ -129,8 +128,8 @@ export type TMessages = {
 	parent_message_id: number | null;
 	created_at: number;
 	User: TMessageUser;
-	reactions: TReactionsMessage[];
-	user_reaction: REACTIONS | null;
+	Reactions: TReactionsMessage;
+	UserReaction: TReaction | TNullObject;
 };
 
 export type TMessageUser = {
@@ -140,12 +139,10 @@ export type TMessageUser = {
 	avatar: string;
 };
 
-export type TReactionsMessage = {
-	reaction_id: REACTIONS;
-	count: number;
-};
+export type TReactionsMessage = Record<string, number>;
 
-export type TReactionUser = {
+export type TReaction = {
+	id: number;
 	message_id: number;
 	user_id: number;
 	reaction_id: REACTIONS;

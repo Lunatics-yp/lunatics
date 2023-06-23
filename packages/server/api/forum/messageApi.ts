@@ -21,11 +21,6 @@ const messageInfoRequest = (user_id: number) => {
 			as: 'CurrentUserReaction',
 			required: false,
 			where: {user_id},
-			include: [
-				{
-					model: Users,
-				},
-			],
 			limit: 1,
 		},
 	];

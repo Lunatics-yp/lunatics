@@ -110,67 +110,47 @@ export const forumSlice = createSlice({
 				state.isLoading = false;
 				state.error = action.error.message ?? 'Возникла неизвестная ошибка';
 			})
+
 			// Добавить / обновить реакцию
 			.addCase(reactionThunks.setReaction.fulfilled, (state, action) => {
 				if (isReactionData(action.payload)) {
 					const payloadTransform = transformReaction(action.payload);
-					const currentMessage = state.messages.find(
+					const message = state.messages.find(
 						message => message.id === payloadTransform.messageId,
 					);
-					if (currentMessage && currentMessage.reactions) {
-						const currentReaction = currentMessage.reactions.find(
-							reaction => reaction.reaction_id === payloadTransform.reactionId,
-						);
-						// Добавить реакцию
-						if (!currentMessage.user_reaction) {
-						// Реакция с таким типом первая
-							if (!currentReaction) {
-								currentMessage.reactions.push({
-									reaction_id: payloadTransform.reactionId,
-									count: 1,
-								});
+					const reactionId = payloadTransform.reactionId.toString();
+					if (message) {
+						const reaction = message.Reactions[reactionId] ?? false;
+						// Обновляем реакции
+						message.Reactions[reactionId] = !reaction ? 1 : reaction + 1;
+						// Удаляем старую реакцию текущего пользователя
+						if (Object.keys(message.UserReaction).length) {
+							const oldReactionId = message.UserReaction.reaction_id.toString();
+							if (message.Reactions[oldReactionId] > 1) {
+								message.Reactions[oldReactionId] -= 1;
 							} else {
-								currentMessage.reactions.push({
-									reaction_id: payloadTransform.reactionId,
-									count: currentReaction.count + 1,
-								});
+								delete message.Reactions[oldReactionId];
 							}
-							currentMessage.user_reaction = payloadTransform.reactionId;
-						} else {
-						// Обновить реакцию
-							const reactionsWithoutCurrent = currentMessage.reactions.filter(
-								reaction => reaction.reaction_id !== payloadTransform.reactionId,
-							);
-							// Новая реакция с таким типом первая
-							if (!currentReaction) {
-								currentMessage.reactions.push({
-									reaction_id: payloadTransform.reactionId,
-									count: 1,
-								});
-							} else {
-								currentMessage.reactions.push({
-									reaction_id: payloadTransform.reactionId,
-									count: currentReaction.count + 1,
-								});
-							}
-							currentMessage.reactions = reactionsWithoutCurrent;
-							currentMessage.user_reaction = payloadTransform.reactionId;
 						}
+						message.UserReaction.reaction_id = payloadTransform.reactionId;
 					}
 				}
 			})
 			// Удалить реакцию
 			.addCase(reactionThunks.deleteReaction.fulfilled, (state, action) => {
-				if (!isErrorAPI(action.payload) && action.payload.deleted) {
-					const currentMessage = state.messages.find(
-						message => message.id === action.meta.arg.message_id,
+				if (!isErrorAPI(action.payload) && action.payload.data.deleted) {
+					const message = state.messages.find(
+						message => message.id == action.meta.arg.message_id,
 					);
-					if (currentMessage && currentMessage.reactions) {
-						const reactionsWithoutCurrent = currentMessage.reactions.filter(
-							reaction => reaction.reaction_id !== currentMessage.user_reaction,
-						);
-						currentMessage.reactions = reactionsWithoutCurrent;
-						currentMessage.user_reaction = null;
+					if (message && message.UserReaction.reaction_id) {
+						// Удаляем реакцию пользователя из списка
+						const reactionId = message.UserReaction.reaction_id.toString();
+						if (message.Reactions[reactionId] > 1) {
+							message.Reactions[reactionId] -= 1;
+						} else {
+							delete message.Reactions[reactionId];
+						}
+						message.UserReaction = {};
 					}
 				}
 			});
