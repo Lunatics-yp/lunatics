@@ -35,6 +35,7 @@ export const ForumTopic = () => {
 
 	function onCancelHandler() {
 		setIsFocusing(false);
+		setSelectedParent(null);
 		newMessage.nulling();
 	}
 

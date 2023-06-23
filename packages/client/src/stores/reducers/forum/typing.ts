@@ -9,12 +9,8 @@ export type TForumState = {
 	isLoading: boolean;
 };
 
-export type TReactions = {
-	reactionId: REACTIONS;
-	count: number;
-};
-
 export type TReaction = {
+	id: number;
 	messageId: number;
 	userId: number;
 	reactionId: REACTIONS;

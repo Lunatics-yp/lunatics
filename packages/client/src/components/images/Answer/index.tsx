@@ -3,8 +3,6 @@ export const Answer = () => {
 	return (
 		<svg width="24px" height="14px" viewBox="0 0 24 14"
 			version="1.1" xmlns="http://www.w3.org/2000/svg" >
-			<title>reply_all</title>
-			<desc>Created with Sketch.</desc>
 			<g id="Icons" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
 				<g id="Rounded" transform="translate(-542.000000, -1532.000000)">
 					<g id="Content" transform="translate(100.000000, 1428.000000)">

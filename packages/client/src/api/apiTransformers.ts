@@ -14,6 +14,7 @@ export const transformUser = (data: TUserDTO): TUser => ({
 });
 
 export const transformReaction = ({data}: TReactionDTO): TReaction => ({
+	id: data.id,
 	messageId: data.message_id,
 	userId: data.user_id,
 	reactionId: data.reaction_id,

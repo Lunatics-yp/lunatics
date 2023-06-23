@@ -18,7 +18,7 @@ export const Message = forwardRef<HTMLDivElement, TMessageProps>(function Messag
 	const {user} = useAppSelector(state => state.authReducer);
 	const {text, id} = message;
 	const isOwner = message.User.id === user?.id;
-	const reactions = message.reactions || [];
+	const reactions = message.Reactions;
 	const dispatch = useAppDispatch();
 	const childrenMassage = messages.filter(el => el.parent_message_id === id);
 	const time = moment(message.created_at).format(DATE_FORMAT);
@@ -27,18 +27,18 @@ export const Message = forwardRef<HTMLDivElement, TMessageProps>(function Messag
 		setSelectedParent(id);
 	};
 
-	const reactionsElements = reactions.map(reaction => (
+	const reactionsElements = Object.keys(reactions).map(id => (
 		<MessageReaction
-			key={reaction.reaction_id}
-			count={reaction.count}
-			type={reaction.reaction_id}
-			activeReaction={message.user_reaction}
+			key={id}
+			count={reactions[id]}
+			type={+id}
+			activeReaction={message.UserReaction?.reaction_id}
 			onReactionMessage={onReactionMessage}
 		/>
 	));
 
 	function onReactionMessage(type: REACTIONS) {
-		if (message.user_reaction === type) {
+		if (message.UserReaction?.reaction_id === type) {
 			dispatch(deleteReaction({message_id: message.id}));
 		} else {
 			dispatch(setReaction({message_id: message.id, reaction_id: type}));
@@ -52,7 +52,7 @@ export const Message = forwardRef<HTMLDivElement, TMessageProps>(function Messag
 	}
 
 	function onReactionFromWindow(type: REACTIONS) {
-		if (message.user_reaction !== type) {
+		if (message.UserReaction?.reaction_id !== type) {
 			dispatch(setReaction({message_id: message.id, reaction_id: type}));
 		}
 		setIsReactionListActive(null);
@@ -81,7 +81,8 @@ export const Message = forwardRef<HTMLDivElement, TMessageProps>(function Messag
 				</div>
 				<p>{text}</p>
 				<button
-					className={styles.message__dell}
+					className={styles.message__reply}
+					title='Ответить на сообщение'
 					onClick={onNewSubmessage}>
 					<Answer/>
 				</button>

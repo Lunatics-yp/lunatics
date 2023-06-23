@@ -26,6 +26,7 @@ export type TThemeDTO = {
 
 export type TReactionDTO = {
 	data: {
+		id: number;
 		message_id: number;
 		user_id: number;
 		reaction_id: number;

@@ -52,9 +52,11 @@
 		margin-left: auto;
 	}
 
-	&__retwit {
-		padding: 10px;
-		border: 1px solid black;
+	&__reply {
+		float: right;
+		height: 25px;
+		border-radius: 12px;
+		border: 1px solid var(--colorSlateGrey);
 	}
 
 	&__none {
